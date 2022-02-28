@@ -1,0 +1,56 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~ng-zorro-antd/ng-zorro-antd.min.css";
+@import "~bootstrap/dist/css/bootstrap.css";
+
+* {
+  font-size: 16px;
+}
+
+@font-face {
+  font-family: australia-title;
+  src: url(assets/fonts/AUSTRALIA-TITLE.otf) format("opentype");
+}
+
+@font-face {
+  font-family: Candara;
+  src: url(assets/fonts/CANDARAI.TTF) format("opentype");
+}
+
+// Color
+.yellow {
+  color: #caa72b;
+}
+.white {
+  color: #fff;
+}
+.green {
+  color: #51bd78;
+}
+.blue {
+  color: #5fc8c2;
+}
+// font-size
+.fz-10 {
+  font-size: 0.625rem;
+}
+.fz-12 {
+  font-size: 0.75rem;
+}
+.fz-16 {
+  font-size: 0.875rem;
+}
+.fz-18 {
+  font-size: 1.125rem;
+}
+.fz-20 {
+  font-size: 1.25rem;
+}
+.fz-22 {
+  font-size: 1.375rem;
+}
+.fz-32 {
+  font-size: 2rem;
+}
+.fz-80 {
+  font-size: 5rem;
+}

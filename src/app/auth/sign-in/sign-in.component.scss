@@ -1,0 +1,73 @@
+.background-login {
+  // background: url(../../../assets/images/background-login.jpg);
+  background: url("https://images.unsplash.com/photo-1528127269322-539801943592?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: calc(100vh - 24px);
+  width: 100vw;
+  .title {
+    .logo {
+      width: 14%;
+    }
+    h4 {
+      font-family: "Candara", sans-serif;
+    }
+    h2 {
+      font-family: "australia-title", sans-serif;
+      // color: #51bd78;
+    }
+  }
+  .Form {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.login-form {
+  // max-width: 300px;
+  width: 400px;
+}
+
+.login-form-button{
+  width: 50%;
+  border-radius: 20px;
+  border: 1px solid #fff;
+  background: linear-gradient(45deg, #258fa7, #5fc8c2);
+  height: 2.5rem;
+}
+.ant-btn>span{
+  font-size: 20px;
+  color: #fff;
+}
+
+nz-input-group {
+  // background: #f8f8f800;
+  background: #32323299;
+  color: #fff;
+  border-radius: 20px;
+  height: 2.5rem;
+  input {
+    color: #fff;
+    background: #fff0;
+  }
+}
+
+:host ::ng-deep {
+  .ant-form-item-has-error
+    :not(.ant-input-disabled):not(.ant-input-borderless).ant-input {
+    background-color: #32323299;
+    color: #fff;
+  }
+}
+
+:host ::ng-deep {
+  .ant-form-item-has-error
+    :not(.ant-input-affix-wrapper-disabled):not(.ant-input-affix-wrapper-borderless).ant-input-affix-wrapper {
+    background: #32323299;
+  }
+}
+
+::-webkit-input-placeholder { /* Edge */
+  color: #fff;
+}
