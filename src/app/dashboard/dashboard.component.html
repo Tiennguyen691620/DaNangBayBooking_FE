@@ -1,37 +1,66 @@
-<nz-layout>
-  <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
-    <div class="logo"></div>
-    <ul nz-menu nzTheme="dark" nzMode="inline">
-      <li nz-submenu nzTitle="User" nzIcon="user">
-        <ul>
-          <li nz-menu-item>Tom</li>
-          <li nz-menu-item>Bill</li>
-          <li nz-menu-item>Alex</li>
-        </ul>
-      </li>
-      <li nz-submenu nzTitle="Team" nzIcon="team">
-        <ul>
-          <li nz-menu-item>Team 1</li>
-          <li nz-menu-item>Team 2</li>
-        </ul>
-      </li>
-      <li nz-menu-item>
-        <i nz-icon nzType="file"></i>
-        <span>File</span>
-      </li>
-    </ul>
-  </nz-sider>
-  <nz-layout>
-    <nz-header>
-      <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'" (click)="isCollapsed = !isCollapsed"></i>
-    </nz-header>
-    <nz-content>
-      <nz-breadcrumb>
-        <nz-breadcrumb-item>User</nz-breadcrumb-item>
-        <nz-breadcrumb-item>Bill</nz-breadcrumb-item>
-      </nz-breadcrumb>
-      <div class="inner-content">Bill is a cat.</div>
-    </nz-content>
-    <nz-footer>Ant Design ©2020 Implement By Angular</nz-footer>
+<app-header></app-header>
+<section class="dashboard">
+  <nz-layout class="bgr-gainsboro" style="height: calc(100vh - 162px);">
+    <nz-sider class="abc " nzCollapsible="true" [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" [nzBreakpoint]="'lg'">
+      <!-- <div class="logo"></div> -->
+      <div class="collapsed" [@slideInOut]="isCollapsed ? 'in' : 'out'" >
+        <div class="d-flex align-items-center justify-content-center pointer toggle" (click)="toggleCollapsed()">
+          <i class="fa-solid" [class.fa-angle-right]="isCollapsed" [class.fa-angle-left]="!isCollapsed"  aria-hidden="true"></i>
+          <!-- <i class="fa-solid fa-angle-right"></i> -->
+        </div>
+      </div>
+      <!-- <div class="">
+        <i class="trigger abc" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'" (click)="isCollapsed = !isCollapsed"></i>
+      </div> -->
+      <ul nz-menu nzMode="inline">
+        <li class="ms-1" nz-submenu [nzTitle]="user">
+          <ul>
+            <li nz-menu-item>Quản lý khách hàng thành viên</li>
+            <li nz-menu-item>Khách đặt phòng</li>
+          </ul>
+        </li>
+        <ng-template #user> <i class="fa-solid fa-user me-2 "></i> <span [class.isCollapsed-false]="isCollapsed" >Quản lý khách hàng</span> </ng-template>
+
+        <li nz-submenu [nzTitle]="account">
+          <ul>
+            <li nz-menu-item>Quản lý tài khoản người dùng</li>
+            <li nz-menu-item>Quản lý nhóm người dùng</li>
+          </ul>
+        </li>
+        <ng-template #account> <i class="fa fa-users me-2"></i> <span [class.isCollapsed-false]="isCollapsed" > Quản lý người dùng DN Bay</span> </ng-template>
+
+        <li class="ms-1" nz-submenu [nzTitle]="dataSource">
+          <ul>
+            <li nz-menu-item>Danh mục loại phòng</li>
+            <li nz-menu-item>Quản lý thông tin CSLT</li>
+          </ul>
+        </li>
+        <ng-template #dataSource> <i class="fa-solid fa-database me-2"></i> <span [class.isCollapsed-false]="isCollapsed"> Quản lý dữ liệu nguồn</span> </ng-template>
+        
+        <li nz-submenu [nzTitle]="statistical" >
+          <ul>
+            <li nz-menu-item>Lượt khách hủy phòng</li>
+            <li nz-menu-item>Thông tin KH thành viên</li>
+            <li nz-menu-item>Thông tin CSLT</li>
+            <li nz-menu-item>Nhật kí đăng nhập người dùng</li>
+          </ul>
+        </li>
+        <ng-template #statistical> <i class="fa-solid fa-flag me-2"></i> <span [class.isCollapsed-false]="isCollapsed"> Báo cáo thống kê </span> </ng-template>
+
+        <li nz-menu-item  >
+          <i class="fa-solid fa-comments c-white me-2"></i>
+          <span class="c-white" [class.isCollapsed-false]="isCollapsed">Ghi nhận & xử lý yêu cầu/hỗ trợ</span>
+        </li>
+      </ul>
+    </nz-sider>
+    <nz-layout class="bgr-gainsboro ms-4">
+      <nz-content class="mx-3">
+        <nz-breadcrumb>
+          <nz-breadcrumb-item>User</nz-breadcrumb-item>
+          <nz-breadcrumb-item>Bill</nz-breadcrumb-item>
+        </nz-breadcrumb>
+        <div class="inner-content">Bill is a cat.</div>
+      </nz-content>
+    </nz-layout>
   </nz-layout>
-</nz-layout>
+</section>

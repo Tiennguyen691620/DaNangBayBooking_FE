@@ -31,7 +31,7 @@ registerLocaleData(en);
     AppRoutingModule,
     HttpClientModule,
     ServicesModule,
-    SharedModule
+    SharedModule,
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },

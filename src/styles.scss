@@ -1,6 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~ng-zorro-antd/ng-zorro-antd.min.css";
 @import "~bootstrap/dist/css/bootstrap.css";
+// @import '~@fortawesome/fontawesome-free/css/all.css';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/brands';
 
 * {
   font-size: 16px;
@@ -17,24 +22,39 @@
 }
 
 // Color
-.yellow {
+.c-yellow {
   color: #caa72b;
 }
-.white {
+.c-white {
   color: #fff;
 }
-.green {
+.c-green {
   color: #51bd78;
 }
-.blue {
+.c-blue {
   color: #5fc8c2;
 }
+
+//background
+.bgr-blue{
+  background: linear-gradient(45deg, #258fa7, #5fc8c2);
+}
+.bgr-darkgray{
+  background: #bdb1a8;
+}
+.bgr-gainsboro{
+  background: #e5e4de !important;
+}
+
 // font-size
 .fz-10 {
   font-size: 0.625rem;
 }
 .fz-12 {
   font-size: 0.75rem;
+}
+.fz-14{
+  font-size: 0.875rem;
 }
 .fz-16 {
   font-size: 0.875rem;
@@ -53,4 +73,9 @@
 }
 .fz-80 {
   font-size: 5rem;
+}
+
+//Pointer
+.pointer {
+  cursor: pointer;
 }

@@ -1,40 +1,109 @@
-.trigger {
-        font-size: 18px;
-        line-height: 64px;
-        padding: 0 24px;
-        cursor: pointer;
-        transition: color 0.3s;
-      }
+.isCollapsed-false {
+  display: none;
+}
 
-      .trigger:hover {
-        color: #1890ff;
-      }
+nz-breadcrumb {
+  margin: 16px 0;
+}
 
-      .logo {
-        height: 32px;
-        background: rgba(255, 255, 255, 0.2);
-        margin: 16px;
-      }
+.inner-content {
+  padding: 24px;
+  background: #fff;
+  min-height: 360px;
+}
 
-      nz-header {
-        background: #fff;
-        padding: 0;
-      }
+.toggle {
+  position: absolute;
+  right: -12px;
+  top: 15px;
+  background: #fff;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  color: #5fc8c2;
+  box-shadow: 0px 0px 6px 0 rgb(0 0 0 / 48%);
+}
 
-      nz-content {
-        margin: 0 16px;
-      }
+::ng-deep .ant-layout-sider {
+  flex: 0 0 300px !important;
+  max-width: 300px !important;
+  min-width: 300px !important;
+  width: 300px !important;
+}
+::ng-deep .ant-layout-sider.ant-layout-sider-collapsed {
+  flex: 0 0 80px !important;
+  max-width: 80px !important;
+  min-width: 80px !important;
+  width: 80px !important;
+}
 
-      nz-breadcrumb {
-        margin: 16px 0;
-      }
+.ant-layout-sider {
+  background: #bdb1a8;
+  position: relative;
+  left: 10px;
+  top: 10px;
+  height: 98%;
+  border-radius: 30px;
+}
+.ant-menu {
+  background: #bdb1a8;
+  border-radius: 30px;
+  border: none;
+  margin-top: 40px;
+  .ant-menu-submenu {
+    background: #bdb1a8;
+    color: #fff;
+    border-radius: 30px;
+  }
+}
 
-      .inner-content {
-        padding: 24px;
-        background: #fff;
-        min-height: 360px;
-      }
+::ng-deep .ant-menu-sub.ant-menu-inline {
+  background: #c3bab5;
+}
 
-      nz-footer {
-        text-align: center;
-      }
+::ng-deep .ant-menu-submenu-title {
+  transition: unset !important;
+  &:hover {
+    color: #ffffff !important;
+    background: #5fc8c2;
+    border-radius: 20px;
+  }
+}
+
+::ng-deep
+  .ant-menu-submenu
+  > .ant-menu-submenu-title
+  > .ant-menu-submenu-arrow {
+  color: #fff;
+}
+
+::ng-deep
+  .ant-menu-submenu:hover
+  > .ant-menu-submenu-title
+  > .ant-menu-submenu-arrow {
+  color: #fff;
+}
+
+::ng-deep .ant-menu-item {
+  color: #fff;
+  transition: unset !important;
+  &:hover {
+    background-color: #5fc8c2;
+    color: #fff !important;
+    border-radius: 20px 0px 0px 20px;
+  }
+}
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  background-color: #5fc8c2;
+  border-radius: 20px 0px 0px 20px;
+  &::after {
+    border-right: 3px solid #000;
+    border-radius: 20px;
+  }
+}
+
+@media (max-width: 767px) {
+  .abc {
+    display: none;
+  }
+}
