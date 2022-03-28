@@ -1,7 +1,7 @@
 <app-header></app-header>
 <section class="dashboard">
-  <nz-layout class="bgr-gainsboro" style="height: calc(100vh - 162px);">
-    <nz-sider class="abc " nzCollapsible="true" [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" [nzBreakpoint]="'lg'">
+  <nz-layout class="bgr-gainsboro" style="height: 100vh;">
+    <nz-sider class="abc "  nzCollapsible="true" [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" [nzBreakpoint]="'lg'">
       <!-- <div class="logo"></div> -->
       <div class="collapsed" [@slideInOut]="isCollapsed ? 'in' : 'out'" >
         <div class="d-flex align-items-center justify-content-center pointer toggle" (click)="toggleCollapsed()">
@@ -12,27 +12,35 @@
       <!-- <div class="">
         <i class="trigger abc" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'" (click)="isCollapsed = !isCollapsed"></i>
       </div> -->
-      <ul nz-menu nzMode="inline">
+      <ul nz-menu [nzTheme]="'light'" nzMode="inline">
         <li class="ms-1" nz-submenu [nzTitle]="user">
           <ul>
-            <li nz-menu-item>Quản lý khách hàng thành viên</li>
-            <li nz-menu-item>Khách đặt phòng</li>
+            <li nz-menu-item>Quản lý khách hàng </li>
+            <li nz-menu-item>Quản lý người dùng DN</li>
+            <li nz-menu-item>Quản lý nhóm người dùng DN</li>
           </ul>
         </li>
-        <ng-template #user> <i class="fa-solid fa-user me-2 "></i> <span [class.isCollapsed-false]="isCollapsed" >Quản lý khách hàng</span> </ng-template>
+        <ng-template #user> <i class="fa-solid fa-user me-2 "></i> <span [class.isCollapsed-false]="isCollapsed" >Quản lý người dùng</span> </ng-template>
 
-        <li nz-submenu [nzTitle]="account">
+        <li nz-menu-item routerLink="/dashboard/booking-management/list" routerLinkActive="link-active">
+          <i class="fa-solid fa-comments c-white me-2"></i>
+          <span class="c-white" [class.isCollapsed-false]="isCollapsed">Quản lý đặt phòng</span>
+        </li>
+
+        <!-- <li nz-submenu [nzTitle]="account">
           <ul>
             <li nz-menu-item>Quản lý tài khoản người dùng</li>
             <li nz-menu-item>Quản lý nhóm người dùng</li>
           </ul>
         </li>
-        <ng-template #account> <i class="fa fa-users me-2"></i> <span [class.isCollapsed-false]="isCollapsed" > Quản lý người dùng DN Bay</span> </ng-template>
+        <ng-template #account> <i class="fa fa-users me-2"></i> <span [class.isCollapsed-false]="isCollapsed" > Quản lý người dùng DN Bay</span> </ng-template> -->
 
         <li class="ms-1" nz-submenu [nzTitle]="dataSource">
           <ul>
             <li nz-menu-item>Danh mục loại phòng</li>
-            <li nz-menu-item>Quản lý thông tin CSLT</li>
+            <li nz-menu-item>Quản lý CSLT</li>
+            <li nz-menu-item>Quản lý tiện ích</li>
+            <li nz-menu-item>Quản lý phòng</li>
           </ul>
         </li>
         <ng-template #dataSource> <i class="fa-solid fa-database me-2"></i> <span [class.isCollapsed-false]="isCollapsed"> Quản lý dữ liệu nguồn</span> </ng-template>
@@ -40,26 +48,26 @@
         <li nz-submenu [nzTitle]="statistical" >
           <ul>
             <li nz-menu-item>Lượt khách hủy phòng</li>
-            <li nz-menu-item>Thông tin KH thành viên</li>
+            <li nz-menu-item>Quản lý doanh thu</li>
             <li nz-menu-item>Thông tin CSLT</li>
             <li nz-menu-item>Nhật kí đăng nhập người dùng</li>
           </ul>
         </li>
         <ng-template #statistical> <i class="fa-solid fa-flag me-2"></i> <span [class.isCollapsed-false]="isCollapsed"> Báo cáo thống kê </span> </ng-template>
 
-        <li nz-menu-item  >
+        <li nz-menu-item routerLink="/dashboard/request-support/list" >
           <i class="fa-solid fa-comments c-white me-2"></i>
           <span class="c-white" [class.isCollapsed-false]="isCollapsed">Ghi nhận & xử lý yêu cầu/hỗ trợ</span>
         </li>
       </ul>
     </nz-sider>
-    <nz-layout class="bgr-gainsboro ms-4">
+    <nz-layout class="bgr-gainsboro ms-4 mt-3">
       <nz-content class="mx-3">
-        <nz-breadcrumb>
+        <!-- <nz-breadcrumb>
           <nz-breadcrumb-item>User</nz-breadcrumb-item>
           <nz-breadcrumb-item>Bill</nz-breadcrumb-item>
-        </nz-breadcrumb>
-        <div class="inner-content">Bill is a cat.</div>
+        </nz-breadcrumb> -->
+        <div class="inner-content"><router-outlet></router-outlet></div>
       </nz-content>
     </nz-layout>
   </nz-layout>

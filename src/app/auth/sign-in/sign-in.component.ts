@@ -13,6 +13,7 @@ import { userModel } from 'src/app/shared/models/user.model';
 export class SignInComponent implements OnInit {
   signInForm!: FormGroup;
   isSubmitted!: false;
+  passwordVisible = false;
 
   constructor(
     private fb: FormBuilder,
@@ -48,7 +49,7 @@ export class SignInComponent implements OnInit {
       .login(this.signInForm.value.userName, this.signInForm.value.password)
       .subscribe(
         (res) => {
-          const data = res
+          const data = res;
           this.authService.setAuthenticationModel(data as userModel);
           this.router.navigate(['/dashboard']);
         },
@@ -65,5 +66,8 @@ export class SignInComponent implements OnInit {
     //       }
     //     });
     //   }
+  }
+  handlePasswordVisible() {
+    this.passwordVisible = !this.passwordVisible;
   }
 }

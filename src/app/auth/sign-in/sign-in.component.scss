@@ -13,12 +13,11 @@
     .logo {
       width: 12rem;
     }
-    h4 {
-      font-family: "Candara", sans-serif;
-    }
+    // h4 {
+    //   font-family: "Candara", sans-serif;
+    // }
     h2 {
-      font-family: "australia-title", sans-serif;
-      // color: #51bd78;
+      font-family: "Myanmar-MN", sans-serif;
     }
   }
   .Form {
@@ -32,14 +31,14 @@
   width: 400px;
 }
 
-.login-form-button{
+.login-form-button {
   width: 50%;
   border-radius: 20px;
   border: 1px solid #fff;
   background: linear-gradient(45deg, #258fa7, #5fc8c2);
   height: 2.5rem;
 }
-.ant-btn>span{
+.ant-btn > span {
   font-size: 20px;
   color: #fff;
 }
@@ -71,6 +70,11 @@ nz-input-group {
   }
 }
 
-::-webkit-input-placeholder { /* Edge */
+::-webkit-input-placeholder {
+  /* Edge */
   color: #fff;
+}
+
+i {
+  cursor: pointer;
 }

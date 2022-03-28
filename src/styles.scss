@@ -9,16 +9,21 @@
 
 * {
   font-size: 16px;
+  font-family: "Helvetica-neue", sans-serif;
+  letter-spacing: 0.2px;
+  user-select: none;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+@font-face {
+  font-family: Myanmar-MN;
+  src: url(assets/fonts/Myanmar-MN.ttc) format("truetype");
 }
 
 @font-face {
-  font-family: australia-title;
-  src: url(assets/fonts/AUSTRALIA-TITLE.otf) format("opentype");
-}
-
-@font-face {
-  font-family: Candara;
-  src: url(assets/fonts/CANDARAI.TTF) format("opentype");
+  font-family: Helvetica-neue;
+  src: url(assets/fonts/helvetica-neue-regular.ttf) format("truetype");
 }
 
 // Color
@@ -33,6 +38,18 @@
 }
 .c-blue {
   color: #5fc8c2;
+}
+.c-black{
+  color: #000;
+}
+.c-red{
+  color:#ff0000;
+}
+.c-limegreen{
+  color:#1fc726;
+}
+.c-cornflowerblue{
+  color:#47a7ff;
 }
 
 //background
@@ -68,8 +85,14 @@
 .fz-22 {
   font-size: 1.375rem;
 }
+.fz-30 {
+  font-size: 30px;
+}
 .fz-32 {
   font-size: 2rem;
+}
+.fz-66{
+  font-size: 66px;
 }
 .fz-80 {
   font-size: 5rem;
