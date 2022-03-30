@@ -21,16 +21,20 @@ const routes: Routes = [
         loadChildren: () => import ('./request-support/request-support.module').then( (mod) => mod.RequestSupportModule), 
       },
       {
-        path: 'request-support',
-        loadChildren: () => import ('./request-support/request-support.module').then( (mod) => mod.RequestSupportModule), 
-      },
-      {
-        path: 'request-support',
-        loadChildren: () => import ('./request-support/request-support.module').then( (mod) => mod.RequestSupportModule), 
-      },
-      {
         path: 'source-data-management',
         loadChildren: () => import ('./source-data-management/source-data-management.module').then( (mod) => mod.SourceDataManagementModule), 
+      },
+      {
+        path: 'customer-management',
+        loadChildren: () => import ('./customer-management/customer-management.module').then( (mod) => mod.CustomerManagementModule), 
+      },
+      {
+        path: 'user-management',
+        loadChildren: () => import ('./user-management/user-management.module').then( (mod) => mod.UserManagementModule), 
+      },
+      {
+        path: 'report-statistical',
+        loadChildren: () => import ('./report-statistical/report-statistical.module').then( (mod) => mod.ReportStatisticalModule), 
       },
     ],
   },

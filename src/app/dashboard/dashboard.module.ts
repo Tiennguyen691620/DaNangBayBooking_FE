@@ -8,14 +8,23 @@ import { AccountAdminComponent } from './account-admin/account-admin.component';
 import { BookingManagementComponent } from './booking-management/booking-management.component';
 import { RequestSupportComponent } from './request-support/request-support.component';
 import { SourceDataManagementComponent } from './source-data-management/source-data-management.component';
-
+import { CustomerManagementComponent } from './customer-management/customer-management.component';
+import { UserManagementComponent } from './user-management/user-management.component';
+import { ReportStatisticalComponent } from './report-statistical/report-statistical.component';
+import { DiaryLoginComponent } from './report-statistical/diary-login/diary-login.component';
 
 @NgModule({
-  declarations: [DashboardComponent, AccountAdminComponent, BookingManagementComponent, RequestSupportComponent, SourceDataManagementComponent],
-  imports: [
-    CommonModule,
-    DashboardRoutingModule, 
-    SharedModule
-  ]
+  declarations: [
+    DashboardComponent,
+    AccountAdminComponent,
+    BookingManagementComponent,
+    RequestSupportComponent,
+    SourceDataManagementComponent,
+    CustomerManagementComponent,
+    UserManagementComponent,
+    ReportStatisticalComponent,
+    DiaryLoginComponent,
+  ],
+  imports: [CommonModule, DashboardRoutingModule, SharedModule],
 })
-export class DashboardModule { }
+export class DashboardModule {}

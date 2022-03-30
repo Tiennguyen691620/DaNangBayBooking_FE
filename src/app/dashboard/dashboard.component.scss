@@ -9,7 +9,7 @@ nz-breadcrumb {
 .inner-content {
   padding: 24px;
   background: #fff;
-  min-height: 360px;
+  min-height: 100%;
 }
 
 .toggle {
@@ -38,27 +38,27 @@ nz-breadcrumb {
 }
 
 .ant-layout-sider {
-  background: #bdb1a8;
-  position: relative;
-  left: 10px;
-  top: 10px;
-  height: 98%;
-  border-radius: 30px;
+  // background: #bdb1a8;
+  // position: relative;
+  // left: 10px;
+  // top: 10px;
+  // height: 98%;
+  // border-radius: 30px;
 }
 .ant-menu {
-  background: #bdb1a8;
+  // background: #bdb1a8;
   border-radius: 30px;
   border: none;
   margin-top: 40px;
   .ant-menu-submenu {
-    background: #bdb1a8;
-    color: #fff;
+    // background: #bdb1a8;
+    color: #000;
     border-radius: 30px;
   }
 }
 
 ::ng-deep .ant-menu-submenu-popup > .ant-menu {
-  background: #c3bab5;
+  // background: #c3bab5;
   border-radius: 10px 0px 0px 10px;
 }
 
@@ -66,7 +66,7 @@ nz-breadcrumb {
   .ant-menu-submenu.ant-menu-submenu-popup.ant-menu-submenu-placement-right {
   > .ant-menu {
     .ant-menu-item {
-      color: #fff;
+      color: #000;
       transition: unset !important;
       &:hover {
         background-color: #5fc8c2;
@@ -79,11 +79,12 @@ nz-breadcrumb {
     background-color: #5fc8c2;
     border-radius: 20px 0px 0px 20px;
     border-right: 3px solid #000 !important;
+    color: #fff;
   }
 }
 
 ::ng-deep .ant-menu-sub.ant-menu-inline {
-  background: #c3bab5;
+  background: #f5f5f5;
 }
 
 ::ng-deep .ant-menu-submenu-title {
@@ -99,7 +100,7 @@ nz-breadcrumb {
   .ant-menu-submenu
   > .ant-menu-submenu-title
   > .ant-menu-submenu-arrow {
-  color: #fff;
+  color: #000;
 }
 
 ::ng-deep
@@ -112,7 +113,7 @@ nz-breadcrumb {
 ::ng-deep .ant-menu {
   .ant-menu-submenu {
     .ant-menu-item {
-      color: #fff;
+      // color: #fff;
       transition: unset !important;
       &:hover {
         background-color: #5fc8c2;
@@ -122,7 +123,8 @@ nz-breadcrumb {
     }
   }
   .ant-menu-item {
-    color: #fff;
+    // color: #fff;
+    color: #000;
     transition: unset !important;
     &:hover {
       background-color: #5fc8c2;
@@ -134,6 +136,7 @@ nz-breadcrumb {
 .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
   background-color: #5fc8c2;
   border-radius: 20px 0px 0px 20px;
+  color: #fff;
   &::after {
     border-right: 3px solid #000;
     border-radius: 20px;
@@ -145,4 +148,3 @@ nz-breadcrumb {
     display: none;
   }
 }
-
