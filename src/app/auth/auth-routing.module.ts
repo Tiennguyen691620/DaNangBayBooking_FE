@@ -7,9 +7,9 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 
 const routes: Routes = [
   // {
-    // path: '',
-    // component: AuthComponent,
-    // children: [
+  //   path: '',
+  //   component: AuthComponent,
+  //   children: [
       {
         path: '',
         redirectTo: 'sign-in',
@@ -27,7 +27,7 @@ const routes: Routes = [
         path: 'forgot-password',
         component: ForgotPasswordComponent,
       }
-    // ]
+  //   ]
   // },
 ];
 

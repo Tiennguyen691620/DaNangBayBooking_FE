@@ -54,6 +54,9 @@
 .c-lightseagreen{
   color: #2690a7;
 }
+.c-dodgerblue{
+  color: #188ffd;
+}
 
 //background
 .bgr-blue {
@@ -68,6 +71,9 @@
 .bgr-lightseagreen{
   background: #2690a7;
 }
+.bgr-dodgerblue{
+  background:  #188ffd ;
+}
 
 // font-size
 .fz-10 {
@@ -80,7 +86,7 @@
   font-size: 0.875rem;
 }
 .fz-16 {
-  font-size: 0.875rem;
+  font-size: 	1rem;
 }
 .fz-18 {
   font-size: 1.125rem;
@@ -104,6 +110,11 @@
   font-size: 5rem;
 }
 
+//font-weight
+.fw-700{
+  font-weight: 700;
+}
+
 //Pointer
 .pointer {
   cursor: pointer;
@@ -115,6 +126,20 @@
   border: none !important;
   border-radius: 5px !important;
   color: #fff !important;
+}
+
+.btn-save {
+  border-radius: 5px !important;
+  width: 8rem;
+  background: #2690a7 !important;
+  color: #fff !important;
+  border: unset !important;
+}
+.btn-cancel {
+  border-radius: 5px !important;
+  color: #2690a7 !important;
+  border: 1px solid #2690a7 !important;
+  width: 8rem !important;
 }
 
 //Webkit-box
@@ -162,6 +187,9 @@
 
   tbody tr {
     background: #e5e4de;
+    .ant-table-cell-fix-left{
+    background: #e5e4de;
+    }
     &:hover {
       background: #fff;
     }
@@ -207,21 +235,6 @@
 //Width
 .w-100 {
   width: 100%;
-}
-
-//button
-.btn-save {
-  border-radius: 5px !important;
-  width: 8rem;
-  background: #2690a7 !important;
-  color: #fff !important;
-  border: unset !important;
-}
-.btn-cancel {
-  border-radius: 5px !important;
-  color: #2690a7 !important;
-  border: 1px solid #2690a7 !important;
-  width: 8rem !important;
 }
 
 //image
