@@ -1,1 +1,52 @@
-<p>room-type-management works!</p>
+<section class="list-member">
+  <div class="header d-flex align-items-center justify-content-between">
+    <div class="title">
+      <span>Danh sách nhóm người dùng</span>
+    </div>
+    <div class="group-btn">
+      <button nz-button class="button" nzSize="default" [routerLink]="'/dashboard/customer-management/member-customer/create'"
+        [queryParams]="{typeForm: 'create'}">
+        <i class="fa-solid fa-plus pe-2 fz-14"></i>
+        Tạo mới
+      </button>
+    </div>
+  </div>
+  <hr>
+  <div class="content">
+    <div class="table-main">
+      <nz-table #basicTable class="table-list mt-3" [nzFrontPagination]="false" [nzTemplateMode]="true" [nzLoading]="false"
+        [nzScroll]="{ x: '800px' }" [nzTotal]="totalCount" [(nzPageSize)]="pageSize" [(nzPageIndex)]="pageIndex"
+        (nzPageIndexChange)="onPageIndexChange($event)" (nzPageSizeChange)="onPageSizeChange($event)"
+        [nzWidthConfig]="['100px', '200px', '300px', '200px', '100px']">
+        <thead>
+          <th nzLeft="0px" class="text-center">STT</th>
+          <th class="text-center">Mã</th>
+          <th class="">Loại phòng</th>
+          <th class="">Mô tả loại phòng</th>
+          <th nzRight="0px" class="text-center">Thao tác</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td nzLeft="0px" class="text-center">01</td>
+            <td class="text-center">01</td>
+            <td class="text-start">Couple</td>
+            <td class="">Phòng đẹp</td>
+            <td nzRight="0px" class="text-center">
+              <div class="d-flex align-items-center justify-content-evenly">
+                <i nz-tooltip="chỉnh sửa" class="fa-solid fa-pen-to-square pointer c-dodgerblue"></i>
+                <i nz-tooltip="xóa" class="fa-regular fa-trash-can pointer c-red"></i>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+      <!-- <div>
+        <p class="mb-0 text-center">Không có dữ liệu</p>
+      </div> -->
+    </div>
+  </div>
+  <div class="footer">
+
+  </div>
+</section>
+

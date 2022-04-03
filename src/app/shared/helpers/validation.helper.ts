@@ -41,4 +41,6 @@ export default class ValidationHelper {
   static validateForm(form: FormGroup, formErrors: object): boolean {
     return true;
   }
+
+  
 }

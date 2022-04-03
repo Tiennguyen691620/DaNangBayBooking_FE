@@ -3,6 +3,7 @@ import { MemberCustomerComponent } from './member-customer.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MemberCustomerCreateComponent } from './member-customer-create/member-customer-create.component';
+import { MemberCustomerDetailComponent } from './member-customer-detail/member-customer-detail.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
       {
         path: 'list',
         component: MemberCustomerListComponent,
+      },
+      {
+        path: 'detail',
+        component: MemberCustomerDetailComponent,
       },
       {
         path: 'create',

@@ -5,12 +5,14 @@ import { MemberCustomerRoutingModule } from './member-customer-routing.module';
 import { MemberCustomerListComponent } from './member-customer-list/member-customer-list.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MemberCustomerCreateComponent } from './member-customer-create/member-customer-create.component';
+import { MemberCustomerDetailComponent } from './member-customer-detail/member-customer-detail.component';
 
 
 @NgModule({
   declarations: [
     MemberCustomerListComponent,
-    MemberCustomerCreateComponent
+    MemberCustomerCreateComponent,
+    MemberCustomerDetailComponent
   ],
   imports: [
     CommonModule,

@@ -6,6 +6,7 @@ import { AccommodationManagementComponent } from './accommodation-management/acc
 import { RoomManagementComponent } from './room-management/room-management.component';
 import { RoomTypeManagementComponent } from './room-type-management/room-type-management.component';
 import { UtilityManagementComponent } from './utility-management/utility-management.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { UtilityManagementComponent } from './utility-management/utility-managem
   ],
   imports: [
     CommonModule,
-    SourceDataManagementRoutingModule
+    SourceDataManagementRoutingModule,
+    SharedModule
   ]
 })
 export class SourceDataManagementModule { }

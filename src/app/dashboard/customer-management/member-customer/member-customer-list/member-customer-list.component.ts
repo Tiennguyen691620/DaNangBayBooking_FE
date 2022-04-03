@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Customer } from 'src/app/shared/models/customer/customer.model';
 
 @Component({
   selector: 'app-member-customer-list',
@@ -9,6 +10,7 @@ export class MemberCustomerListComponent implements OnInit {
   pageIndex = 1;
   pageSize = 10;
   totalCount = 0;
+  customerList: Customer [] = [];
 
   constructor() {}
 
@@ -23,6 +25,6 @@ export class MemberCustomerListComponent implements OnInit {
   }
 
   onPageIndexChange(event: number): void {
-    this.filter(event)
+    this.filter(event);
   }
 }
