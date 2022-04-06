@@ -1,20 +1,31 @@
 import { FormGroup } from '@angular/forms';
-
-
+import { never } from 'rxjs';
 
 export default class ValidationHelper {
-  public static validationMessages = {
-    require: 'Trường này bắt buộc nhập',
+  static validationMessages = {
+    required: 'Trường này là bắt buộc nhập',
     email: 'Email không đúng định dạng',
-    userName: 'Tên đăng nhập có ít nhất 6 kí tự',
-    password:
-      'Mật khẩu phải có ít nhất 8 kí tự, trong đó có ít nhât 1 chữ hoa, 1 chữ thường và 1 chữ số',
-    userNameFormat: 'Tên đăng nhập không đúng định dạng',
+    website: 'Website không đúng định dạng',
+    probability: 'Giá trị nằm trong khoảng từ 0-100',
+    phoneNumber: 'Số điện thoại phải có ít nhất 10 chữ số',
+    faxNumber: 'Fax phải có ít nhất 10 chữ số',
+    password: 'Mật khẩu cần phải có ít nhất 6 ký tự, bao gồm ký tự chữ và số',
+    taxNumber: 'Mã số thuế từ 10 đến 15 chữ số',
+    userName: 'Tên đăng nhập phải có ít nhất 6 kí tự',
+    userNameFormat:
+      'Tên đăng nhập không đúng định dạng. Không được chứa kí tự đặc biệt',
+    mustMatch: 'Mật khẩu không khớp',
+    supplyChainTypesRequired: 'Bạn cần chọn ít nhất 1 loại tài khoản',
+    currentDay: 'Giá trị không được lớn hơn ngày hiện tại',
+    'Mask error': '',
   };
 
-  // static getInvalidMessages(form: FormGroup, formErrors: Record<string, any>): string[]  {
+  // static getInvalidMessages(
+  //   form: FormGroup,
+  //   formErrors: object,
+  // ): string[] {
   //   if (!form) {
-  //     return;
+  //     return null as any;
   //   }
   //   const errorMessages = [];
   //   for (const field in formErrors) {
@@ -37,10 +48,7 @@ export default class ValidationHelper {
   //   return errorMessages;
   // }
 
-
   static validateForm(form: FormGroup, formErrors: object): boolean {
     return true;
   }
-
-  
 }

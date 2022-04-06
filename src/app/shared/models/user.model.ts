@@ -7,5 +7,4 @@ export class userModel{
   email!: string;
   phone!: number;
   address!: string;
-  tooken!: string;
 }

@@ -1,3 +1,4 @@
+import { MemberCustomerEditComponent } from './member-customer-edit/member-customer-edit.component';
 import { MemberCustomerListComponent } from './member-customer-list/member-customer-list.component';
 import { MemberCustomerComponent } from './member-customer.component';
 import { NgModule } from '@angular/core';
@@ -20,12 +21,16 @@ const routes: Routes = [
         component: MemberCustomerListComponent,
       },
       {
-        path: 'detail',
+        path: 'create',
+        component: MemberCustomerCreateComponent,
+      },
+      {
+        path: 'detail/:id',
         component: MemberCustomerDetailComponent,
       },
       {
-        path: 'create',
-        component: MemberCustomerCreateComponent,
+        path: 'edit/:id',
+        component: MemberCustomerEditComponent,
       }
     ]
   }

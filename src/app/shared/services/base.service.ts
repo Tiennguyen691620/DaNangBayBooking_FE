@@ -20,9 +20,9 @@ export class BaseService {
       .get(this.apiEndPoint + url, { params, headers })
       .pipe(map((result: ResponseData<T>) => result.data as T));
   }
-  public post<T>(url: string, params?: any, headers?: any): Observable<any> {
+  public post<T>(url: string, data?: any, headers?: any): Observable<any> {
     return this.http
-      .post(this.apiEndPoint + url, { params, headers })
+      .post(this.apiEndPoint + url, data, { headers })
       .pipe(map((result: ResponseData<T>) => result.data as T));
   }
   public put<T>(url: string, params?: any, headers?: any): Observable<any> {

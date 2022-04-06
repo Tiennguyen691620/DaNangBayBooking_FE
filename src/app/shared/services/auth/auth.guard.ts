@@ -1,3 +1,5 @@
+import { HttpClient } from '@angular/common/http';
+import { BaseService } from './../base.service';
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
@@ -12,8 +14,14 @@ import { AuthService } from './auth.service';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
-  constructor(private router: Router, private authService: AuthService) {}
+export class AuthGuard extends BaseService implements CanActivate {
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private httpClient: HttpClient,
+  ) {
+    super(httpClient);
+  }
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -23,12 +31,11 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    console.log('canActivate', route, state);
-
-    return true;
-
+    if (this.authService.getAuthenticationModel()) {
+      return true;
+    }
     this.router.navigate(['/auth'], {
-      queryParams: {returnUrl: state.url}
+      queryParams: { returnUrl: state.url },
     });
     return false;
   }

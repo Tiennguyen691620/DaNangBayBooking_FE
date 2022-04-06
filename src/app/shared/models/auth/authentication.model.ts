@@ -1,15 +1,18 @@
 // import { Permisstion } from "./permission.model";
 
 export class AuthenticationModel {
-  userId!: string;
-  userEmail!: string;
+  id!: string;
+  email!: string;
   userName!: string;
-  userGroupId!: string;
-  employeeId!: string;
-  employeeName!: string;
-  isFirstLogin!: boolean;
-  tokenType!: string;
+  fullName!: string;
+  phoneNumber!: string;
+  dob!: string;
+  // employeeId!: string;
+  // employeeName!: string;
+  // isFirstLogin!: boolean;
+  // tokenType!: string;
   accessToken!: string;
-  expiresInSeconds!: number;
+  // expiresInSeconds!: number;
   // permission!: Permisstion[];
+  roles!: string[];
 }

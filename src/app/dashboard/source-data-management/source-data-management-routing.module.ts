@@ -26,7 +26,7 @@ const routes: Routes = [
       },
       {
         path: 'room-type',
-        component: RoomTypeManagementComponent,
+        loadChildren: () => import('./room-type-management/room-type-management.module').then( mod => mod.RoomTypeManagementModule),
       },
       {
         path: 'utility',

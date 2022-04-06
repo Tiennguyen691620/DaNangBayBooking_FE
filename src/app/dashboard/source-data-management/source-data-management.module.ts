@@ -7,6 +7,7 @@ import { RoomManagementComponent } from './room-management/room-management.compo
 import { RoomTypeManagementComponent } from './room-type-management/room-type-management.component';
 import { UtilityManagementComponent } from './utility-management/utility-management.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { RoomTypeManagementListComponent } from './room-type-management/room-type-management-list/room-type-management-list.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     AccommodationManagementComponent,
     RoomManagementComponent,
     RoomTypeManagementComponent,
-    UtilityManagementComponent
+    UtilityManagementComponent,
+    RoomTypeManagementListComponent
   ],
   imports: [
     CommonModule,
