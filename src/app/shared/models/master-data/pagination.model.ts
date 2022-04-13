@@ -1,5 +1,6 @@
 
-export class PaginationModel<T>{
+
+export class PaginationModel<T> {
   pageIndex!: number;
   pageSize!: number;
   pageCount!: number;

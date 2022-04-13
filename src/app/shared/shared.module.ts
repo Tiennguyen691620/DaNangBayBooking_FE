@@ -80,7 +80,8 @@ const maskConfig: Partial<IConfig> = {
 };
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [
     CommonModule,
     ErrorTailorModule.forRoot({

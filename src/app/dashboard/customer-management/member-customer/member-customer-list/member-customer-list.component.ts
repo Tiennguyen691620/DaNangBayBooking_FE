@@ -1,5 +1,8 @@
+import { CustomerService } from './../../../../shared/services/customer.service';
+import { CustomerFilterModel } from './../../../../shared/models/customer/customer-filter.model';
 import { Component, OnInit } from '@angular/core';
-import { Customer } from 'src/app/shared/models/customer/customer.model';
+import { CustomerModel } from 'src/app/shared/models/customer/customer.model';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-member-customer-list',
@@ -10,13 +13,29 @@ export class MemberCustomerListComponent implements OnInit {
   pageIndex = 1;
   pageSize = 10;
   totalCount = 0;
-  customerList: Customer [] = [];
+  dataSource: CustomerModel[] = [];
+  filterModel = new CustomerFilterModel();
+  searchTerm$ = new BehaviorSubject<string>('');
 
-  constructor() {}
+  constructor(private customerService: CustomerService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.filter();
+  }
 
-  filter(pageIndex?: number): void {}
+  filter(pageIndex?: number): void {
+    const filter = { ...this.filterModel };
+    this.customerService
+      .filterCustomer(pageIndex ? pageIndex : 1, this.pageSize, filter)
+      .subscribe((res) => {
+        this.dataSource = res.items;
+        this.totalCount = res.totalRecords;
+        // this.pageIndex = res.pageIndex + 1;
+        if (res.items && res.items.length == 0 && res.pageCount > 0) {
+          this.filter(res.pageCount);
+        }
+      });
+  }
 
   onPageSizeChange(event: number): void {
     this.pageSize = event;

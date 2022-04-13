@@ -7,12 +7,12 @@
     <div class="content">
       <div class="content-header d-flex align-items-center justify-content-between">
         <div class="search">
-          <nz-input-group nzSearch nzSize="default" [nzAddOnAfter]="suffixButton">
-            <input type="text" nzSize="default" nz-input (keyup)="searchTerm$.next($event.target.value)" [value]="searchTerm$.value" placeholder="Nhập tên/Email/SĐT/Mã KH/ Địa chỉ" />
+          <nz-input-group nzSearch nzSize="default">
+            <input type="text" nzSize="default" nz-input (keyup)="searchTerm$.next($event.target.value)" [value]="searchTerm$.value" placeholder="Nhập Mã/Loại Phòng" />
           </nz-input-group>
-          <ng-template #suffixButton>
+          <!-- <ng-template #suffixButton>
             <button nz-button class="button" nzSize="default" nzSearch>Tìm kiếm</button>
-          </ng-template>
+          </ng-template> -->
         </div>
         <div class="group-btn">
           <button nz-button class="button" nzSize="default" [routerLink]="'/dashboard/source-data-management/room-type/create'"
@@ -30,12 +30,13 @@
       <nz-table #basicTable class="table-list mt-3" [nzFrontPagination]="false" [nzTemplateMode]="true" [nzLoading]="false" [nzData]="dataSource"
         [nzScroll]="{ x: '800px' }" [nzTotal]="totalCount" [(nzPageSize)]="pageSize" [(nzPageIndex)]="pageIndex"
         (nzPageIndexChange)="onPageIndexChange($event)" (nzPageSizeChange)="onPageSizeChange($event)" [nzShowTotal]="rangeTemplate"
-        [nzWidthConfig]="['100px', '200px', '300px', '200px', '100px']">
+        [nzWidthConfig]="['100px', '200px', '300px', '200px', '150px', '100px']">
         <thead>
           <th nzLeft="0px" class="text-center">STT</th>
           <th class="text-center">Mã</th>
           <th class="">Loại phòng</th>
           <th class="">Mô tả loại phòng</th>
+          <th class="text-center">Trạng thái</th>
           <th nzRight="0px" class="text-center">Thao tác</th>
         </thead>
         <tbody>
@@ -44,11 +45,12 @@
             <td class="text-center">{{item.no}}</td>
             <td class="text-start">{{item.name}}</td>
             <td class="">{{item.description}}</td>
+            <td class="text-center">{{item.status == true ? 'Đang liên kết' : 'Không liên kết' }}</td>
             <td nzRight="0px" class="text-center">
               <div class="d-flex align-items-center justify-content-evenly">
                 <i nz-tooltip="chỉnh sửa" class="fa-solid fa-pen-to-square pointer c-dodgerblue" 
                 [routerLink]="['/dashboard/source-data-management/room-type/edit', item.roomTypeID]"></i>
-                <i nz-tooltip="xóa" class="fa-regular fa-trash-can pointer c-red"></i>
+                <i nz-tooltip="xóa" class="fa-regular fa-trash-can pointer c-red" (click)="deleteProgram(item)"></i>
               </div>
             </td>
           </tr>

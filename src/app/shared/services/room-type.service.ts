@@ -1,11 +1,11 @@
 import { RoomTypeModel } from './../models/room-type/room-type.model';
-import { PaginationModel } from '../models/master-data/pagination.model';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BaseService } from './base.service';
 import Utils from '../helpers/utils.helper';
 import { map } from 'rxjs/operators';
+import { PaginationModel } from '../models/master-data/pagination.model';
 
 @Injectable({
   providedIn: 'root',
@@ -44,9 +44,23 @@ export class RoomTypeService extends BaseService {
     );
   }
 
-  createRoomType(data: any): Observable<any>{
-    let url ='';
-    url = 'api/RoomTypes/create';
+  createRoomType(data: any): Observable<any> {
+    let url = '';
+    if (data?.id) {
+      url = `api/RoomTypes/update`;
+      return this.put(url, data);
+    }
+    url = `api/RoomTypes/create`;
     return this.post(url, data);
+  }
+
+  getRoomTypeDetail(roomTypeId: string): Observable<RoomTypeModel> {
+    const url = `api/RoomTypes/get/${roomTypeId}`;
+    return this.get(url);
+  }
+
+  deleteRoomType(data: string | any): Observable<any> {
+    const url = `api/RoomTypes/delete`;
+    return this.delete(url, data);
   }
 }

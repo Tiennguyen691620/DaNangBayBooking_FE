@@ -3,7 +3,6 @@ import { AccommodationManagementComponent } from './accommodation-management/acc
 import { SourceDataManagementComponent } from './source-data-management.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RoomManagementComponent } from './room-management/room-management.component';
 import { UtilityManagementComponent } from './utility-management/utility-management.component';
 
 const routes: Routes = [
@@ -18,11 +17,7 @@ const routes: Routes = [
       },
       {
         path: 'accommodation',
-        component: AccommodationManagementComponent,
-      },
-      {
-        path: 'room',
-        component: RoomManagementComponent,
+        loadChildren: () => import ('./accommodation-management/accommodation-management.module').then (mod => mod.AccommodationManagementModule)
       },
       {
         path: 'room-type',

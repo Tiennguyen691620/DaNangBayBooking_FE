@@ -26,6 +26,27 @@
   src: url(assets/fonts/helvetica-neue-regular.ttf) format("truetype");
 }
 
+button[nzType="third"] {
+  background-color: #b54544;
+  color: white;
+  border-color: #b54544 !important;
+  &:active {
+    background-color: #b54544;
+    color: white;
+    border-color: #b54544 !important;
+  }
+  &:focus {
+    background-color: #b35958;
+    color: white;
+    border-color: #b35958 !important;
+  }
+  &:hover {
+    background-color: #b35958;
+    color: white;
+    border-color: #b35958 !important;
+  }
+}
+
 // Color
 .c-yellow {
   color: #caa72b;
@@ -241,3 +262,14 @@
 .img{
   object-fit: cover;
 }
+
+// .control-error {
+//   width: 100%;
+//   margin-top: 0.25rem;
+//   font-size: 14px;
+//   color: #ff4d4f;
+// }
+
+// .ng-invalid {
+//   border-bottom: 2px solid #ff4d4f;
+// }

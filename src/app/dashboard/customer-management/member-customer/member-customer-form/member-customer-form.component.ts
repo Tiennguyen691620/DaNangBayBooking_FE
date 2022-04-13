@@ -1,9 +1,9 @@
+import { CustomerModel } from 'src/app/shared/models/customer/customer.model';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ETypeForm } from 'src/app/shared/enum/type-form.enum';
 import CustomValidator from 'src/app/shared/helpers/custom-validator.helper';
-import { Customer } from 'src/app/shared/models/customer/customer.model';
 
 // const phoneNumber = /^[0-9]{10,10}$/;
 const identityCard = /^[0-9]{10,10}$/;
@@ -28,7 +28,7 @@ export class MemberCustomerFormComponent implements OnInit {
   avatarUrl?: string;
   avatarUrlBackup?: string;
   customerForm!: FormGroup;
-  customerBackup = new Customer();
+  customerBackup = new CustomerModel();
 
   constructor(
     private route: ActivatedRoute,

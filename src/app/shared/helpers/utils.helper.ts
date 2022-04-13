@@ -29,11 +29,12 @@ export default class Utils {
   static setStyleNotification(): NzNotificationDataOptions {
     return {
       // nzDuration: 0,
-      nzPlacement: 'bottomLeft',
+      nzPlacement: 'topRight',
       nzStyle: {
         background: '#074494',
         'align-items': 'center',
         'border-radius': '0.25rem',
+        color: '#fff',
       },
     };
   }

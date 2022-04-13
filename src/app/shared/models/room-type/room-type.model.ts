@@ -5,4 +5,5 @@ export class RoomTypeModel{
   name!: string;
   description!: string;
   no!: string;
+  status!: boolean;
 }

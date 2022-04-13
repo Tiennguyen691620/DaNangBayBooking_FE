@@ -23,11 +23,17 @@ export class RoomTypeManagementFormComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private roomTypeService: RoomTypeService,
-    private notification: NzNotificationService
+    private notification: NzNotificationService,
   ) {}
 
   ngOnInit(): void {
     this.createForm();
+    if(this.id){
+      this.roomTypeService.getRoomTypeDetail(this.id).subscribe(res => {
+        this.roomTypeModel = res;
+        this.roomTypeForm.patchValue(res);
+      })
+    }
   }
 
   createForm(): void {
@@ -35,6 +41,7 @@ export class RoomTypeManagementFormComponent implements OnInit {
       no: { value: null, disabled: true },
       name: [null, Validators.required],
       description: null,
+      status: Boolean,
     });
   }
 
@@ -45,7 +52,7 @@ export class RoomTypeManagementFormComponent implements OnInit {
         .subscribe((_) => {
           this.notification.success(this.id ? 'Cập nhật thông tin thành công!': 'Tạo mới thông tin thành công','',Utils.setStyleNotification());
           this.router.navigate([
-            '/dashboard/source-data-management/room-type/list',
+            '/dashboard/source-data-management/room-type/list',1
           ]);
         });
         //console.log(this.roomTypeForm.getRawValue()); 
@@ -57,10 +64,11 @@ export class RoomTypeManagementFormComponent implements OnInit {
       return null;
     }
     return {
-      id: this.id,
+      roomTypeID: this.id,
       no: formValue.no,
       name: formValue.name,
       description: formValue.description,
+      status: formValue.status,
     };
   }
 }

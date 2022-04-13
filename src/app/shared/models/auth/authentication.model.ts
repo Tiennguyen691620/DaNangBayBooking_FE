@@ -7,12 +7,12 @@ export class AuthenticationModel {
   fullName!: string;
   phoneNumber!: string;
   dob!: string;
+  accessToken!: string;
+  roles!: string[];
   // employeeId!: string;
   // employeeName!: string;
   // isFirstLogin!: boolean;
   // tokenType!: string;
-  accessToken!: string;
   // expiresInSeconds!: number;
   // permission!: Permisstion[];
-  roles!: string[];
 }

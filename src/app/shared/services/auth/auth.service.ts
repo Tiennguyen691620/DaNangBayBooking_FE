@@ -28,7 +28,7 @@ export class AuthService extends BaseService {
     //   email + password
     // );
 
-    return this.post<AuthenticationModel>('api/Users/login', {
+    return this.post<AuthenticationModel>('api/Users/login-admin', {
       email: email,
       password: password,
       // rememberMe: true,
