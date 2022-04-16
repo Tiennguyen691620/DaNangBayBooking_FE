@@ -51,9 +51,7 @@ export class RoomTypeManagementFormComponent implements OnInit {
         .createRoomType(this.mapDate(this.roomTypeForm.getRawValue()))
         .subscribe((_) => {
           this.notification.success(this.id ? 'Cập nhật thông tin thành công!': 'Tạo mới thông tin thành công','',Utils.setStyleNotification());
-          this.router.navigate([
-            '/dashboard/source-data-management/room-type/list',1
-          ]);
+          this.router.navigate(['/dashboard/source-data-management/room-type/list']);
         });
         //console.log(this.roomTypeForm.getRawValue()); 
     }

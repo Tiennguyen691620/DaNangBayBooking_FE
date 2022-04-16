@@ -1,3 +1,4 @@
+import { RoomTypeManagementListComponent } from './room-type-management-list/room-type-management-list.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -12,7 +13,8 @@ import { RoomTypeManagementEditComponent } from './room-type-management-edit/roo
   declarations: [
     RoomTypeManagementCreateComponent,
     RoomTypeManagementFormComponent,
-    RoomTypeManagementEditComponent
+    RoomTypeManagementEditComponent,
+    RoomTypeManagementListComponent
   ],
   imports: [
     CommonModule,

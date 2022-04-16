@@ -27,7 +27,7 @@ export default class ValidationHelper {
   //   if (!form) {
   //     return null as any;
   //   }
-  //   const errorMessages = [];
+  //   const errorMessages: string[] = [];
   //   for (const field in formErrors) {
   //     formErrors[field] = '';
   //     const control = form.get(field);

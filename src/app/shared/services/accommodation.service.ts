@@ -54,4 +54,23 @@ export class AccommodationService extends BaseService {
     const url = `api/Accommodation/get-all/accommodationType`;
     return this.get(url);
   }
+
+  createOrUpdate(data: any): Observable<any>{
+    let url = ''
+    // if(data.id){
+    //   return this.put('api/Accommodation/update', data);
+    // }
+    url = 'api/Accommodation/create'
+    return this.post(url, data);
+  }
+
+  deleteAccommodation(data: string | any): Observable<any> {
+    const url = `api/Accommodation/delete`;
+    return this.delete(url, data);
+  }
+
+  detailAccommodation(id: string): Observable<AccommodationModel>{
+    const url = `api/Accommodation/detail/${id}`;
+    return this.get(url);
+  }
 }

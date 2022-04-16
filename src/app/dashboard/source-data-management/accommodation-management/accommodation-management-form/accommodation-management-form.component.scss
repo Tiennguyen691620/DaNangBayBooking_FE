@@ -1,0 +1,21 @@
+.image-upload {
+  width: 100px;
+  height: 100px;
+  border: none !important;
+  background-color: #e2e2e2 !important;
+  object-fit: cover;
+  margin-right: 10px;
+  margin-bottom: 8px;
+}
+.icon-delete-image {
+  width: 20px;
+  background-color: #8c8c8c;
+  top: -10px;
+  right: 2px;
+  border-radius: 50%;
+  height: 20px;
+  padding: 4px;
+  color: #ffffff85;
+  display: flex;
+  align-items: center;
+}

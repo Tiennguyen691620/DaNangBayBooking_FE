@@ -257,18 +257,21 @@ button[nzType="third"] {
 .w-100 {
   width: 100%;
 }
+.w-50 {
+  width: 50%;
+}
 
 //image
 .img{
   object-fit: cover;
 }
 
-// .control-error {
-//   width: 100%;
-//   margin-top: 0.25rem;
-//   font-size: 14px;
-//   color: #ff4d4f;
-// }
+.control-error {
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 14px;
+  color: #ff4d4f;
+}
 
 // .ng-invalid {
 //   border-bottom: 2px solid #ff4d4f;

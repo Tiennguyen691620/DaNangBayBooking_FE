@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { CustomerService } from './../../../../shared/services/customer.service';
 import { CustomerFilterModel } from './../../../../shared/models/customer/customer-filter.model';
 import { Component, OnInit } from '@angular/core';
@@ -17,7 +18,7 @@ export class MemberCustomerListComponent implements OnInit {
   filterModel = new CustomerFilterModel();
   searchTerm$ = new BehaviorSubject<string>('');
 
-  constructor(private customerService: CustomerService) {}
+  constructor(private customerService: CustomerService, private router: Router) {}
 
   ngOnInit(): void {
     this.filter();
@@ -46,4 +47,5 @@ export class MemberCustomerListComponent implements OnInit {
   onPageIndexChange(event: number): void {
     this.filter(event);
   }
+
 }

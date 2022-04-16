@@ -2,7 +2,7 @@
   <form nz-form action="" [formGroup]="roomTypeForm" errorTailor>
     <div class="">
       <div class="header">
-        <i class="fa-solid fa-arrow-left pointer me-3"></i>
+        <i class="fa-solid fa-arrow-left pointer me-3" [routerLink]="'/dashboard/source-data-management/room-type/list'"></i>
         <span class="">{{
           type === eTypeForm.create
           ? "Tạo mới loại phòng"

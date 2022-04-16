@@ -2,11 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ETypeForm } from 'src/app/shared/enum/type-form.enum';
 
 @Component({
-  selector: 'app-accommodation-management-room',
-  templateUrl: './accommodation-management-room.component.html',
-  styleUrls: ['./accommodation-management-room.component.scss'],
+  selector: 'app-utility-management',
+  templateUrl: './utility-management.component.html',
+  styleUrls: ['./utility-management.component.scss'],
 })
-export class AccommodationManagementRoomComponent implements OnInit {
+export class UtilityManagementComponent implements OnInit {
   @Input() id!: string;
   @Input() type!: string;
   typeForm!: string;

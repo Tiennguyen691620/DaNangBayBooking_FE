@@ -20,9 +20,6 @@ const name =
 export class MemberCustomerFormComponent implements OnInit {
   @Input() type!: string;
   @Input() id!: string;
-
-  // id!: string;
-  // type!: string;
   eTypeForm = ETypeForm;
   typeForm!: string;
   avatarUrl?: string;

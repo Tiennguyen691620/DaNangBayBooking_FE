@@ -15,13 +15,15 @@ export class AccommodationModel {
   description!: string;
   phone!: string;
   email!: string;
-  mapUrl!: string;
+  mapURL!: string;
   no!: string;
-  sortOrder!: number;
-  imageAccommodations!: ImageAccommodationModel[];
-  utilities!: UtilityModel[];
-  rooms!: RoomModel[];
-  bookRooms!: BookRoomModel[];
+  images!: {
+    id: string,
+    image: string,
+  }[];
+  // utilities!: UtilityModel[];
+  // rooms!: RoomModel[];
+  // bookRooms!: BookRoomModel[];
 
   status!: boolean;
 }

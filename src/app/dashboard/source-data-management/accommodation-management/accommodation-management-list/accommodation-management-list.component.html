@@ -27,8 +27,8 @@
           </div>
         </div>
         <div class="group-btn">
-          <button nz-button class="button" nzSize="default" [routerLink]="'/dashboard/customer-management/member-customer/create'"
-            [queryParams]="{typeForm: 'create'}">
+          <button nz-button class="button" nzSize="default" 
+         [routerLink]="['/dashboard/source-data-management/accommodation/create']" [queryParams]="{typeForm: 'create'}">
             <i class="fa-solid fa-plus pe-2 fz-14"></i>
             Tạo mới
           </button>
@@ -65,10 +65,11 @@
             <td class="text-center">{{item.status}}</td>
             <td nzRight="0px" class="text-center">
               <div class="d-flex align-items-center justify-content-between">
-                <i class="fa fa-key pointer me-2 c-dodgerblue" aria-hidden="true"></i>
                 <nz-switch nzSize="small" class=""></nz-switch>
-                <i class="fa-solid fa-eye pointer c-dodgerblue" [routerLink]="['/dashboard/customer-manager/member-customer']"
+                <i class="fa-solid fa-eye pointer c-dodgerblue"     
+                [routerLink]="['/dashboard/source-data-management/accommodation/view', item?.accommodationID]" nz-tooltip [nzTooltipTitle]="'Xem'"
                   [queryParams]="{typeForm: 'view'}"></i>
+                <i nz-tooltip="xóa" class="fa-regular fa-trash-can pointer c-red" (click)="deleteAccommodation(item)" ></i>
               </div>
             </td>
           </tr>

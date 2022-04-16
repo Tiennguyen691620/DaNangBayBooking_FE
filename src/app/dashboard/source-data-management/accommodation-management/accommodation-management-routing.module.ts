@@ -1,8 +1,12 @@
+import { AccommodationManagementEditComponent } from './accommodation-management-edit/accommodation-management-edit.component';
+
 import { AccommodationManagementListComponent } from './accommodation-management-list/accommodation-management-list.component';
 import { AccommodationManagementComponent } from './accommodation-management.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { flush } from '@angular/core/testing';
+import { UtilityManagementComponent } from './utility-management/utility-management.component';
+import { AccommodationManagementCreateComponent } from './accommodation-management-create/accommodation-management-create.component';
+import { AccommodationManagementViewComponent } from './accommodation-management-view/accommodation-management-view.component';
 
 const routes: Routes = [
   {
@@ -20,18 +24,22 @@ const routes: Routes = [
       },
       {
         path: 'create',
-        component: AccommodationManagementListComponent,
-      },
-      {
-        path: 'view/:id',
-        component: AccommodationManagementListComponent,
+        component: AccommodationManagementCreateComponent,
       },
       {
         path: 'edit/:id',
-        component: AccommodationManagementListComponent,
+        component: AccommodationManagementEditComponent,
       },
-    ]
-  }
+      {
+        path: 'view/:id',
+        component: AccommodationManagementViewComponent,
+      },
+      {
+        path: 'utility',
+        component: UtilityManagementComponent,
+      },
+    ],
+  },
 ];
 
 @NgModule({
