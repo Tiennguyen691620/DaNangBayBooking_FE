@@ -4,21 +4,20 @@ import { RoleModel } from "../role/role.model";
 
 
 export class CustomerModel{
-  id!: string;
-  fullName!: string;
-  phoneNumber!: number;
-  userName!: string;
-  email!: string;
-  dob!: Date;
-  //locationID!: string;
-  address!: string;
-  identityCard!: number;
-  gender!: string;
-  avatar!: string;
-  activeDate!: Date;
-  no!:string;
-  status!: boolean;
-  role!: RoleModel;
-  location!: LocationModel;
-  bookRooms!: BookRoomModel;
+  id: string;
+  fullName: string;
+  phoneNumber: number;
+  userName: string;
+  email: string;
+  dob: Date;
+  address: string;
+  identityCard: number;
+  gender: string;
+  avatar: string;
+  activeDate: number;
+  no:string;
+  status: boolean;
+  role: RoleModel;
+  location: LocationModel;
+  // bookRooms: BookRoomModel;
 }

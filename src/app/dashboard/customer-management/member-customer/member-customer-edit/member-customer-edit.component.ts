@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ETypeForm } from 'src/app/shared/enum/type-form.enum';
 
@@ -7,10 +8,14 @@ import { ETypeForm } from 'src/app/shared/enum/type-form.enum';
   styleUrls: ['./member-customer-edit.component.scss'],
 })
 export class MemberCustomerEditComponent implements OnInit {
-  param!: string;
+  id: string;
   eTypeForm = ETypeForm;
 
-  constructor() {}
+  constructor(private route: ActivatedRoute) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.id = this.route.snapshot.params.id.includes('?')
+      ? this.route.snapshot.params.id.split('?')[0]
+      : this.route.snapshot.params.id;
+  }
 }

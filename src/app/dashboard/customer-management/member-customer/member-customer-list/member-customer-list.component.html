@@ -8,7 +8,7 @@
       <div class="content-header d-flex align-items-center justify-content-between">
         <div class="search">
           <nz-input-group nzSearch nzSize="default" >
-            <input type="text" nzSize="default" nz-input placeholder="Nhập tên/Email/SĐT/Mã KH/ Địa chỉ" />
+            <input type="text" nzSize="default" (keyup)="searchTerm$.next($event.target.value)" [value]="searchTerm$.value" nz-input placeholder="Nhập tên/Email/SĐT/Mã KH/ Địa chỉ" />
           </nz-input-group>
           <!-- <ng-template #suffixButton>
             <button nz-button class="button" nzSize="default" nzSearch>Tìm kiếm</button>
@@ -55,7 +55,7 @@
               <div class="d-flex align-items-center justify-content-between">
                 <i  class="fa fa-key pointer me-2 c-dodgerblue" aria-hidden="true"></i>
                 <nz-switch  nzSize="small" class=""></nz-switch>
-                <i class="fa-solid fa-eye pointer c-dodgerblue" [routerLink]="['/dashboard/customer-manager/member-customer']" [queryParams]="{typeForm: 'view'}" ></i>
+                <i class="fa-solid fa-eye pointer c-dodgerblue" [routerLink]="['/dashboard/customer-management/member-customer/view', item.id]" [queryParams]="{typeForm: 'view'}" ></i>
               </div>
             </td>
           </tr>

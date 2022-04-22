@@ -1,21 +1,18 @@
 <section class="list-member">
   <div class="header">
     <div class="title">
-      <span>Danh sách khách hàng</span>
+      <span>Danh sách người dùng</span>
     </div>
     <hr>
     <div class="content">
       <div class="content-header d-flex align-items-center justify-content-between">
         <div class="search">
-          <nz-input-group nzSearch nzSize="default" [nzAddOnAfter]="suffixButton">
-            <input type="text" nzSize="default" nz-input placeholder="Nhập tên/Email/SĐT/Mã KH/ Địa chỉ" />
+          <nz-input-group nzSearch nzSize="default">
+            <input type="text" nzSize="default" nz-input (keyup)="searchTerm$.next($event.target.value)" [value]="searchTerm$.value"  placeholder="Nhập tên/Email/SĐT/Mã KH/ Địa chỉ" />
           </nz-input-group>
-          <ng-template #suffixButton>
-            <button nz-button class="button" nzSize="default" nzSearch>Tìm kiếm</button>
-          </ng-template>
         </div>
         <div class="group-btn">
-          <button nz-button class="button" nzSize="default" [routerLink]="'/dashboard/customer-management/member-customer/create'">
+          <button nz-button class="button" nzSize="default" [routerLink]="'/dashboard/user-management/employee/create'">
             <i class="fa-solid fa-plus pe-2 fz-14"></i>
             Tạo mới
           </button>
@@ -25,34 +22,41 @@
   </div>
   <div class="content">
     <div class="table-main">
-      <nz-table #basicTable class="table-list mt-3" [nzFrontPagination]="false" [nzTemplateMode]="true" [nzLoading]="false"
+      <nz-table #basicTable class="table-list mt-3" [nzFrontPagination]="false" [nzTemplateMode]="true" [nzLoading]="false" [nzData]="dataSource"
         [nzScroll]="{ x: '1000px' }" [nzTotal]="totalCount" [(nzPageSize)]="pageSize" [(nzPageIndex)]="pageIndex"
         (nzPageIndexChange)="onPageIndexChange($event)" (nzPageSizeChange)="onPageSizeChange($event)"
         [nzWidthConfig]="['50px', '100px', '150px', '100px', '100px', '200px', '200px', '200px', '100px']">
         <thead>
           <th class="text-center">STT</th>
-          <th class="text-center">Mã KH</th>
+          <th class="text-center">Mã ND</th>
           <th class="text-center">Họ & Tên</th>
           <th class="text-center">Điện thoại</th>
-          <th class="text-center">Ngày sinh</th>
+          <th class="text-center">Chức vụ</th>
           <th class="text-center">Email</th>
           <th class="text-center">Địa chỉ</th>
           <th class="text-center">Trạng thái</th>
           <th nzRight="0px" class="text-center">Thao tác</th>
         </thead>
         <tbody>
-          <tr>
-            <td class="text-center">01</td>
-            <td class="text-center">BK-0001</td>
-            <td class="text-center">Nguyễn Tân Tiến</td>
-            <td class="text-center">0889161328</td>
-            <td class="text-center">06/01/2000</td>
-            <td class="">tiennguyen691620@gmail.com</td>
+          <tr *ngFor="let item of dataSource; let i = index">
+            <td class="text-center">{{i + 1}}</td>
+            <td class="text-center">{{item?.no}}</td>
+            <td class="text-center">{{item?.fullName}}</td>
+            <td class="text-center">{{item?.phoneNumber}}</td>
+            <td class="text-center">{{item?.role?.name}}</td>
+            <td class="">{{item?.email}}</td>
             <td class="text-center">
-              <span class=" webkit-box-1" nz-tooltip="27, Hiệp Hưng, Quảng Hiệp, Cưmgar, Đắk Lắk">27, Hiệp Hưng, Quảng Hiệp, Cưmgar, Đắk Lắk</span>
+              <span class=" webkit-box-1" nz-tooltip="{{item.address}}">{{item.address}}</span>
             </td>
-            <td class="text-center">Đang hoạt động</td>
-            <td class="text-center"></td>
+            <td class="text-center">{{item.status}}</td>
+            <td nzRight="0px" class="text-center">
+              <div class="d-flex align-items-center justify-content-between">
+                <i class="fa fa-key pointer me-2 c-dodgerblue" aria-hidden="true"></i>
+                <nz-switch nzSize="small" class=""></nz-switch>
+                <i class="fa-solid fa-eye pointer c-dodgerblue" [routerLink]="['/dashboard/user-management/employee/view', item.id]"
+                  [queryParams]="{typeForm: 'view'}"></i>
+              </div>
+            </td>
           </tr>
         </tbody>
       </nz-table>

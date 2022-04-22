@@ -8,20 +8,22 @@
       </div>
     </div>
     <div class="Form" >
-      <form nz-form [formGroup]="signInForm" class="login-form">
+      <form nz-form [formGroup]="signInForm" class="login-form" errorTailor>
         <nz-form-item>
-          <nz-form-control nzErrorTip="Vui lòng nhập tên đăng nhập!">
+          <nz-form-control>
             <nz-input-group nzPrefixIcon="user">
-              <input type="text" nz-input formControlName="userName" placeholder="Tên đăng nhập" />
+              <input type="text" nz-input formControlName="email"  [controlErrorAnchor]="anchorUsername" placeholder="Tên đăng nhập" />
             </nz-input-group>
           </nz-form-control>
+          <ng-template controlErrorAnchor #anchorUsername="controlErrorAnchor"></ng-template>
         </nz-form-item>
         <nz-form-item>
-          <nz-form-control nzErrorTip="Vui lòng nhập mật khẩu!">
+          <nz-form-control>
             <nz-input-group nzPrefixIcon="lock" [nzSuffix]="suffixTemplate">
-              <input [type]="passwordVisible ? 'text' : 'password'" nz-input formControlName="password" placeholder="Mật khẩu" />
+              <input [type]="passwordVisible ? 'text' : 'password'" nz-input formControlName="password" [controlErrorAnchor]="anchorPass"placeholder="Mật khẩu" />
             </nz-input-group>
           </nz-form-control>
+          <ng-template controlErrorAnchor #anchorPass="controlErrorAnchor"></ng-template>
           <ng-template #suffixTemplate>
             <i nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'" (click)="handlePasswordVisible()"></i>
           </ng-template>

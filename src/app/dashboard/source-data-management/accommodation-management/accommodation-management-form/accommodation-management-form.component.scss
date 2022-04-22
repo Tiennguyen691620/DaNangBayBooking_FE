@@ -1,3 +1,37 @@
+.container ::ng-deep .ant-tabs-nav-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.container ::ng-deep .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px 10px 0px 0px;
+  width: 350px;
+}
+
+.container ::ng-deep .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active {
+  background: #5fc8c2;
+  // border-radius: 10px 10px 0px 0px;
+}
+
+.container ::ng-deep .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-btn a {
+  color: #000;
+  text-decoration: unset;
+}
+
+.container
+  ::ng-deep
+  .ant-tabs-card
+  > .ant-tabs-nav
+  .ant-tabs-tab-active
+  .ant-tabs-tab-btn
+  a {
+  color: #fff;
+  text-decoration: unset;
+}
+
 .image-upload {
   width: 100px;
   height: 100px;

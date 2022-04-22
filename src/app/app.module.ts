@@ -22,10 +22,6 @@ const INTERCEPTOR_PROVIDES = [
   { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true },
 ];
 
-// const INTERCEPTOR_PROVIDES = [
-//   { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true },
-// ];
-
 @NgModule({
   declarations: [AppComponent, HomeComponent],
   imports: [

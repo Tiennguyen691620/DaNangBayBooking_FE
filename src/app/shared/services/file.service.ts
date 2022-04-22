@@ -8,17 +8,15 @@ import { HttpClient } from '@angular/common/http';
 
 export class FileUploadController {
   file?: File;
-  fileDataURL!: string;
-  progress!: Promise<any>;
-  uploading!: Subscription;
-  id!: string;
-  fileEventName!: string;
-  fileUrl!: string;
+  fileDataURL: string;
+  progress: Promise<any>;
+  uploading: Subscription;
+  id: string;
+  fileEventName: string;
+  fileUrl: string;
 
   constructor(
-    file: File,
-    uploadProgress: Observable<any>,
-    @Inject(String) item: any
+    file: File, uploadProgress: Observable<any>, item: any
   ) {
     this.file = file;
     this.fileDataURL = URL.createObjectURL(file);
@@ -26,20 +24,20 @@ export class FileUploadController {
     this.fileEventName = `file_upload_${uuid.v4()}`;
 
     this.progress = new Promise((resolve, reject) => {
-      eventEmitterService.on(this.fileEventName, (error: any) => {
+      eventEmitterService.on(this.fileEventName, (error) => {
         if (error) {
           reject(error);
         } else {
-          this.progress = null as any;
-          this.uploading = null as any;
+          this.progress = null ;
+          this.uploading = null ;
           resolve(null);
         }
       });
     });
     this.uploading = uploadProgress.subscribe(
       (data) => {
-        this.id = data.id;
-        this.fileUrl = data.fileUrl;
+        this.id = data.data.imageID;
+        this.fileUrl = data.data.fileUrl;
         eventEmitterService.emit(this.fileEventName);
         item.onSuccess(item.file);
       },
@@ -53,12 +51,12 @@ export class FileUploadController {
   destroy() {
     if (this.uploading) {
       this.uploading.unsubscribe();
-      this.uploading = null as any;
+      this.uploading = null ;
     }
     if (this.progress) {
-      this.progress = null as any;
+      this.progress = null ;
     }
-    this.id = null as any;
+    this.id = null ;
   }
 }
 

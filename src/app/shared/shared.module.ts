@@ -75,13 +75,13 @@ import { ServicesModule } from './services/services.module';
 import { ErrorTailorModule } from '@ngneat/error-tailor';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
 
+
 const maskConfig: Partial<IConfig> = {
   validation: false,
 };
 
 @NgModule({
-  declarations: [
-  ],
+  declarations: [],
   imports: [
     CommonModule,
     ErrorTailorModule.forRoot({

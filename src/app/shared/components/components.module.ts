@@ -81,6 +81,6 @@ const options: () => Partial<IConfig> = () => {
     NzSelectModule,
     NzDrawerModule,
   ],
-  exports: [HeaderComponent, FooterComponent,],
+  exports: [HeaderComponent, FooterComponent, PipesModule],
 })
 export class ComponentsModule {}

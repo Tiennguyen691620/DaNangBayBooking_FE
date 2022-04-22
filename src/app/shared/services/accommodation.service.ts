@@ -1,3 +1,4 @@
+import { RoomModel } from './../models/room/room.model';
 import { LocationModel } from './../models/master-data/location.model';
 import { AccommodationTypeModel } from './../models/accommodation/accommodation-type.model';
 import { AccommodationModel } from './../models/accommodation/accommodation.model';
@@ -50,17 +51,17 @@ export class AccommodationService extends BaseService {
     );
   }
 
-  getAllAccommodationType(): Observable<AccommodationTypeModel[]>{
+  getAllAccommodationType(): Observable<AccommodationTypeModel[]> {
     const url = `api/Accommodation/get-all/accommodationType`;
     return this.get(url);
   }
 
-  createOrUpdate(data: any): Observable<any>{
-    let url = ''
+  createOrUpdate(data: any): Observable<any> {
+    let url = '';
     // if(data.id){
     //   return this.put('api/Accommodation/update', data);
     // }
-    url = 'api/Accommodation/create'
+    url = 'api/Accommodation/create';
     return this.post(url, data);
   }
 
@@ -69,8 +70,28 @@ export class AccommodationService extends BaseService {
     return this.delete(url, data);
   }
 
-  detailAccommodation(id: string): Observable<AccommodationModel>{
+  detailAccommodation(id: string): Observable<AccommodationModel> {
     const url = `api/Accommodation/detail/${id}`;
     return this.get(url);
+  }
+
+  getUtilityAccommodation(accommodationId: string): Observable<any[]> {
+    const url = `api/Accommodation/get/utility/${accommodationId}`;
+    return this.get(url);
+  }
+
+  updateAccommodationUtility(data: any, accommodationId: string): Observable<any>{
+    const url = `api/Accommodation/update/utility/${accommodationId}`;
+    return this.put(url, data)
+  }
+
+  getRoomAccommodation(accommodationId: string): Observable<RoomModel[]>{
+    const url = `api/Accommodation/get/room/${accommodationId}`;
+    return this.get(url);
+  }
+
+  updateRoomAccommodation(data: any, accommodationId: string): Observable<any>{
+    const url = `api/Accommodation/update/room/${accommodationId}`;
+    return this.put(url, data);
   }
 }

@@ -20,35 +20,64 @@ export default class ValidationHelper {
     'Mask error': '',
   };
 
-  // static getInvalidMessages(
-  //   form: FormGroup,
-  //   formErrors: object,
-  // ): string[] {
-  //   if (!form) {
-  //     return null as any;
-  //   }
-  //   const errorMessages: string[] = [];
-  //   for (const field in formErrors) {
-  //     formErrors[field] = '';
-  //     const control = form.get(field);
-  //     if (control && !control.valid) {
-  //       for (const key in control.errors) {
-  //         formErrors[field] += this.validationMessages[key] + '';
-  //         break;
-  //       }
-  //     }
-  //   }
+  static getInvalidMessages(form: FormGroup, formErrors: object): string[] {
+    if (!form) {
+      return null;
+    }
+    const errorMessages = [];
+    for (const field in formErrors) {
+      formErrors[field] = '';
+      const control = form.get(field);
+      if (control && !control.valid) {
+        for (const key in control.errors) {
+          formErrors[field] += this.validationMessages[key] + '';
+          break;
+        }
+      }
+    }
 
-  //   for (const key in formErrors) {
-  //     if (formErrors.hasOwnProperty(key) && formErrors[key].length > 0) {
-  //       errorMessages.push(formErrors[key]);
-  //     }
-  //   }
+    for (const key in formErrors) {
+      if (formErrors.hasOwnProperty(key) && formErrors[key].length > 0) {
+        errorMessages.push(formErrors[key]);
+      }
+    }
 
-  //   return errorMessages;
-  // }
+    return errorMessages;
+  }
 
   static validateForm(form: FormGroup, formErrors: object): boolean {
     return true;
+  }
+
+  static isValidateForm(form: FormGroup): boolean {
+    if (!form) {
+      return null;
+    }
+    let isError = false;
+    for (const field in form.controls) {
+      const control = form.get(field);
+      if (control['controls'] && Array.isArray(control['controls'])) {
+        control['controls'].forEach((item) => {
+          if (this.isValidateForm(item)) {
+            isError = true;
+          }
+        });
+      }
+      if (
+        !(control['controls'] && Array.isArray(control['controls'])) &&
+        control &&
+        !control.disabled &&
+        !control.valid
+      ) {
+        isError = true;
+        // tslint:disable-next-line:forin
+        control['CustomErr'] =
+          control.errors &&
+          ValidationHelper.validationMessages[Object.keys(control.errors)[0]];
+      } else {
+        control['CustomErr'] = '';
+      }
+    }
+    return isError;
   }
 }

@@ -14,9 +14,10 @@ import { Observable, of, throwError } from 'rxjs';
 import { mergeMap, catchError, shareReplay } from 'rxjs/operators';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { AuthService } from '../services/auth/auth.service';
+import Utils from './utils.helper';
+import { SpinnerService } from '../services/spinner.service';
 // import { AuthService } from '../services/auth.service';
 // import { SpinnerService } from '../services/spinner.service';
-// import Utils from './utils.helper';
 
 const CODE_MESSAGES = {
   200: 'Máy chủ trả về thành công dữ liệu được yêu cầu.',
@@ -42,9 +43,9 @@ export class DefaultInterceptor implements HttpInterceptor {
   constructor(
     private injector: Injector,
     private authService: AuthService,
-    // private spinnerService: SpinnerService,
+    private spinnerService: SpinnerService,
     private http: HttpClient
-  ) { }
+  ) {}
   get errData(): any {
     if (!this.cacheErrData$) {
       this.cacheErrData$ = this.getErrData().pipe(shareReplay(CACHE_SIZE));
@@ -73,14 +74,23 @@ export class DefaultInterceptor implements HttpInterceptor {
     if (!err || ev.url.includes(`api/token/get`)) {
       return;
     } else {
-      this.errData.subscribe( (errData: any) => {
-        if (ev.status === 401 || err.code === 'USER_NOT_LOGIN_TO_SYSTEM')
-          return;
-        const itemErr = errData.find( (item: any) => item.code === err.code);
-        // if (itemErr) {
-        //   return this.notification.error(`${itemErr.text}`, ``, Utils.setStyleNotification());
-        // }
-        // this.notification.error(`Đã xảy ra lỗi`, ``, Utils.setStyleNotification());
+      this.errData.subscribe((errData) => {
+        if (ev.status === 401 || err.code === 'USER_NOT_LOGIN_TO_SYSTEM'){
+          return errData;
+        }
+        const itemErr = errData.find((item) => item.code === err.code);
+        if (itemErr) {
+          return this.notification.error(
+            `${itemErr.text}`,
+            ``,
+            Utils.setStyleNotification()
+          );
+        }
+        this.notification.error(
+          `Đã xảy ra lỗi`,
+          ``,
+          Utils.setStyleNotification()
+        );
       });
     }
   }
@@ -88,7 +98,7 @@ export class DefaultInterceptor implements HttpInterceptor {
   private handleData(ev: HttpResponseBase, showSpinner: boolean): void {
     this.checkStatus(ev);
     if (showSpinner) {
-      // this.spinnerService.hide();
+      this.spinnerService.hide();
     }
     switch (ev.status) {
       case 200:
@@ -96,7 +106,7 @@ export class DefaultInterceptor implements HttpInterceptor {
       case 400:
         break;
       case 401:
-        // this.authService.logOut();
+        this.authService.logOut();
         break;
       case 403:
       case 404:
@@ -113,16 +123,16 @@ export class DefaultInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     let showSpinner = true;
-    // if (
-    //   (req.method.toLowerCase() === 'post' && req.url.includes('api/file')) ||
-    //   (req.url.includes(`api/notification/filter`) &&
-    //     this.spinnerService.isGetNotify)
-    // ) {
-    //   showSpinner = false;
-    // }
-    // if (showSpinner) {
-    //   this.spinnerService.show();
-    // }
+    if (
+      (req.method.toLowerCase() === 'post' && req.url.includes('api/file')) ||
+      (req.url.includes(`api/notification/filter`) &&
+        this.spinnerService.isGetNotify)
+    ) {
+      showSpinner = false;
+    }
+    if (showSpinner) {
+      this.spinnerService.show();
+    }
 
     const url = req.url;
     const authenticationModel = this.authService.getAuthenticationModel();
@@ -130,7 +140,7 @@ export class DefaultInterceptor implements HttpInterceptor {
     const headers = {
       Authorization: `Bearer ${token}`,
     };
-   const newReq = req.clone({ url, setHeaders: headers });
+    const newReq = req.clone({ url, setHeaders: headers });
 
     return next.handle(newReq).pipe(
       mergeMap((event: any) => {

@@ -24,20 +24,20 @@ import { NzUploadFile } from 'ng-zorro-antd/upload';
   styleUrls: ['./accommodation-management-form.component.scss'],
 })
 export class AccommodationManagementFormComponent implements OnInit {
-  @Input() id!: string;
-  @Input() type!: string;
+  @Input() id: string;
+  @Input() type: string;
   eTypeForm = ETypeForm;
-  typeForm!: string;
-  imageShowPopupView!: FileUploadController[];
-  indexOfImage!: number;
-  loadingImage = false;
-  accommodationForm!: FormGroup;
+  // typeForm: string;
+  imageShowPopupView: FileUploadController[];
+  indexOfImage: number;
+  loadingImage: boolean;
+  accommodationForm: FormGroup;
   accommodation = new AccommodationModel();
   accommodationBackup = new AccommodationModel();
-  accommodationType!: AccommodationTypeModel[];
+  accommodationType: AccommodationTypeModel[];
   province: LocationModel[] = [];
-  photoUpload: any[] = [];
-  uploadController: any[] = [];
+  photoUpload = [];
+  uploadController = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -108,14 +108,16 @@ export class AccommodationManagementFormComponent implements OnInit {
     if (this.type !== this.eTypeForm.view) {
       this.accommodationForm.enable();
     }
-    // if(this.type === this.eTypeForm.edit){
-    //   this.accommodationForm.get('no').disable();
-    // }
+    if(this.type === this.eTypeForm.edit){
+      this.accommodationForm.get('no').disable();
+    }
+    if(this.type === this.eTypeForm.create){
+      this.accommodationForm.get('no').disable();
+    }
   }
   submitForm(): void {
     const doSubmit = () => {
       if (this.accommodationForm.valid) {
-        console.log(this.accommodationForm.value);
         this.accommodationService
           .createOrUpdate(this.mappingRequest())
           .subscribe((_) => {
@@ -137,7 +139,7 @@ export class AccommodationManagementFormComponent implements OnInit {
         ]);
       }
     };
-    const uploadProgresses: any[] = [];
+    const uploadProgresses = [];
     for (const item of this.uploadController) {
       if (
         item &&
@@ -158,7 +160,7 @@ export class AccommodationManagementFormComponent implements OnInit {
   edit(): void {
     this.type = this.eTypeForm.edit;
     this.accommodationForm.enable();
-    // this.accommodationForm.get('no').disable();
+    this.accommodationForm.get('no').disable();
   }
 
   cancel(): void {
@@ -171,8 +173,8 @@ export class AccommodationManagementFormComponent implements OnInit {
 
     this.accommodation = { ...this.accommodationBackup };
     (this.accommodation?.images ?? []).forEach((item) => {
-      this.photoUpload.push(item.image);
-      this.uploadController.push({ fileUrl: item.image });
+      // this.photoUpload.push(item?.image);
+      this.uploadController.push({ fileUrl: item?.image });
     });
     this.accommodationForm.patchValue(this.accommodation);
     this.type = this.eTypeForm.view;
@@ -182,7 +184,7 @@ export class AccommodationManagementFormComponent implements OnInit {
   mappingRequest(): any {
     const valueForm = this.accommodationForm.getRawValue();
     return {
-      id: this.id,
+      accommodationID: this.id,
       no: valueForm.no,
       name: valueForm.name,
       abbreviationName: valueForm.abbreviationName,
@@ -197,8 +199,8 @@ export class AccommodationManagementFormComponent implements OnInit {
         const image = {
           id: (this.accommodation.images ?? [])[index]
             ? (this.accommodation.images ?? [])[index].id
-            : undefined,
-          image: item?.fileUrl,
+            : null,
+          image: item.fileUrl,
         };
         if (!image?.id) {
           delete image?.id;
@@ -279,9 +281,9 @@ export class AccommodationManagementFormComponent implements OnInit {
     return this.fileService.uploadImage(file?.originFileObj as File);
   }
 
-  viewImage(imageUrlArray: any, indexOfImage: any): void {
+  viewImage(imageUrlArray, indexOfImage): void {
     this.imageShowPopupView = [
-      ...imageUrlArray.map((item: any) => {
+      ...imageUrlArray.map((item) => {
         item;
       }),
     ];

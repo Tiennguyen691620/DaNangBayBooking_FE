@@ -26,6 +26,8 @@
   src: url(assets/fonts/helvetica-neue-regular.ttf) format("truetype");
 }
 
+$active-color: #086fd0;
+
 button[nzType="third"] {
   background-color: #b54544;
   color: white;
@@ -45,6 +47,11 @@ button[nzType="third"] {
     color: white;
     border-color: #b35958 !important;
   }
+}
+
+.decoration {
+  text-decoration: unset;
+  color: #000;
 }
 
 // Color
@@ -77,6 +84,10 @@ button[nzType="third"] {
 }
 .c-dodgerblue{
   color: #188ffd;
+}
+.color-active {
+  color: $active-color;
+  fill: #074494;
 }
 
 //background

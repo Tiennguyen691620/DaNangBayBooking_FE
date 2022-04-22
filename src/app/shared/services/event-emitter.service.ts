@@ -25,20 +25,20 @@ export class EventEmitterService {
     }
   }
 
-  // public get(eventName: string) {
-  //   return this.events[eventName];
-  // }
+  public get(eventName: string) {
+    return this.events[eventName];
+  }
 
-  // public off(eventName: string, func?: any) {
-  //   if (this.events[eventName]) {
-  //     if (func) {
-  //       const index = this.events[eventName].findIndex((fc) => fc === func);
-  //       if (index >= 0) {
-  //         this.events[eventName].splice(index, 1);
-  //       }
-  //     } else {
-  //       delete this.events[eventName];
-  //     }
-  //   }
-  // }
+  public off(eventName: string, func?: any) {
+    if (this.events[eventName]) {
+      if (func) {
+        const index = this.events[eventName].findIndex((fc) => fc === func);
+        if (index >= 0) {
+          this.events[eventName].splice(index, 1);
+        }
+      } else {
+        delete this.events[eventName];
+      }
+    }
+  }
 }

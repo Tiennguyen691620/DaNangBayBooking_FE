@@ -11,6 +11,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { UtilityManagementComponent } from './utility-management/utility-management.component';
 import { AccommodationManagementEditComponent } from './accommodation-management-edit/accommodation-management-edit.component';
 import { AccommodationManagementViewComponent } from './accommodation-management-view/accommodation-management-view.component';
+import { PipesModule } from 'src/app/shared/pipes/pipes.module';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { AccommodationManagementViewComponent } from './accommodation-management
   imports: [
     CommonModule,
     AccommodationManagementRoutingModule,
-    SharedModule
-  ]
+    // PipesModule,
+    SharedModule,
+  ],
 })
-export class AccommodationManagementModule { }
+export class AccommodationManagementModule {}

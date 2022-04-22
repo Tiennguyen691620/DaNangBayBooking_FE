@@ -1,6 +1,6 @@
 import { AuthenticationModel } from 'src/app/shared/models/auth/authentication.model';
 import { localStorageKey } from './../../../app.config';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BaseService } from './../base.service';
 import { Injectable } from '@angular/core';
@@ -17,9 +17,14 @@ import { CryptoUtil } from '../../helpers/crypto.helper';
   providedIn: 'root',
 })
 export class AuthService extends BaseService {
-
   constructor(private httpClient: HttpClient, private router: Router) {
     super(httpClient);
+  }
+  showLoginSubject: Subject<boolean> = new Subject();
+  showLogin$ = this.showLoginSubject.asObservable();
+
+  setShowLogin(value: boolean) {
+    this.showLoginSubject.next(value);
   }
 
   public login(email: string, password: string): Observable<any> {
@@ -31,7 +36,6 @@ export class AuthService extends BaseService {
     return this.post<AuthenticationModel>('api/Users/login-admin', {
       email: email,
       password: password,
-      // rememberMe: true,
       // timestamp,
       // signature,
     });
@@ -44,12 +48,12 @@ export class AuthService extends BaseService {
 
   public getAuthenticationModel(): AuthenticationModel {
     if (!window.localStorage[localStorageKey]) {
-      return null as any;
+      return null;
     }
     try {
       return JSON.parse(window.localStorage[localStorageKey]);
     } catch (error) {
-      return null as any;
+      return null;
     }
   }
 
