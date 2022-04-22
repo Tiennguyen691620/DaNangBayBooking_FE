@@ -127,7 +127,7 @@ export class MemberCustomerFormComponent implements OnInit {
     return {
       id: this.customer?.id,
       no: item.no,
-      fullName: item.name,
+      fullName: item.fullName,
       phoneNumber: item.phoneNumber,
       email: item.email,
       identityCard: item.identityCard,

@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
-import { UserService } from './../../../../shared/services/user.service';
-import { UserFilterModel } from './../../../../shared/models/user/user-filter.model';
-import { UserModel } from './../../../../shared/models/user/user.model';
+import { UserService } from '../../../../shared/services/user.service';
+import { UserFilterModel } from '../../../../shared/models/user/user-filter.model';
+import { UserModel } from '../../../../shared/models/user/user.model';
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 

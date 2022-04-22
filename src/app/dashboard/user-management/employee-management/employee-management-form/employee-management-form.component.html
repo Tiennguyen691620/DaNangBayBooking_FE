@@ -5,7 +5,7 @@
     </div>
     <div class="back mt-4">
       <i class="fa-solid fa-arrow-left pointer me-3" (click)="cancel()"></i>
-      <span>{{type === eTypeForm.create ? 'Tạo mới khách hàng' : (type === eTypeForm.view ? 'Thông tin khách hàng' : 'Cập nhật thông tin khách hàng')}}</span>
+      <span>{{type === eTypeForm.create ? 'Tạo mới người dùng' : (type === eTypeForm.view ? 'Thông tin người dùng' : 'Cập nhật thông tin người dùng')}}</span>
       <!-- <a *ngIf="type === eTypeForm.view" class="color-active" >Chỉnh sửa</a> -->
     </div>
   </div>
@@ -80,7 +80,7 @@
             </nz-form-item>
           </div>
           <hr class="my-2">
-          <div class="row mb-2">
+          <!-- <div class="row mb-2">
             <nz-form-item class="mb-0">
               <nz-form-label class="d-flex col-xxl-3 col-lg-4 col-md-4 col-sm-12 col-3 required" nzFor="name">
                 Ngày sinh
@@ -90,7 +90,7 @@
                 </nz-date-picker>
               </nz-form-control>
             </nz-form-item>
-          </div>
+          </div> -->
           <div class="row mb-2">
             <nz-form-item class="mb-0">
               <nz-form-label class="d-flex col-xxl-3 col-lg-4 col-md-4 col-sm-12 col-3 required" nzFor="name">

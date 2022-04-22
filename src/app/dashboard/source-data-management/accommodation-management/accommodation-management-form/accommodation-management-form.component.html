@@ -135,7 +135,7 @@
                   <ng-container *ngFor="let item of photoUpload; let i = index">
                     <div class="position-relative">
                       <img [src]="item | safe: 'url'" (click)="viewImage(photoUpload, i)" 
-                      class="image-upload pointer">
+                      class="image-upload-acc pointer">
                       <i *ngIf="type !== eTypeForm.view" (click)="deleteImage(i)" class="pointer position-absolute icon-delete-image" nz-icon nzType="close"
                         nzTheme="outline"></i>
                     </div>

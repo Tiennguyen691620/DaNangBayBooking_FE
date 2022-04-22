@@ -20,7 +20,7 @@ export class Exception403Component implements OnInit {
   }
 
   logOut(): void{
-    this.authenticationService.logout();
+    this.authenticationService.logOut();
     this.router.navigate(['/auth/sign-in'])
   }
 

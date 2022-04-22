@@ -57,7 +57,7 @@ export class EmployeeManagementFormComponent implements OnInit {
       this.updateForm(this.eTypeForm.view);
       this.userService.getUser(this.id).subscribe((res) => {
         this.user = res;
-        this.userBackup = { ...this.user };
+        this.userBackup = res ;
         this.avatarUrl = res.avatar;
         this.avatarUrlBackup = res.avatar;
         this.userForm.patchValue(res);
@@ -78,7 +78,7 @@ export class EmployeeManagementFormComponent implements OnInit {
       phoneNumber: [null, [Validators.required, CustomValidator.phoneNumber]],
       email: [null, [Validators.required, Validators.email]],
       identityCard: [null, [Validators.required]],
-      dob: [null, Validators.required],
+      // dob: [null, Validators.required],
       gender: [null, Validators.required],
       province: [null, Validators.required],
       district: [null, Validators.required],
@@ -99,7 +99,7 @@ export class EmployeeManagementFormComponent implements OnInit {
       email: item.email,
       identityCard: item.identityCard,
       // dob: DateTimeConvertHelper.fromTimestampToDtObject(item.dob),
-      dob: item.dob,
+      // dob: item.dob,
       gender: item.gender,
       address: item.address,
       avatar: this.uploadController?.fileUrl,
@@ -115,8 +115,6 @@ export class EmployeeManagementFormComponent implements OnInit {
         this.userService
           .createOrUpdateUser(this.mapData(this.userForm.getRawValue()))
           .subscribe((res) => {
-            console.log(this.userForm.getRawValue());
-            
             this.notification.success(
               this.id
                 ? 'Cập nhật thông tin người dùng thành công !'
@@ -254,8 +252,8 @@ export class EmployeeManagementFormComponent implements OnInit {
     if (typeForm !== this.eTypeForm.view) {
       this.userForm.enable();
       this.userForm.get('no').disable();
-      this.changeProvince(this.userForm.get('province').value);
-      this.changeDistrict(this.userForm.get('district').value);
+      // this.changeProvince(this.userForm.get('province').value);
+      // this.changeDistrict(this.userForm.get('district').value);
     }
   }
 
@@ -279,7 +277,7 @@ export class EmployeeManagementFormComponent implements OnInit {
   edit(): void {
     this.type = this.eTypeForm.edit;
     this.updateForm(this.eTypeForm.edit);
-    this.userBackup = { ...this.userForm.getRawValue() };
+    this.userBackup = {...this.userForm.getRawValue()};
   }
 
   disabledBirthDate = (fromDate: Date): boolean => {

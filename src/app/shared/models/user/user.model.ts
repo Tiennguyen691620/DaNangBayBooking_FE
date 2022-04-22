@@ -17,5 +17,7 @@ export class UserModel {
   no: string;
   status: boolean;
   role: RoleModel;
-  location: LocationModel;
+  province: LocationModel;
+  district: LocationModel;
+  subDistrict: LocationModel;
 }
