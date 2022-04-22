@@ -1,0 +1,18 @@
+<div class="popup-container">
+  <div class="content border-top-radius h-50 w-300 p-0">
+    <div *ngIf="title" class="text-uppercase text-center popup-title mb-0">
+      {{ title }}
+    </div>
+    <div class="nz-row" nzType="flex" nzJustify="center" nzAlign="center">
+      <div class="nz-col" nzSpan="12">
+        <div class="popup-message text-center " *ngIf="vnContent">
+          <p class="text-center f-color" [innerHTML]="vnContent | safe: 'html'">
+          </p>
+          <div class="d-flex justify-content-center mt-2">
+            <button nz-button type="button" nzType="primary" (click)="closePopupYes()">{{obBtnTitle}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

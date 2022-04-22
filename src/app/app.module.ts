@@ -14,12 +14,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
 import { ErrorTailorModule } from '@ngneat/error-tailor';
+import { DefaultInterceptor } from './shared/helpers/default.interceptor';
 
 registerLocaleData(en);
 
-// const INTERCEPTOR_PROVIDES = [
-//   { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true },
-// ];
+const INTERCEPTOR_PROVIDES = [
+  { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true },
+];
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],
@@ -53,6 +54,7 @@ registerLocaleData(en);
     }),
   ],
   providers: [
+    INTERCEPTOR_PROVIDES,
     { provide: NZ_I18N, useValue: en_US },
     {
       provide: LocationStrategy,

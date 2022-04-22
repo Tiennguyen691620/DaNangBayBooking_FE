@@ -6,13 +6,17 @@ import { MemberCustomerListComponent } from './member-customer-list/member-custo
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MemberCustomerCreateComponent } from './member-customer-create/member-customer-create.component';
 import { MemberCustomerDetailComponent } from './member-customer-detail/member-customer-detail.component';
+import { MemberCustomerFormComponent } from './member-customer-form/member-customer-form.component';
+import { MemberCustomerEditComponent } from './member-customer-edit/member-customer-edit.component';
 
 
 @NgModule({
   declarations: [
     MemberCustomerListComponent,
     MemberCustomerCreateComponent,
-    MemberCustomerDetailComponent
+    MemberCustomerDetailComponent,
+    MemberCustomerFormComponent,
+    MemberCustomerEditComponent
   ],
   imports: [
     CommonModule,

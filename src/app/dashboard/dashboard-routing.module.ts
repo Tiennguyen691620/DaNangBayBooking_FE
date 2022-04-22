@@ -8,6 +8,11 @@ const routes: Routes = [
     component: DashboardComponent,
     children: [
       {
+        path: '',
+        redirectTo: 'customer-management',
+        pathMatch: 'full',
+      },
+      {
         path: 'account-admin',
         loadChildren: () => import('./account-admin/account-admin.module').then((mod) => mod.
         AccountAdminModule),

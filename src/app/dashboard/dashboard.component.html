@@ -17,7 +17,7 @@
           <ul>
             <li nz-menu-item routerLink="/dashboard/customer-management/member-customer/list" routerLinkActive="link-active" >Quản lý khách hàng </li>
             <li nz-menu-item routerLink="/dashboard/user-management/employee/list" routerLinkActive="link-active">Quản lý người dùng DN</li>
-            <li nz-menu-item routerLink="/dashboard/user-management/user-group/list" routerLinkActive="link-active" >Quản lý nhóm người dùng DN</li>
+            <!-- <li nz-menu-item routerLink="/dashboard/user-management/user-group/list" routerLinkActive="link-active" >Quản lý nhóm người dùng DN</li> -->
           </ul>
         </li>
         <ng-template #user> <i class="fa-solid fa-user me-2 "></i> <span [class.isCollapsed-false]="isCollapsed" >Quản lý người dùng</span> </ng-template>
@@ -39,8 +39,8 @@
           <ul>
             <li nz-menu-item routerLink="/dashboard/source-data-management/room-type" routerLinkActive="link-active" >Danh mục loại phòng</li>
             <li nz-menu-item routerLink="/dashboard/source-data-management/accommodation" routerLinkActive="link-active" >Quản lý CSLT</li>
-            <li nz-menu-item routerLink="/dashboard/source-data-management/utility" routerLinkActive="link-active" >Quản lý tiện ích</li>
-            <li nz-menu-item routerLink="/dashboard/source-data-management/room" routerLinkActive="link-active" >Quản lý phòng</li>
+            <!-- <li nz-menu-item routerLink="/dashboard/source-data-management/utility" routerLinkActive="link-active" >Quản lý tiện ích</li>
+            <li nz-menu-item routerLink="/dashboard/source-data-management/room" routerLinkActive="link-active" >Quản lý phòng</li> -->
           </ul>
         </li>
         <ng-template #dataSource> <i class="fa-solid fa-database me-2"></i> <span [class.isCollapsed-false]="isCollapsed"> Quản lý dữ liệu nguồn</span> </ng-template>
@@ -63,11 +63,9 @@
     </nz-sider>
     <nz-layout class="bgr-gainsboro ms-4 mt-3">
       <nz-content class="mx-3 my-2 scroll">
-        <!-- <nz-breadcrumb>
-          <nz-breadcrumb-item>User</nz-breadcrumb-item>
-          <nz-breadcrumb-item>Bill</nz-breadcrumb-item>
-        </nz-breadcrumb> -->
-        <div class="inner-content"><router-outlet></router-outlet></div>
+        <div class="inner-content">
+          <router-outlet></router-outlet>
+        </div>
       </nz-content>
     </nz-layout>
   </nz-layout>

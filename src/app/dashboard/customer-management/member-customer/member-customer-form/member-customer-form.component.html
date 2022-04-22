@@ -1,0 +1,165 @@
+<section class="create">
+  <div class="header">
+    <div class="title d-flex align-items-center justify-content-center">
+      <span class="fw-700 fz-18">Thông tin chung</span>
+    </div>
+    <div class="back mt-4">
+      <i class="fa-solid fa-arrow-left pointer me-3" (click)="cancel()"></i>
+      <span>{{type === eTypeForm.create ? 'Tạo mới khách hàng' : (type === eTypeForm.view ? 'Thông tin khách hàng' : 'Cập nhật thông tin khách hàng')}}</span>
+      <!-- <a *ngIf="type === eTypeForm.view" class="color-active" >Chỉnh sửa</a> -->
+    </div>
+  </div>
+  <hr>
+  <div class="content container">
+    <form [formGroup]="customerForm" errorTailor>
+      <div class="row">
+        <div class="col-4">
+          <div class="h-100">
+            <nz-upload [nzDisabled]="this.type === this.eTypeForm.view" [nzShowUploadList]="false" [nzBeforeUpload]="beforeUpload" (nzChange)="handleChange($event)" [nzCustomRequest]="handleUpload" nzName="avatar" nzListType="picture-card" class="text-center h-100 d-flex align-items-center justify-content-center">
+              <ng-container *ngIf="this.type !== this.eTypeForm.view">
+                <svg class="icon-add-image" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                  <path id="ic_add_to_photos_24px"
+                    d="M5.2,8.4H2V30.8A3.209,3.209,0,0,0,5.2,34H27.6V30.8H5.2ZM30.8,2H11.6A3.209,3.209,0,0,0,8.4,5.2V24.4a3.209,3.209,0,0,0,3.2,3.2H30.8A3.209,3.209,0,0,0,34,24.4V5.2A3.209,3.209,0,0,0,30.8,2ZM29.2,16.4H22.8v6.4H19.6V16.4H13.2V13.2h6.4V6.8h3.2v6.4h6.4Z"
+                    transform="translate(-2 -2)" fill="#000" opacity="0.5" />
+                </svg>
+              </ng-container>
+              <img class="image-upload" *ngIf="avatarUrl" [src]="avatarUrl">
+            </nz-upload>
+          </div>
+        </div>
+        <div class="col-8">
+          <div class="row mb-2">
+            <nz-form-item class="mb-0">
+              <nz-form-label class="d-flex col-xxl-3 col-lg-4 col-md-4 col-sm-12 col-3 required" nzFor="name">
+                Mã khách hàng
+              </nz-form-label>
+              <nz-form-control class="col-xxl-9 col-lg-8 col-md-8 col-sm-12 col-9 form-group">
+                <input nz-input formControlName="no" placeholder="Nhập mã khách hàng">
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div class="row mb-2">
+            <nz-form-item class="mb-0">
+              <nz-form-label class="d-flex col-xxl-3 col-lg-4 col-md-4 col-sm-12 col-3 required" nzFor="name">
+                Họ và tên
+              </nz-form-label>
+              <nz-form-control class="col-xxl-9 col-lg-8 col-md-8 col-sm-12 col-9 form-group">
+                <input nz-input formControlName="fullName" placeholder="Họ và Tên">
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div class="row mb-2">
+            <nz-form-item class="mb-0">
+              <nz-form-label class="d-flex col-xxl-3 col-lg-4 col-md-4 col-sm-12 col-3 required" nzFor="name">
+                Số điện thoại
+              </nz-form-label>
+              <nz-form-control class="col-xxl-9 col-lg-8 col-md-8 col-sm-12 col-9 form-group">
+                <input nz-input formControlName="phoneNumber" placeholder="Nhập số điện thoại" >
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div class="row mb-2">
+            <nz-form-item class="mb-0">
+              <nz-form-label class="d-flex col-xxl-3 col-lg-4 col-md-4 col-sm-12 col-3 required" nzFor="name">
+                Email
+              </nz-form-label>
+              <nz-form-control class="col-xxl-9 col-lg-8 col-md-8 col-sm-12 col-9 form-group" >
+                <input nz-input formControlName="email" placeholder="Nhập Email">
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <!-- <hr class="my-2"> -->
+          <div class="row mb-2">
+            <nz-form-item class="mb-0">
+              <nz-form-label class="d-flex col-xxl-3 col-lg-4 col-md-4 col-sm-12 col-3 required" nzFor="name">
+                CMND/CCCD
+              </nz-form-label>
+              <nz-form-control class="col-xxl-9 col-lg-8 col-md-8 col-sm-12 col-9 form-group">
+                <input nz-input formControlName="identityCard" placeholder="Nhập CMND/CCCD">
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <hr class="my-2">
+          <div class="row mb-2">
+            <nz-form-item class="mb-0">
+              <nz-form-label class="d-flex col-xxl-3 col-lg-4 col-md-4 col-sm-12 col-3 required" nzFor="name">
+                Ngày sinh
+              </nz-form-label>
+              <nz-form-control class="col-xxl-9 col-lg-8 col-md-8 col-sm-12 col-9 form-group" >
+                <nz-date-picker class="w-100" nz-input formControlName="dob" nzFormat='dd/MM/yyyy' nzPlaceHolder="Ngày sinh">
+                </nz-date-picker>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div class="row mb-2">
+            <nz-form-item class="mb-0">
+              <nz-form-label class="d-flex col-xxl-3 col-lg-4 col-md-4 col-sm-12 col-3 required" nzFor="name">
+                Giới tính
+              </nz-form-label>
+              <nz-form-control class="col-xxl-9 col-lg-8 col-md-8 col-sm-12 col-9 form-group">
+                <nz-select nzShowSearch nzAllowClear formControlName="gender" nzPlaceHolder="Giới tính">
+                  <nz-option [nzValue]="true" nzLabel="Nam"></nz-option>
+                  <nz-option [nzValue]="false" nzLabel="Nữ"></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div class="row mb-2">
+            <nz-form-item class="mb-0">
+              <nz-form-label class="d-flex col-xxl-3 col-lg-4 col-md-4 col-sm-12 col-3 required" nzFor="name">
+                Tỉnh/TP
+              </nz-form-label>
+              <nz-form-control class="col-xxl-9 col-lg-8 col-md-8 col-sm-12 col-9 form-group">
+                <nz-select nzShowSearch nzAllowClear formControlName="province" nzPlaceHolder="Tỉnh/Thành phố" (ngModelChange)="changeProvince($event)" [compareWith]="compareDictionaryMasterData">
+                  <nz-option *ngFor="let item of provinceList" [nzValue]="item" [nzLabel]="item.name"></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div class="row mb-2">
+            <nz-form-item class="mb-0">
+              <nz-form-label class="d-flex col-xxl-3 col-lg-4 col-md-4 col-sm-12 col-3 required" nzFor="name">
+                Quận/Huyện
+              </nz-form-label>
+              <nz-form-control class="col-xxl-9 col-lg-8 col-md-8 col-sm-12 col-9 form-group">
+                <nz-select nzShowSearch nzAllowClear formControlName="district" nzPlaceHolder="Quận/Huyện" (ngModelChange)="changeDistrict($event)"  [compareWith]="compareDictionaryMasterData">
+                  <nz-option *ngFor="let item of districtList" [nzValue]="item" [nzLabel]="item.name"></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div class="row mb-2">
+            <nz-form-item class="mb-0">
+              <nz-form-label class="d-flex col-xxl-3 col-lg-4 col-md-4 col-sm-12 col-3 required" nzFor="name">
+                Phường/Xã
+              </nz-form-label>
+              <nz-form-control class="col-xxl-9 col-lg-8 col-md-8 col-sm-12 col-9 form-group">
+                <nz-select nzShowSearch nzAllowClear formControlName="subDistrict" nzPlaceHolder="Phường/Xã" [compareWith]="compareDictionaryMasterData">
+                  <nz-option *ngFor="let item of subDistrictList" [nzValue]="item" [nzLabel]="item.name"></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div class="row mb-2">
+            <nz-form-item class="mb-0">
+              <nz-form-label class="d-flex col-xxl-3 col-lg-4 col-md-4 col-sm-12 col-3 required" nzFor="name">
+                Địa chỉ
+              </nz-form-label>
+              <nz-form-control class="col-xxl-9 col-lg-8 col-md-8 col-sm-12 col-9 form-group">
+                <input nz-input formControlName="address" placeholder="Đường, Tổ/Thôn ">
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex align-items-center justify-content-center mt-4" >
+        <button class="btn-save" nz-button type="button" *ngIf="type === eTypeForm.view" (click)="edit()">Chỉnh sửa</button>
+      </div>
+      <div class="mt-3 d-flex align-items-center justify-content-center">
+        <button *ngIf="type !== eTypeForm.view" nz-button type="submit" class="me-2 btn-save"(click)="submit()" >lưu</button>
+        <button *ngIf="type !== eTypeForm.view" nz-button type="button" class="ms-2 btn-cancel" (click)="cancel()">Hủy bỏ</button>
+      </div>
+    </form>
+  </div>
+</section>
+

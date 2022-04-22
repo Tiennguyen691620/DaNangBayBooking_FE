@@ -1,0 +1,64 @@
+.f-utility {
+  .f-content {
+    width: 230px;
+    margin: 15px 30px;
+    &-normal {
+      @extend .f-content;
+      fill: #484848;
+    }
+    &-disabled {
+      @extend .f-content;
+      color: #888888;
+      fill: #888888;
+    }
+  }
+}
+
+.f-label {
+  font-size: 14px;
+}
+
+:host ::ng-deep {
+  // check true
+  .ant-checkbox-checked .ant-checkbox-inner {
+    background-color: #188ffd !important;
+    border-color: #188ffd !important;
+  }
+  .ant-checkbox-disabled.ant-checkbox-checked .ant-checkbox-inner::after {
+    border-color: white;
+    animation-name: none;
+  }
+
+  // indeterminate
+  .ant-checkbox-indeterminate .ant-checkbox-inner {
+    background-color: white;
+    border-color: #e6e6e6;
+  }
+  // .ant-checkbox-indeterminate .ant-checkbox-inner::after {
+  //   background-color: red;
+  // }
+}
+
+.f-check-false-edit {
+  height: 16px;
+  width: 16px;
+  border: 1px solid #e6e6e6;
+  background-color: white;
+  color: white;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.f-check-false-view {
+  height: 16px;
+  width: 16px;
+  border: 1px solid #e6e6e6;
+  background-color: #e6e6e6;
+  color: #4e4e4e;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

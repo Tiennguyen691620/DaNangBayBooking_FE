@@ -1,0 +1,59 @@
+<div
+  class="d-flex justify-content-xl-start justify-content-lg-center justify-content-md-center justify-content-sm-center justify-content-center f-utility flex-wrap px-4 py-2">
+  <ng-container *ngFor="let item of iconUtilityList">
+    <div class="d-flex align-items-center" [class.f-content-normal]="!isDisableForm(item.checked)"
+            [class.f-content-disabled]="isDisableForm(item.checked)" >
+      <label class="me-3" nz-checkbox [(ngModel)]="item.checked"  (ngModelChange)="changeActive($event, item)"
+        [disabled]="typeForm === eTypeForm.view"></label>
+      <div [innerHTML]="item.icon | safe: 'html'"></div>
+      <p class="f-label mb-0">{{item.displayText}}</p>
+    </div>
+  </ng-container>
+
+</div>
+
+<div class="f-note">
+  <div class="row">
+    <div class="col-auto">
+      <i class="mb-0">Chú thích</i>
+    </div>
+    <div class="col-auto">
+      <div class="d-flex align-items-center">
+        <div [class.f-check-false-view]="typeForm === eTypeForm.view" [class.f-check-false-edit]="typeForm !== eTypeForm.view">
+        </div>
+        <span class="ms-2">Không có tiện ích tại CSLT</span>
+      </div>
+      <div class="d-flex align-items-center mt-1">
+        <label nz-checkbox [ngModel]="true" [nzDisabled]="true"></label>
+        <span class="ms-2">Tiện ích được áp dụng tại CSLT</span>
+      </div>
+      <!-- <div class="d-flex align-items-center mt-1">
+        <label nz-checkbox [nzIndeterminate]="true" [nzDisabled]="true"></label>
+        <p class="ms-2">Tiện ích riêng mà CBC cung cấp cho khách hàng</p>
+      </div> -->
+    </div>
+  </div>
+
+</div>
+
+<div class="row mt-3 ms-3">
+  <p class="mb-0 icon-info">** Lưu ý: Nếu có thay đổi, bạn cần thực hiện lưu lại trước khi chuyển sang tab
+    khác.</p>
+</div>
+<div class="d-flex justify-content-center mt-3">
+  <button *ngIf="typeForm === eTypeForm.view" nz-button nzType="primary" type="submit" class="btn-save me-2" (click)="typeForm = eTypeForm.edit">Chỉnh sửa
+  </button>
+  <button *ngIf="typeForm === eTypeForm.edit" nz-button nzType="primary" type="submit" class="btn-save me-2" (click)="submit()" >Lưu
+  </button>
+  <button *ngIf="typeForm === eTypeForm.edit" nz-button class="btn-cancel me-2" (click)="cancel()" >Hủy bỏ
+  </button>
+</div>
+
+<div class="row mt-3" *ngIf="type === eTypeForm.view">
+  <div class="col-auto d-flex align-items-center">
+    <a class="decoration d-flex align-items-center" [routerLink]="['/dashboard/source-data-management/accommodation/list']">
+    <i class="fa-solid fa-arrow-left me-2 fz-20"></i>
+      Quay lại
+    </a>
+  </div>
+</div>

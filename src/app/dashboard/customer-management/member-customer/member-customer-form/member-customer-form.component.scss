@@ -1,0 +1,18 @@
+::ng-deep .ant-upload.ant-upload-select-picture-card{
+  border-radius: 50%;
+  width: 300px;
+  height: 300px;
+  border: unset;
+  background-color: #ccc;
+}
+.image-upload {
+  width: 300px;
+  height: 300px;
+  border: none !important;
+  background-color: #e2e2e2 !important;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.icon-add-image{
+  position: absolute;
+}

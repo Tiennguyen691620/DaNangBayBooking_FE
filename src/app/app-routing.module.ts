@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
@@ -18,11 +19,11 @@ const routes: Routes = [
     loadChildren: () => import('./dashboard/dashboard.module').then(mod => mod.DashboardModule),
     canActivate: [AuthGuard]
   },
-  {
-    path: 'home',
-    component: HomeComponent,
-    canActivate: [AuthGuard],
-  }
+  // {
+  //   path: 'home',
+  //   component: HomeComponent,
+  //   canActivate: [AuthGuard],
+  // }
 ];
 
 @NgModule({

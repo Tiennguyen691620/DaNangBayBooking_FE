@@ -1,0 +1,55 @@
+.container ::ng-deep .ant-tabs-nav-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.container ::ng-deep .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px 10px 0px 0px;
+  width: 350px;
+}
+
+.container ::ng-deep .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active {
+  background: #5fc8c2;
+  // border-radius: 10px 10px 0px 0px;
+}
+
+.container ::ng-deep .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-btn a {
+  color: #000;
+  text-decoration: unset;
+}
+
+.container
+  ::ng-deep
+  .ant-tabs-card
+  > .ant-tabs-nav
+  .ant-tabs-tab-active
+  .ant-tabs-tab-btn
+  a {
+  color: #fff;
+  text-decoration: unset;
+}
+
+.image-upload-acc {
+  width: 100px;
+  height: 100px;
+  border: none !important;
+  background-color: #e2e2e2 !important;
+  object-fit: cover;
+  margin-right: 10px;
+  margin-bottom: 8px;
+}
+.icon-delete-image {
+  width: 20px;
+  background-color: #8c8c8c;
+  top: -10px;
+  right: 2px;
+  border-radius: 50%;
+  height: 20px;
+  padding: 4px;
+  color: #ffffff85;
+  display: flex;
+  align-items: center;
+}

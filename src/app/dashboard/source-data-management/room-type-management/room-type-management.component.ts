@@ -1,3 +1,4 @@
+import { RoomTypeFilterModel } from './../../../shared/models/room-type/room-type-filter.model';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,23 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./room-type-management.component.scss'],
 })
 export class RoomTypeManagementComponent implements OnInit {
-  pageIndex = 1;
-  pageSize = 10;
-  totalCount = 0;
+  static filterModel = new RoomTypeFilterModel();
 
   constructor() {}
 
   ngOnInit(): void {}
-
-  filter(pageIndex?: number): void {}
-
-  onPageSizeChange(event: number): void {
-    this.pageSize = event;
-    this.pageIndex = 1;
-    this.filter();
-  }
-
-  onPageIndexChange(event: number): void {
-    this.filter(event);
-  }
 }

@@ -14,23 +14,22 @@
   <hr>
   <div class="content">
     <div class="table-main">
-      <nz-table #basicTable class="table-list mt-3" [nzFrontPagination]="false" [nzTemplateMode]="true" [nzLoading]="false"
-        [nzScroll]="{ x: '800px' }" [nzTotal]="totalCount" [(nzPageSize)]="pageSize" [(nzPageIndex)]="pageIndex"
-        (nzPageIndexChange)="onPageIndexChange($event)" (nzPageSizeChange)="onPageSizeChange($event)"
+      <nz-table #basicTable class="table-list mt-3" [nzFrontPagination]="false"  [nzData]="dataSource"
+        [nzScroll]="{ x: '800px' }"
         [nzWidthConfig]="['100px', '200px', '300px', '200px', '100px']">
         <thead>
           <th nzLeft="0px" class="text-center">STT</th>
-          <th class="text-center">Nhóm người dùng</th>
-          <th class="text-center">tài khoản người dùng</th>
-          <th class="text-center">Ngày tạo</th>
+          <th class="text-center">tên chức vụ</th>
+          <th class="text-center">mô tả</th>
+          <!-- <th class="text-center">Ngày tạo</th> -->
           <th nzRight="0px" class="text-center">Thao tác</th>
         </thead>
         <tbody>
-          <tr>
-            <td nzLeft="0px" class="text-center">01</td>
-            <td class="text-center">Admin</td>
-            <td class="text-center">2 người dùng</td>
-            <td class="text-center">30/03/2022</td>
+          <tr *ngFor="let item of basicTable.data; let i = index">
+            <td nzLeft="0px" class="text-center">{{i + 1}}</td>
+            <td class="text-center">{{item.name}}</td>
+            <td class="text-center">{{item.description}}</td>
+            <!-- <td class="text-center">30/03/2022</td> -->
             <td nzRight="0px" class="text-center">
               <div class="d-flex align-items-center justify-content-evenly">
                 <i nz-tooltip="chỉnh sửa" class="fa-solid fa-pen-to-square pointer c-dodgerblue"></i>
@@ -40,9 +39,9 @@
           </tr>
         </tbody>
       </nz-table>
-      <!-- <div>
+      <div *ngIf="(dataSource ?? []).length === 0">
         <p class="mb-0 text-center">Không có dữ liệu</p>
-      </div> -->
+      </div>
     </div>
   </div>
   <div class="footer">

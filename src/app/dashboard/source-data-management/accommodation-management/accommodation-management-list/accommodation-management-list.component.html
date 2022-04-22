@@ -1,0 +1,89 @@
+<section class="list-member">
+  <div class="header">
+    <div class="title">
+      <span>Danh sách khách hàng</span>
+    </div>
+    <hr>
+    <div class="content">
+      <div class="content-header d-flex align-items-center justify-content-between">
+        <div class="search d-flex">
+          <nz-input-group nzSearch nzSize="default">
+            <input type="text" nzSize="default" (keyup)="searchTerm$.next($event.target.value)" [value]="searchTerm$.value"
+             nz-input placeholder="Nhập tên/Email/SĐT/Mã KH/ Địa chỉ" />
+          </nz-input-group>
+          <div class="d-flex">
+            <div class="w-240px mx-2 d-flex align-items-center">
+              <span class="me-2" >Loại CSLT :</span>
+              <nz-select [(ngModel)]="filterModel.accommodationTypeID" (ngModelChange)="filter()" nzAllowClear nzPlaceHolder="Tất cả" nzShowSearch>
+                <nz-option *ngFor="let item of AccommodationTypeAll" [nzValue]="item.accommodationTypeID" [nzLabel]="item.name"></nz-option>
+              </nz-select>
+            </div>
+            <div class="w-240px mx-2 d-flex align-items-center">
+              <span class="me-2" >Tỉnh/TP :</span>
+              <nz-select [(ngModel)]="filterModel.locationID" (ngModelChange)="filter()"  nzAllowClear nzPlaceHolder="Tất cả" nzShowSearch>
+                <nz-option *ngFor="let item of Province" [nzValue]="item.locationID" [nzLabel]="item.name"></nz-option>
+              </nz-select>
+            </div>
+          </div>
+        </div>
+        <div class="group-btn">
+          <button nz-button class="button" nzSize="default" 
+         [routerLink]="['/dashboard/source-data-management/accommodation/create']" [queryParams]="{typeForm: 'create'}">
+            <i class="fa-solid fa-plus pe-2 fz-14"></i>
+            Tạo mới
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="table-main">
+      <nz-table #basicTable class="table-list mt-3" [nzFrontPagination]="false" [nzTemplateMode]="true" [nzLoading]="false" [nzData]="dataSource"
+        [nzScroll]="{ x: '1200px' }" [nzTotal]="totalCount" [(nzPageSize)]="pageSize" [(nzPageIndex)]="pageIndex"
+        (nzPageIndexChange)="onPageIndexChange($event)" (nzPageSizeChange)="onPageSizeChange($event)"
+        [nzWidthConfig]="['70px', '100px', '180px', '180px', '180px', '280px', '200px', '130px']">
+        <thead>
+          <th nzLeft="0px" class="text-center">STT</th>
+          <th class="text-center">Mã CSLT</th>
+          <th class="text-center">Tên CSLT</th>
+          <th class="text-center">Loại CSLT</th>
+          <th class="text-center">Địa điểm</th>
+          <th class="text-center">Địa chỉ</th>
+          <th class="text-center">Trạng thái</th>
+          <th nzRight="0px" class="text-center">Thao tác</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of dataSource; let i = index" >
+            <td nzLeft="0px" class="text-center">{{i + 1}}</td>
+            <td class="text-center">{{item.no}}</td>
+            <td class="text-center">{{item.name}}</td>
+            <td class="text-center">{{item?.accommodationType?.name}}</td>
+            <td class="text-center">{{item?.location?.name}}</td>
+            <td class="text-center">
+              <span class=" webkit-box-1" nz-tooltip="1000, Ngô Quyền, An Hải Tây, Sơn Trà">{{item.address}}</span>
+            </td>
+            <td class="text-center">{{item.status}}</td>
+            <td nzRight="0px" class="text-center">
+              <div class="d-flex align-items-center justify-content-between">
+                <nz-switch nzSize="small" class=""></nz-switch>
+                <i class="fa-solid fa-eye pointer c-dodgerblue"     
+                [routerLink]="['/dashboard/source-data-management/accommodation/view', item?.accommodationID]" nz-tooltip [nzTooltipTitle]="'Xem'"
+                  [queryParams]="{typeForm: 'view'}"></i>
+                <i nz-tooltip="xóa" class="fa-regular fa-trash-can pointer c-red" (click)="deleteAccommodation(item)" ></i>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+      <div *ngIf="(dataSource ?? []).length === 0" class="d-flex justify-content-center mt-3">
+        <p class="mb-0 text-center">Không có dữ liệu</p>
+      </div>
+    </div>
+    <ng-template #rangeTemplate let-range="range" let-total>
+      <div class="mt-1">Tổng số {{ total }}</div>
+    </ng-template>
+  </div>
+  <div class="footer">
+
+  </div>
+</section>

@@ -1,6 +1,7 @@
+import { AuthenticationModel } from 'src/app/shared/models/auth/authentication.model';
 import { localStorageKey } from './../../../app.config';
-import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { Observable, Subject } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BaseService } from './../base.service';
 import { Injectable } from '@angular/core';
 import {
@@ -11,65 +12,53 @@ import {
   UrlTree,
 } from '@angular/router';
 import { CryptoUtil } from '../../helpers/crypto.helper';
-import { userModel } from '../../models/user.model';
-import { AuthenticationModel } from '../../models/auth/authentication.model';
+
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService extends BaseService implements CanActivate {
+export class AuthService extends BaseService {
   constructor(private httpClient: HttpClient, private router: Router) {
     super(httpClient);
   }
+  showLoginSubject: Subject<boolean> = new Subject();
+  showLogin$ = this.showLoginSubject.asObservable();
 
-  public login(userNameOrEmail: string, password: string): Observable<any> {
-    const hashPassword = CryptoUtil.hashMessage(password);
-    const { timestamp, signature } = CryptoUtil.generateSignature(
-      userNameOrEmail + password
-    );
+  setShowLogin(value: boolean) {
+    this.showLoginSubject.next(value);
+  }
 
-    return this.get<userModel>('/login', {
-      userName: userNameOrEmail,
-      password: hashPassword,
-      timestamp,
-      signature,
+  public login(email: string, password: string): Observable<any> {
+    // const hashPassword = CryptoUtil.hashMessage(password);
+    // const { timestamp, signature } = CryptoUtil.generateSignature(
+    //   email + password
+    // );
+
+    return this.post<AuthenticationModel>('api/Users/login-admin', {
+      email: email,
+      password: password,
+      // timestamp,
+      // signature,
     });
   }
 
-  public logout() {
+  public logOut() {
     localStorage.removeItem(localStorageKey);
     this.router.navigate(['/auth']);
   }
 
   public getAuthenticationModel(): AuthenticationModel {
     if (!window.localStorage[localStorageKey]) {
-      return null as any;
+      return null;
     }
     try {
       return JSON.parse(window.localStorage[localStorageKey]);
     } catch (error) {
-      return null as any;
+      return null;
     }
   }
 
-  public setAuthenticationModel(userModel: userModel): any {
-    return (window.localStorage[localStorageKey] = JSON.stringify(AuthenticationModel));
-  }
-
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ):
-    | boolean
-    | UrlTree
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree> {
-
-    if(this.getAuthenticationModel()){
-      return true;
-    }
-    this.router.navigate(['/auth'],{
-      queryParams: {returnUrl: state.url}
-    });
-    return false;
+  public setAuthenticationModel(authenticationModel: AuthenticationModel): any {
+    return (window.localStorage[localStorageKey] =
+      JSON.stringify(authenticationModel));
   }
 }
