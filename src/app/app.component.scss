@@ -1,3 +1,7 @@
-// .main{
-//   max-width: 1920px ;
-// }
+.main{
+  .header{
+    box-shadow: 0px 5px 10px 0 #ccc;
+    position: relative;
+    z-index: 999;
+  }
+}

@@ -1,1 +1,19 @@
-<p>header works!</p>
+<section class="container-fluid p-0" (scroll)="onscroll" [ngClass]="navbarfixed ? 'fixed' : 'infixed'">
+    <div class="container">
+      <div class="box row d-flex align-items-center justify-content-between">
+        <div class="left col-9">
+          <h3 class="title text-uppercase">DaNangBooking</h3>
+        </div>
+        <div class="right col-3 d-flex align-items-center justify-content-between">
+          <span class="my-booked">Đặt chỗ của tôi</span>
+          <div class="btn-login pointer">
+            <nz-avatar nzIcon="user" class="me-2"></nz-avatar>
+            <span>Đăng nhập</span>
+          </div>
+          <div class="btn-signin">
+            <button nz-button nzType="primary" class="border-r">Đăng ký</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
