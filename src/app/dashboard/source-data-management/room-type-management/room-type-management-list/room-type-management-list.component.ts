@@ -88,7 +88,7 @@ export class RoomTypeManagementListComponent implements OnInit {
     modal.afterClose.subscribe((result) => {
       if (result && result.data) {
         this.roomTypeService
-          .deleteRoomType({id: item.roomTypeID} )
+          .deleteRoomType({ roomTypeID: item.roomTypeID })
           .subscribe((_) => {
             this.notification.success(
               'Xóa loại phòng thành công',

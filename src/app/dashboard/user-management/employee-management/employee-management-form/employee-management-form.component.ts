@@ -78,7 +78,7 @@ export class EmployeeManagementFormComponent implements OnInit {
       phoneNumber: [null, [Validators.required, CustomValidator.phoneNumber]],
       email: [null, [Validators.required, Validators.email]],
       identityCard: [null, [Validators.required]],
-      // dob: [null, Validators.required],
+      dob: [null, Validators.required],
       gender: [null, Validators.required],
       province: [null, Validators.required],
       district: [null, Validators.required],
@@ -98,7 +98,7 @@ export class EmployeeManagementFormComponent implements OnInit {
       phoneNumber: item.phoneNumber,
       email: item.email,
       identityCard: item.identityCard,
-      // dob: DateTimeConvertHelper.fromTimestampToDtObject(item.dob),
+      dob: DateTimeConvertHelper.fromDtObjectToTimestamp(item.dob),
       // dob: item.dob,
       gender: item.gender,
       address: item.address,
@@ -129,7 +129,9 @@ export class EmployeeManagementFormComponent implements OnInit {
           this.avatarUrlBackup = this.avatarUrl;
         }
         if (!this.id) {
-          this.router.navigate(['/dashboard/user-management/employee/list']);
+          setTimeout(() => {
+            this.router.navigate(['/dashboard/user-management/employee/list']);
+          }, 500);
         }
       }
     };

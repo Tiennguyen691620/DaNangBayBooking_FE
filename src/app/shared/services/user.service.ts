@@ -8,6 +8,8 @@ import { Observable } from 'rxjs';
 import Utils from '../helpers/utils.helper';
 import { map } from 'rxjs/operators';
 import DateTimeConvertHelper from '../helpers/datetime-convert.helper';
+import { EUserStatus } from '../enum/user/user-status.enum';
+
 
 @Injectable({
   providedIn: 'root',
@@ -51,18 +53,18 @@ export class UserService extends BaseService {
           return new UserModel();
         }
         result.dob = result.dob
-          ? DateTimeConvertHelper.fromDtObjectToDtStr(result.dob)
+          ? DateTimeConvertHelper.fromTimestampToDtObject(result.dob)
           : null;
         result.activeDate = result.activeDate
-          ? DateTimeConvertHelper.fromDtObjectToDtStr(result.activeDate)
+          ? DateTimeConvertHelper.fromTimestampToDtObject(result.activeDate)
           : null;
-          return result;
+        return result;
       })
     );
   }
 
-  createOrUpdateUser(data: any): Observable<any>{
-    let url = ''
+  createOrUpdateUser(data: any): Observable<any> {
+    let url = '';
     // if(data.id){
     //   url = `api/Users/update/admin`;
     //   return this.put(url, Utils.createFilterParam(data));
@@ -70,7 +72,13 @@ export class UserService extends BaseService {
     // if(!data.id){
     //   delete data.id;
     // }
-     url =`api/Users/create/admin`;
+    url = `api/Users/create/admin`;
     return this.post(url, Utils.createFilterParam(data));
+  }
+
+  updateStatusAdmin(UserAdminID: any, Status: boolean): Observable<any> {
+    let url = '';
+    url = `api/Users/update/${UserAdminID}/status/admin?isActive=${Status}`;
+    return this.put(url, null);
   }
 }

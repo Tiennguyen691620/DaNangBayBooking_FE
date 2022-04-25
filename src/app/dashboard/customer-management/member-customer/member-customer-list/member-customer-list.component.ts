@@ -1,3 +1,4 @@
+import { debounceTime } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { CustomerService } from './../../../../shared/services/customer.service';
 import { CustomerFilterModel } from './../../../../shared/models/customer/customer-filter.model';
@@ -21,7 +22,11 @@ export class MemberCustomerListComponent implements OnInit {
   constructor(private customerService: CustomerService, private router: Router) {}
 
   ngOnInit(): void {
-    this.filter();
+    this.searchTerm$.pipe(debounceTime(600)).subscribe((_) => {
+      this.filterModel.searchKey = this.searchTerm$.value;
+      this.pageIndex = 1;
+      this.filter();
+    })
   }
 
   filter(pageIndex?: number): void {

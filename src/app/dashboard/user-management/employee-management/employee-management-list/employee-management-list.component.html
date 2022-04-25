@@ -8,7 +8,7 @@
       <div class="content-header d-flex align-items-center justify-content-between">
         <div class="search">
           <nz-input-group nzSearch nzSize="default">
-            <input type="text" nzSize="default" nz-input (keyup)="searchTerm$.next($event.target.value)" [value]="searchTerm$.value"  placeholder="Nhập tên/Email/SĐT/Mã KH/ Địa chỉ" />
+            <input type="text" nzSize="default" nz-input (keyup)="searchTerm$.next($event.target.value)" [value]="searchTerm$.value"  placeholder="Nhập Email/SĐT/Họ và tên" />
           </nz-input-group>
         </div>
         <div class="group-btn">
@@ -24,8 +24,8 @@
     <div class="table-main">
       <nz-table #basicTable class="table-list mt-3" [nzFrontPagination]="false" [nzTemplateMode]="true" [nzLoading]="false" [nzData]="dataSource"
         [nzScroll]="{ x: '1000px' }" [nzTotal]="totalCount" [(nzPageSize)]="pageSize" [(nzPageIndex)]="pageIndex"
-        (nzPageIndexChange)="onPageIndexChange($event)" (nzPageSizeChange)="onPageSizeChange($event)"
-        [nzWidthConfig]="['50px', '100px', '150px', '100px', '100px', '200px', '200px', '200px', '100px']">
+        (nzPageIndexChange)="onPageIndexChange($event)" (nzPageSizeChange)="onPageSizeChange($event)" [nzShowTotal]="rangeTemplate"
+        [nzWidthConfig]="['50px', '100px', '150px', '100px', '100px', '200px', '200px', '200px', '120px']">
         <thead>
           <th class="text-center">STT</th>
           <th class="text-center">Mã ND</th>
@@ -48,22 +48,26 @@
             <td class="text-center">
               <span class=" webkit-box-1" nz-tooltip="{{item.address}}">{{item.address}}</span>
             </td>
-            <td class="text-center">{{item.status}}</td>
+            <td class="text-center" [class.status-active]="item.status === true" [class.status-inActive]="item.status === false"  >{{item.status == true ? 'Đang hoạt động' : 'Vô hiệu hóa'}}</td>
             <td nzRight="0px" class="text-center">
               <div class="d-flex align-items-center justify-content-between">
                 <i class="fa fa-key pointer me-2 c-dodgerblue" aria-hidden="true"></i>
-                <nz-switch nzSize="small" class=""></nz-switch>
+                <nz-switch nz-tooltip [nzTooltipTitle]="'Thay đổi trạng thái'" nzSize="small" class="" [(ngModel)]="item.status"(ngModelChange)="changeActive($event, item)"></nz-switch>
                 <i class="fa-solid fa-eye pointer c-dodgerblue" [routerLink]="['/dashboard/user-management/employee/view', item.id]"
                   [queryParams]="{typeForm: 'view'}"></i>
+                <i nz-tooltip="xóa" class="fa-regular fa-trash-can pointer c-red" ></i>
               </div>
             </td>
           </tr>
         </tbody>
       </nz-table>
-      <!-- <div>
+      <div *ngIf="(dataSource ?? []).length === 0" class="d-flex justify-content-center mt-3">
         <p class="mb-0 text-center">Không có dữ liệu</p>
-      </div> -->
+      </div>
     </div>
+    <ng-template #rangeTemplate let-range="range" let-total>
+      <div class="mt-1">Tổng số {{ total }}</div>
+    </ng-template>
   </div>
   <div class="footer">
 

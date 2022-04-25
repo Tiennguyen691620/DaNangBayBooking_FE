@@ -1,3 +1,5 @@
+import { EUserStatus } from "../../enum/user/user-status.enum";
+import { DictionaryItem } from "../master-data/dictionary-item.model";
 import { LocationModel } from "../master-data/location.model";
 import { RoleModel } from "../role/role.model";
 
@@ -20,4 +22,6 @@ export class UserModel {
   province: LocationModel;
   district: LocationModel;
   subDistrict: LocationModel;
+
+  //isActive?: boolean;
 }

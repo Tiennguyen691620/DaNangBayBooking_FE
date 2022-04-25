@@ -65,6 +65,11 @@ export class AccommodationService extends BaseService {
     return this.post(url, data);
   }
 
+  updateStatusAccommodation(AccommodationID: any, Status: boolean): Observable<any>{
+    const url = `api/Accommodation/update/${AccommodationID}/status?Status=${Status}`;
+    return this.put(url, null);
+  }
+
   deleteAccommodation(data: string | any): Observable<any> {
     const url = `api/Accommodation/delete`;
     return this.delete(url, data);
