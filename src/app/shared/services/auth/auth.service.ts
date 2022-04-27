@@ -34,13 +34,8 @@ export class AuthService extends BaseService {
   //     password: password,
   //   });
   // }
-  public login(username: string, password: string): Observable<any> {
-    const url = `http://localhost:3000/user`;
-    return this.httpClient.get<userModel>(url, {
-    });
-  }
 
-  public logout() {
+  public logOut() {
     localStorage.removeItem(localStorageKey);
     this.router.navigate(['/sign-in']);
   }

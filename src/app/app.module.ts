@@ -11,34 +11,43 @@ import { en_US } from 'ng-zorro-antd/i18n';
 import { HashLocationStrategy, LocationStrategy, registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DefaultInterceptor } from './shared/helpers/default.interceptor';
+import { ErrorTailorModule } from '@ngneat/error-tailor';
+import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { HomeComponent } from './home/home.component';
+import { IvyCarouselModule } from 'angular-responsive-carousel';
+// import { IvyCarouselModule } from 'angular-responsive-carousel/public-api';
 
 registerLocaleData(en);
 
-// const INTERCEPTOR_PROVIDES = [
-//   { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true },
-// ];
+// const maskConfig: Partial<IConfig> = {
+//   validation: false,
+// };
+
+const INTERCEPTOR_PROVIDES = [
+  { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true },
+];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-  ],
+  declarations: [AppComponent, HomeComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
     ServicesModule,
-    SharedModule
+    SharedModule,
+    IvyCarouselModule
+    // NgxMaskModule.forRoot(maskConfig),
   ],
   providers: [
+    INTERCEPTOR_PROVIDES,
     { provide: NZ_I18N, useValue: en_US },
     {
-      provide: LocationStrategy, useClass: HashLocationStrategy
-    }
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
