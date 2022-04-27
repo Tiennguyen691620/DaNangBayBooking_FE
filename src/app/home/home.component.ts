@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { images, imagesForSlider } from '../shared/models/sliderImage.model';
+
 
 @Component({
   selector: 'app-home',
@@ -6,8 +8,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  array = [1, 2, 3, 4];
+  date = null;  
+  imageSliderList = imagesForSlider; 
+  imageList = images;
+
   constructor() {}
 
   ngOnInit(): void {}
+
+  onChange(result: Date[]): void {
+    console.log('onChange: ', result);
+  }
 }

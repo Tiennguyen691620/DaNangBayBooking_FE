@@ -71,6 +71,7 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzResizableModule } from 'ng-zorro-antd/resizable';
 import { NzPipesModule } from 'ng-zorro-antd/pipes';
+import { IvyCarouselModule } from 'angular-responsive-carousel';
 
 
 
@@ -146,6 +147,7 @@ import { NzPipesModule } from 'ng-zorro-antd/pipes';
     NzWaveModule,
     NzResizableModule,
     NzPipesModule,
+    // IvyCarouselModule
   ],
   exports: [HeaderComponent, FooterComponent],
 })

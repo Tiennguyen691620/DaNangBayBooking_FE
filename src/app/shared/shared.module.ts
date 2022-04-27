@@ -74,6 +74,7 @@ import { NzPipesModule } from 'ng-zorro-antd/pipes';
 import { ServicesModule } from './services/services.module';
 import { ErrorTailorModule } from '@ngneat/error-tailor';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
+import { IvyCarouselModule } from 'angular-responsive-carousel/public-api';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -105,6 +106,7 @@ const maskConfig: Partial<IConfig> = {
       },
     }),
     NgxMaskModule.forRoot(maskConfig),
+    // IvyCarouselModule,
   ],
   exports: [
     CommonModule,
@@ -182,6 +184,7 @@ const maskConfig: Partial<IConfig> = {
     NzPipesModule,
     ErrorTailorModule,
     NgxMaskModule,
+    // IvyCarouselModule,
   ],
 })
 export class SharedModule {}

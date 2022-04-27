@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  @HostListener('window:scroll', ['$event']) onscroll() {
+  @HostListener('window:scroll', ['$event']) onScroll() {
     if (window.scrollY > 0) {
       this.navbarfixed = true;
     } else {

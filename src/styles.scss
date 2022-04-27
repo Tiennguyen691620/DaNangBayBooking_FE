@@ -282,6 +282,27 @@ button[nzType="third"] {
   object-fit: cover;
 }
 
+//font-awesome
+.fa-instagram {
+  color: transparent;
+  background: -webkit-radial-gradient(30% 107%, circle, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  background: -o-radial-gradient(30% 107%, circle, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  background: -webkit-radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+.fa-facebook{
+  color:#4267B2;
+}
+.fa-twitter{
+  color: #1DA1F2;
+}
+.fa-youtube{
+  color: #f00;
+}
+
+//error
 .control-error {
   width: 100%;
   margin-top: 0.25rem;

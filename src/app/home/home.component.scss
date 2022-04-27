@@ -1,14 +1,30 @@
-[nz-carousel-content] {
-        text-align: center;
-        height: 160px;
-        line-height: 160px;
-        background: #ecf1fa;
-        color: #fff;
-        overflow: hidden;
+.home {
+  .container {
+    .carousel {
+      carousel {
+        z-index: 1;
       }
+    }
+    .filter {
+      .card {
+        width: 65%;
+        border: 3px solid #e2a700;
+        z-index: 2;
+        top: -0.5rem;
+        .search {
+          width: 54%;
+        }
+      }
+    }
+  }
+}
 
-      h3 {
-        color: #fff;
-        margin-bottom: 0;
-        user-select: none;
-      }
+.location {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  grid-gap: 1rem;
+  grid-template-areas:
+    "h1 h1 h2 h3"
+    "h4 h5 h6 h6";
+}

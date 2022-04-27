@@ -1,24 +1,7 @@
 .container-fluid{
-  background: silver;
+  // background: silver;
+  box-shadow: 0px -1px 10px 0px #ccc;
   .container{
   }
 }
 
-.fa-instagram {
-  color: transparent;
-  background: -webkit-radial-gradient(30% 107%, circle, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
-  background: -o-radial-gradient(30% 107%, circle, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
-  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
-  background: -webkit-radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
-  background-clip: text;
-  -webkit-background-clip: text;
-}
-.fa-facebook{
-  color:#4267B2;
-}
-.fa-twitter{
-  color: #1DA1F2;
-}
-.fa-youtube{
-  color: #f00;
-}
