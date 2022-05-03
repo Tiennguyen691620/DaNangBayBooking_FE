@@ -2,7 +2,6 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
-import { userModel } from 'src/app/shared/models/user.model';
 // import { error } from 'console';
 
 @Component({
@@ -45,15 +44,15 @@ export class SignInComponent implements OnInit {
   submitForm(): void {
     // if(this.validateForm()){
     this.authService
-      .login(this.signInForm.value.userName, this.signInForm.value.password)
-      .subscribe(
-        (res) => {
-          const data = res
-          this.authService.setAuthenticationModel(data as userModel);
-          this.router.navigate(['/dashboard']);
-        },
-        (error) => {}
-      );
+      // .login(this.signInForm.value.userName, this.signInForm.value.password)
+      // .subscribe(
+      //   (res) => {
+      //     const data = res
+      //     this.authService.setAuthenticationModel(data as userModel);
+      //     this.router.navigate(['/dashboard']);
+      //   },
+      //   (error) => {}
+      // );
     // }
     //   if (this.signInForm.valid) {
     //     console.log(this.signInForm.value);

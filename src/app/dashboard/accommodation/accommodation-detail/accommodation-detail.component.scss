@@ -1,0 +1,23 @@
+.navbar {
+  .navbar-nav {
+    .nav-item {
+      .nav-link {
+        color: #003580;
+        font-weight: 700;
+      }
+    }
+  }
+}
+.commit-logo {
+  background: url("../../../../assets/images/commit-logo.png") center center
+    no-repeat transparent;
+  width: 16px;
+}
+
+:host::ng-deep .ant-steps-item-finish:nth-child(2) {
+  > .ant-steps-item-container
+    > .ant-steps-item-content
+    > .ant-steps-item-title::after {
+    background-color: #ccc !important;
+  }
+}

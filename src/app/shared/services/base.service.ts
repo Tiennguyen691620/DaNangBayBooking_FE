@@ -20,24 +20,36 @@ export class BaseService {
       .get(this.apiEndPoint + url, { params, headers })
       .pipe(map((result: ResponseData<T>) => result.data as T));
   }
-  public post<T>(url: string, params?: any, headers?: any): Observable<any> {
+
+  public post<T>(url: string, data?: any, headers?: any): Observable<any> {
     return this.http
-      .post(this.apiEndPoint + url, { params, headers })
+      .post(this.apiEndPoint + url, data, { headers })
+      .pipe(map((result) => result));
+  }
+
+  public put<T>(url: string, data?: any, headers?: any): Observable<any> {
+    return this.http
+      .put(this.apiEndPoint + url, data, { headers })
       .pipe(map((result: ResponseData<T>) => result.data as T));
   }
-  public put<T>(url: string, params?: any, headers?: any): Observable<any> {
+
+  public path<T>(url: string, data?: any, headers?: any): Observable<any> {
     return this.http
-      .put(this.apiEndPoint + url, { params, headers })
+      .patch(this.apiEndPoint + url, data, { headers })
       .pipe(map((result: ResponseData<T>) => result.data as T));
   }
-  public path<T>(url: string, params?: any, headers?: any): Observable<any> {
+
+  public delete<T>(url: string, data: any, headers?: any): Observable<T> {
     return this.http
-      .patch(this.apiEndPoint + url, { params, headers })
-      .pipe(map((result: ResponseData<T>) => result.data as T));
+      .request<T>('delete', this.apiEndPoint + url, {
+        headers,
+        body: data,
+      })
+      .pipe(map((result) => result as T));
   }
-  public delete<T>(url: string, params?: any, headers?: any): Observable<any> {
-    return this.http
-      .delete(this.apiEndPoint + url, { params, headers })
-      .pipe(map((result: ResponseData<T>) => result.data as T));
-  }
+  // public delete<T>(url: string, data?: any, headers?: any): Observable<any> {
+  //   return this.http
+  //     .delete(this.apiEndPoint + url, { headers, body: data })
+  //     .pipe(map((result: ResponseData<T>) => result.data as T));
+  // }
 }

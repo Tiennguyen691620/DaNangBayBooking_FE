@@ -5,7 +5,7 @@ import { BaseService } from './../base.service';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { CryptoUtil } from '../../helpers/crypto.helper';
-import { userModel } from '../../models/user.model';
+import { AuthenticationModel } from '../../models/auth/authentication.model';
 @Injectable({
   providedIn: 'root',
 })
@@ -14,30 +14,16 @@ export class AuthService extends BaseService {
     super(httpClient);
   }
 
-  // public login(userName: string, password: string): Observable<any> {
-  //   const hashPassword = CryptoUtil.hashMessage(password);
-  //   const { timestamp, signature } = CryptoUtil.generateSignature(
-  //     userName + password
-  //   );
-
-  //   return this.get<userModel>('/login', {
-  //     userName: userName,
-  //     password: hashPassword,
-  //     timestamp,
-  //     signature,
-  //   });
-  // }
-  // public login(username: string, password: string): Observable<any> {
-  //   // const url = `${this.REST_API_SERVER}/manager/?username=${username}`;
-  //   return this.get<userModel>(`/user`, {
-  //     username: username,
-  //     password: password,
-  //   });
-  // }
+  public login(email: string, password: string): Observable<any> {
+    return this.post<AuthenticationModel>('api/Users/login-client', {
+      email: email,
+      password: password,
+    });
+  }
 
   public logOut() {
     localStorage.removeItem(localStorageKey);
-    this.router.navigate(['/sign-in']);
+    this.router.navigate(['/home']);
   }
 
   public getAuthenticationModel() {
@@ -51,7 +37,13 @@ export class AuthService extends BaseService {
     }
   }
 
-  public setAuthenticationModel(userModel: userModel): any {
-    return (window.localStorage[localStorageKey] = JSON.stringify(userModel));
+  public setAuthenticationModel(authenticationModel: AuthenticationModel): any {
+    return (window.localStorage[localStorageKey] =
+      JSON.stringify(authenticationModel));
+  }
+
+  signIn(data: any): Observable<any> {
+    const url = `api/Users/register-client`;
+    return this.post(url, data);
   }
 }

@@ -1,3 +1,4 @@
+import { SignUpNotificationPopupComponent } from './popups/sign-up-notification-popup/sign-up-notification-popup.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
@@ -72,13 +73,20 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzResizableModule } from 'ng-zorro-antd/resizable';
 import { NzPipesModule } from 'ng-zorro-antd/pipes';
 import { IvyCarouselModule } from 'angular-responsive-carousel';
+import { LoginPopupComponent } from './popups/login-popup/login-popup.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ErrorTailorModule } from '@ngneat/error-tailor';
+import { PipesModule } from '../pipes/pipes.module';
 
 
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent],
+  declarations: [HeaderComponent, FooterComponent, LoginPopupComponent, SignUpNotificationPopupComponent],
   imports: [
     CommonModule,
+    FormsModule,
+    PipesModule,
+    ReactiveFormsModule,
     NzAffixModule,
     NzAlertModule,
     NzAnchorModule,
@@ -147,8 +155,33 @@ import { IvyCarouselModule } from 'angular-responsive-carousel';
     NzWaveModule,
     NzResizableModule,
     NzPipesModule,
+    ErrorTailorModule.forRoot({
+      errors: {
+        useValue: {
+          required: 'Trường này bắt buộc!',
+          password:
+            'Mật khẩu cần phải có ít nhất 8 ký tự, bao gồm ký tự chữ hoa, chữ thường và số',
+          mustMatch: 'Mật khẩu không khớp',
+          toDate: ({ fromDateName, toDateName }) => {
+            return `${toDateName} không được bé hơn hoặc bằng ${fromDateName}`;
+          },
+          email: 'Email không đúng định dạng',
+          phoneNumber: 'Số điện thoại ít nhất phải có 10 số',
+          abbreviationName: 'Tên viết tắt phải nhập 03 ký tự',
+          requiredNumber: 'Nhập số lớn hơn 0',
+          max: ({ max }) => `Nhập số nhỏ hơn hoặc bằng ${max} `,
+          min: ({ min }) => `Nhập số lớn hơn ${min} `,
+          maxlength: ({ requiredLength, actualLength }) =>
+            `Tối đa ${requiredLength} ký tự`,
+          minlength: ({ requiredLength, actualLength }) =>
+            `Tối thiểu ${requiredLength} ký tự`,
+          maxDate: ({ maxDateError }) => `${maxDateError}`,
+          invalidAddress: (error) => `Address isn't valid`,
+        },
+      },
+    }),
     // IvyCarouselModule
   ],
-  exports: [HeaderComponent, FooterComponent],
+  exports: [HeaderComponent, FooterComponent, ErrorTailorModule, PipesModule],
 })
 export class ComponentsModule {}

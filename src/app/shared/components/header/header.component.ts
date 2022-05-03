@@ -1,4 +1,7 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { LoginPopupComponent } from './../popups/login-popup/login-popup.component';
+import { Component, HostListener, OnInit, TemplateRef } from '@angular/core';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { windowCount } from 'rxjs/operators';
 
 
@@ -11,7 +14,7 @@ import { windowCount } from 'rxjs/operators';
 export class HeaderComponent implements OnInit {
   navbarfixed: boolean = false;
 
-  constructor() {}
+  constructor(private modalService: NzModalService, private router: Router) {}
 
   ngOnInit(): void {}
 
@@ -21,6 +24,24 @@ export class HeaderComponent implements OnInit {
     } else {
       this.navbarfixed = false;
     }
+  }
+
+  login(): void {
+    this.modalService.create({
+      // nzTitle: 'Đăng nhập',
+      nzContent: LoginPopupComponent,
+      nzCloseIcon: 'false',
+      nzWidth: 400,
+      nzFooter: null,
+    });
+  }
+
+  signup(): void {
+    this.router.navigate(['/auth/sign-up']);
+  }
+
+  backToHome(): void {
+    this.router.navigate(['/home']);
   }
 }
 
