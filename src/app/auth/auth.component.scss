@@ -1,0 +1,9 @@
+.auth{
+  height: calc(100vh - 290px);
+}
+
+@media (max-height: 800px) {
+  .auth{
+    height: 100vh !important;
+  }
+}

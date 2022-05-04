@@ -1,17 +1,17 @@
 <section class="container-fluid p-0" (scroll)="onScroll()" [ngClass]="navbarfixed ? 'fixed' : 'infixed'">
     <div class="container">
       <div class="box row d-flex align-items-center justify-content-between">
-        <div class="left col-9">
+        <div class="left pointer col-9" (click)="backToHome()">
           <h3 class="title text-uppercase">DaNangBooking</h3>
         </div>
         <div class="right col-3 d-flex align-items-center justify-content-between">
           <span class="my-booked">Đặt chỗ của tôi</span>
-          <div class="btn-login pointer">
+          <div class="btn-login pointer" (click)="login()">
             <nz-avatar nzIcon="user" class="me-2"></nz-avatar>
             <span>Đăng nhập</span>
           </div>
           <div class="btn-signin">
-            <button nz-button nzType="primary" class="border-r">Đăng ký</button>
+            <button nz-button nzType="primary" class="border-r" (click)="signup()">Đăng ký</button>
           </div>
         </div>
       </div>

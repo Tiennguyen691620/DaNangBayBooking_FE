@@ -1,0 +1,160 @@
+<section class="acccommodation-list">
+  <div class="container my-3 ">
+    <div class="row">
+      <div class="search col-4">
+        <div class="container card" style="max-width: 330px; background: aliceblue;">
+          <div class="mt-2 d-flex align-items-center justify-content-center">
+            <h4>Tìm kiếm</h4>
+          </div>
+          <div class="mt-3">
+            <span for="">Tên chỗ nghỉ:</span>
+            <nz-input-group [nzSuffix]="suffixIconSearch">
+              <input type="text" nz-input placeholder="Nhập tên chỗ nghỉ" />
+            </nz-input-group>
+            <ng-template #suffixIconSearch>
+              <i nz-icon nzType="search"></i>
+            </ng-template>
+          </div>
+          <div class="d-flex flex-column mt-3">
+            <span for="">Ngày nhận phòng:</span>
+            <nz-date-picker [(ngModel)]="date" (ngModelChange)="onChange($event)" nzPlaceHolder="Ngày nhận phòng"></nz-date-picker>
+          </div>
+          <div class="d-flex flex-column mt-3">
+            <span for="">Ngày trả phòng:</span>
+            <nz-date-picker [(ngModel)]="date" (ngModelChange)="onChange($event)" nzPlaceHolder="Ngày trả phòng"></nz-date-picker>
+          </div>
+          <div class="mt-3">
+            <label for="">
+              <svg stroke-width="0" fill="currentColor" height="24" stroke="currentColor" stroke-linecap="round" viewBox="0 0 24 24" width="24"
+                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <path
+                  d="M20.8603262,16.99764 C19.0670751,20.0677873 15.7558994,22 12.1055414,22 C6.52440501,22 2,17.5228475 2,12 C2,6.60002933 6.33245501,2.17993379 11.7725528,2.00533665 C12.7187965,1.97496744 13.1839555,3.13337088 12.4747125,3.75395236 C10.9644875,5.07538619 10.0844331,6.96618272 10.0844331,9 C10.0844331,12.8659932 13.2515167,16 17.1583122,16 C18.0144772,16 18.8482472,15.8498904 19.6319809,15.5603732 C20.5199628,15.2323458 21.3346406,16.185587 20.8603262,16.99764 Z M12.1055414,20 C14.124164,20 16.0123367,19.2621365 17.4601631,17.9951257 C17.3597796,17.9983717 17.2591526,18 17.1583122,18 C12.1352894,18 8.06332486,13.9705627 8.06332486,9 C8.06332486,7.38924803 8.4938358,5.84646451 9.27843135,4.50238274 C6.2034475,5.63795622 4.02110829,8.5723218 4.02110829,12 C4.02110829,16.418278 7.6406323,20 12.1055414,20 Z M15,8 C14.4477153,8 14,7.55228475 14,7 C14,6.44771525 14.4477153,6 15,6 C15.5522847,6 16,6.44771525 16,7 C16,7.55228475 15.5522847,8 15,8 Z M22,11 L19,14 L16,11 L19,8 L22,11 Z M20,11 L19,10 L18,11 L19,12 L20,11 Z">
+                </path>
+              </svg>
+              Nghỉ 1 đêm</label>
+          </div>
+          <div class="my-3 d-flex align-items-center justify-content-center ">
+            <button nz-button nzType="primary">Tìm kiếm</button>
+          </div>
+        </div>
+        <div class="container card mt-3 " style="max-width: 330px;">
+          <div class="">
+            <div class="">
+              <h5 class="mt-2">Chọn lọc theo</h5>
+            </div>
+            <hr>
+            <div class="">
+              <nz-collapse nzGhost>
+                <nz-collapse-panel [nzHeader]="'Xếp hạng sao'" [nzActive]="'true'" [nzDisabled]="'false'">
+                  <div class="d-flex flex-column">
+                    <label nz-checkbox (ngModel)="checked">1 sao</label>
+                    <label nz-checkbox (ngModel)="checked" class="ms-0">2 sao</label>
+                    <label nz-checkbox (ngModel)="checked" class="ms-0">3 sao</label>
+                    <label nz-checkbox (ngModel)="checked" class="ms-0">4 sao</label>
+                    <label nz-checkbox (ngModel)="checked" class="ms-0">5 sao</label>
+                    <label nz-checkbox (ngModel)="checked" class="ms-0">Không đánh giá</label>
+                  </div>
+                </nz-collapse-panel>
+              </nz-collapse>
+            </div>
+            <hr>
+            <div class="">
+              <nz-collapse nzGhost>
+                <nz-collapse-panel [nzHeader]="'Loại hình lưu trú'" [nzActive]="'true'" [nzDisabled]="'false'">
+                  <div class="d-flex flex-column">
+                    <label nz-checkbox (ngModel)="checked">Khách sạn</label>
+                    <label nz-checkbox (ngModel)="checked" class="ms-0">Khách sạn</label>
+                    <label nz-checkbox (ngModel)="checked" class="ms-0">Khách sạn</label>
+                    <label nz-checkbox (ngModel)="checked" class="ms-0">Khách sạn</label>
+                    <label nz-checkbox (ngModel)="checked" class="ms-0">Khách sạn</label>
+                  </div>
+                </nz-collapse-panel>
+              </nz-collapse>
+            </div>
+            <hr>
+            <div class="">
+              <nz-collapse nzGhost>
+                <nz-collapse-panel [nzHeader]="'Tiện ích'" [nzActive]="'true'" [nzDisabled]="'false'">
+                  <div class="d-flex flex-column">
+                    <label nz-checkbox (ngModel)="checked">Wifi miễn phí</label>
+                    <label nz-checkbox (ngModel)="checked" class="ms-0">Chỗ đỗ xe</label>
+                    <label nz-checkbox (ngModel)="checked" class="ms-0">Dịch vụ phòng</label>
+                    <label nz-checkbox (ngModel)="checked" class="ms-0">Hồ bơi</label>
+                    <label nz-checkbox (ngModel)="checked" class="ms-0">TV</label>
+                    <label nz-checkbox (ngModel)="checked" class="ms-0">Lễ tân 24h</label>
+                  </div>
+                </nz-collapse-panel>
+              </nz-collapse>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content col-8">
+        <div class="title row">
+          <div class="col-6">
+            <div class="">
+              <h4>Đà Nẵng: Tìm thấy 100 chỗ nghỉ</h4>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="d-flex align-items-center justify-content-end pointer">
+              <i class="fa-solid fa-arrow-down-short-wide fz-18"></i>
+            </div>
+          </div>
+        </div>
+        <div class="acccommodation-list">
+          <div class="container card">
+            <div class="row py-4">
+              <div class="col-3">
+                <img class="img w-100 h-100 border-r" src="../../../../assets/images/background.png" alt="">
+              </div>
+              <div class="col-7">
+                <div class="d-flex flex-column">
+                  <h5>Casa Rosa Apartment</h5>
+                  <div class="accommodation-type mb-2">
+                    <span class="c-dodgerblue">Nhà nghỉ Homstay</span>
+                  </div>
+                  <div class="row align-items-center mb-2">
+                    <div class="d-flex align-items-center w-fitcontent col-3 ">
+                      <svg class="me-2" style="width: 15px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path
+                          d="M.153 22.237l.85 1.117c.634.76 1.724.856 2.456.244.078-.066.15-.138.216-.217l.944-1.132a.228.228 0 0 1 .349.001l.944 1.13a1.728 1.728 0 0 0 2.651.001l.944-1.132a.228.228 0 0 1 .349.001l.95 1.132a1.728 1.728 0 0 0 2.65 0l.942-1.133a.228.228 0 0 1 .349.001l.942 1.13a1.728 1.728 0 0 0 2.651.001l.944-1.132a.228.228 0 0 1 .349.001l.94 1.13a1.728 1.728 0 0 0 2.652.001l.585-.7a.75.75 0 1 0-1.15-.962l-.585.7a.228.228 0 0 1-.35 0l-.94-1.13a1.728 1.728 0 0 0-2.652-.001l-.944 1.132a.228.228 0 0 1-.349-.001l-.942-1.13a1.728 1.728 0 0 0-2.651-.001l-.943 1.132a.228.228 0 0 1-.348-.001l-.95-1.132a1.726 1.726 0 0 0-2.65 0l-.944 1.133a.228.228 0 0 1-.349-.001l-.944-1.13a1.728 1.728 0 0 0-2.65 0l-.945 1.13a.228.228 0 0 1-.349-.001l-.828-1.09a.75.75 0 1 0-1.194.91zm11.335-2.68A7.161 7.161 0 0 1 15.77 18h7.481a.75.75 0 0 0 0-1.5h-7.5a8.673 8.673 0 0 0-5.196 1.884.75.75 0 1 0 .934 1.174zM22.285 7.969a1.729 1.729 0 0 0 .781-2.711C19.43.713 12.8-.022 8.256 3.614a10.536 10.536 0 0 0-3.952 8.171A1.73 1.73 0 0 0 6.6 13.427l15.684-5.459zm-.494-1.416L6.107 12.01a.229.229 0 0 1-.304-.218 9.036 9.036 0 0 1 16.09-5.599.228.228 0 0 1-.102.359zm-9.459-4.2L11.69.504a.75.75 0 1 0-1.416.492l.643 1.848a.75.75 0 1 0 1.416-.492zm1.156 7.883l2.527 7.262a.75.75 0 1 0 1.416-.494l-2.527-7.26a.75.75 0 1 0-1.416.492z">
+                        </path>
+                      </svg>
+                      <label for="">Gần biển</label>
+                    </div>
+                    <div class="d-flex align-items-center w-fitcontent pointer col-4">
+                      <i class="fa-solid fa-location-dot c-dodgerblue me-2"></i>
+                      <a href="" target="blank" class="fz-12 text-decoration-none">Xem trên bản đồ</a>
+                    </div>
+                  </div>
+                  <span>Tọa lạc tại thành phố Đà Nẵng, cách Bãi biển Mỹ Khê 250 m và Bãi biển Bắc Mỹ An 1,4 km, Casa Rosa Apartment cung cấp chỗ nghỉ
+                    với WiFi miễn phí, máy
+                    điều hòa, sảnh khách chung và vườn.</span>
+                </div>
+              </div>
+              <div class="col-2">
+                <div class="grid-center">
+                  <div class="d-flex align-items-center justify-content-between mb-2">
+                    <div class="d-flex flex-column align-items-end me-2">
+                      <span class="fw-700">Rất tốt</span>
+                      <label for="">100 đánh giá</label>
+                    </div>
+                    <div class="bgr-midnightblue border-point p-2">
+                      <span class="c-white">9,4</span>
+                    </div>
+                  </div>
+                  <div class="">
+                    <button nz-button nzType="primary" routerLink="/dashboard/accommodation/detail" >
+                      Xem chi tiết
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -62,7 +62,7 @@ button[nzType="third"] {
   color: #fff;
 }
 .c-green {
-  color: #51bd78;
+  color:green;
 }
 .c-blue {
   color: #5fc8c2;
@@ -79,11 +79,17 @@ button[nzType="third"] {
 .c-cornflowerblue {
   color: #47a7ff;
 }
-.c-lightseagreen{
+.c-lightseagreen {
   color: #2690a7;
 }
-.c-dodgerblue{
+.c-dodgerblue {
   color: #188ffd;
+}
+.c-gray {
+  color: #ccc;
+}
+.c-midnightblue{
+  color: #003580;
 }
 .color-active {
   color: $active-color;
@@ -100,50 +106,64 @@ button[nzType="third"] {
 .bgr-gainsboro {
   background: #e5e4de !important;
 }
-.bgr-lightseagreen{
+.bgr-lightseagreen {
   background: #2690a7;
 }
-.bgr-dodgerblue{
-  background:  #188ffd ;
+.bgr-dodgerblue {
+  background: #188ffd;
+}
+.bgr-midnightblue{
+  background: #003580;
+}
+.bgr-aliceblue{
+  background: #ebf3ff;
+}
+.bgr-honeydew{
+  background: #e7fde9;
 }
 
 // font-size
 .fz-10 {
-  font-size: 0.625rem;
+  font-size: 10px;
 }
 .fz-12 {
-  font-size: 0.75rem;
+  font-size: 12px;
 }
 .fz-14 {
-  font-size: 0.875rem;
+  font-size: 14px;
 }
 .fz-16 {
-  font-size: 	1rem;
+  font-size: 16px;
 }
 .fz-18 {
-  font-size: 1.125rem;
+  font-size: 18px;
 }
 .fz-20 {
-  font-size: 1.25rem;
+  font-size: 20px;
 }
 .fz-22 {
-  font-size: 1.375rem;
+  font-size: 22px;
 }
 .fz-30 {
   font-size: 30px;
 }
 .fz-32 {
-  font-size: 2rem;
+  font-size: 32px;
 }
 .fz-66 {
   font-size: 66px;
 }
 .fz-80 {
-  font-size: 5rem;
+  font-size: 80px;
+}
+
+//label
+label {
+  font-size: 12px;
 }
 
 //font-weight
-.fw-700{
+.fw-700 {
   font-weight: 700;
 }
 
@@ -153,16 +173,24 @@ button[nzType="third"] {
 }
 
 //border-radius
-.border-r{
-  border-radius: 0.25rem !important;
+.border-r5 {
+  border-radius: 5px !important;
+}
+.border-r20{
+  border-radius: 20px;
+}
+.border-point{
+  border-radius: 5px 5px 5px 0px;
 }
 
-//Button
-.button {
-  background: #5fc8c2 !important;
-  border: none !important;
+//border
+.border-right{
+  border-right: 2px solid #fff;
+}
+
+//button
+button {
   border-radius: 5px !important;
-  color: #fff !important;
 }
 
 .btn-save {
@@ -224,8 +252,8 @@ button[nzType="third"] {
 
   tbody tr {
     background: #e5e4de;
-    .ant-table-cell-fix-left{
-    background: #e5e4de;
+    .ant-table-cell-fix-left {
+      background: #e5e4de;
     }
     &:hover {
       background: #fff;
@@ -276,40 +304,87 @@ button[nzType="third"] {
 .w-50 {
   width: 50%;
 }
+.w-fitcontent{
+  width: fit-content !important;
+}
 
 //image
-.img{
+.img {
   object-fit: cover;
+}
+
+//accommodation-type
+.accommodation-type {
+  border: 1px solid #47a7ff;
+  width: fit-content;
+  padding: 0px 5px;
+  border-radius: 20px;
+}
+
+//grid
+.grid-center{
+  display: grid;
+  place-content: center;
 }
 
 //font-awesome
 .fa-instagram {
   color: transparent;
-  background: -webkit-radial-gradient(30% 107%, circle, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
-  background: -o-radial-gradient(30% 107%, circle, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
-  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
-  background: -webkit-radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  background: -webkit-radial-gradient(
+    30% 107%,
+    circle,
+    #fdf497 0%,
+    #fdf497 5%,
+    #fd5949 45%,
+    #d6249f 60%,
+    #285aeb 90%
+  );
+  background: -o-radial-gradient(
+    30% 107%,
+    circle,
+    #fdf497 0%,
+    #fdf497 5%,
+    #fd5949 45%,
+    #d6249f 60%,
+    #285aeb 90%
+  );
+  background: radial-gradient(
+    circle at 30% 107%,
+    #fdf497 0%,
+    #fdf497 5%,
+    #fd5949 45%,
+    #d6249f 60%,
+    #285aeb 90%
+  );
+  background: -webkit-radial-gradient(
+    circle at 30% 107%,
+    #fdf497 0%,
+    #fdf497 5%,
+    #fd5949 45%,
+    #d6249f 60%,
+    #285aeb 90%
+  );
   background-clip: text;
   -webkit-background-clip: text;
 }
-.fa-facebook{
-  color:#4267B2;
+.fa-facebook {
+  color: #4267b2;
 }
-.fa-twitter{
-  color: #1DA1F2;
+.fa-twitter {
+  color: #1da1f2;
 }
-.fa-youtube{
+.fa-youtube {
   color: #f00;
 }
 
 //error
 .control-error {
-  width: 100%;
-  margin-top: 0.25rem;
+  // width: 100%;
+  // margin-top: 0.25rem;
   font-size: 14px;
   color: #ff4d4f;
 }
 
-// .ng-invalid {
-//   border-bottom: 2px solid #ff4d4f;
-// }
+.error-tailor-has-error {
+  border-color: 2px solid #ff4d4f;
+}

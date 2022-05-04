@@ -1,4 +1,4 @@
-<section class="home" >
+<section class="home">
   <div class="container">
     <section class="carousel">
       <carousel [images]="imageSliderList" [objectFit]="'cover'" [cellWidth]="'100%'" [height]="400" [autoplay]="true" [dots]="true" [loop]="true"
@@ -10,7 +10,7 @@
         <div class="d-flex align-items-center justify-content-center py-3">
           <div class="search">
             <nz-input-group [nzSuffix]="suffixIconSearch">
-              <input type="text" nz-input placeholder="input search text" />
+              <input type="text" nz-input placeholder="Khách sạn hoặc điểm đến " />
             </nz-input-group>
             <ng-template #suffixIconSearch>
               <i nz-icon nzType="search"></i>
@@ -18,7 +18,7 @@
           </div>
           <div class="group d-flex">
             <div class="pick-datetime">
-              <nz-range-picker [(ngModel)]="date" (ngModelChange)="onChange($event)"></nz-range-picker>
+              <nz-range-picker [nzPlaceHolder]="['Nhận phòng', 'Trả phòng']" nzFormat='dd/MM/yyyy' [(ngModel)]="date" (ngModelChange)="onChange($event)"></nz-range-picker>
             </div>
             <div class="button-search">
               <button nz-button nzType="primary">Tìm kiếm</button>
@@ -51,6 +51,21 @@
     <section class="location">
       <div class="container-location" *ngFor="let item of imageList">
         <img class="img h-100 w-100" [src]="item.path" alt="">
+        <div class="title">
+          <span class="c-white fz-20 fw-700">{{item.location}}</span>
+        </div>
+      </div>
+    </section>
+    <section class="accommodation-favorite">
+      <div class="title mt-4 mb-3">
+        <h4>Khách sạn nổi bật</h4>
+      </div>
+      <div class="content d-flex">
+        <div class="d-flex flex-column me-3" *ngFor="let item of imageList">
+          <img class="img" style="with: 150px; height: 150px" [src]="item.path" alt="">
+          <span>Khách sạn</span>
+          <label>855.550 khách sạn</label>
+        </div>
       </div>
     </section>
   </div>
