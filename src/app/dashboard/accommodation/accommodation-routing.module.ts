@@ -1,3 +1,4 @@
+import { CreateBookingComponent } from './create-booking/create-booking.component';
 import { AccommodationDetailComponent } from './accommodation-detail/accommodation-detail.component';
 import { AccommodationListComponent } from './accommodation-list/accommodation-list.component';
 import { AccommodationComponent } from './accommodation.component';
@@ -21,6 +22,10 @@ const routes: Routes = [
       {
         path: 'detail',
         component: AccommodationDetailComponent,
+      },
+      {
+        path: 'create-booking',
+        component: CreateBookingComponent,
       }
     ]
   }

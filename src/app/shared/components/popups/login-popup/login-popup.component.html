@@ -1,5 +1,5 @@
 <div class="title mb-4 text-center">
-  <span>Đăng nhập</span>
+  <h4 class="fw-700">Đăng nhập</h4>
 </div>
 <form nz-form [formGroup]="signInForm" class="login-form" (ngSubmit)="submitForm()">
   <nz-form-item>
@@ -21,18 +21,16 @@
       </ng-template>
     </nz-form-control>
   </nz-form-item>
-  <div nz-row class="login-form-margin">
-    <div nz-col [nzSpan]="12">
-      <label nz-checkbox formControlName="remember">
-        <span>Remember me</span>
-      </label>
+  <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">
+    Đăng nhập
+  </button>
+  <div class="d-flex align-items-center justify-content-center">
+    <div class="pointer">
+      <span class="hover" (click)="forgotPassword()">Quên mật khẩu</span>
     </div>
-    <div nz-col [nzSpan]="12">
-      <a class="login-form-forgot">Forgot password</a>
+    <div class="mx-2"> - </div>
+    <div class="pointer">
+      <span class="hover" (click)="signup()">Đăng kí ngay!</span>
     </div>
   </div>
-  <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">
-    Đăng nhập</button>
-  Or
-  <a>register now!</a>
 </form>

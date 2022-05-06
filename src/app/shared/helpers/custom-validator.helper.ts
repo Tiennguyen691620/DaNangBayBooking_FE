@@ -8,6 +8,7 @@ import { add } from 'date-fns';
 import * as moment from 'moment';
 
 const PHONE_NUMBER_MIN_LENGTH = 1;
+const PHONE_NUMBER_MAX_LENGTH = 10;
 const AbbreviationName_MIN_LENGTH = 3;
 const FAX_NUMBER_MIN_LENGTH = 10;
 const PASSWORD_MIN_LENGTH = 6;
@@ -151,7 +152,7 @@ export default class CustomValidator {
 
   static phoneNumber(control: AbstractControl): ValidationErrors | null {
     return CustomValidator.isNullOrEmpty(control.value) ||
-      control.value.length >= PHONE_NUMBER_MIN_LENGTH
+      control.value.length >= PHONE_NUMBER_MIN_LENGTH || control.value.length <= PHONE_NUMBER_MAX_LENGTH
       ? null
       : {
           phoneNumber: {

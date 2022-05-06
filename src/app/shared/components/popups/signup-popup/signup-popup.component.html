@@ -1,5 +1,5 @@
 <div class="sign-up-form">
-  <div class="container card">
+  <div class="container">
     <span class="text-uppercase d-flex align-items-center justify-content-center fz-18 fw-700 p-4 ">
       Đăng ký tài khoản
     </span>
@@ -66,7 +66,7 @@
                     <span class="required">Số điện thoại:</span>
                   </div>
                   <div class="col-6">
-                    <input nz-input type="text" formControlName="phoneNumber" mask="(000) 0 000-000"  placeholder="số điện thoại">
+                    <input nz-input type="text" formControlName="phoneNumber" mask="(000) 0 000-000" placeholder="số điện thoại">
                   </div>
                 </div>
               </div>
@@ -78,8 +78,9 @@
                     <span class="required">Tỉnh/TP:</span>
                   </div>
                   <div class="col-7">
-                    <nz-select (ngModelChange)="changeProvince($event)" class="w-100" nzAllowClear nzShowSearch nzPlaceHolder="Tỉnh/TP" formControlName="province">
-                      <nz-option  *ngFor="let item of provinceList" [nzValue]="item" [nzLabel]="item.name"></nz-option>
+                    <nz-select (ngModelChange)="changeProvince($event)" class="w-100" nzAllowClear nzShowSearch nzPlaceHolder="Tỉnh/TP"
+                      formControlName="province">
+                      <nz-option *ngFor="let item of provinceList" [nzValue]="item" [nzLabel]="item.name"></nz-option>
                     </nz-select>
                   </div>
                 </div>
@@ -90,8 +91,9 @@
                     <span class="required">Quận/Huyện:</span>
                   </div>
                   <div class="col-7">
-                    <nz-select (ngModelChange)="changeDistrict($event)" class="w-100" nzAllowClear nzShowSearch nzPlaceHolder="Quận/Huyện" formControlName="district">
-                      <nz-option  *ngFor="let item of districtList" [nzValue]="item" [nzLabel]="item.name"></nz-option>
+                    <nz-select (ngModelChange)="changeDistrict($event)" class="w-100" nzAllowClear nzShowSearch nzPlaceHolder="Quận/Huyện"
+                      formControlName="district">
+                      <nz-option *ngFor="let item of districtList" [nzValue]="item" [nzLabel]="item.name"></nz-option>
                     </nz-select>
                   </div>
                 </div>
@@ -103,7 +105,7 @@
                   </div>
                   <div class="col-7">
                     <nz-select class="w-100" nzAllowClear nzShowSearch nzPlaceHolder="Phường/Xã" formControlName="subDistrict">
-                      <nz-option  *ngFor="let item of subDistrictList" [nzValue]="item" [nzLabel]="item.name"></nz-option>
+                      <nz-option *ngFor="let item of subDistrictList" [nzValue]="item" [nzLabel]="item.name"></nz-option>
                     </nz-select>
                   </div>
                 </div>
@@ -137,10 +139,11 @@
         <div class="mt-4 d-flex align-items-center justify-content-center">
           <button nz-button type="submit" nzType="primary" (click)="submitForm()">Đăng ký</button>
         </div>
-        <div class="my-4 d-flex align-items-center justify-content-center">
-          <span>Bạn đã có tài khoản ? - Đăng nhập tại đây</span>
+        <div class="my-4 d-flex align-items-center justify-content-center" (click)="goBackToLogin()">
+          <span class="pointer hover" >Bạn đã có tài khoản? - Đăng nhập tại đây</span>
         </div>
       </form>
     </div>
   </div>
 </div>
+

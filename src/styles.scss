@@ -88,6 +88,9 @@ button[nzType="third"] {
 .c-gray {
   color: #ccc;
 }
+.c-darkgray{
+  color: #a9a9a9;
+}
 .c-midnightblue{
   color: #003580;
 }
@@ -100,14 +103,17 @@ button[nzType="third"] {
 .bgr-blue {
   background: linear-gradient(45deg, #258fa7, #5fc8c2);
 }
+.bgr-white{
+  background: #fff;
+}
 .bgr-darkgray {
   background: #bdb1a8;
 }
 .bgr-gainsboro {
   background: #e5e4de !important;
 }
-.bgr-lightseagreen {
-  background: #2690a7;
+.bgr-green {
+  background: green;
 }
 .bgr-dodgerblue {
   background: #188ffd;
@@ -116,10 +122,10 @@ button[nzType="third"] {
   background: #003580;
 }
 .bgr-aliceblue{
-  background: #ebf3ff;
+  background: #ebf3ff !important;
 }
 .bgr-honeydew{
-  background: #e7fde9;
+  background: #e7fde9 !important;
 }
 
 // font-size
@@ -165,6 +171,17 @@ label {
 //font-weight
 .fw-700 {
   font-weight: 700;
+}
+.fw-500{
+  font-weight: 500;
+}
+
+//line-height
+.lh-2{
+  line-height: 2;
+}
+.lh-1{
+  line-height: 1;
 }
 
 //Pointer
@@ -375,6 +392,13 @@ button {
 }
 .fa-youtube {
   color: #f00;
+}
+
+//hover
+.hover{
+  &:hover{
+    color: #188ffd;
+  }
 }
 
 //error

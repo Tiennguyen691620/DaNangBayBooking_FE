@@ -5,10 +5,12 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { DashboardComponent } from './dashboard.component';
 import { AccommodationComponent } from './accommodation/accommodation.component';
+import { AccountComponent } from './account/account.component';
+import { BookingManagementComponent } from './booking-management/booking-management.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent, AccommodationComponent],
+  declarations: [DashboardComponent, AccommodationComponent, AccountComponent, BookingManagementComponent],
   imports: [
     CommonModule,
     DashboardRoutingModule, 
