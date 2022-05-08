@@ -58,9 +58,9 @@ export class AccommodationService extends BaseService {
 
   createOrUpdate(data: any): Observable<any> {
     let url = '';
-    // if(data.id){
-    //   return this.put('api/Accommodation/update', data);
-    // }
+    if (data.accommodationID) {
+      return this.put('api/Accommodation/update', data);
+    }
     url = 'api/Accommodation/create';
     return this.post(url, data);
   }

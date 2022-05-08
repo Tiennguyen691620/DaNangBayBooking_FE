@@ -57,9 +57,12 @@ export class EmployeeManagementFormComponent implements OnInit {
       this.updateForm(this.eTypeForm.view);
       this.userService.getUser(this.id).subscribe((res) => {
         this.user = res;
-        this.userBackup = res ;
+        this.userBackup = res;
         this.avatarUrl = res.avatar;
         this.avatarUrlBackup = res.avatar;
+        this.uploadController = {
+          fileUrl: res?.avatar,
+        };
         this.userForm.patchValue(res);
       });
     }
@@ -67,7 +70,7 @@ export class EmployeeManagementFormComponent implements OnInit {
       this.type = this.eTypeForm.create;
       this.updateForm(this.eTypeForm.create);
       this.changeProvince(null);
-      this.changeDistrict(null);
+      // this.changeDistrict(null);
     }
   }
 
@@ -84,6 +87,8 @@ export class EmployeeManagementFormComponent implements OnInit {
       district: [null, Validators.required],
       subDistrict: [null, Validators.required],
       address: [null, Validators.required],
+      avatar: null,
+      activeDate: null,
     });
   }
 
@@ -99,13 +104,13 @@ export class EmployeeManagementFormComponent implements OnInit {
       email: item.email,
       identityCard: item.identityCard,
       dob: DateTimeConvertHelper.fromDtObjectToTimestamp(item.dob),
-      // dob: item.dob,
       gender: item.gender,
       address: item.address,
       avatar: this.uploadController?.fileUrl,
       province: item.province,
       district: item.district,
       subDistrict: item.subDistrict,
+      activeDate: item.activeDate,
     };
   }
 
@@ -188,8 +193,6 @@ export class EmployeeManagementFormComponent implements OnInit {
         this.loadingImage = true;
         break;
       case 'done':
-        // Get this url from response in real world.
-        // tslint:disable-next-line:no-non-null-assertion
         this.getBase64(info.file!.originFileObj!, (img: string) => {
           this.loadingImage = false;
           this.avatarUrl = img;
@@ -220,9 +223,11 @@ export class EmployeeManagementFormComponent implements OnInit {
       if (this.type !== this.eTypeForm.view) {
         this.userForm.get('district').enable();
       }
-      this.masterDataService.getDistrict(province.locationID).subscribe((res) => {
-        this.districtList = res;
-      });
+      this.masterDataService
+        .getDistrict(province.locationID)
+        .subscribe((res) => {
+          this.districtList = res;
+        });
     }
     if (!province) {
       this.userForm.get('district').disable();
@@ -236,15 +241,17 @@ export class EmployeeManagementFormComponent implements OnInit {
       if (this.type !== this.eTypeForm.view) {
         this.userForm.get('subDistrict').enable();
       }
-      this.masterDataService.getSubDistrict(district.locationID).subscribe((res) => {
-        this.subDistrictList = res;
-      });
+      this.masterDataService
+        .getSubDistrict(district.locationID)
+        .subscribe((res) => {
+          this.subDistrictList = res;
+        });
     }
     if (!district) {
       this.userForm.get('subDistrict').disable();
+      this.userForm.get('subDistrict').patchValue(null);
       this.subDistrictList = [];
     }
-    this.userForm.get('subDistrict').patchValue(null);
   }
 
   updateForm(typeForm: string): void {
@@ -254,6 +261,7 @@ export class EmployeeManagementFormComponent implements OnInit {
     if (typeForm !== this.eTypeForm.view) {
       this.userForm.enable();
       this.userForm.get('no').disable();
+      this.userForm.get('activeDate').disable();
       // this.changeProvince(this.userForm.get('province').value);
       // this.changeDistrict(this.userForm.get('district').value);
     }
@@ -278,8 +286,8 @@ export class EmployeeManagementFormComponent implements OnInit {
 
   edit(): void {
     this.type = this.eTypeForm.edit;
+    this.userBackup = { ...this.userForm.getRawValue() };
     this.updateForm(this.eTypeForm.edit);
-    this.userBackup = {...this.userForm.getRawValue()};
   }
 
   disabledBirthDate = (fromDate: Date): boolean => {

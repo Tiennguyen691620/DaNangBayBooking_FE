@@ -88,7 +88,6 @@ export class EmployeeManagementListComponent implements OnInit {
               '',
               Utils.setStyleNotification()
             );
-            // this.filter(this.pageIndex);
           },
           (err) => {
             employee.status = !employee.status;

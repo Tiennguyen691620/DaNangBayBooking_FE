@@ -17,6 +17,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import Utils from 'src/app/shared/helpers/utils.helper';
 import { forkJoin, Observable, Observer } from 'rxjs';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { PopupConfirmComponent } from 'src/app/shared/components/popups/popup-confirm/popup-confirm.component';
 
 @Component({
   selector: 'app-accommodation-management-form',
@@ -46,7 +48,9 @@ export class AccommodationManagementFormComponent implements OnInit {
     private fileService: FileService,
     private accommodationService: AccommodationService,
     private masterDataService: MasterDataService,
-    private notification: NzNotificationService
+    private notification: NzNotificationService,
+    private modalService: NzModalService,
+    private notify: NzNotificationService
   ) {}
 
   ngOnInit(): void {
@@ -105,13 +109,13 @@ export class AccommodationManagementFormComponent implements OnInit {
     if (this.type === this.eTypeForm.view) {
       this.accommodationForm.disable();
     }
-    if (this.type !== this.eTypeForm.view) {
-      this.accommodationForm.enable();
-    }
-    if(this.type === this.eTypeForm.edit){
+    // if (this.type !== this.eTypeForm.view) {
+    //   this.accommodationForm.enable();
+    // }
+    if (this.type === this.eTypeForm.edit) {
       this.accommodationForm.get('no').disable();
     }
-    if(this.type === this.eTypeForm.create){
+    if (this.type === this.eTypeForm.create) {
       this.accommodationForm.get('no').disable();
     }
   }
@@ -133,6 +137,7 @@ export class AccommodationManagementFormComponent implements OnInit {
             ...this.accommodationForm.getRawValue(),
           };
           this.accommodationForm.disable();
+          return;
         }
         this.router.navigate([
           '/dashboard/source-data-management/accommodation/list',
@@ -288,6 +293,9 @@ export class AccommodationManagementFormComponent implements OnInit {
       }),
     ];
     this.indexOfImage = indexOfImage;
+  }
+  closeView(): void {
+    this.imageShowPopupView = null;
   }
 
   deleteImage(index: number): void {

@@ -7,7 +7,7 @@ import { AuthGuard } from './shared/services/auth/auth.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'auth',
+    redirectTo: 'dashboard',
     pathMatch: 'full'
   },
   {

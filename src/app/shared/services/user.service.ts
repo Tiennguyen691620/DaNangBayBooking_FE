@@ -65,13 +65,13 @@ export class UserService extends BaseService {
 
   createOrUpdateUser(data: any): Observable<any> {
     let url = '';
-    // if(data.id){
-    //   url = `api/Users/update/admin`;
-    //   return this.put(url, Utils.createFilterParam(data));
-    // }
-    // if(!data.id){
-    //   delete data.id;
-    // }
+    if(data.id){
+      url = `api/Users/update`;
+      return this.put(url, Utils.createFilterParam(data));
+    }
+    if(!data.id){
+      delete data.id;
+    }
     url = `api/Users/create/admin`;
     return this.post(url, Utils.createFilterParam(data));
   }

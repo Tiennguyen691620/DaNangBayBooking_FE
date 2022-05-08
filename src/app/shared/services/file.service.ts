@@ -75,4 +75,10 @@ export class FileService extends BaseService {
     form.append('file', file);
     return this.post<any>(url, form);
   }
+
+  deleteImage(data: any): Observable<any> {
+    const url = `api/Storage/images/delete`;
+    return this.delete(url, data);
+  }
+
 }

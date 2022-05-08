@@ -7,8 +7,9 @@
     <div class="content">
       <div class="content-header d-flex align-items-center justify-content-between">
         <div class="search">
-          <nz-input-group nzSearch nzSize="default" >
-            <input type="text" nzSize="default" (keyup)="searchTerm$.next($event.target.value)" [value]="searchTerm$.value" nz-input placeholder="Nhập Email/SĐT/Họ và tên" />
+          <nz-input-group nzSearch nzSize="default">
+            <input type="text" nzSize="default" (keyup)="searchTerm$.next($event.target.value)" [value]="searchTerm$.value" nz-input
+              placeholder="Nhập Email/SĐT/Họ và tên" />
           </nz-input-group>
         </div>
         <!-- <div class="group-btn">
@@ -23,7 +24,8 @@
   <div class="content">
     <div class="table-main">
       <nz-table #basicTable class="table-list mt-3" [nzFrontPagination]="false" [nzTemplateMode]="true" [nzLoading]="false" [nzData]="dataSource"
-         [nzScroll]="{ x: '1200px' }" [nzTotal]="totalCount" [(nzPageSize)]="pageSize" [(nzPageIndex)]="pageIndex" (nzPageIndexChange)="onPageIndexChange($event)" (nzPageSizeChange)="onPageSizeChange($event)"  [nzShowTotal]="rangeTemplate"
+        [nzScroll]="{ x: '1200px' }" [nzTotal]="totalCount" [(nzPageSize)]="pageSize" [(nzPageIndex)]="pageIndex"
+        (nzPageIndexChange)="onPageIndexChange($event)" (nzPageSizeChange)="onPageSizeChange($event)" [nzShowTotal]="rangeTemplate"
         [nzWidthConfig]="['70px', '100px', '180px', '180px', '180px', '280px', '200px', '150px', '130px']">
         <thead>
           <th nzLeft="0px" class="text-center">STT</th>
@@ -45,14 +47,17 @@
             <td class="text-center">{{item.dob ? (item?.dob | date: 'dd/MM/yyyy') : ''}}</td>
             <td class="">{{item.email}}</td>
             <td class="text-center">
-              <span class=" webkit-box-1" nz-tooltip={{item.address}} >{{item.address}}</span>
+              <span class=" webkit-box-1" nz-tooltip={{item.address}}>{{item.address}}</span>
             </td>
-            <td class="text-center">{{item.status}}</td>
+            <td class="text-center" [class.status-active]="item.status === true" [class.status-inActive]="item.status === false">
+              {{item.status == true ? 'Đang hoạt động' : 'Vô hiệu hóa'}}</td>
             <td nzRight="0px" class="text-center">
               <div class="d-flex align-items-center justify-content-between">
-                <i  class="fa fa-key pointer me-2 c-dodgerblue" aria-hidden="true"></i>
-                <nz-switch  nzSize="small" class=""></nz-switch>
-                <i class="fa-solid fa-eye pointer c-dodgerblue" [routerLink]="['/dashboard/customer-management/member-customer/view', item.id]" [queryParams]="{typeForm: 'view'}" ></i>
+                <i class="fa fa-key pointer me-2 c-dodgerblue" aria-hidden="true"></i>
+                <nz-switch nz-tooltip [nzTooltipTitle]="'Thay đổi trạng thái'" nzSize="small" class="" [(ngModel)]="item.status"
+                  (ngModelChange)="changeActive($event, item)"></nz-switch>
+                <i class="fa-solid fa-eye pointer c-dodgerblue" [routerLink]="['/dashboard/customer-management/member-customer/view', item.id]"
+                  [queryParams]="{typeForm: 'view'}"></i>
               </div>
             </td>
           </tr>

@@ -12,10 +12,8 @@ export class RoomModel {
   maximumPeople: number;
   price: number;
   bookedQty: number;
-  images: {
-    id: string;
-    image: string;
-  }[];
+  description: string;
+  image: string;
 
   uploadController?: any;
 }

@@ -35,7 +35,7 @@
       <section class="container ">
         <div class="row d-flex align-items-center justify-content-center">
           <div class="col-8">
-            <div class="row d-flex align-items-center">
+            <div class="row d-flex align-items-center" *ngIf="type !== eTypeForm.create">
               <div class="col-3">
                 <span class="required">Mã cơ sở lưu trú: </span>
               </div>
@@ -134,7 +134,7 @@
                   <!-- <input nz-input type="text" formControlName="image" placeholder="Nhập tên CSLT"> -->
                   <ng-container *ngFor="let item of photoUpload; let i = index">
                     <div class="position-relative">
-                      <img [src]="item | safe: 'url'" (click)="viewImage(photoUpload, i)" 
+                      <img [src]="item" (click)="viewImage(photoUpload, i)" 
                       class="image-upload-acc pointer">
                       <i *ngIf="type !== eTypeForm.view" (click)="deleteImage(i)" class="pointer position-absolute icon-delete-image" nz-icon nzType="close"
                         nzTheme="outline"></i>

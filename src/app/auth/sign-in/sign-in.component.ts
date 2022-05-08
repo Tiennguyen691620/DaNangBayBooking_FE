@@ -21,7 +21,7 @@ export class SignInComponent implements OnInit {
     password: '',
   };
 
-  invalidMessages!: string[];
+  invalidMessages: string[];
 
   constructor(
     private fb: FormBuilder,
