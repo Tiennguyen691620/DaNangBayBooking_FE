@@ -22,6 +22,29 @@
   }
 }
 
-.border-green{
+.border-green {
   border: 1px solid green;
+}
+
+.grid-image {
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+
+.f-utility {
+  .f-content {
+    width: 230px;
+    margin: 15px 30px;
+    &-normal {
+      @extend .f-content;
+      fill: #484848;
+    }
+    &-disabled {
+      @extend .f-content;
+      color: #888888;
+      fill: #888888;
+    }
+  }
 }

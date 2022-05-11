@@ -3,6 +3,7 @@ import { LocationModel } from './../master-data/location.model';
 import { AccommodationTypeModel } from './accommodation-type.model';
 import { BookRoomModel } from '../book-room/book-room.model';
 import { DictionaryItem } from '../master-data/dictionary-item.model';
+import { ImageModel } from '../master-data/image.model';
 
 export class AccommodationModel {
   accommodationID: string;
@@ -18,10 +19,7 @@ export class AccommodationModel {
   email: string;
   mapURL: string;
   no: string;
-  images: {
-    id: string;
-    image: string;
-  }[];
+  images: ImageModel[];
   // utilities!: UtilityModel[];
   // rooms!: RoomModel[];
   // bookRooms!: BookRoomModel[];

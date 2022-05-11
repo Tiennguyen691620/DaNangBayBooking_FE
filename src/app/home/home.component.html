@@ -10,7 +10,7 @@
         <div class="d-flex align-items-center justify-content-center py-3">
           <div class="search">
             <nz-input-group [nzSuffix]="suffixIconSearch">
-              <input type="text"  nz-input placeholder="Khách sạn hoặc điểm đến " />
+              <input type="text" [(ngModel)]="filterModel.searchKey" nz-input placeholder="Khách sạn hoặc điểm đến " />
             </nz-input-group>
             <ng-template #suffixIconSearch>
               <i nz-icon nzType="search"></i>
@@ -21,7 +21,7 @@
               <nz-range-picker [nzPlaceHolder]="['Nhận phòng', 'Trả phòng']" nzFormat='dd/MM/yyyy' [(ngModel)]="date" (ngModelChange)="onChange($event)"></nz-range-picker>
             </div>
             <div class="button-search">
-              <button nz-button nzType="primary">Tìm kiếm</button>
+              <button nz-button nzType="primary" (click)="onClick()">Tìm kiếm</button>
             </div>
           </div>
         </div>

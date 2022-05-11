@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { PopupGoogleMapComponent } from './../../../shared/components/popups/popup-google-map/popup-google-map.component';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AccommodationService } from './../../../shared/services/accommodation.service';
@@ -22,13 +23,15 @@ export class AccommodationListComponent implements OnInit {
   dataSource: AccommodationModel[] = [];
   filterModel = new AccommodationFilterModel();
   searchTerm$ = new BehaviorSubject<string>('');
-  isSearch = false;
   constructor(
     private accommodationService: AccommodationService,
-    private modalService: NzModalService
+    private modalService: NzModalService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.filterModel.searchKey =
+      this.route.snapshot.queryParamMap.get('searchKey');
     this.filter();
     // this.searchTerm$.pipe(debounceTime(600)).subscribe((_) => {
     //   this.filterModel.searchKey = this.searchTerm$.value;
@@ -38,14 +41,12 @@ export class AccommodationListComponent implements OnInit {
   }
 
   filter(pageIndex?: number): void {
-    this.isSearch = true;
     const filter = { ...this.filterModel };
-    HomeComponent.filterModel = filter;
     this.accommodationService
       .filter(pageIndex ? pageIndex : 1, this.pageSize, filter)
       .subscribe((result) => {
-        this.dataSource = result.items;
-        this.totalCount = result.totalRecords;
+          this.dataSource = result.items;
+          this.totalCount = result.totalRecords;
         if (result.items && result.items.length == 0 && result.pageCount > 0) {
           this.filter(result.pageCount);
         }
@@ -62,20 +63,19 @@ export class AccommodationListComponent implements OnInit {
     this.filter(event);
   }
 
-  viewMap(): void {
-    const isCorrectFormat =
-      this.dataSource.map((o) => o.mapURL) &&
-      this.dataSource.map((o) => o.mapURL.length) &&
-      this.dataSource.map((o) => o.mapURL.trim().startsWith('<iframe>')) &&
-      this.dataSource.map((o) => o.mapURL.trim().endsWith(`</iframe>`));
+  viewMap(item: AccommodationModel): void {
+    const isCorrect =
+      item?.mapURL != null &&
+      item?.mapURL.trim().startsWith('<iframe') &&
+      item?.mapURL.trim().endsWith(`</iframe>`);
     const modal = this.modalService.create({
       nzContent: PopupGoogleMapComponent,
       nzComponentParams: {
-        content: this.dataSource.map((o) => o.mapURL).toString(),
-        // isCorrectFormat,
+        content: item?.mapURL,
+        isCorrect,
       },
       nzFooter: null,
-      nzWidth: isCorrectFormat ? (window.innerWidth * 7) / 10 : 350,
+      nzWidth: isCorrect ? (window.innerWidth * 7) / 10 : 350,
     });
 
     modal.afterClose.subscribe((result) => {});

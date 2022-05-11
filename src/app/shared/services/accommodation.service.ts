@@ -83,12 +83,17 @@ export class AccommodationService extends BaseService {
     return this.get(url);
   }
 
+  detailAccommodationShow(id: string): Observable<AccommodationModel> {
+    const url = `api/Accommodation/detail/${id}`;
+    return this.get(url);
+  }
+
   getUtilityAccommodation(accommodationId: string): Observable<any[]> {
     const url = `api/Accommodation/get/utility/${accommodationId}`;
     return this.get(url);
   }
 
-  updateAccommodationUtility(data: any, accommodationId: string): Observable<any>{
+  updateUtilityAccommodation(data: any, accommodationId: string): Observable<any>{
     const url = `api/Accommodation/update/utility/${accommodationId}`;
     return this.put(url, data)
   }

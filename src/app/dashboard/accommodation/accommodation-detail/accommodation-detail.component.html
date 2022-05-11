@@ -85,15 +85,15 @@
         <div class="mb-2">
           <div class="row mb-2">
             <div class="col-8 d-flex align-items-center">
-              <label class="accommodation-type c-dodgerblue" for="">khách sạn</label>
-              <h4 class="ms-2 mb-0 fw-700">King House Villa Hotel & Spa</h4>
+              <label class="accommodation-type c-dodgerblue" for="">{{accommodation?.accommodationType?.name}}</label>
+              <h4 class="ms-2 mb-0 fw-700">{{accommodation?.name}}</h4>
             </div>
             <div class="col-4 d-flex justify-content-end">
-              <button nz-button nzType="primary">Đặt ngay</button>
+              <button nz-button nzType="primary" (click)="goToRoomAvailable()">Đặt ngay</button>
             </div>
           </div>
           <div class="row mb-2">
-            <div class="col-12">
+            <div class="col-6">
               <div class="d-flex align-items-center bgr-honeydew w-fitcontent py-1 px-2 border-r20">
                 <div class="me-2" style="width: 15px;">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="green">
@@ -105,26 +105,26 @@
                 <label class="c-green" for="">Chỗ nghỉ Du lịch bền vững</label>
               </div>
             </div>
-          </div>
-          <div class="row mb-2">
-            <div class="col-8 d-flex align-items-center">
-              <i class="fa-solid fa-location-dot c-dodgerblue me-2"></i>
-              <span>25, Mỹ Khê 1, Ngũ Hành Sơn, Đà Nẵng</span>
-              <div class="mx-2">–</div>
-              <a href="">Vị trí - Hiển thị bản đồ</a>
-            </div>
-            <div class="col-4">
+            <div class="col-6">
               <div class="d-flex justify-content-end pointer" nzTooltipPlacement="bottom"
                 nz-tooltip=" Giá phòng thấp • Không tính phí đặt phòng • Tìm được giá thấp hơn? Chúng tôi sẽ hoàn lại số tiền chênh lệch!">
                 <div class="commit-logo me-2"></div>
-                <span class="" href="#">Chúng Tôi Luôn Khớp Giá!</span>
+                <span class="">Chúng Tôi Luôn Khớp Giá!</span>
               </div>
             </div>
           </div>
+          <div class="row mb-2">
+            <div class="col-12 d-flex align-items-center">
+              <i class="fa-solid fa-location-dot c-dodgerblue me-2"></i>
+              <span>{{accommodation?.address}}</span>
+              <div class="mx-2">–</div>
+              <a class=" text-decoration-none" (click)="viewMap(accommodation)">Vị trí</a>
+            </div>
+          </div>
         </div>
-        <div class="">
-          <div class="">
-            <img class="img" nz-image width="100%" height="400px" [nzSrc]="'../../../assets/images/image-location/NguHanhSon.jpg'" alt="" />
+        <div class="grid-image">
+          <div class="" *ngFor="let item of photoUpload, let i = index">
+            <img [id]="i" class="img" nz-image width="100%" height="200px" [nzSrc]="item" alt="">
           </div>
         </div>
       </div>
@@ -171,7 +171,7 @@
             </div>
           </div>
           <div class="">
-            <nz-table #basicTable [nzFrontPagination]="false" [nzTemplateMode]="true" [nzLoading]="false" [nzScroll]="{ x: '900px' }" [nzWidthConfig]="[
+            <nz-table #basicTable [nzData]="roomAccommodation" [nzFrontPagination]="false" [nzTemplateMode]="true" [nzLoading]="false" [nzScroll]="{ x: '900px' }" [nzWidthConfig]="[
                   '200px',
                   '100px',
                   '150px',
@@ -188,20 +188,20 @@
                 <th class="text-center">Đặt phòng</th>
               </thead>
               <tbody>
-                <tr>
+                <tr *ngFor="let item of roomAccommodation">
                   <td>
                     <span class="fz-16 fw-700 c-dodgerblue">
-                      Phòng Deluxe giường đôi
+                      {{item.name}}
                     </span>
                   </td>
                   <td>
                     <div class="text-center">
-                      <span>2 người</span>
+                      <span>{{item.maximumPeople}}</span>
                     </div>
                   </td>
                   <td>
                     <div class="" style="line-height: 2;">
-                      <span class="fw-700">VND 300</span>
+                      <span class="fw-700">VND {{item.price}}</span>
                       <label for="">Đã bao gồm thuế và phí</label>
                       <div class="bgr-green w-fitcontent px-1 mt-2">
                         <label class="c-white">Giá ưu đãi</label>
@@ -271,7 +271,7 @@
         <div #utility class="">
           <div class="row">
             <div class="col-6">
-              <h4  class="fw-700">Tiện nghi của King House Villa Hotel & Spa</h4>
+              <h4 class="fw-700">Tiện nghi của King House Villa Hotel & Spa</h4>
             </div>
             <div class="col-6 d-flex justify-content-end">
               <div class="">
@@ -280,24 +280,27 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-4 text-center">
+            <!-- <div class="col-4 text-center" *ngFor="let item of iconUtilityList">
               <i class="fa-regular fa-circle-check c-green fz-16 me-3"></i>
-              <span>wifi</span>
-            </div>
-            <div class="col-4 text-center">
-              <i class="fa-regular fa-circle-check c-green fz-16 me-3"></i>
-              <span>wifi</span>
-            </div>
-            <div class="col-4 text-center">
-              <i class="fa-regular fa-circle-check c-green fz-16 me-3"></i>
-              <span>wifi</span>
+              <span>{{item.displayText}}</span>
+            </div> -->
+            <div
+              class="d-flex justify-content-xl-start justify-content-lg-center justify-content-md-center justify-content-sm-center justify-content-center f-utility flex-wrap px-4 py-2">
+              <ng-container *ngFor="let item of iconUtilityList">
+                <div class="d-flex align-items-center" [class.f-content-normal]="!isDisable(item.checked)"
+                  [class.f-content-disabled]="isDisable(item.checked)">
+                  <i *ngIf="item.checked" class="fa-regular fa-circle-check c-green fz-16 me-3"></i>
+                  <div [innerHTML]="item.icon | safe: 'html'"></div>
+                  <p class="f-label mb-0">{{item.displayText}}</p>
+                </div>
+              </ng-container>
             </div>
           </div>
         </div>
         <div #generalRule class="">
           <div class="row my-2">
             <div class="col-6">
-              <h4  class="fw-700">Quy tắc chung</h4>
+              <h4 class="fw-700">Quy tắc chung</h4>
             </div>
             <div class="col-6 d-flex justify-content-end">
               <div class="">
