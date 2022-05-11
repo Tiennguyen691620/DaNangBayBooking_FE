@@ -1,5 +1,6 @@
+import { CustomerModel } from './../../models/customer/customer.model';
 import { localStorageKey } from './../../../app.config';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { BaseService } from './../base.service';
 import { Injectable } from '@angular/core';
@@ -14,6 +15,14 @@ export class AuthService extends BaseService {
     super(httpClient);
   }
 
+  showLoginSubject: Subject<boolean> = new Subject();
+  showNameSubject: Subject<string> = new Subject();
+  changeImageSubject: Subject<string> = new Subject();
+
+  showLogin$ = this.showLoginSubject.asObservable();
+  showName$ = this.showNameSubject.asObservable();
+  changeImage$ = this.changeImageSubject.asObservable();
+
   public login(email: string, password: string): Observable<any> {
     return this.post<AuthenticationModel>('api/Users/login-client', {
       email: email,
@@ -23,10 +32,10 @@ export class AuthService extends BaseService {
 
   public logOut() {
     localStorage.removeItem(localStorageKey);
-    this.router.navigate(['/home']);
+    // this.router.navigate(['/home']);
   }
 
-  public getAuthenticationModel() {
+  public getAuthenticationModel(): AuthenticationModel {
     if (!window.localStorage[localStorageKey]) {
       return null;
     }
@@ -42,7 +51,17 @@ export class AuthService extends BaseService {
       JSON.stringify(authenticationModel));
   }
 
-  signIn(data: any): Observable<any> {
+  setShowLogin(value: boolean) {
+    this.showLoginSubject.next(value);
+  }
+  setShowName(value: string) {
+    this.showNameSubject.next(value);
+  }
+  setChangeImage(value: string) {
+    this.changeImageSubject.next(value);
+  }
+
+  registerUser(data: any): Observable<any> {
     const url = `api/Users/register-client`;
     return this.post(url, data);
   }

@@ -5,12 +5,15 @@ import { CommonModule } from '@angular/common';
 import { AccommodationRoutingModule } from './accommodation-routing.module';
 import { AccommodationListComponent } from './accommodation-list/accommodation-list.component';
 import { AccommodationDetailComponent } from './accommodation-detail/accommodation-detail.component';
+import { CreateBookingComponent } from './create-booking/create-booking.component';
+
 
 
 @NgModule({
   declarations: [
     AccommodationListComponent,
-    AccommodationDetailComponent
+    AccommodationDetailComponent,
+    CreateBookingComponent,
   ],
   imports: [
     CommonModule,

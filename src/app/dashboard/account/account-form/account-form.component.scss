@@ -1,0 +1,83 @@
+.group-button {
+  display: flex;
+  align-self: end;
+  justify-content: center;
+
+  @media (min-width: 576px) {
+    justify-content: end;
+  }
+
+  @media (min-width: 926px) {
+    justify-content: end;
+  }
+
+  .btn-button {
+    border: none !important;
+    text-transform: uppercase;
+    padding: 8px 4px 8px 8px;
+    background: #188ffd;
+    color: #fff;
+    border: none;
+    font-size: 12px;
+
+    @media (min-width: 425px) {
+      font-size: 14px;
+      padding: 8px 10px;
+    }
+
+    .btn-text {
+      margin: 0 4px 0 6px;
+      line-height: 20px;
+      display: inline-block;
+
+      @media (min-width: 576px) {
+        line-height: 23px;
+        margin: 0 4px;
+      }
+
+      @media (min-width: 926px) {
+        margin: 0 8px;
+      }
+    }
+
+    &:nth-child(2) {
+      background-color: #fff;
+      color: #777b7c;
+    }
+
+    &:focus {
+      box-shadow: none !important;
+    }
+  }
+}
+.container {
+  .info {
+    .img-wrapper {
+      height: 250px;
+      position: relative;
+      .img {
+        position: relative;
+      }
+      nz-upload {
+        position: absolute;
+        background: #efefef73;
+        bottom: 0px;
+        right: 11px;
+      }
+    }
+  }
+}
+
+:host::ng-deep .ant-btn {
+  padding: 4px 35px !important;
+}
+
+.account-view {
+  .box {
+    height: calc(100vh - 330px);
+
+    @media (max-height: 900px) {
+      height: 100% !important;
+    }
+  }
+}

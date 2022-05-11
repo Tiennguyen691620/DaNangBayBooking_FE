@@ -1,10 +1,12 @@
+import { ForgotPasswordPopupComponent } from './../forgot-password-popup/forgot-password-popup.component';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import ValidationHelper from 'src/app/shared/helpers/validation.helper';
 import { AuthenticationModel } from 'src/app/shared/models/auth/authentication.model';
-import { NzModalRef } from 'ng-zorro-antd/modal';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import { SignupPopupComponent } from '../signup-popup/signup-popup.component';
 
 @Component({
   selector: 'app-login-popup',
@@ -15,6 +17,8 @@ export class LoginPopupComponent implements OnInit {
   signInForm: FormGroup;
   isSubmitted = false;
   passwordVisible = false;
+  fullName: string;
+  avatarUrl: string;
   formErrors = {
     email: '',
     password: '',
@@ -26,7 +30,8 @@ export class LoginPopupComponent implements OnInit {
     private fb: FormBuilder,
     public authService: AuthService,
     private router: Router,
-    private modal: NzModalRef
+    private modal: NzModalRef,
+    private modalService: NzModalService
   ) {}
 
   ngOnInit(): void {
@@ -66,12 +71,13 @@ export class LoginPopupComponent implements OnInit {
             this.authService.setAuthenticationModel(
               res.data as AuthenticationModel
             );
-            if(res.data !== null){
+            this.authService.setShowName(res.data.fullName);
+            this.authService.setChangeImage(res.data.avatar);
+            if (res.data !== null) {
               this.modal.destroy();
               this.router.navigate(['/home']);
             }
-          }
-          ,
+          },
           (err) => {}
         );
     }
@@ -79,5 +85,25 @@ export class LoginPopupComponent implements OnInit {
 
   handlePasswordVisible() {
     this.passwordVisible = !this.passwordVisible;
+  }
+
+  signup(): void {
+    this.modal.destroy();
+    this.modalService.create({
+      nzContent: SignupPopupComponent,
+      nzCloseIcon: 'false',
+      nzWidth: 1100,
+      nzFooter: null,
+    });
+  }
+
+  forgotPassword(): void {
+    this.modal.destroy();
+    this.modalService.create({
+      nzContent: ForgotPasswordPopupComponent,
+      nzCloseIcon: 'false',
+      nzWidth: 800,
+      nzFooter: null,
+    });
   }
 }

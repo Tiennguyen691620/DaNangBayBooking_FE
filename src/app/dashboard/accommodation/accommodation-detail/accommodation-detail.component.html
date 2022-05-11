@@ -15,7 +15,7 @@
             </ul>
           </div>
         </nav>
-        <div class="container card" style="max-width: 330px; background: aliceblue;">
+        <div class="container card bgr-aliceblue" style="max-width: 330px;">
           <div class="mt-2 d-flex align-items-center justify-content-center">
             <h4>Tìm kiếm</h4>
           </div>
@@ -60,17 +60,17 @@
               <ul class="navbar-nav align-items-center justify-content-around">
                 <li class="nav-item">
                   <div class="">
-                    <a class="nav-link" href="#">Thông tin & Giá</a>
+                    <a class="nav-link" (click)="goToRoomAvailable()">Thông tin & Giá</a>
                   </div>
                 </li>
                 <li class="nav-item">
                   <div class="">
-                    <a class="nav-link" href="#">Tiện nghi</a>
+                    <a class="nav-link" (click)="goToUtility()">Tiện nghi</a>
                   </div>
                 </li>
                 <li class="nav-item">
                   <div class="">
-                    <a class="nav-link" href="#">Quy tắc chung</a>
+                    <a class="nav-link" (click)="goToGeneralRule()">Quy tắc chung</a>
                   </div>
                 </li>
                 <li class="nav-item">
@@ -155,115 +155,163 @@
           </span>
         </div>
       </div>
-      <hr>
+      <hr class="my-4">
       <div class="room">
-        <div class="row">
-          <div class="col-6">
-            <h4>Phòng trống</h4>
-          </div>
-          <div class="col-6">
-            <div class="d-flex justify-content-end pointer" nzTooltipPlacement="bottom"
-              nz-tooltip=" Giá phòng thấp • Không tính phí đặt phòng • Tìm được giá thấp hơn? Chúng tôi sẽ hoàn lại số tiền chênh lệch!">
-              <div class="commit-logo me-2"></div>
-              <span class="" href="#">Chúng Tôi Luôn Khớp Giá!</span>
-            </div>
-          </div>
-        </div>
-        <div class="">
-          <nz-table #basicTable [nzFrontPagination]="false" [nzTemplateMode]="true" [nzLoading]="false" [nzScroll]="{ x: '900px' }" [nzWidthConfig]="[
-        '200px',
-        '100px',
-        '150px',
-        '200px',
-        '80px',
-        '150px',
-      ]">
-            <thead>
-              <th class="text-center">Loại chỗ ở</th>
-              <th class="text-center">Phù hợp cho</th>
-              <th class="text-center">Giá phòng</th>
-              <th class="text-center">Các lựa chọn</th>
-              <th class="text-center">Số lượng phòng</th>
-              <th class="text-center">Đặt phòng</th>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Phòng Deluxe giường đôi</td>
-                <td>2 người</td>
-                <td>
-                  <span>VND 300</span>
-                  <label for="">Đã bao gồm thuế và phí</label>
-                </td>
-                <td>
-                  <span>Miễn phí hủy</span>
-                  <div class="">
-                    <span>Không cần thanh toán trước</span>
-                    <div class="">–</div>
-                    <label for="">thanh toán tại chỗ nghỉ</label>
-                  </div>
-                </td>
-                <td>
-                  <nz-select>
-                    <nz-option nzValue="1" nzLabel="1"></nz-option>
-                    <nz-option nzValue="2" nzLabel="2"></nz-option>
-                    <nz-option nzValue="3" nzLabel="3"></nz-option>
-                    <nz-option nzValue="4" nzLabel="4"></nz-option>
-                    <nz-option nzValue="5" nzLabel="5"></nz-option>
-                  </nz-select>
-                </td>
-                <td>
-                  <div class="">
-                    <button nz-button nzType="primary" nzShape="round" nzBlock>
-                      Đặt phòng
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </nz-table>
-        </div>
-        <div class="">
-          <div class="d-flex">
-            <span>Đặt phòng không cần thẻ tín dụng.</span>
-            <span>Chúng tôi sẽ gửi cho bạn một email xác nhận đặt phòng</span>
-          </div>
-        </div>
-        <div class="">
-          <div class="">
-            <i></i>
-            <span>Giữ giá cho kỳ nghỉ sắp tới của bạn</span>
-          </div>
-        </div>
-        <div class="">
+        <div #roomAvailable class="">
           <div class="row">
             <div class="col-6">
-              <h4>Tiện nghi của King House Villa Hotel & Spa</h4>
+              <h4 class="fw-700">Phòng trống</h4>
             </div>
-            <div class="col-6 d-flex justify-content-end">
-              <div class="">
-                <button nz-button nzType="primary">Xem phòng trống</button>
+            <div class="col-6">
+              <div class="d-flex justify-content-end pointer" nzTooltipPlacement="bottom"
+                nz-tooltip=" Giá phòng thấp • Không tính phí đặt phòng • Tìm được giá thấp hơn? Chúng tôi sẽ hoàn lại số tiền chênh lệch!">
+                <div class="commit-logo me-2"></div>
+                <span class="" href="#">Chúng Tôi Luôn Khớp Giá!</span>
               </div>
+            </div>
+          </div>
+          <div class="">
+            <nz-table #basicTable [nzFrontPagination]="false" [nzTemplateMode]="true" [nzLoading]="false" [nzScroll]="{ x: '900px' }" [nzWidthConfig]="[
+                  '200px',
+                  '100px',
+                  '150px',
+                  '200px',
+                  '80px',
+                  '150px',
+                ]">
+              <thead>
+                <th class="text-center">Loại chỗ ở</th>
+                <th class="text-center">Phù hợp cho</th>
+                <th class="text-center">Giá phòng</th>
+                <th class="text-center">Các lựa chọn</th>
+                <th class="text-center">Số lượng phòng</th>
+                <th class="text-center">Đặt phòng</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <span class="fz-16 fw-700 c-dodgerblue">
+                      Phòng Deluxe giường đôi
+                    </span>
+                  </td>
+                  <td>
+                    <div class="text-center">
+                      <span>2 người</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="" style="line-height: 2;">
+                      <span class="fw-700">VND 300</span>
+                      <label for="">Đã bao gồm thuế và phí</label>
+                      <div class="bgr-green w-fitcontent px-1 mt-2">
+                        <label class="c-white">Giá ưu đãi</label>
+                      </div>
+                    </div>
+                  </td>
+                  <td style="line-height: 2;">
+                    <div class="row c-green">
+                      <div class="col-1">
+                        <i class="fa-solid fa-check me-2"></i>
+                      </div>
+                      <div class="col-11">
+                        <span>Miễn phí hủy</span>
+                      </div>
+                    </div>
+                    <div class="row c-green">
+                      <div class="col-1">
+                        <i class="fa-solid fa-check me-2"></i>
+                      </div>
+                      <div class="col-11">
+                        <span>Không cần thanh toán trước – <label for="">thanh toán tại chỗ nghỉ</label> </span>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="text-center">
+                    <nz-select nzAllowClear>
+                      <nz-option nzValue="1" nzLabel="1"></nz-option>
+                      <nz-option nzValue="2" nzLabel="2"></nz-option>
+                      <nz-option nzValue="3" nzLabel="3"></nz-option>
+                      <nz-option nzValue="4" nzLabel="4"></nz-option>
+                      <nz-option nzValue="5" nzLabel="5"></nz-option>
+                    </nz-select>
+                  </td>
+                  <td>
+                    <div class="">
+                      <button nz-button nzType="primary" nzShape="round" nzBlock routerLink="/dashboard/accommodation/create-booking">
+                        Đặt phòng
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </nz-table>
+          </div>
+          <div class="card p-3 my-3 border-green bgr-honeydew">
+            <div class="d-flex align-items-center">
+              <svg class="me-2" fill="#008009" height="24" role="presentation" width="24" viewBox="0 0 128 128" aria-hidden="true" focusable="false">
+                <path
+                  d="M108 24H20A12 12 0 0 0 8 36v56a12 12 0 0 0 12 12h88a12 12 0 0 0 12-12V36a12 12 0 0 0-12-12zm-88 8h88a4 4 0 0 1 4 4v4H16v-4a4 4 0 0 1 4-4zm88 64H20a4 4 0 0 1-4-4V56h96v36a4 4 0 0 1-4 4zM24 72h48v8H24z">
+                </path>
+              </svg>
+              <span class="fw-700">Đặt phòng không cần thẻ tín dụng. <span class="fw-500"> Chúng tôi sẽ gửi cho bạn một email xác nhận đặt
+                  phòng</span></span>
+            </div>
+          </div>
+          <div class="card p-3 mb-3 border-green bgr-honeydew">
+            <div class="d-flex align-items-center">
+              <svg class="me-2" fill="#008009" height="25" width="25" viewBox="0 0 128 128" role="presentation" aria-hidden="true" focusable="false">
+                <path
+                  d="M104 48H44V36a20 20 0 0 1 36.7-11 4 4 0 1 0 6.6-4.5A28 28 0 0 0 36 36v12H24a8 8 0 0 0-8 8v56a8 8 0 0 0 8 8h80a8 8 0 0 0 8-8V56a8 8 0 0 0-8-8zM64 96a12 12 0 1 1 12-12 12 12 0 0 1-12 12z">
+                </path>
+              </svg>
+              <span class="fw-700">Giữ giá cho kỳ nghỉ sắp tới của bạn</span>
             </div>
           </div>
         </div>
-        <div class="">
-          <div class="row my-2">
+        <div #utility class="">
+          <div class="row">
             <div class="col-6">
-              <h4>Quy tắc chung</h4>
+              <h4  class="fw-700">Tiện nghi của King House Villa Hotel & Spa</h4>
             </div>
             <div class="col-6 d-flex justify-content-end">
               <div class="">
-                <button nz-button nzType="primary">Xem phòng trống</button>
+                <button nz-button nzType="primary" (click)="goToRoomAvailable()">Xem phòng trống</button>
               </div>
             </div>
           </div>
-          <div class="card p-3">
+          <div class="row">
+            <div class="col-4 text-center">
+              <i class="fa-regular fa-circle-check c-green fz-16 me-3"></i>
+              <span>wifi</span>
+            </div>
+            <div class="col-4 text-center">
+              <i class="fa-regular fa-circle-check c-green fz-16 me-3"></i>
+              <span>wifi</span>
+            </div>
+            <div class="col-4 text-center">
+              <i class="fa-regular fa-circle-check c-green fz-16 me-3"></i>
+              <span>wifi</span>
+            </div>
+          </div>
+        </div>
+        <div #generalRule class="">
+          <div class="row my-2">
+            <div class="col-6">
+              <h4  class="fw-700">Quy tắc chung</h4>
+            </div>
+            <div class="col-6 d-flex justify-content-end">
+              <div class="">
+                <button nz-button nzType="primary" (click)="goToRoomAvailable()">Xem phòng trống</button>
+              </div>
+            </div>
+          </div>
+          <div class="card p-3 bgr-aliceblue">
             <div class="">
-              <div class="row mb-2">
+              <div class="row mb-5">
                 <div class="col-2 d-flex">
-                  <div class="">
-                    <svg class="bk-icon -experiments-calendar_checkin hp-policies-calendar-icon" height="20" width="20" viewBox="0 0 128 128" role="presentation"
-                      aria-hidden="true" focusable="false">
+                  <div class="me-2">
+                    <svg class="bk-icon -experiments-calendar_checkin hp-policies-calendar-icon" height="20" width="20" viewBox="0 0 128 128"
+                      role="presentation" aria-hidden="true" focusable="false">
                       <path
                         d="m112 16h-16v-8h-8v8h-48v-8h-8v8h-16c-4.4 0-8 3.9-8 8.7v86.6c0 4.8 3.6 8.7 8 8.7h96c4.4 0 8-3.9 8-8.7v-86.6c0-4.8-3.6-8.7-8-8.7zm0 95.3a1.1 1.1 0 0 1 -.2.7h-95.6a1.1 1.1 0 0 1 -.2-.7v-71.3h96zm-80-27.3h12v12h-12zm38-16h-12v-12h12zm0 28h-12v-12h12zm26 0h-12v-12h12zm0-28h-12v-12h12zm-48-16h-20v20h20zm-6 14h-8v-8h8z">
                       </path>
@@ -280,11 +328,11 @@
                   </nz-steps>
                 </div>
               </div>
-              <div class="row mb-2">
+              <div class="row mb-3">
                 <div class="col-2 d-flex">
-                  <div class="">
-                    <svg class="bk-icon -experiments-calendar_checkout hp-policies-calendar-icon" height="20" width="20" viewBox="0 0 128 128" role="presentation"
-                      aria-hidden="true" focusable="false">
+                  <div class="me-2">
+                    <svg class="bk-icon -experiments-calendar_checkout hp-policies-calendar-icon" height="20" width="20" viewBox="0 0 128 128"
+                      role="presentation" aria-hidden="true" focusable="false">
                       <path
                         d="m112 16h-16v-8h-8v8h-48v-8h-8v8h-16c-4.4 0-8 3.9-8 8.7v86.6c0 4.8 3.6 8.7 8 8.7h96c4.4 0 8-3.9 8-8.7v-86.6c0-4.8-3.6-8.7-8-8.7zm0 95.3a1.1 1.1 0 0 1 -.2.7h-95.6a1.1 1.1 0 0 1 -.2-.7v-71.3h96zm-68-43.3h-12v-12h12zm0 28h-12v-12h12zm26-28h-12v-12h12zm0 28h-12v-12h12zm26-28h-12v-12h12zm4 12h-20v20h20zm-6 14h-8v-8h8z">
                       </path>
@@ -299,6 +347,45 @@
                     <nz-step nzTitle="14:00" nzStatus="wait"></nz-step>
                     <nz-step nzTitle="23:30" nzStatus="wait"></nz-step>
                   </nz-steps>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-2">
+                  <div class="">
+                    <i class="fa-solid fa-children fz-18 me-2"></i>
+                    <span>Trẻ em và giường</span>
+                  </div>
+                </div>
+                <div class="col-10">
+                  <div class="">
+                    <span class="fw-700">Chính sách trẻ em</span>
+                    <br>
+                    <span>Phù hợp cho tất cả trẻ em.</span>
+                    <br>
+                    <span>Chỗ nghỉ không có chỗ cho nôi.</span>
+                    <br>
+                    <span>Chỗ nghỉ không có chỗ cho giường phụ.</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-2">
+                  <div class="">
+                    <i class="fa-solid fa-user fz-18 me-2"></i>
+                    <span>Không giới hạn tuổi</span>
+                  </div>
+                </div>
+                <div class="col-10">
+                  <span>Không có yêu cầu về độ tuổi khi nhận phòng.</span>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-2">
+                  <i class="fa-solid fa-paw fz-18 me-2"></i>
+                  <span>Vật nuôi</span>
+                </div>
+                <div class="col-10">
+                  <span>Không được phép nuôi thú cưng.</span>
                 </div>
               </div>
             </div>

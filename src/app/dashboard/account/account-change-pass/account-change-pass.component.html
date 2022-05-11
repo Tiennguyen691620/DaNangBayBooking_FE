@@ -1,0 +1,63 @@
+<section class="account-change-pass">
+  <div class="container box my-4">
+    <div class="content-head d-flex align-items-center justify-content-between">
+      <h2 class="heading m-0 ">
+        Thay đổi mật khẩu
+      </h2>
+      <div class="group-button">
+        <div class="bg-white rounded-pill">
+          <button class="btn rounded-pill" routerLink="/dashboard/account/profile">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 21.674 21.67">
+              <g id="Group_12657" data-name="Group 12657" transform="translate(1.138 0.982)">
+                <ellipse id="Ellipse_295" data-name="Ellipse 295" cx="4.534" cy="4.5" rx="4.534" ry="4.5" transform="translate(4.649 3.594)" fill="none"
+                  stroke="#777B7C" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.964" />
+                <path id="Path_34035" data-name="Path 34035" d="M579.124,678.668c-1.222-2.82-3.606-4.737-6.348-4.737a6.2,6.2,0,0,0-3.988,1.507"
+                  transform="translate(-563.439 -661.278)" fill="none" stroke="#777B7C" stroke-linecap="round" stroke-linejoin="round"
+                  stroke-width="1.964" />
+                <path id="Path_34036" data-name="Path 34036" d="M567.082,680.312a9.851,9.851,0,1,0-2.585-9.4" transform="translate(-564.349 -663.492)"
+                  fill="none" stroke="#777B7C" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.964" />
+                <path id="Path_34037" data-name="Path 34037" d="M564.375,673.057a9.77,9.77,0,0,0,.686,2.246" transform="translate(-564.375 -661.463)"
+                  fill="none" stroke="#777B7C" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.964" />
+              </g>
+            </svg>
+            <span class="btn-text">Tài khoản của tôi</span>
+          </button>
+          <button class="btn rounded-pill">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 21.674 21.67">
+              <g id="Group_12657" data-name="Group 12657" transform="translate(-563.237 -662.51)">
+                <path id="Path_34036" data-name="Path 34036" d="M567.082,680.312a9.851,9.851,0,1,0-2.585-9.4" transform="translate(0.026 0)" fill="none"
+                  stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.964" />
+                <path id="Path_34037" data-name="Path 34037" d="M564.375,673.057a9.77,9.77,0,0,0,.686,2.246" transform="translate(0 2.029)" fill="none"
+                  stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.964" />
+                <path id="Path_34122" data-name="Path 34122"
+                  d="M360.434,482.109a3.591,3.591,0,1,0-5.4,3.1l-.615,5.345h4.851l-.615-5.345A3.587,3.587,0,0,0,360.434,482.109Z"
+                  transform="translate(217.383 188.81)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" />
+              </g>
+            </svg>
+            <span class="btn-text">Thay đổi mật khẩu</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center">
+      <div class="card mt-4 mt-lg-5 p-5 bgr-aliceblue rounded-3" style="width: 500px;">
+        <h4 class="fw-700">Thay đổi mật khẩu của bạn</h4>
+        <p class="m-0">Nhập thông tin đầy đủ để tạo thay đổi</p>
+        <form class="p-3 p-sm-4 pb-0" [formGroup]="changePassForm" errorTailor>
+          <span class="required fs-14">Mật khẩu hiện tại: </span>
+          <input type="password" class="form-control mt-2" formControlName="oldPassword" >
+    
+          <span class="required fs-14 mt-3">Mật khẩu mới: </span>
+          <input type="password" class="form-control mt-2" formControlName="newPassword" >
+    
+          <span class="required fs-14 mt-3">Nhập lại mật khẩu mới: </span>
+          <input type="password" class="form-control mt-2" formControlName="confirmPassword" >
+    
+          <div class="d-flex justify-content-around align-items-center mt-4">
+            <button nz-button nzType="primary" (click)="submitForm()" >Đổi mật khẩu</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

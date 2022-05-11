@@ -1,3 +1,5 @@
+import { PopupGoogleMapComponent } from './popups/popup-google-map/popup-google-map.component';
+import { PopupConfirmComponent } from './popups/popup-confirm/popup-confirm.component';
 import { SignUpNotificationPopupComponent } from './popups/sign-up-notification-popup/sign-up-notification-popup.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -77,11 +79,20 @@ import { LoginPopupComponent } from './popups/login-popup/login-popup.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorTailorModule } from '@ngneat/error-tailor';
 import { PipesModule } from '../pipes/pipes.module';
-
-
+import { SignupPopupComponent } from './popups/signup-popup/signup-popup.component';
+import { ForgotPasswordPopupComponent } from './popups/forgot-password-popup/forgot-password-popup.component';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, LoginPopupComponent, SignUpNotificationPopupComponent],
+  declarations: [
+    HeaderComponent,
+    FooterComponent,
+    LoginPopupComponent,
+    SignUpNotificationPopupComponent,
+    SignupPopupComponent,
+    PopupConfirmComponent,
+    ForgotPasswordPopupComponent,
+    PopupGoogleMapComponent,
+  ],
   imports: [
     CommonModule,
     FormsModule,
