@@ -31,8 +31,11 @@ export class AccommodationService extends BaseService {
     if (!paramsFilter.accommodationTypeID) {
       delete paramsFilter.accommodationTypeID;
     }
-    if (!paramsFilter.locationID) {
-      delete paramsFilter.locationID;
+    if (!paramsFilter.provinceID) {
+      delete paramsFilter.provinceID;
+    }
+    if (!paramsFilter.districtID) {
+      delete paramsFilter.districtID;
     }
     const fileUrl = `api/Accommodation/filter?PageIndex=${pageNumber}&PageSize=${pageSize}`;
     return this.get(fileUrl, Utils.createFilterParam({ ...paramsFilter })).pipe(
@@ -58,11 +61,16 @@ export class AccommodationService extends BaseService {
 
   createOrUpdate(data: any): Observable<any> {
     let url = '';
-    // if(data.id){
-    //   return this.put('api/Accommodation/update', data);
-    // }
+    if (data.accommodationID) {
+      return this.put('api/Accommodation/update', data);
+    }
     url = 'api/Accommodation/create';
     return this.post(url, data);
+  }
+
+  updateStatusAccommodation(AccommodationID: any, Status: boolean): Observable<any>{
+    const url = `api/Accommodation/update/${AccommodationID}/status?Status=${Status}`;
+    return this.put(url, null);
   }
 
   deleteAccommodation(data: string | any): Observable<any> {

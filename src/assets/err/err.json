@@ -1,0 +1,218 @@
+[
+  {
+    "code": "INTERNAL_SERVER_ERROR",
+    "text": "Đã xảy ra lỗi. Vui lòng thử lại"
+  },
+  {
+    "code": "GET_DATA_NOT_SUCCESS",
+    "text": "Đã xảy ra lỗi. Vui lòng thử lại"
+  },
+  {
+    "code": "WRONG_USERNAME_OR_PASSWORD",
+    "text": "Tên tài khoản hoặc mật khẩu không đúng"
+  },
+  {
+    "code": "WRONG_CURRENT_PASSWORD",
+    "text": "Mật khẩu không đúng"
+  },
+  {
+    "code": "CONFIRM_PASSWORD_NOT_MATCH",
+    "text": "Nhập lại mật khẩu không khớp"
+  },
+  {
+    "code": "WRONG_PASSWORD",
+    "text": "Mật khẩu không đúng"
+  },
+  {
+    "code": "ACCOUNT_NOT_EXIST",
+    "text": "Tài khoản không tồn tại"
+  },
+  {
+    "code": "ACCOUNT_NOT_ACTIVE",
+    "text": "Tài khoản chưa được kích hoạt"
+  },
+  {
+    "code": "TOKEN_NOT_EXIST",
+    "text": "Token không tồn tại"
+  },
+  {
+    "code": "OBJECT_NOT_FOUND",
+    "text": "Không tìm thấy đối tượng"
+  },
+  {
+    "code": "NOT_VALIDATED_EMAIL",
+    "text": "Email không đúng định dạng"
+  },
+  {
+    "code": "VERIFIED_ACCOUNT",
+    "text": "Tài khoản đã xác thực"
+  },
+  {
+    "code": "EMAIL_EXIST",
+    "text": "Email đã tồn tại trong hệ thống"
+  },
+  {
+    "code": "USERNAME_EXIST",
+    "text": "Tên tài khoản đã tồn tại trong hệ thống"
+  },
+  {
+    "code": "USERNAME_EMAIL_EXIST",
+    "text": "Tên tài khoản hoặc tên email đã tồn tại"
+  },
+  {
+    "code": "PERMISSION_DENIED",
+    "text": "Bạn không được phép truy cập trang này"
+  },
+  {
+    "code": "USER_EXIST_GROUP",
+    "text": "Tài khoản đã tồn tại trong nhóm"
+  },
+  {
+    "code": "DUPPLICATED",
+    "text": "Đã gửi yêu cầu trước đó, đang chờ xác minh"
+  },
+  {
+    "code": "ASYNCHRONOUS_DATA",
+    "text": "Dữ liệu này đang được cập nhật bởi cùng 1 tài khoản trên thiết bị khác. Vui lòng thực hiện tải lại trang để có dữ liệu mới nhất"
+  },
+  {
+    "code": "INVALID_STATUS",
+    "text": "Trạng thái hồ sơ không hợp lệ"
+  },
+  {
+    "code": "INVALID_PARAMETER",
+    "text": "Đã xảy ra lỗi. Vui lòng thử lại"
+  },
+  {
+    "code": "USER_INACTIVE",
+    "text": "Tài khoản bị khóa"
+  },
+  {
+    "code": "USER_IS_NOT_ACTIVE",
+    "text": "Tài khoản chưa kích hoạt"
+  },
+  {
+    "code": "TAX_CODE_EXIST",
+    "text": "Mã số thuế đã tồn tại trong hệ thống"
+  },
+  {
+    "code": "IDENTITY_CARD_EXIST",
+    "text": "Số CMND đã tồn tại trong hệ thống"
+  },
+  {
+    "code": "PHONE_NUMBER_EXIST",
+    "text": "Số điện thoại di động đã tồn tại trong hệ thống"
+  },
+  {
+    "code": "USERGROUP_HAS_BEEN_USED",
+    "text": "Nhóm người dùng này đang được sử dụng"
+  },
+  {
+    "code": "DUPLICATE_EMAIL_OR_PHONE",
+    "text": "Email hoặc số điện thoại đã tồn tại trong hệ thống"
+  },
+  {
+    "code": "EXISTED_NO",
+    "text": "Mã đã tồn tại"
+  },
+  {
+    "code": "DUPLICATE_CUSTOMER_NO",
+    "text": "Mã khách hàng đã bị trùng"
+  },
+  {
+    "code": "DUPLICATE_MEMBERSHIP_CARD_NO",
+    "text": "Trùng mã sản phẩm thẻ"
+  },
+  {
+    "code": "DUPLICATE_ABBREVIATION_NAME",
+    "text": "Tên viết tắt này hiện đã được sử dụng. Vui lòng kiểm tra lại"
+  },
+  {
+    "code": "MEMBERSHIP_CARD_RELEASED",
+    "text": "Bạn không thể xoá sản phẩm thẻ đã có khách hàng sở hữu"
+  },
+  {
+    "code": "GIFT_VOUCHER_RELEASED",
+    "text": "Bạn không thể xoá loại gift voucher đã được sử dụng để phát hành"
+  },
+  {
+    "code": "PROGRAM_CAGEGORY_RELEASED",
+    "text": "Bạn không thể xoá chương trình này vì chương trình này đã được sử dụng"
+  },
+  {
+    "code": "DUPLICATE_MEMBERSHIP_CARD_CONTRACT_NO",
+    "text": "Số hợp đồng này hiện đã được sử dụng. Vui lòng kiểm tra lại"
+  },
+  {
+    "code": "CARD_IS_IN_USE",
+    "text": "Bạn không thể xoá thẻ khi thẻ đã được sử dụng"
+  },
+  {
+    "code": "CARD_IS_BOOKING",
+    "text": "Bạn không thể vô hiệu hoá thẻ đang có phiên đặt phòng chưa đóng/chưa huỷ"
+  },
+  {
+    "code": "ACCOMMODATION_IS_IN_USE",
+    "text": "Cơ sở lưu trú đã được sử dụng trong phát hành thẻ/gift voucher"
+  },
+  {
+    "code": "ACCOMMODATION_IS_BOOKING",
+    "text": "Cơ sở lưu trú đã được sử dụng trong booking"
+  },
+  {
+    "code": "ROOM_TYPE_IS_IN_USE",
+    "text": "Loại phòng đã được sử dụng trong thông tin cơ sở lưu trú, sản phẩm thẻ, booking"
+  },
+  {
+    "code": "ROOM_NOT_ENOUGH",
+    "text": "Số phòng trống ko đủ"
+  },
+  {
+    "code": "DUPLICATE_NO",
+    "text": "Mã này đã bị trùng"
+  },
+  {
+    "code": "CANCEL_DATE_EXPIRED",
+    "text": "Quá hạn hủy đặt phòng"
+  },
+  {
+    "code": "USER_ALREADY_HAS_ACCOUNT",
+    "text": "Khách hàng này đã có tài khoản"
+  },
+  {
+    "code": "INVALID_DAY_PER_YEAR_LIMIT",
+    "text": "Số đêm đã quá số đêm cho phép được sử dụng/năm"
+  },
+  {
+    "code": "CREATION_LIMIT_EXCEEDED",
+    "text": "Số đối tượng đã vượt quá giới hạn"
+  },
+  {
+    "code": "ANNUAL_FEE_HAS_BEEN_USED",
+    "text": "Loại phí đang được sử dụng"
+  },
+  {
+    "code": "BRANCH_HAS_BEEN_USED",
+    "text": "Đại lý/chi nhánh đang được sử dụng"
+  },
+  {
+    "code": "SALE_POLICY_HAS_BEEN_USED",
+    "text": "Chính sách bán hàng đang được sử dụng"
+  },
+  {
+    "code": "PRODUCT_HAS_BEEN_USED",
+    "text": "Sản phẩm đang được sử dụng"
+  },
+  {
+    "code": "CONTRACT_WAS_BEEN_LIQUIDATED",
+    "text": "Hợp đồng đã thanh lý"
+  },
+  {
+    "code": "DUPLICATE_GIFT_VOUCHER_NO",
+    "text": "Mã Gift Voucher đã tồn tại"
+  },
+  {
+    "code": "USER_NOT_LOGIN_TO_SYSTEM",
+    "text": ""
+  }
+]

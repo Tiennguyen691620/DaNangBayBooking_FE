@@ -1,15 +1,18 @@
 export class AccommodationFilterModel {
   searchKey?: string;
   accommodationTypeID?: string;
-  locationID?: string;
+  provinceID?: string;
+  districtID?: string;
 
   constructor(
     searchKey?: string,
     accommodationTypeID?: string,
-    locationID?: string
+    provinceID?: string,
+    districtID?: string
   ) {
     (this.searchKey = searchKey),
       (this.accommodationTypeID = accommodationTypeID),
-      (this.locationID = locationID);
+      (this.provinceID = provinceID),
+      (this.districtID = districtID);
   }
 }

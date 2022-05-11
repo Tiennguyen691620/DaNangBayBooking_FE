@@ -1,9 +1,9 @@
 
 
 export class RoomTypeModel{
-  roomTypeID!: string;
-  name!: string;
-  description!: string;
-  no!: string;
-  status!: boolean;
+  roomTypeID: string;
+  name: string;
+  description: string;
+  no: string;
+  status: boolean;
 }

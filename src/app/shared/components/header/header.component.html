@@ -3610,10 +3610,11 @@
       </svg>
       <span class="title text-uppercase fz-30 c-blue">Da Nang Bay</span>
     </div>
-    <div class="avatar dropdown d-flex align-items-center">
+    <div class="avatar dropdown d-flex align-items-center" *ngIf="authService.getAuthenticationModel()">
       <a class="dropdown text-decoration-none" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-        <img [src]="'https://scontent.fdad3-4.fna.fbcdn.net/v/t39.30808-6/237079738_982346052612199_2153420782074162877_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=y4VP902S99MAX81VAWH&_nc_ht=scontent.fdad3-4.fna&oh=00_AT-pPVPWEYRrqkG0aty2VAqEMW_PD0FSqVxXdCgtP4mleA&oe=625DCB7E'" alt="" class="image me-2">
-        <span class="name c-black">Nguyễn Tân Tiến</span>
+        <nz-avatar *ngIf="avatarUrl == null" nzIcon="user" class="me-2"></nz-avatar>
+        <nz-avatar *ngIf="avatarUrl" [nzSrc]="avatarUrl" alt="" class="image me-2"></nz-avatar>
+        <span class="name c-dodgerblue">Xin chào! {{fullName}}</span>
       </a>
       <ul class="dropdown-menu mt-2" aria-labelledby="dropdownMenuLink">
         <li>

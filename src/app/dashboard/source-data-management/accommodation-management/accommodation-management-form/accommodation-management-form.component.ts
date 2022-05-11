@@ -1,3 +1,4 @@
+import { PopupGoogleMapComponent } from './../../../../shared/components/popups/popup-google-map/popup-google-map.component';
 import { FileUploadController, FileService } from './../../../../shared/services/file.service';
 import { MasterDataService } from './../../../../shared/services/master-data.service';
 import { LocationModel } from 'src/app/shared/models/master-data/location.model';
@@ -17,6 +18,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import Utils from 'src/app/shared/helpers/utils.helper';
 import { forkJoin, Observable, Observer } from 'rxjs';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { PopupConfirmComponent } from 'src/app/shared/components/popups/popup-confirm/popup-confirm.component';
+import { UploadAdapter } from 'src/app/shared/helpers/upload-adapter';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
   selector: 'app-accommodation-management-form',
@@ -35,9 +40,12 @@ export class AccommodationManagementFormComponent implements OnInit {
   accommodation = new AccommodationModel();
   accommodationBackup = new AccommodationModel();
   accommodationType: AccommodationTypeModel[];
-  province: LocationModel[] = [];
+  provinceList: LocationModel[] = [];
+  districtList: LocationModel[] = [];
+  subDistrictList: LocationModel[] = [];
   photoUpload = [];
   uploadController = [];
+  public editor = ClassicEditor;
 
   constructor(
     private route: ActivatedRoute,
@@ -46,16 +54,19 @@ export class AccommodationManagementFormComponent implements OnInit {
     private fileService: FileService,
     private accommodationService: AccommodationService,
     private masterDataService: MasterDataService,
-    private notification: NzNotificationService
+    private notification: NzNotificationService,
+    private modalService: NzModalService,
+    private notify: NzNotificationService
   ) {}
 
   ngOnInit(): void {
+    this.createForm();
     forkJoin(
       this.accommodationService.getAllAccommodationType(),
       this.masterDataService.getProvince()
     ).subscribe(([res1, res2]) => {
       this.accommodationType = res1;
-      this.province = res2;
+      this.provinceList = res2;
     });
     if (this.id) {
       this.accommodationService
@@ -70,7 +81,9 @@ export class AccommodationManagementFormComponent implements OnInit {
           this.accommodationForm.patchValue(res);
         });
     }
-    this.createForm();
+    // if(!this.id){
+    //   this.changeProvince(null);
+    // }
     this.route.queryParams.subscribe((queryParams) => {
       if (!queryParams?.tab) {
         this.router.navigate(['.'], {
@@ -80,12 +93,6 @@ export class AccommodationManagementFormComponent implements OnInit {
         });
       }
     });
-    // this.typeForm = this.route.snapshot.queryParams.get('typeForm');
-    // if (this.typeForm !== this.eTypeForm.create) {
-    //   this.id = this.route.snapshot.params.id.includes('?')
-    //     ? this.route.snapshot.params.id.split('?')[0]
-    //     : this.route.snapshot.params.id;
-    // }
   }
 
   createForm(): void {
@@ -94,11 +101,13 @@ export class AccommodationManagementFormComponent implements OnInit {
       name: ['', Validators.required],
       abbreviationName: ['', Validators.required],
       accommodationType: ['', Validators.required],
-      location: ['', Validators.required],
       address: ['', Validators.required],
       email: ['', Validators.required],
       phone: ['', Validators.required],
-      mapUrl: null,
+      province: ['', Validators.required],
+      district: ['', Validators.required],
+      subDistrict: ['', Validators.required],
+      mapURL: null,
       description: null,
       image: null,
     });
@@ -108,18 +117,18 @@ export class AccommodationManagementFormComponent implements OnInit {
     if (this.type !== this.eTypeForm.view) {
       this.accommodationForm.enable();
     }
-    if(this.type === this.eTypeForm.edit){
+    if (this.type === this.eTypeForm.edit) {
       this.accommodationForm.get('no').disable();
     }
-    if(this.type === this.eTypeForm.create){
-      this.accommodationForm.get('no').disable();
-    }
+    // if (this.type === this.eTypeForm.create) {
+    //   this.accommodationForm.get('no').disable();
+    // }
   }
   submitForm(): void {
     const doSubmit = () => {
       if (this.accommodationForm.valid) {
         this.accommodationService
-          .createOrUpdate(this.mappingRequest())
+          .createOrUpdate(this.mapData())
           .subscribe((_) => {
             this.notification.success(
               this.id ? 'Cập nhật thành công !' : 'Tạo mới thành công !',
@@ -133,6 +142,7 @@ export class AccommodationManagementFormComponent implements OnInit {
             ...this.accommodationForm.getRawValue(),
           };
           this.accommodationForm.disable();
+          return;
         }
         this.router.navigate([
           '/dashboard/source-data-management/accommodation/list',
@@ -181,7 +191,7 @@ export class AccommodationManagementFormComponent implements OnInit {
     this.accommodationForm.disable();
   }
 
-  mappingRequest(): any {
+  mapData(): any {
     const valueForm = this.accommodationForm.getRawValue();
     return {
       accommodationID: this.id,
@@ -190,9 +200,11 @@ export class AccommodationManagementFormComponent implements OnInit {
       abbreviationName: valueForm.abbreviationName,
       description: valueForm.description,
       accommodationType: valueForm.accommodationType,
-      location: valueForm.location,
+      province: valueForm.province,
+      district: valueForm.location,
+      subDistrict: valueForm.subDistrict,
       address: valueForm.address,
-      mapUrl: valueForm.mapUrl,
+      mapURL: valueForm.mapURL,
       email: valueForm.email,
       phone: valueForm.phone,
       images: (this.uploadController ?? []).map((item, index) => {
@@ -208,6 +220,42 @@ export class AccommodationManagementFormComponent implements OnInit {
         return image;
       }),
     };
+  }
+
+  changeProvince(province: LocationModel): void {
+    if (province) {
+      if (this.type !== this.eTypeForm.view) {
+        this.accommodationForm.get('district').enable();
+      }
+      this.masterDataService
+        .getDistrict(province.locationID)
+        .subscribe((res) => {
+          this.districtList = res;
+        });
+    }
+    if (!province) {
+      this.accommodationForm.get('district').disable();
+      this.districtList = [];
+    }
+    this.accommodationForm.get('district').patchValue(null);
+  }
+
+  changeDistrict(district: LocationModel): void {
+    if (district) {
+      if (this.type !== this.eTypeForm.view) {
+        this.accommodationForm.get('subDistrict').enable();
+      }
+      this.masterDataService
+        .getSubDistrict(district.locationID)
+        .subscribe((res) => {
+          this.subDistrictList = res;
+        });
+    }
+    if (!district) {
+      this.accommodationForm.get('subDistrict').disable();
+      this.subDistrictList = [];
+    }
+    this.accommodationForm.get('subDistrict').patchValue(null);
   }
 
   beforeUpload = (file: NzUploadFile, _fileList: NzUploadFile[]) => {
@@ -289,6 +337,9 @@ export class AccommodationManagementFormComponent implements OnInit {
     ];
     this.indexOfImage = indexOfImage;
   }
+  closeView(): void {
+    this.imageShowPopupView = null;
+  }
 
   deleteImage(index: number): void {
     this.photoUpload.splice(index, 1);
@@ -314,12 +365,44 @@ export class AccommodationManagementFormComponent implements OnInit {
     }
   }
 
+  viewMap(): void {
+    const isCorrectFormat =
+      this.accommodationForm.getRawValue().mapURL &&
+      this.accommodationForm.getRawValue().mapURL.length &&
+      this.accommodationForm
+        .getRawValue()
+        .mapURL.trim()
+        .startsWith('<iframe') &&
+      this.accommodationForm.getRawValue().mapURL.trim().endsWith(`</iframe>`);
+    const modal = this.modalService.create({
+      nzContent: PopupGoogleMapComponent,
+      nzComponentParams: {
+        content: this.accommodationForm.getRawValue().mapURL,
+        isCorrectFormat,
+      },
+      nzFooter: null,
+      nzWidth: isCorrectFormat ? (window.innerWidth * 7) / 10 : 350,
+    });
+
+    modal.afterClose.subscribe((result) => {});
+  }
+
+  onReady(eventData): any {
+    eventData.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+      return new UploadAdapter(
+        loader,
+        this.fileService,
+        this.accommodationForm.get('description')
+      );
+    };
+  }
+
   compareAccommodationType = (
     o1: AccommodationTypeModel,
     o2: AccommodationTypeModel
   ) =>
     o1 && o2 ? o1.accommodationTypeID == o2.accommodationTypeID : o1 === o2;
 
-  compareProvince = (o1: LocationModel, o2: LocationModel) =>
-    o1 && o2 ? o1.locationID == o2.locationID : o1 === o2;
+  compareDictionaryMasterData = (o1: LocationModel, o2: LocationModel) =>
+    o1 && o2 ? o1.locationID === o2.locationID : o1 === o2;
 }

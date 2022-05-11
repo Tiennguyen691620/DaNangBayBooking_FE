@@ -1,5 +1,5 @@
 import { SharedModule } from './shared/shared.module';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -15,6 +15,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
 import { ErrorTailorModule } from '@ngneat/error-tailor';
 import { DefaultInterceptor } from './shared/helpers/default.interceptor';
+import { NzModalRef } from 'ng-zorro-antd/modal';
 
 registerLocaleData(en);
 
@@ -60,6 +61,16 @@ const INTERCEPTOR_PROVIDES = [
       provide: LocationStrategy,
       useClass: HashLocationStrategy,
     },
+    // {
+    //   provide: NzModalRef,
+    //   useValue: {
+    //     getInstance: () => {
+    //       return {
+    //         setFooterWithTemplate: () => {},
+    //       };
+    //     },
+    //   },
+    // },
   ],
   bootstrap: [AppComponent],
 })

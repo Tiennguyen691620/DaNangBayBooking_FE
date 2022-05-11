@@ -287,3 +287,15 @@ button[nzType="third"] {
 // .ng-invalid {
 //   border-bottom: 2px solid #ff4d4f;
 // }
+
+.is-invalid {
+  border: 1px solid #dc3545 !important;
+  border-radius: 5px;
+}
+
+.status-active{
+  color: #52c41a;
+}
+.status-inActive{
+  color: #f5222d;
+}

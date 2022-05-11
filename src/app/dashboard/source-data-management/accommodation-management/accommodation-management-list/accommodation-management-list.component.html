@@ -20,7 +20,7 @@
             </div>
             <div class="w-240px mx-2 d-flex align-items-center">
               <span class="me-2" >Tỉnh/TP :</span>
-              <nz-select [(ngModel)]="filterModel.locationID" (ngModelChange)="filter()"  nzAllowClear nzPlaceHolder="Tất cả" nzShowSearch>
+              <nz-select [(ngModel)]="filterModel.provinceID" (ngModelChange)="filter()"  nzAllowClear nzPlaceHolder="Tất cả" nzShowSearch>
                 <nz-option *ngFor="let item of Province" [nzValue]="item.locationID" [nzLabel]="item.name"></nz-option>
               </nz-select>
             </div>
@@ -58,14 +58,15 @@
             <td class="text-center">{{item.no}}</td>
             <td class="text-center">{{item.name}}</td>
             <td class="text-center">{{item?.accommodationType?.name}}</td>
-            <td class="text-center">{{item?.location?.name}}</td>
+            <td class="text-center">{{item?.province?.name}}</td>
             <td class="text-center">
-              <span class=" webkit-box-1" nz-tooltip="1000, Ngô Quyền, An Hải Tây, Sơn Trà">{{item.address}}</span>
+              <span class=" webkit-box-1" nz-tooltip="{{item.address}}">{{item.address}}</span>
             </td>
-            <td class="text-center">{{item.status}}</td>
+            <td class="text-center" [class.status-active]="item.status === true" [class.status-inActive]="item.status === false"  >{{item.status == true ? 'Đang hoạt động' : 'Không hoạt động'}}</td>
             <td nzRight="0px" class="text-center">
               <div class="d-flex align-items-center justify-content-between">
-                <nz-switch nzSize="small" class=""></nz-switch>
+                <nz-switch nz-tooltip [nzTooltipTitle]="'Thay đổi trạng thái'" nzSize="small" [(ngModel)]="item.status"
+                  (ngModelChange)="changeStatus($event, item)" class=""></nz-switch>
                 <i class="fa-solid fa-eye pointer c-dodgerblue"     
                 [routerLink]="['/dashboard/source-data-management/accommodation/view', item?.accommodationID]" nz-tooltip [nzTooltipTitle]="'Xem'"
                   [queryParams]="{typeForm: 'view'}"></i>

@@ -21,6 +21,10 @@ import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+import { PopupGoogleMapComponent } from './popups/popup-google-map/popup-google-map.component';
+import { PopupResetPasswordComponent } from './popups/popup-reset-password/popup-reset-password.component';
+import { NzAvatarModule } from 'ng-zorro-antd/avatar';
+import { PopupChangePasswordComponent } from './popups/popup-change-password/popup-change-password.component';
 
 const options: () => Partial<IConfig> = () => {
   return {
@@ -34,6 +38,9 @@ const options: () => Partial<IConfig> = () => {
     FooterComponent,
     PopupConfirmComponent,
     PopupNotificationComponent,
+    PopupGoogleMapComponent,
+    PopupResetPasswordComponent,
+    PopupChangePasswordComponent,
   ],
   imports: [
     CommonModule,
@@ -49,6 +56,7 @@ const options: () => Partial<IConfig> = () => {
     NzTableModule,
     NzTabsModule,
     NzCheckboxModule,
+    NzAvatarModule,
     NzDatePickerModule,
     ErrorTailorModule.forRoot({
       errors: {

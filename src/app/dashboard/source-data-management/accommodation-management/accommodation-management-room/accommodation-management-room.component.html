@@ -13,22 +13,10 @@
       <th></th>
     </thead>
     <tbody>
-      <tr  *ngFor="let item of dataSource; let i = index">
+      <tr *ngFor="let item of dataSource; let i = index">
         <td nzLeft="0px">
-          <!-- <ng-container >
-            <div class="position-relative">
-              <img class="image-upload pointer" [src]="item?.images" />
-              <i *ngIf="type !== eTypeForm.view" class="
-                                    icon-close
-                                    pointer
-                                    position-absolute
-                                    icon-delete-image
-                                  " nz-icon nzType="close" nzTheme="outline"></i>
-            </div>
-          </ng-container> -->
-          <nz-upload class="avatar-uploader" nzName="avatar" nzListType="picture-card" nzAccept=".png, .jpg"
-            [nzShowUploadList]="false" [nzBeforeUpload]="beforeUpload" (nzChange)="handleChange($event)"
-                        [nzCustomRequest]="handleUpload">
+          <nz-upload *ngIf="!item?.image" class="avatar-uploader" nzName="avatar" nzListType="picture-card" [nzDisabled]="typeForm === eTypeForm.view"
+            [nzShowUploadList]="false" [nzBeforeUpload]="beforeUpload" (nzChange)="handleChange($event, item)" [nzCustomRequest]="handleUpload">
             <ng-container *ngIf="typeForm !== eTypeForm.view">
               <svg class="icon-add-image" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
                 <path id="ic_add_to_photos_24px"
@@ -38,46 +26,45 @@
               <!-- <div [class.is-invalid]="!item.image && isSubmitted" class="position-absolute f-validate">
               </div> -->
             </ng-container>
-
+          
           </nz-upload>
-          <!-- <div class="position-relative" *ngIf="item?.image ">
-            <img  class="w-100 pointer" [src]="item?.image" alt="">
-            <i *ngIf="typeForm !== eTypeForm.view"  class="icon-close pointer position-absolute icon-delete-image" nz-icon
+          <div class="position-relative" *ngIf="item?.image ">
+            <img (click)="viewFullScreenImage([item?.image], 0)" class="w-100 pointer" [src]="item?.image" alt="">
+            <i *ngIf="typeForm !== eTypeForm.view" (click)="deleteImage(item, i)" class="icon-close pointer position-absolute icon-delete-image" nz-icon
               nzType="close" nzTheme="outline"></i>
-          </div> -->
+          </div>
         </td>
         <td>
-          <input [disabled]="typeForm === eTypeForm.view"[class.is-invalid]="!item.name && isSubmitted"
-                        nz-input type="text" [(ngModel)]="item.name" placeholder="Nhập">
+          <input [disabled]="typeForm === eTypeForm.view" nz-input type="text" [(ngModel)]="item.name" placeholder="Nhập">
         </td>
         <td>
-          <nz-select [nzDisabled]="typeForm === eTypeForm.view" nzShowSearch nzAllowClear [nzPlaceHolder]="'Chọn'">
+          <nz-select [nzDisabled]="typeForm === eTypeForm.view" nzShowSearch nzAllowClear [nzPlaceHolder]="'Chọn'" [(ngModel)]="item.roomType"
+            [compareWith]="compareRoomType">
             <nz-option *ngFor="let item of roomTypeList" [nzValue]="item" [nzLabel]="item.name">
             </nz-option>
           </nz-select>
         </td>
         <td>
-          <input [disabled]="typeForm === eTypeForm.view"  [class.is-invalid]="!validateMaximumPeople(item) && isSubmitted" nz-input type="text"
-                        [(ngModel)]="item.maximumPeople" mask="000000000000000" placeholder="Nhập">
+          <input [disabled]="typeForm === eTypeForm.view" nz-input type="text" [(ngModel)]="item.maximumPeople" mask="000000000000000"
+            placeholder="Nhập">
         </td>
         <td>
-          <input [disabled]="typeForm === eTypeForm.view" [class.is-invalid]="!item.purchasedQty && isSubmitted" nz-input type="text"
-                        [(ngModel)]="item.purchasedQty" mask="000000000000000" placeholder="Nhập">
+          <input [disabled]="typeForm === eTypeForm.view" nz-input type="text" [(ngModel)]="item.purchasedQty" mask="000000000000000"
+            placeholder="Nhập">
         </td>
         <td>
-          <input [disabled]="typeForm === eTypeForm.view" [disabled]="typeForm === eTypeForm.view"
-                        [class.is-invalid]="!validateAvailableQty(item) && isSubmitted" nz-input type="text"
-                        [(ngModel)]="item.availableQty" mask="000000000000000" placeholder="Nhập">
+          <input [disabled]="typeForm === eTypeForm.view" nz-input type="text" [(ngModel)]="item.availableQty" mask="000000000000000"
+            placeholder="Nhập">
         </td>
         <td class="text-center">
           <i nz-icon nz-tooltip nzTooltipTitle="Xem tình trạng phòng" nzType="info-circle" nzTheme="outline" class="icon-info pointer"></i>
         </td>
 
         <td>
-          <textarea [disabled]="typeForm === eTypeForm.view" rows="1" nz-input placeholder="Nhập"></textarea>
+          <textarea [disabled]="typeForm === eTypeForm.view" rows="1" nz-input placeholder="Nhập" [(ngModel)]="item.description"></textarea>
         </td>
         <td class="text-center">
-          <i *ngIf="typeForm !== eTypeForm.view" class="fa fa-minus-circle pointer icon-delete" aria-hidden="true"></i>
+          <i *ngIf="typeForm !== eTypeForm.view" class="fa fa-minus-circle pointer icon-delete" aria-hidden="true" (click)="delete(i)"></i>
         </td>
       </tr>
     </tbody>
@@ -87,7 +74,7 @@
     <p class="mb-0">Không có dữ liệu</p>
   </div>
   <div *ngIf="typeForm !== eTypeForm.view" class="mt-3">
-    <i class="fa fa-plus-circle icon-add pointer" aria-hidden="true" #addItem></i>&nbsp;&nbsp;<label class="pointer"
+    <i class="fa fa-plus-circle icon-add pointer" aria-hidden="true" (click)="add()" #addItem></i>&nbsp;&nbsp;<label class="pointer"
       (click)="addItem.click()">Thêm</label>
   </div>
   <div class="row mt-3">
@@ -97,7 +84,7 @@
   <div class="d-flex justify-content-center mt-3">
     <button *ngIf="typeForm === eTypeForm.view" nz-button nzType="primary" type="button" class="me-2 btn-save" (click)="edit()">Chỉnh sửa
     </button>
-    <button *ngIf="typeForm === eTypeForm.edit" nz-button nzType="primary" type="submit" class="me-2 btn-save">Lưu
+    <button *ngIf="typeForm === eTypeForm.edit" nz-button nzType="primary" type="submit" class="me-2 btn-save" (click)="submit()">Lưu
     </button>
     <button *ngIf="typeForm === eTypeForm.edit" nz-button type="button" class="ms-2 btn-cancel" (click)="cancel()">Hủy bỏ
     </button>

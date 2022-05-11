@@ -56,7 +56,7 @@ export class MemberCustomerFormComponent implements OnInit {
       this.updateForm(this.eTypeForm.view);
       this.customerService.getCustomer(this.id).subscribe((res) => {
         this.customer = res;
-        this.customerBackup = { ...this.customer };
+        this.customerBackup = res;
         this.avatarUrl = res.avatar;
         this.avatarUrlBackup = res.avatar;
         this.uploadController = { fileUrl: res?.avatar };
@@ -67,7 +67,7 @@ export class MemberCustomerFormComponent implements OnInit {
       this.type = this.eTypeForm.create;
       this.updateForm(this.eTypeForm.create);
       this.changeProvince(null);
-      this.changeDistrict(null);
+      // this.changeDistrict(null);
     }
   }
 
@@ -84,6 +84,7 @@ export class MemberCustomerFormComponent implements OnInit {
       district: [null, Validators.required],
       subDistrict: [null, Validators.required],
       address: [null, Validators.required],
+      activeDate: null,
     });
   }
 
@@ -95,7 +96,7 @@ export class MemberCustomerFormComponent implements OnInit {
           .subscribe((res) => {
             this.notification.success(
               this.id
-                ? 'Cập nhật thông tin thành công !'
+                ? 'Cập nhật thông tin khách hàng thành công !'
                 : 'Tạo mới thông tin thành công !',
               '',
               Utils.setStyleNotification()
@@ -131,13 +132,14 @@ export class MemberCustomerFormComponent implements OnInit {
       phoneNumber: item.phoneNumber,
       email: item.email,
       identityCard: item.identityCard,
-      dob: DateTimeConvertHelper.fromDtObjectToDtStr(item.dob),
+      dob: DateTimeConvertHelper.fromDtObjectToTimestamp(item.dob),
       gender: item.gender,
       address: item.address,
       avatar: this.uploadController?.fileUrl,
       province: item.province,
       district: item.district,
       subDistrict: item.subDistrict,
+      activeDate: item.activeDate,
     };
   }
 
@@ -253,8 +255,9 @@ export class MemberCustomerFormComponent implements OnInit {
     if (typeForm !== this.eTypeForm.view) {
       this.customerForm.enable();
       this.customerForm.get('no').disable();
-      this.changeProvince(this.customerForm.get('province').value);
-      this.changeDistrict(this.customerForm.get('district').value);
+      this.customerForm.get('activeDate').disable();
+      // this.changeProvince(this.customerForm.get('province').value);
+      // this.changeDistrict(this.customerForm.get('district').value);
     }
   }
 
@@ -283,9 +286,6 @@ export class MemberCustomerFormComponent implements OnInit {
 
   edit(): void {
     this.type = this.eTypeForm.edit;
-    // this.router.navigate([
-    //   '/dashboard/customer-management/member-customer/edit', this.id
-    // ], {queryParams: {typeFom: this.eTypeForm.edit}});
     this.customerBackup = { ...this.customerForm.getRawValue() };
     this.updateForm(this.eTypeForm.edit);
   }

@@ -38,6 +38,11 @@ export class CustomerService extends BaseService {
           totalRecords: res.totalRecords,
           pageCount: res.pageCount,
           items: res.items.map((item: any, index: any) => {
+            if (item.dob) {
+              item.dob = DateTimeConvertHelper.fromTimestampToDtObject(
+                item.dob
+              );
+            }
             item.index = index + res.pageSize * res.pageIndex + 1;
             return item;
           }),
@@ -54,10 +59,10 @@ export class CustomerService extends BaseService {
           return new CustomerModel();
         }
         result.dob = result.dob
-          ? DateTimeConvertHelper.fromDtObjectToDtStr(result.dob)
+          ? DateTimeConvertHelper.fromTimestampToDtObject(result.dob)
           : null;
         result.activeDate = result.activeDate
-          ? DateTimeConvertHelper.fromDtObjectToDtStr(result.activeDate)
+          ? DateTimeConvertHelper.fromTimestampToDtObject(result.activeDate)
           : null;
         return result;
       })
@@ -65,7 +70,18 @@ export class CustomerService extends BaseService {
   }
 
   updateCustomer(data: any): Observable<any> {
-    const url = `api/Users/update/customer`;
+    const url = `api/Users/update`;
     return this.put(url, Utils.createFilterParam(data));
+  }
+
+  updateStatusClient(UserClientID: any, Status: boolean): Observable<any> {
+    let url = '';
+    url = `api/Users/update/${UserClientID}/status/client?isActive=${Status}`;
+    return this.put(url, null);
+  }
+
+  resetPassword(data: any): Observable<any> {
+    const url = `api/Users/reset-password`;
+    return this.post(url, data);
   }
 }

@@ -1,3 +1,4 @@
+import { PopupConfirmComponent } from 'src/app/shared/components/popups/popup-confirm/popup-confirm.component';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { RoomTypeService } from './../../../../shared/services/room-type.service';
 import {
@@ -13,6 +14,8 @@ import { ETypeForm } from 'src/app/shared/enum/type-form.enum';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { Observable, Observer } from 'rxjs';
 import Utils from 'src/app/shared/helpers/utils.helper';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-accommodation-management-room',
@@ -24,13 +27,14 @@ export class AccommodationManagementRoomComponent implements OnInit {
   @Input() type: string;
   typeForm: string;
   eTypeForm = ETypeForm;
-  isSubmitted = false;
+  isSubmitted: false;
   loadingImage = false;
+  indexOfImage: number;
   dataSource: RoomModel[] = [];
   dataSourceBackup: RoomModel[] = [];
   roomTypeList: RoomTypeModel[] = [];
-  photoUpload = [];
   uploadController = [];
+  imageShowPopupView: FileUploadController[];
 
   constructor(
     private accommodationService: AccommodationService,
@@ -38,7 +42,8 @@ export class AccommodationManagementRoomComponent implements OnInit {
     private router: Router,
     private fileService: FileService,
     private roomTypeService: RoomTypeService,
-    private notification: NzNotificationService
+    private notification: NzNotificationService,
+    private modalService: NzModalService
   ) {}
 
   ngOnInit(): void {
@@ -50,25 +55,26 @@ export class AccommodationManagementRoomComponent implements OnInit {
       this.dataSource = res;
       this.dataSourceBackup = [...this.dataSource];
       this.dataSource.forEach((item) => {
-        this.photoUpload.push(item.images?.map((o) => o.image));
-        this.uploadController.push({
-          fileUrl: item.images?.map((o) => o.image),
-        });
+        item.uploadController = { fileUrl: item.image };
       });
     });
   }
 
   submit(): void {
     const doSubmit = () => {
-      this.isSubmitted = true;
-      if (this.validateList()) {
-        this.accommodationService
-          .updateRoomAccommodation(this.mapData(), this.id)
-          .subscribe((_) => {
-            this.notification.success('cập nhật thông tin thành công!', '', Utils.setStyleNotification());
-            this.typeForm = this.eTypeForm.view;
-          });
-      }
+      // this.isSubmitted = true;
+      // if (this.validateList()) {
+      this.accommodationService
+        .updateRoomAccommodation(this.mapData(), this.id)
+        .subscribe((_) => {
+          this.notification.success(
+            'cập nhật thông tin thành công!',
+            '',
+            Utils.setStyleNotification()
+          );
+          this.typeForm = this.eTypeForm.view;
+        });
+      // }
     };
     const uploadProgresses = [];
     for (const item of this.uploadController) {
@@ -91,29 +97,17 @@ export class AccommodationManagementRoomComponent implements OnInit {
   mapData(): any {
     return this.dataSource?.map((item) => {
       return {
-        roomID: this.id,
+        roomID: item.roomID,
         name: item.name,
         roomType: item.roomType,
-        maximumPeople: item.maximumPeople,
-        availableQty: item.availableQty,
-        purchasedQty: item.purchasedQty,
+        maximumPeople: +item.maximumPeople,
+        availableQty: +item.availableQty,
+        purchasedQty: +item.purchasedQty,
+        bookedQty: item.bookedQty,
         price: item.price,
         no: item.no,
-        bookedQty: item.bookedQty,
-        images: (this.uploadController ?? []).map((item, index) => {
-          const image = {
-            id: this.dataSource.map((o) => o.images ?? [])[index]
-              ? this.dataSource
-                  .map((o) => o.images ?? [])
-                  [index].map((o) => o.id)
-              : null,
-            image: item.fileUrl,
-          };
-          if (!image?.id) {
-            delete image?.id;
-          }
-          return image;
-        }),
+        description: item.description,
+        image: item.uploadController.fileUrl,
       };
     });
   }
@@ -131,7 +125,7 @@ export class AccommodationManagementRoomComponent implements OnInit {
     this.typeForm = this.eTypeForm.view;
     this.dataSourceBackup = [
       ...this.dataSource.map((item) => {
-        return {...item};
+        return { ...item };
       }),
     ];
   }
@@ -176,7 +170,7 @@ export class AccommodationManagementRoomComponent implements OnInit {
     return this.fileService.uploadImage(file?.originFileObj);
   }
 
-  handleChange(info: { file: NzUploadFile }): void {
+  handleChange(info: { file: NzUploadFile }, item: RoomModel): void {
     switch (info.file.status) {
       case 'uploading':
         this.loadingImage = true;
@@ -186,9 +180,10 @@ export class AccommodationManagementRoomComponent implements OnInit {
         // tslint:disable-next-line:no-non-null-assertion
         this.getBase64(info.file!.originFileObj!, (img: string) => {
           this.loadingImage = false;
-          if (this.photoUpload.length < 5) {
-            this.photoUpload.push(img);
-          }
+          item.image = img;
+          item.uploadController = this.uploadController.find(
+            (o) => o?.file?.uid === info?.file?.uid
+          );
         });
         break;
       case 'error':
@@ -208,10 +203,40 @@ export class AccommodationManagementRoomComponent implements OnInit {
       this.fileService.uploadImage(item.file),
       item
     );
-    if (this.uploadController.length < 5) {
-      this.uploadController.push(uploadController);
-    }
+    this.uploadController.push(uploadController);
   };
+
+  viewFullScreenImage(imageUrlArray, indexOfImage): void {
+    this.imageShowPopupView = [...imageUrlArray.map((item) => item)];
+    this.indexOfImage = indexOfImage;
+  }
+
+  deleteImage(item: RoomModel, index: number): void {
+    item.image = null;
+    this.uploadController.splice(index, 1);
+  }
+
+  add(): void {
+    (this.dataSource ?? []).push(new RoomModel());
+  }
+
+  delete(index: number): void {
+    const modal = this.modalService.create({
+      nzContent: PopupConfirmComponent,
+      nzComponentParams: {
+        vnContent: 'Bạn có muốn xóa loại phòng này?',
+      },
+      nzWidth: 620,
+      nzFooter: null,
+    });
+
+    modal.afterClose.subscribe((result) => {
+      if (result && result.data) {
+        this.dataSource.splice(index, 1);
+        this.uploadController.splice(index, 1);
+      }
+    });
+  }
 
   validateList(): boolean {
     if (
@@ -221,7 +246,7 @@ export class AccommodationManagementRoomComponent implements OnInit {
           item.name &&
           item.roomType &&
           item.purchasedQty &&
-          item.images.map((o) => o.image) &&
+          item.image &&
           this.validateMaximumPeople(item) &&
           this.validateAvailableQty(item)
       )
@@ -244,4 +269,7 @@ export class AccommodationManagementRoomComponent implements OnInit {
     }
     return false;
   }
+
+  compareRoomType = (o1: RoomTypeModel, o2: RoomTypeModel) =>
+    o1 && o2 ? o1.roomTypeID === o2.roomTypeID : o1 === o2;
 }
