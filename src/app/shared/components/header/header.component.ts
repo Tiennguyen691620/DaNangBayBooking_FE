@@ -31,17 +31,22 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.fullName = this.authService.getAuthenticationModel()?.fullName;
-    // this.authService.showName$
     this.customerService
     .getCustomerDetail(this.authService.getAuthenticationModel()?.id)
     .subscribe((res) => {
       this.customer = res;
       this.avatarUrl = res.avatar;
     });
+    this.authService.showName$.subscribe((data) => {
+      this.fullName = data;
+    });
+    this.authService.changeImage$.subscribe((data) => {
+      this.avatarUrl = data;
+    });
   }
 
   login(): void {
-    if(!this.authService.getAuthenticationModel()){
+    if (!this.authService.getAuthenticationModel()) {
       this.modalService.create({
         // nzTitle: 'Đăng nhập',
         nzContent: LoginPopupComponent,
@@ -50,10 +55,12 @@ export class HeaderComponent implements OnInit {
         nzFooter: null,
       });
     }
+    // this.authService.setShowName(this.fullName);
+    // this.authService.setChangeImage(this.avatarUrl);
   }
-  
+
   signup(): void {
-    if(!this.authService.getAuthenticationModel()){
+    if (!this.authService.getAuthenticationModel()) {
       this.modalService.create({
         nzContent: SignupPopupComponent,
         nzCloseIcon: 'false',
@@ -65,9 +72,11 @@ export class HeaderComponent implements OnInit {
 
   logout(): void {
     this.authService.setShowLogin(false);
+    this.authService.setChangeImage(null);
+    this.authService.setShowName(null);
     this.authService.logOut();
+    window.location.href = `${environment.FE_ENDPOINT}home`;
   }
-
 
   backToHome(): void {
     window.location.href = `${environment.FE_ENDPOINT}home`;

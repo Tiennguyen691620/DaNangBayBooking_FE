@@ -1,3 +1,4 @@
+import { AccountFormComponent } from './account-form/account-form.component';
 import { AccountChangePassComponent } from './account-change-pass/account-change-pass.component';
 import { AccountViewComponent } from './account-view/account-view.component';
 import { NgModule } from '@angular/core';

@@ -19,4 +19,6 @@ export class CustomerModel{
   role: RoleModel;
   location: LocationModel;
   // bookRooms: BookRoomModel;
+
+  uploadController?: any;
 }

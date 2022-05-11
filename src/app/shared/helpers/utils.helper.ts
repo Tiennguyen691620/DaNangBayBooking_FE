@@ -31,10 +31,10 @@ export default class Utils {
       // nzDuration: 0,
       nzPlacement: 'topRight',
       nzStyle: {
-        'background': '#074494',
-        'align-items': 'center',
-        'border-radius': '0.25rem',
-        color: '#ffffff'
+        // 'background': '#074494',
+        // 'align-items': 'center',
+        // 'border-radius': '0.25rem',
+        // color: '#ffffff'
       },
     };
   }

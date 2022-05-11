@@ -17,9 +17,11 @@ export class AuthService extends BaseService {
 
   showLoginSubject: Subject<boolean> = new Subject();
   showNameSubject: Subject<string> = new Subject();
+  changeImageSubject: Subject<string> = new Subject();
 
   showLogin$ = this.showLoginSubject.asObservable();
   showName$ = this.showNameSubject.asObservable();
+  changeImage$ = this.changeImageSubject.asObservable();
 
   public login(email: string, password: string): Observable<any> {
     return this.post<AuthenticationModel>('api/Users/login-client', {
@@ -55,8 +57,11 @@ export class AuthService extends BaseService {
   setShowName(value: string) {
     this.showNameSubject.next(value);
   }
+  setChangeImage(value: string) {
+    this.changeImageSubject.next(value);
+  }
 
-  signIn(data: any): Observable<any> {
+  registerUser(data: any): Observable<any> {
     const url = `api/Users/register-client`;
     return this.post(url, data);
   }

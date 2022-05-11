@@ -17,6 +17,8 @@ export class LoginPopupComponent implements OnInit {
   signInForm: FormGroup;
   isSubmitted = false;
   passwordVisible = false;
+  fullName: string;
+  avatarUrl: string;
   formErrors = {
     email: '',
     password: '',
@@ -69,6 +71,8 @@ export class LoginPopupComponent implements OnInit {
             this.authService.setAuthenticationModel(
               res.data as AuthenticationModel
             );
+            this.authService.setShowName(res.data.fullName);
+            this.authService.setChangeImage(res.data.avatar);
             if (res.data !== null) {
               this.modal.destroy();
               this.router.navigate(['/home']);

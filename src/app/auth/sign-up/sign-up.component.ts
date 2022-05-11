@@ -66,7 +66,7 @@ export class SignUpComponent implements OnInit {
   submitForm(): void {
     this.isSubmitted = true;
     if (this.signUpForm.valid) {
-      this.authService.signIn(this.mapData()).subscribe(
+      this.authService.registerUser(this.mapData()).subscribe(
         (res) => {
           this.goBack();
         },

@@ -7,6 +7,7 @@ export class AuthenticationModel {
   fullName: string;
   phoneNumber: string;
   dob: string;
+  avatar: string;
   accessToken: string;
   roles: string[];
 }
