@@ -65,11 +65,11 @@ export class UserService extends BaseService {
 
   createOrUpdateUser(data: any): Observable<any> {
     let url = '';
-    if(data.id){
+    if (data.id) {
       url = `api/Users/update`;
       return this.put(url, Utils.createFilterParam(data));
     }
-    if(!data.id){
+    if (!data.id) {
       delete data.id;
     }
     url = `api/Users/create/admin`;
@@ -80,5 +80,14 @@ export class UserService extends BaseService {
     let url = '';
     url = `api/Users/update/${UserAdminID}/status/admin?isActive=${Status}`;
     return this.put(url, null);
+  }
+
+  resetPassword(data: any): Observable<any> {
+    const url = `api/Users/reset-password`;
+    return this.post(url, data);
+  }
+
+  changePassword(data: any): Observable<any> {
+    return;
   }
 }

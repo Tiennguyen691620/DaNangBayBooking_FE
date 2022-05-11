@@ -8,7 +8,9 @@ import { DictionaryItem } from '../master-data/dictionary-item.model';
 
 export class AccommodationModel {
   accommodationID: string;
-  location: LocationModel;
+  province: LocationModel;
+  district: LocationModel;
+  subDistrict: LocationModel;
   accommodationType: AccommodationTypeModel;
   name: string;
   abbreviationName: string;

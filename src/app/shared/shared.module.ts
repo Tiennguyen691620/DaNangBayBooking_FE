@@ -74,6 +74,7 @@ import { NzPipesModule } from 'ng-zorro-antd/pipes';
 import { ServicesModule } from './services/services.module';
 import { ErrorTailorModule } from '@ngneat/error-tailor';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 
 const maskConfig: Partial<IConfig> = {
@@ -183,6 +184,7 @@ const maskConfig: Partial<IConfig> = {
     NzPipesModule,
     ErrorTailorModule,
     NgxMaskModule,
+    CKEditorModule,
   ],
 })
 export class SharedModule {}

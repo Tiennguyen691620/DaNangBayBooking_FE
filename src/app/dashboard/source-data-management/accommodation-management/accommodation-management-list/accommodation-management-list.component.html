@@ -20,7 +20,7 @@
             </div>
             <div class="w-240px mx-2 d-flex align-items-center">
               <span class="me-2" >Tỉnh/TP :</span>
-              <nz-select [(ngModel)]="filterModel.locationID" (ngModelChange)="filter()"  nzAllowClear nzPlaceHolder="Tất cả" nzShowSearch>
+              <nz-select [(ngModel)]="filterModel.provinceID" (ngModelChange)="filter()"  nzAllowClear nzPlaceHolder="Tất cả" nzShowSearch>
                 <nz-option *ngFor="let item of Province" [nzValue]="item.locationID" [nzLabel]="item.name"></nz-option>
               </nz-select>
             </div>
@@ -58,7 +58,7 @@
             <td class="text-center">{{item.no}}</td>
             <td class="text-center">{{item.name}}</td>
             <td class="text-center">{{item?.accommodationType?.name}}</td>
-            <td class="text-center">{{item?.location?.name}}</td>
+            <td class="text-center">{{item?.province?.name}}</td>
             <td class="text-center">
               <span class=" webkit-box-1" nz-tooltip="{{item.address}}">{{item.address}}</span>
             </td>

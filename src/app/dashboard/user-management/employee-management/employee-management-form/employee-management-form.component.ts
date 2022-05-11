@@ -16,6 +16,7 @@ import DateTimeConvertHelper from 'src/app/shared/helpers/datetime-convert.helpe
 import Utils from 'src/app/shared/helpers/utils.helper';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { Observable, Observer } from 'rxjs';
+import { AuthService } from 'src/app/shared/services/auth/auth.service';
 
 @Component({
   selector: 'app-employee-management-form',
@@ -41,6 +42,7 @@ export class EmployeeManagementFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private masterDataService: MasterDataService,
+    private authService: AuthService,
     private userService: UserService,
     private notification: NzNotificationService,
     private router: Router,
@@ -196,6 +198,7 @@ export class EmployeeManagementFormComponent implements OnInit {
         this.getBase64(info.file!.originFileObj!, (img: string) => {
           this.loadingImage = false;
           this.avatarUrl = img;
+          this.authService.setChangeAvatar(this.avatarUrl);
         });
         break;
       case 'error':

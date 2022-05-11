@@ -53,7 +53,7 @@
               {{item.status == true ? 'Đang hoạt động' : 'Vô hiệu hóa'}}</td>
             <td nzRight="0px" class="text-center">
               <div class="d-flex align-items-center justify-content-between">
-                <i class="fa fa-key pointer me-2 c-dodgerblue" aria-hidden="true"></i>
+                <i class="fa fa-key pointer me-2 c-dodgerblue" aria-hidden="true" (click)="resetPassword(item?.id)"></i>
                 <nz-switch nz-tooltip [nzTooltipTitle]="'Thay đổi trạng thái'" nzSize="small" class="" [(ngModel)]="item.status"
                   (ngModelChange)="changeActive($event, item)"></nz-switch>
                 <i class="fa-solid fa-eye pointer c-dodgerblue" [routerLink]="['/dashboard/customer-management/member-customer/view', item.id]"

@@ -29,7 +29,6 @@
       <div class="back mt-4" *ngIf="type === eTypeForm.create">
         <i class="fa-solid fa-arrow-left pointer me-3" [routerLink]="['/dashboard/source-data-management/accommodation/list']"></i>
         <span>Tạo mới cơ sở lưu trú</span>
-        <!-- <a *ngIf="type === eTypeForm.view" class="color-active">Chỉnh sửa</a> -->
         <hr>
       </div>
       <section class="container ">
@@ -73,12 +72,38 @@
             </div>
             <div class="row mt-2 d-flex align-items-center">
               <div class="col-3">
-                <span class="required">Địa điểm (Tỉnh/TP): </span>
+                <span class="required">Tỉnh/TP: </span>
               </div>
               <div class="col-9">
-                <nz-select class="w-100" nzShowSearch nzAllowClear formControlName="location" [nzPlaceHolder]="'Chọn'"
-                  [compareWith]="compareProvince">
-                  <nz-option *ngFor="let item of province" [nzValue]="item" [nzLabel]="item.name">
+                <nz-select class="w-100" (ngModelChange)="changeProvince($event)" class="w-100" nzAllowClear nzShowSearch nzPlaceHolder="Tỉnh/TP"
+                      formControlName="province"
+                  [compareWith]="compareDictionaryMasterData">
+                  <nz-option *ngFor="let item of provinceList" [nzValue]="item" [nzLabel]="item.name">
+                  </nz-option>
+                </nz-select>
+              </div>
+            </div>
+            <div class="row mt-2 d-flex align-items-center">
+              <div class="col-3">
+                <span class="required">Quận/Huyện: </span>
+              </div>
+              <div class="col-9">
+                <nz-select (ngModelChange)="changeDistrict($event)" class="w-100" nzAllowClear nzShowSearch nzPlaceHolder="Quận/Huyện"
+                      formControlName="district"
+                  [compareWith]="compareDictionaryMasterData">
+                  <nz-option *ngFor="let item of districtList" [nzValue]="item" [nzLabel]="item.name">
+                  </nz-option>
+                </nz-select>
+              </div>
+            </div>
+            <div class="row mt-2 d-flex align-items-center">
+              <div class="col-3">
+                <span class="required">Phường/Xã: </span>
+              </div>
+              <div class="col-9">
+                <nz-select class="w-100" nzAllowClear nzShowSearch nzPlaceHolder="Phường/Xã" formControlName="subDistrict"
+                  [compareWith]="compareDictionaryMasterData">
+                  <nz-option *ngFor="let item of subDistrictList" [nzValue]="item" [nzLabel]="item.name">
                   </nz-option>
                 </nz-select>
               </div>
@@ -112,8 +137,8 @@
                 <span class="">Bản đồ: </span>
               </div>
               <div class="col-9">
-                <textarea rows="4" nz-input formControlName="mapUrl" placeholder="Nhập link nhúng bản đồ vào đây"></textarea>
-                <a href="javascript:void(0)" class="view-map">Xem bản đồ</a>
+                <textarea rows="4" nz-input formControlName="mapURL" placeholder="Nhập link nhúng bản đồ vào đây"></textarea>
+                <a href="javascript:void(0)" (click)="viewMap()" class="view-map">Xem bản đồ</a>
               </div>
             </div>
             <div class="row mt-2 d-flex align-items-center">
@@ -121,7 +146,8 @@
                 <span class="">Mô tả: </span>
               </div>
               <div class="col-9">
-                <textarea rows="4" nz-input placeHolder="Nhập" formControlName="description"></textarea>
+                <ckeditor  [editor]="editor" formControlName="description" ></ckeditor>
+                <!-- <input nz-input type="text" name="" id="" formControlName="description"> -->
               </div>
             </div>
             <div class="row mt-2 d-flex align-items-center">

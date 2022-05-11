@@ -31,8 +31,11 @@ export class AccommodationService extends BaseService {
     if (!paramsFilter.accommodationTypeID) {
       delete paramsFilter.accommodationTypeID;
     }
-    if (!paramsFilter.locationID) {
-      delete paramsFilter.locationID;
+    if (!paramsFilter.provinceID) {
+      delete paramsFilter.provinceID;
+    }
+    if (!paramsFilter.districtID) {
+      delete paramsFilter.districtID;
     }
     const fileUrl = `api/Accommodation/filter?PageIndex=${pageNumber}&PageSize=${pageSize}`;
     return this.get(fileUrl, Utils.createFilterParam({ ...paramsFilter })).pipe(

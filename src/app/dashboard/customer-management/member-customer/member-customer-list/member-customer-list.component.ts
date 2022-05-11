@@ -1,3 +1,4 @@
+import { PopupResetPasswordComponent } from './../../../../shared/components/popups/popup-reset-password/popup-reset-password.component';
 
 import { UserService } from './../../../../shared/services/user.service';
 import { debounceTime } from 'rxjs/operators';
@@ -99,5 +100,31 @@ export class MemberCustomerListComponent implements OnInit {
         customer.status = !customer.status;
       }
     });
+  }
+
+  resetPassword(CustomerId: string): void {
+    const modal = this.modalService.create({
+      nzContent: PopupConfirmComponent,
+      nzComponentParams: {
+        vnContent: `Bạn có thực sự muốn đặt lại mật khẩu cho tài khoản này không?`,
+      },
+      nzFooter: null,
+    })
+
+    modal.afterClose.subscribe((result) => {
+      if(result && result.data) {
+        const request = {id: CustomerId};
+        this.customerService.resetPassword(request).subscribe((res) => {
+          const modalReset = this.modalService.create({
+            nzContent: PopupResetPasswordComponent,
+            nzComponentParams: {
+              password: res.data,
+            },
+            nzWidth: '500px',
+            nzFooter: null,
+          });
+        })
+      }
+    })
   }
 }

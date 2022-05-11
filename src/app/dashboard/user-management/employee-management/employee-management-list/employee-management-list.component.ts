@@ -1,3 +1,4 @@
+import { PopupResetPasswordComponent } from './../../../../shared/components/popups/popup-reset-password/popup-reset-password.component';
 import { PopupConfirmComponent } from 'src/app/shared/components/popups/popup-confirm/popup-confirm.component';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { debounceTime } from 'rxjs/operators';
@@ -11,6 +12,7 @@ import Utils from 'src/app/shared/helpers/utils.helper';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { DictionaryItem } from 'src/app/shared/models/master-data/dictionary-item.model';
 import { EUserStatus } from 'src/app/shared/enum/user/user-status.enum';
+import { result } from 'lodash';
 
 @Component({
   selector: 'app-employee-management-list',
@@ -98,5 +100,31 @@ export class EmployeeManagementListComponent implements OnInit {
         employee.status = !employee.status;
       }
     });
+  }
+
+  resetPassword(employeeId: string): void {
+    const modal = this.modalService.create({
+      nzContent: PopupConfirmComponent,
+      nzComponentParams: {
+        vnContent: `Bạn có thực sự muốn đặt lại mật khẩu cho tài khoản này không?`,
+      },
+      nzFooter: null,
+    })
+
+    modal.afterClose.subscribe((result) => {
+      if(result && result.data) {
+        const request = {id: employeeId};
+        this.userService.resetPassword(request).subscribe((res) =>{
+          this.modalService.create({
+            nzContent: PopupResetPasswordComponent,
+            nzComponentParams: {
+              password: res.data,
+            },
+            nzWidth: '500px',
+            nzFooter: null,
+          });
+        })
+      };
+    })
   }
 }

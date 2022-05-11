@@ -38,8 +38,10 @@ export class CustomerService extends BaseService {
           totalRecords: res.totalRecords,
           pageCount: res.pageCount,
           items: res.items.map((item: any, index: any) => {
-            if(item.dob){
-              item.dob = DateTimeConvertHelper.fromTimestampToDtObject(item.dob)
+            if (item.dob) {
+              item.dob = DateTimeConvertHelper.fromTimestampToDtObject(
+                item.dob
+              );
             }
             item.index = index + res.pageSize * res.pageIndex + 1;
             return item;
@@ -76,5 +78,10 @@ export class CustomerService extends BaseService {
     let url = '';
     url = `api/Users/update/${UserClientID}/status/client?isActive=${Status}`;
     return this.put(url, null);
+  }
+
+  resetPassword(data: any): Observable<any> {
+    const url = `api/Users/reset-password`;
+    return this.post(url, data);
   }
 }
