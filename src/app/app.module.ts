@@ -1,5 +1,5 @@
 import { SharedModule } from './shared/shared.module';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -25,6 +25,7 @@ registerLocaleData(vi);
 const INTERCEPTOR_PROVIDES = [
   { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true },
 ];
+
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],

@@ -24,6 +24,6 @@ export class AccommodationModel {
   // rooms!: RoomModel[];
   // bookRooms!: BookRoomModel[];
 
-  status: boolean;
-  isStatus: DictionaryItem;
+  status?: boolean;
+  isStatus?: DictionaryItem;
 }

@@ -1,3 +1,10 @@
+import { LoginPopupComponent } from './../../../shared/components/popups/login-popup/login-popup.component';
+import { PopupConfirmComponent } from './../../../shared/components/popups/popup-confirm/popup-confirm.component';
+import { SignInComponent } from './../../../auth/sign-in/sign-in.component';
+import { AuthService } from './../../../shared/services/auth/auth.service';
+import { CustomerService } from './../../../shared/services/customer.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { BookingModel } from './../../../shared/models/booking/booking.model';
 import { RoomModel } from './../../../shared/models/room/room.model';
 import { AccommodationService } from './../../../shared/services/accommodation.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,13 +23,21 @@ import { AccommodationModel } from 'src/app/shared/models/accommodation/accommod
 import { PopupGoogleMapComponent } from 'src/app/shared/components/popups/popup-google-map/popup-google-map.component';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { forkJoin } from 'rxjs';
-import { IconUtility, IconUtilityList } from 'src/app/shared/constants/icon-utility';
+import {
+  IconUtility,
+  IconUtilityList,
+} from 'src/app/shared/constants/icon-utility';
 import { RoomTypeModel } from 'src/app/shared/models/room-type/room-type.model';
+import CustomValidator from 'src/app/shared/helpers/custom-validator.helper';
+import { ToDate } from 'src/app/shared/helpers/must-match.validator';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import Utils from 'src/app/shared/helpers/utils.helper';
+import { SignupPopupComponent } from 'src/app/shared/components/popups/signup-popup/signup-popup.component';
 
-@Directive({ selector: 'H4' })
-export class H4 {
-  @Input() id: string;
-}
+// @Directive({ selector: 'H4' })
+// export class H4 {
+//   @Input() id: string;
+// }
 
 @Component({
   selector: 'app-accommodation-detail',
@@ -33,9 +48,11 @@ export class AccommodationDetailComponent implements OnInit {
   @ViewChild('roomAvailable') roomAvailable: ElementRef;
   @ViewChild('utility') utility: ElementRef;
   @ViewChild('generalRule') generalRule: ElementRef;
+  isAnonymous = true;
+  isSubmitted = false;
   date = null;
-  imageList = images;
   @Input() id: string;
+  booking = new BookingModel();
   accommodation = new AccommodationModel();
   roomAccommodation: RoomModel[] = [];
   roomTypeList: RoomTypeModel[] = [];
@@ -48,13 +65,20 @@ export class AccommodationDetailComponent implements OnInit {
   iconUtilityListDisabled: IconUtility[] = [];
   iconUtilityList: IconUtility[] = [];
   photoUpload = [];
+  form: FormGroup;
+  uploadController = [];
+  isCreate = false;
 
   constructor(
     private imageService: NzImageService,
     private router: Router,
     private accommodationService: AccommodationService,
     private route: ActivatedRoute,
-    private modalService: NzModalService
+    private modalService: NzModalService,
+    private fb: FormBuilder,
+    private customerService: CustomerService,
+    private authService: AuthService,
+    private notification: NzNotificationService
   ) {}
 
   ngOnInit(): void {
@@ -62,6 +86,8 @@ export class AccommodationDetailComponent implements OnInit {
       ? this.route.snapshot.params['id'].split('?')[0]
       : this.route.snapshot.params['id'];
     this.getIcon();
+    this.createForm();
+    this.updateCheckIn();
     if (this.id) {
       forkJoin(
         this.accommodationService.detailAccommodation(this.id),
@@ -69,6 +95,7 @@ export class AccommodationDetailComponent implements OnInit {
         this.accommodationService.getUtilityAccommodation(this.id)
       ).subscribe(([res1, res2, res3]) => {
         this.accommodation = res1;
+        this.form.get('accommodation').patchValue(res1);
         this.roomAccommodation = res2;
         this.utilityList = res3;
         this.iconUtilityList.forEach((item) => {
@@ -98,6 +125,110 @@ export class AccommodationDetailComponent implements OnInit {
           this.photoUpload.push(o.image);
         });
       });
+    }
+  }
+
+  createForm(): void {
+    this.form = this.fb.group(
+      {
+        no: null,
+        // qty: [null, [CustomValidator.required, CustomValidator.requiredNumber]],
+        fromDate: [null, [CustomValidator.required]],
+        toDate: [null, CustomValidator.required],
+        // totalDay: [{ value: null, disabled: true }],
+        checkInName: [null, CustomValidator.required],
+        checkInEmail: [null, [CustomValidator.required, CustomValidator.email]],
+        checkInNote: null,
+        checkInIdentityCard: [null, CustomValidator.required],
+        checkInPhoneNumber: [
+          null,
+          [CustomValidator.required, CustomValidator.phoneNumber],
+        ],
+        // totalPrice: ['', CustomValidator.required],
+        // childNumber: [0, CustomValidator.required],
+        // personNumber: [
+        //   null,
+        //   [CustomValidator.required, CustomValidator.requiredNumber],
+        // ],
+        accommodation: [null, CustomValidator.required],
+        // room: [null, CustomValidator.required],
+      },
+      {
+        validator: ToDate(
+          'fromDate',
+          'toDate',
+          'Ngày nhận phòng',
+          'Ngày trả phòng'
+        ),
+      }
+    );
+  }
+
+  updateCheckIn(): void {
+    if (this.authService.getAuthenticationModel()) {
+      this.isAnonymous = false;
+    } else {
+      this.isAnonymous = true;
+    }
+    if (!this.isAnonymous) {
+      this.customerService
+        .getCustomerDetail(this.authService.getAuthenticationModel()?.id)
+        .subscribe((res) => {
+          this.form.get('checkInName').patchValue(res?.fullName ?? '');
+          this.form
+            .get('checkInPhoneNumber')
+            .patchValue(res?.phoneNumber ?? '');
+          this.form
+            .get('checkInIdentityCard')
+            .patchValue(res?.identityCard ?? '');
+          this.form.get('checkInEmail').patchValue(res?.email ?? '');
+        });
+    }
+  }
+
+  onClick(): void {
+    this.isCreate = true;
+    if (!this.authService.getAuthenticationModel()) {
+      const modal = this.modalService.create({
+        nzContent: PopupConfirmComponent,
+        nzComponentParams: {
+          vnContent: 'Vui lòng đăng nhập để đặt phòng',
+        },
+        nzFooter: null,
+      });
+      modal.afterClose.subscribe((res) => {
+        if (res && res.data) {
+          this.modalService.create({
+            nzContent: LoginPopupComponent,
+            nzCloseIcon: 'false',
+            nzWidth: 400,
+            nzFooter: null,
+          });
+        }
+      });
+    } else {
+      const doSubmit = () => {
+        this.booking = this.form?.getRawValue(); 
+        // if (this.form.valid) {
+        // this.booking = this.form.getRawValue();
+        // }
+      };
+      // const uploadProgresses = [];
+      // for (const item of this.uploadController) {
+      //   if (
+      //     item &&
+      //     item.uploadController &&
+      //     !item.uploadController.id &&
+      //     item.uploadController.progress
+      //   ) {
+      //     uploadProgresses.push(item.uploadController.progress);
+      //   }
+      // }
+      // if ((uploadProgresses ?? []).length < 0) {
+      //   Promise.all(uploadProgresses).then(doSubmit);
+      // } else {
+      //   doSubmit();
+      // }
     }
   }
 

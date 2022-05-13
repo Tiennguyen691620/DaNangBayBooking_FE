@@ -1,9 +1,12 @@
 import { CreateBookingComponent } from './create-booking/create-booking.component';
 import { AccommodationDetailComponent } from './accommodation-detail/accommodation-detail.component';
+
+
 import { AccommodationListComponent } from './accommodation-list/accommodation-list.component';
 import { AccommodationComponent } from './accommodation.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from 'src/app/shared/services/auth/auth.guard';
 
 const routes: Routes = [
   {
@@ -26,9 +29,10 @@ const routes: Routes = [
       {
         path: 'create-booking',
         component: CreateBookingComponent,
-      }
-    ]
-  }
+        canActivate: [AuthGuard]
+      },
+    ],
+  },
 ];
 
 @NgModule({

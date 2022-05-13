@@ -1,394 +1,410 @@
-<section class="accmmodation-detail">
-  <div class="container my-3">
-    <div class="row">
-      <div class="search col-4">
-        <nav class="navbar container mb-3 bgr-aliceblue " style="max-width: 330px;">
-          <div class="w-100">
-            <ul class="navbar-nav align-items-center justify-content-center ">
-              <li class="nav-item">
-                <div class="d-flex pointer" nzTooltipPlacement="bottom"
-                  nz-tooltip=" Giá phòng thấp • Không tính phí đặt phòng • Tìm được giá thấp hơn? Chúng tôi sẽ hoàn lại số tiền chênh lệch!">
-                  <div class="commit-logo me-2"></div>
-                  <a class="nav-link" href="#">Chúng Tôi Luôn Khớp Giá!</a>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </nav>
-        <div class="container card bgr-aliceblue" style="max-width: 330px;">
-          <div class="mt-2 d-flex align-items-center justify-content-center">
-            <h4>Tìm kiếm</h4>
-          </div>
-          <div class="mt-3">
-            <span for="">Tên chỗ nghỉ:</span>
-            <nz-input-group [nzSuffix]="suffixIconSearch">
-              <input type="text" nz-input placeholder="Nhập tên chỗ nghỉ" />
-            </nz-input-group>
-            <ng-template #suffixIconSearch>
-              <i nz-icon nzType="search"></i>
-            </ng-template>
-          </div>
-          <div class="d-flex flex-column mt-3">
-            <span for="">Ngày nhận phòng:</span>
-            <nz-date-picker [(ngModel)]="date" (ngModelChange)="onChange($event)" nzPlaceHolder="Ngày nhận phòng"></nz-date-picker>
-          </div>
-          <div class="d-flex flex-column mt-3">
-            <span for="">Ngày trả phòng:</span>
-            <nz-date-picker [(ngModel)]="date" (ngModelChange)="onChange($event)" nzPlaceHolder="Ngày trả phòng"></nz-date-picker>
-          </div>
-          <div class="mt-3">
-            <label for="">
-              <svg stroke-width="0" fill="currentColor" height="24" stroke="currentColor" stroke-linecap="round" viewBox="0 0 24 24" width="24"
-                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <path
-                  d="M20.8603262,16.99764 C19.0670751,20.0677873 15.7558994,22 12.1055414,22 C6.52440501,22 2,17.5228475 2,12 C2,6.60002933 6.33245501,2.17993379 11.7725528,2.00533665 C12.7187965,1.97496744 13.1839555,3.13337088 12.4747125,3.75395236 C10.9644875,5.07538619 10.0844331,6.96618272 10.0844331,9 C10.0844331,12.8659932 13.2515167,16 17.1583122,16 C18.0144772,16 18.8482472,15.8498904 19.6319809,15.5603732 C20.5199628,15.2323458 21.3346406,16.185587 20.8603262,16.99764 Z M12.1055414,20 C14.124164,20 16.0123367,19.2621365 17.4601631,17.9951257 C17.3597796,17.9983717 17.2591526,18 17.1583122,18 C12.1352894,18 8.06332486,13.9705627 8.06332486,9 C8.06332486,7.38924803 8.4938358,5.84646451 9.27843135,4.50238274 C6.2034475,5.63795622 4.02110829,8.5723218 4.02110829,12 C4.02110829,16.418278 7.6406323,20 12.1055414,20 Z M15,8 C14.4477153,8 14,7.55228475 14,7 C14,6.44771525 14.4477153,6 15,6 C15.5522847,6 16,6.44771525 16,7 C16,7.55228475 15.5522847,8 15,8 Z M22,11 L19,14 L16,11 L19,8 L22,11 Z M20,11 L19,10 L18,11 L19,12 L20,11 Z">
-                </path>
-              </svg>
-              Nghỉ 1 đêm</label>
-          </div>
-          <div class="my-3 d-flex align-items-center justify-content-center ">
-            <button nz-button nzType="primary">Tìm kiếm</button>
-          </div>
-        </div>
-        <div class="gg-map">
-        </div>
-      </div>
-      <div class="col-8">
-        <div class="mb-3">
-          <nav class="navbar navbar-expand-lg navbar-light bgr-aliceblue">
-            <div class="w-100" id="navbarSupportedContent">
-              <ul class="navbar-nav align-items-center justify-content-around">
+<section *ngIf="!isCreate" class="accmmodation-detail">
+  <form action="" [formGroup]="form">
+    <div class="container my-3">
+      <div class="row">
+        <div class="search col-4">
+          <nav class="navbar container mb-3 bgr-aliceblue " style="max-width: 330px;">
+            <div class="w-100">
+              <ul class="navbar-nav align-items-center justify-content-center ">
                 <li class="nav-item">
-                  <div class="">
-                    <a class="nav-link" (click)="goToRoomAvailable()">Thông tin & Giá</a>
-                  </div>
-                </li>
-                <li class="nav-item">
-                  <div class="">
-                    <a class="nav-link" (click)="goToUtility()">Tiện nghi</a>
-                  </div>
-                </li>
-                <li class="nav-item">
-                  <div class="">
-                    <a class="nav-link" (click)="goToGeneralRule()">Quy tắc chung</a>
-                  </div>
-                </li>
-                <li class="nav-item">
-                  <div class="">
-                    <a class="nav-link" href="#">Đánh giá</a>
+                  <div class="d-flex pointer" nzTooltipPlacement="bottom"
+                    nz-tooltip=" Giá phòng thấp • Không tính phí đặt phòng • Tìm được giá thấp hơn? Chúng tôi sẽ hoàn lại số tiền chênh lệch!">
+                    <div class="commit-logo me-2"></div>
+                    <a class="nav-link" href="#">Chúng Tôi Luôn Khớp Giá!</a>
                   </div>
                 </li>
               </ul>
             </div>
           </nav>
-        </div>
-        <div class="mb-2">
-          <div class="row mb-2">
-            <div class="col-8 d-flex align-items-center">
-              <label class="accommodation-type c-dodgerblue" for="">{{accommodation?.accommodationType?.name}}</label>
-              <h4 class="ms-2 mb-0 fw-700">{{accommodation?.name}}</h4>
-            </div>
-            <div class="col-4 d-flex justify-content-end">
-              <button nz-button nzType="primary" (click)="goToRoomAvailable()">Đặt ngay</button>
-            </div>
-          </div>
-          <div class="row mb-2">
-            <div class="col-6">
-              <div class="d-flex align-items-center bgr-honeydew w-fitcontent py-1 px-2 border-r20">
-                <div class="me-2" style="width: 15px;">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="green">
-                    <path
-                      d="M21.22 3.37a.75.75 0 0 0-.6-.59c-4.85-.9-10.6.55-13.37 3.36S3.1 14.39 3.88 19.05L2 21a.75.75 0 0 0 0 1 .74.74 0 0 0 .53.22A.71.71 0 0 0 3 22l2-1.9a16.94 16.94 0 0 0 2.76.23c4.09 0 8.19-1.33 10.35-3.52 2.71-2.81 4.07-8.59 3.11-13.44zM17 15.75c-2.11 2.14-6.59 3.36-10.7 3L16.59 8.47a.75.75 0 0 0 0 -1.06.77.77 0 0 0-1.07 0l-10.3 10.3c-.33-3.91.91-8.31 3.1-10.52s7.29-3.63 11.52-3c.67 4.22-.54 9.22-2.84 11.56z">
-                    </path>
-                  </svg>
-                </div>
-                <label class="c-green" for="">Chỗ nghỉ Du lịch bền vững</label>
+          <div class="container card bgr-aliceblue" style="max-width: 330px;">
+            <!-- <div class="mt-2 d-flex align-items-center justify-content-center">
+                <h4>Tìm kiếm</h4>
               </div>
+              <div class="mt-3">
+                <span for="">Tên chỗ nghỉ:</span>
+                <nz-input-group [nzSuffix]="suffixIconSearch">
+                  <input type="text" nz-input placeholder="Nhập tên chỗ nghỉ" />
+                </nz-input-group>
+                <ng-template #suffixIconSearch>
+                  <i nz-icon nzType="search"></i>
+                </ng-template>
+              </div> -->
+            <div class="d-flex flex-column mt-3">
+              <span for="">Ngày nhận phòng:</span>
+              <nz-date-picker formControlName="fromDate" [(ngModel)]="date" (ngModelChange)="onChange($event)" nzPlaceHolder="Ngày nhận phòng">
+              </nz-date-picker>
             </div>
-            <div class="col-6">
-              <div class="d-flex justify-content-end pointer" nzTooltipPlacement="bottom"
-                nz-tooltip=" Giá phòng thấp • Không tính phí đặt phòng • Tìm được giá thấp hơn? Chúng tôi sẽ hoàn lại số tiền chênh lệch!">
-                <div class="commit-logo me-2"></div>
-                <span class="">Chúng Tôi Luôn Khớp Giá!</span>
-              </div>
+            <div class="d-flex flex-column mt-3">
+              <span for="">Ngày trả phòng:</span>
+              <nz-date-picker formControlName="toDate" [(ngModel)]="date" (ngModelChange)="onChange($event)" nzPlaceHolder="Ngày trả phòng">
+              </nz-date-picker>
+            </div>
+            <div class="mt-3">
+              <label for="">
+                <svg stroke-width="0" fill="currentColor" height="24" stroke="currentColor" stroke-linecap="round" viewBox="0 0 24 24" width="24"
+                  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <path
+                    d="M20.8603262,16.99764 C19.0670751,20.0677873 15.7558994,22 12.1055414,22 C6.52440501,22 2,17.5228475 2,12 C2,6.60002933 6.33245501,2.17993379 11.7725528,2.00533665 C12.7187965,1.97496744 13.1839555,3.13337088 12.4747125,3.75395236 C10.9644875,5.07538619 10.0844331,6.96618272 10.0844331,9 C10.0844331,12.8659932 13.2515167,16 17.1583122,16 C18.0144772,16 18.8482472,15.8498904 19.6319809,15.5603732 C20.5199628,15.2323458 21.3346406,16.185587 20.8603262,16.99764 Z M12.1055414,20 C14.124164,20 16.0123367,19.2621365 17.4601631,17.9951257 C17.3597796,17.9983717 17.2591526,18 17.1583122,18 C12.1352894,18 8.06332486,13.9705627 8.06332486,9 C8.06332486,7.38924803 8.4938358,5.84646451 9.27843135,4.50238274 C6.2034475,5.63795622 4.02110829,8.5723218 4.02110829,12 C4.02110829,16.418278 7.6406323,20 12.1055414,20 Z M15,8 C14.4477153,8 14,7.55228475 14,7 C14,6.44771525 14.4477153,6 15,6 C15.5522847,6 16,6.44771525 16,7 C16,7.55228475 15.5522847,8 15,8 Z M22,11 L19,14 L16,11 L19,8 L22,11 Z M20,11 L19,10 L18,11 L19,12 L20,11 Z">
+                  </path>
+                </svg>
+                Nghỉ 1 đêm</label>
+            </div>
+            <div class="my-3 d-flex align-items-center justify-content-center ">
+              <button nz-button nzType="primary">Tìm kiếm</button>
             </div>
           </div>
-          <div class="row mb-2">
-            <div class="col-12 d-flex align-items-center">
-              <i class="fa-solid fa-location-dot c-dodgerblue me-2"></i>
-              <span>{{accommodation?.address}}</span>
-              <div class="mx-2">–</div>
-              <a class=" text-decoration-none" (click)="viewMap(accommodation)">Vị trí</a>
-            </div>
+          <div class="gg-map">
           </div>
         </div>
-        <div class="grid-image">
-          <div class="" *ngFor="let item of photoUpload, let i = index">
-            <img [id]="i" class="img" nz-image width="100%" height="200px" [nzSrc]="item" alt="">
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
-          <span>
-            Chỗ nghỉ này cách bãi biển 4 phút đi bộ. King House Villa Hotel & Spa tọa lạc tại thành phố Đà Nẵng, cách Bãi biển Mỹ Khê 700 m và Bãi
-            biển Bắc
-            Mỹ An
-            2,2 km. Chỗ nghỉ này có nhà hàng, hồ bơi ngoài trời, quán bar, sảnh khách chung, vườn cũng như trung tâm chăm sóc sức khỏe và spa. Chỗ
-            nghỉ cung
-            cấp
-            dịch vụ lễ tân 24 giờ, dịch vụ đưa đón, dịch vụ phòng và WiFi miễn phí trong toàn bộ khuôn viên.
-
-            Mỗi phòng nghỉ tại King House Villa Hotel & Spa đều được trang bị ấm đun nước, máy điều hòa, TV màn hình phẳng, ga trải giường và khăn
-            tắm. Một
-            số
-            phòng có két an toàn.
-
-            Khách nghỉ tại King House Villa Hotel & Spa có thể thưởng thức bữa sáng kiểu lục địa.
-
-            Khách sạn cung cấp chỗ nghỉ 3 sao với phòng xông hơi khô và sân hiên tắm nắng.
-
-            King House Villa Hotel & Spa nằm trong bán kính 1,4 km từ Cầu khóa Tình yêu và 2,1 km từ Bảo tàng Chăm. Sân bay gần nhất là sân bay quốc
-            tế Đà
-            Nẵng,
-            cách chỗ nghỉ 6 km.
-          </span>
-        </div>
-      </div>
-      <hr class="my-4">
-      <div class="room">
-        <div #roomAvailable class="">
-          <div class="row">
-            <div class="col-6">
-              <h4 class="fw-700">Phòng trống</h4>
-            </div>
-            <div class="col-6">
-              <div class="d-flex justify-content-end pointer" nzTooltipPlacement="bottom"
-                nz-tooltip=" Giá phòng thấp • Không tính phí đặt phòng • Tìm được giá thấp hơn? Chúng tôi sẽ hoàn lại số tiền chênh lệch!">
-                <div class="commit-logo me-2"></div>
-                <span class="" href="#">Chúng Tôi Luôn Khớp Giá!</span>
-              </div>
-            </div>
-          </div>
-          <div class="">
-            <nz-table #basicTable [nzData]="roomAccommodation" [nzFrontPagination]="false" [nzTemplateMode]="true" [nzLoading]="false" [nzScroll]="{ x: '900px' }" [nzWidthConfig]="[
-                  '200px',
-                  '100px',
-                  '150px',
-                  '200px',
-                  '80px',
-                  '150px',
-                ]">
-              <thead>
-                <th class="text-center">Loại chỗ ở</th>
-                <th class="text-center">Phù hợp cho</th>
-                <th class="text-center">Giá phòng</th>
-                <th class="text-center">Các lựa chọn</th>
-                <th class="text-center">Số lượng phòng</th>
-                <th class="text-center">Đặt phòng</th>
-              </thead>
-              <tbody>
-                <tr *ngFor="let item of roomAccommodation">
-                  <td>
-                    <span class="fz-16 fw-700 c-dodgerblue">
-                      {{item.name}}
-                    </span>
-                  </td>
-                  <td>
-                    <div class="text-center">
-                      <span>{{item.maximumPeople}}</span>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="" style="line-height: 2;">
-                      <span class="fw-700">VND {{item.price}}</span>
-                      <label for="">Đã bao gồm thuế và phí</label>
-                      <div class="bgr-green w-fitcontent px-1 mt-2">
-                        <label class="c-white">Giá ưu đãi</label>
-                      </div>
-                    </div>
-                  </td>
-                  <td style="line-height: 2;">
-                    <div class="row c-green">
-                      <div class="col-1">
-                        <i class="fa-solid fa-check me-2"></i>
-                      </div>
-                      <div class="col-11">
-                        <span>Miễn phí hủy</span>
-                      </div>
-                    </div>
-                    <div class="row c-green">
-                      <div class="col-1">
-                        <i class="fa-solid fa-check me-2"></i>
-                      </div>
-                      <div class="col-11">
-                        <span>Không cần thanh toán trước – <label for="">thanh toán tại chỗ nghỉ</label> </span>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="text-center">
-                    <nz-select nzAllowClear>
-                      <nz-option nzValue="1" nzLabel="1"></nz-option>
-                      <nz-option nzValue="2" nzLabel="2"></nz-option>
-                      <nz-option nzValue="3" nzLabel="3"></nz-option>
-                      <nz-option nzValue="4" nzLabel="4"></nz-option>
-                      <nz-option nzValue="5" nzLabel="5"></nz-option>
-                    </nz-select>
-                  </td>
-                  <td>
+        <div class="col-8">
+          <div class="mb-3">
+            <nav class="navbar navbar-expand-lg navbar-light bgr-aliceblue">
+              <div class="w-100" id="navbarSupportedContent">
+                <ul class="navbar-nav align-items-center justify-content-around">
+                  <li class="nav-item">
                     <div class="">
-                      <button nz-button nzType="primary" nzShape="round" nzBlock routerLink="/dashboard/accommodation/create-booking">
-                        Đặt phòng
-                      </button>
+                      <a class="nav-link" (click)="goToRoomAvailable()">Thông tin & Giá</a>
                     </div>
-                  </td>
-                </tr>
-              </tbody>
-            </nz-table>
+                  </li>
+                  <li class="nav-item">
+                    <div class="">
+                      <a class="nav-link" (click)="goToUtility()">Tiện nghi</a>
+                    </div>
+                  </li>
+                  <li class="nav-item">
+                    <div class="">
+                      <a class="nav-link" (click)="goToGeneralRule()">Quy tắc chung</a>
+                    </div>
+                  </li>
+                  <li class="nav-item">
+                    <div class="">
+                      <a class="nav-link" href="#">Đánh giá</a>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </nav>
           </div>
-          <div class="card p-3 my-3 border-green bgr-honeydew">
-            <div class="d-flex align-items-center">
-              <svg class="me-2" fill="#008009" height="24" role="presentation" width="24" viewBox="0 0 128 128" aria-hidden="true" focusable="false">
-                <path
-                  d="M108 24H20A12 12 0 0 0 8 36v56a12 12 0 0 0 12 12h88a12 12 0 0 0 12-12V36a12 12 0 0 0-12-12zm-88 8h88a4 4 0 0 1 4 4v4H16v-4a4 4 0 0 1 4-4zm88 64H20a4 4 0 0 1-4-4V56h96v36a4 4 0 0 1-4 4zM24 72h48v8H24z">
-                </path>
-              </svg>
-              <span class="fw-700">Đặt phòng không cần thẻ tín dụng. <span class="fw-500"> Chúng tôi sẽ gửi cho bạn một email xác nhận đặt
-                  phòng</span></span>
-            </div>
-          </div>
-          <div class="card p-3 mb-3 border-green bgr-honeydew">
-            <div class="d-flex align-items-center">
-              <svg class="me-2" fill="#008009" height="25" width="25" viewBox="0 0 128 128" role="presentation" aria-hidden="true" focusable="false">
-                <path
-                  d="M104 48H44V36a20 20 0 0 1 36.7-11 4 4 0 1 0 6.6-4.5A28 28 0 0 0 36 36v12H24a8 8 0 0 0-8 8v56a8 8 0 0 0 8 8h80a8 8 0 0 0 8-8V56a8 8 0 0 0-8-8zM64 96a12 12 0 1 1 12-12 12 12 0 0 1-12 12z">
-                </path>
-              </svg>
-              <span class="fw-700">Giữ giá cho kỳ nghỉ sắp tới của bạn</span>
-            </div>
-          </div>
-        </div>
-        <div #utility class="">
-          <div class="row">
-            <div class="col-6">
-              <h4 class="fw-700">Tiện nghi của King House Villa Hotel & Spa</h4>
-            </div>
-            <div class="col-6 d-flex justify-content-end">
-              <div class="">
-                <button nz-button nzType="primary" (click)="goToRoomAvailable()">Xem phòng trống</button>
+          <div class="mb-2">
+            <div class="row mb-2">
+              <div class="col-8 d-flex align-items-center">
+                <label class="accommodation-type c-dodgerblue" for="">{{accommodation?.accommodationType?.name}}</label>
+                <h4 class="ms-2 mb-0 fw-700">{{accommodation?.name}}</h4>
+              </div>
+              <div class="col-4 d-flex justify-content-end">
+                <button nz-button nzType="primary" (click)="goToRoomAvailable()">Đặt ngay</button>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <!-- <div class="col-4 text-center" *ngFor="let item of iconUtilityList">
-              <i class="fa-regular fa-circle-check c-green fz-16 me-3"></i>
-              <span>{{item.displayText}}</span>
-            </div> -->
-            <div
-              class="d-flex justify-content-xl-start justify-content-lg-center justify-content-md-center justify-content-sm-center justify-content-center f-utility flex-wrap px-4 py-2">
-              <ng-container *ngFor="let item of iconUtilityList">
-                <div class="d-flex align-items-center" [class.f-content-normal]="!isDisable(item.checked)"
-                  [class.f-content-disabled]="isDisable(item.checked)">
-                  <i *ngIf="item.checked" class="fa-regular fa-circle-check c-green fz-16 me-3"></i>
-                  <div [innerHTML]="item.icon | safe: 'html'"></div>
-                  <p class="f-label mb-0">{{item.displayText}}</p>
-                </div>
-              </ng-container>
-            </div>
-          </div>
-        </div>
-        <div #generalRule class="">
-          <div class="row my-2">
-            <div class="col-6">
-              <h4 class="fw-700">Quy tắc chung</h4>
-            </div>
-            <div class="col-6 d-flex justify-content-end">
-              <div class="">
-                <button nz-button nzType="primary" (click)="goToRoomAvailable()">Xem phòng trống</button>
-              </div>
-            </div>
-          </div>
-          <div class="card p-3 bgr-aliceblue">
-            <div class="">
-              <div class="row mb-5">
-                <div class="col-2 d-flex">
-                  <div class="me-2">
-                    <svg class="bk-icon -experiments-calendar_checkin hp-policies-calendar-icon" height="20" width="20" viewBox="0 0 128 128"
-                      role="presentation" aria-hidden="true" focusable="false">
+            <div class="row mb-2">
+              <div class="col-6">
+                <div class="d-flex align-items-center bgr-honeydew w-fitcontent py-1 px-2 border-r20">
+                  <div class="me-2" style="width: 15px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="green">
                       <path
-                        d="m112 16h-16v-8h-8v8h-48v-8h-8v8h-16c-4.4 0-8 3.9-8 8.7v86.6c0 4.8 3.6 8.7 8 8.7h96c4.4 0 8-3.9 8-8.7v-86.6c0-4.8-3.6-8.7-8-8.7zm0 95.3a1.1 1.1 0 0 1 -.2.7h-95.6a1.1 1.1 0 0 1 -.2-.7v-71.3h96zm-80-27.3h12v12h-12zm38-16h-12v-12h12zm0 28h-12v-12h12zm26 0h-12v-12h12zm0-28h-12v-12h12zm-48-16h-20v20h20zm-6 14h-8v-8h8z">
+                        d="M21.22 3.37a.75.75 0 0 0-.6-.59c-4.85-.9-10.6.55-13.37 3.36S3.1 14.39 3.88 19.05L2 21a.75.75 0 0 0 0 1 .74.74 0 0 0 .53.22A.71.71 0 0 0 3 22l2-1.9a16.94 16.94 0 0 0 2.76.23c4.09 0 8.19-1.33 10.35-3.52 2.71-2.81 4.07-8.59 3.11-13.44zM17 15.75c-2.11 2.14-6.59 3.36-10.7 3L16.59 8.47a.75.75 0 0 0 0 -1.06.77.77 0 0 0-1.07 0l-10.3 10.3c-.33-3.91.91-8.31 3.1-10.52s7.29-3.63 11.52-3c.67 4.22-.54 9.22-2.84 11.56z">
                       </path>
                     </svg>
                   </div>
-                  <span>Nhận phòng</span>
-                </div>
-                <div class="col-5">
-                  <nz-steps nzSize="small" class="w-100">
-                    <nz-step nzTitle="01:00" nzStatus="wait"></nz-step>
-                    <nz-step nzTitle="12:00" nzStatus="wait"></nz-step>
-                    <nz-step nzTitle="14:00" nzStatus="finish"></nz-step>
-                    <nz-step nzTitle="23:30" nzStatus="finish"></nz-step>
-                  </nz-steps>
+                  <label class="c-green" for="">Chỗ nghỉ Du lịch bền vững</label>
                 </div>
               </div>
-              <div class="row mb-3">
-                <div class="col-2 d-flex">
-                  <div class="me-2">
-                    <svg class="bk-icon -experiments-calendar_checkout hp-policies-calendar-icon" height="20" width="20" viewBox="0 0 128 128"
-                      role="presentation" aria-hidden="true" focusable="false">
-                      <path
-                        d="m112 16h-16v-8h-8v8h-48v-8h-8v8h-16c-4.4 0-8 3.9-8 8.7v86.6c0 4.8 3.6 8.7 8 8.7h96c4.4 0 8-3.9 8-8.7v-86.6c0-4.8-3.6-8.7-8-8.7zm0 95.3a1.1 1.1 0 0 1 -.2.7h-95.6a1.1 1.1 0 0 1 -.2-.7v-71.3h96zm-68-43.3h-12v-12h12zm0 28h-12v-12h12zm26-28h-12v-12h12zm0 28h-12v-12h12zm26-28h-12v-12h12zm4 12h-20v20h20zm-6 14h-8v-8h8z">
-                      </path>
-                    </svg>
-                  </div>
-                  <span>Trả phòng</span>
-                </div>
-                <div class="col-5">
-                  <nz-steps nzSize="small" class="w-100">
-                    <nz-step nzTitle="01:00" nzStatus="finish"></nz-step>
-                    <nz-step nzTitle="12:00" nzStatus="finish"></nz-step>
-                    <nz-step nzTitle="14:00" nzStatus="wait"></nz-step>
-                    <nz-step nzTitle="23:30" nzStatus="wait"></nz-step>
-                  </nz-steps>
+              <div class="col-6">
+                <div class="d-flex justify-content-end pointer" nzTooltipPlacement="bottom"
+                  nz-tooltip=" Giá phòng thấp • Không tính phí đặt phòng • Tìm được giá thấp hơn? Chúng tôi sẽ hoàn lại số tiền chênh lệch!">
+                  <div class="commit-logo me-2"></div>
+                  <span class="">Chúng Tôi Luôn Khớp Giá!</span>
                 </div>
               </div>
-              <div class="row mb-3">
-                <div class="col-2">
-                  <div class="">
-                    <i class="fa-solid fa-children fz-18 me-2"></i>
-                    <span>Trẻ em và giường</span>
-                  </div>
-                </div>
-                <div class="col-10">
-                  <div class="">
-                    <span class="fw-700">Chính sách trẻ em</span>
-                    <br>
-                    <span>Phù hợp cho tất cả trẻ em.</span>
-                    <br>
-                    <span>Chỗ nghỉ không có chỗ cho nôi.</span>
-                    <br>
-                    <span>Chỗ nghỉ không có chỗ cho giường phụ.</span>
-                  </div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-12 d-flex align-items-center">
+                <i class="fa-solid fa-location-dot c-dodgerblue me-2"></i>
+                <span>{{accommodation?.address}}</span>
+                <div class="mx-2">–</div>
+                <a class=" text-decoration-none" (click)="viewMap(accommodation)">Vị trí</a>
+              </div>
+            </div>
+          </div>
+          <div class="grid-image">
+            <div class="" *ngFor="let item of photoUpload, let i = index">
+              <img [id]="i" class="img" nz-image width="100%" height="200px" [nzSrc]="item" alt="">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <span>
+              Chỗ nghỉ này cách bãi biển 4 phút đi bộ. King House Villa Hotel & Spa tọa lạc tại thành phố Đà Nẵng, cách Bãi biển Mỹ Khê 700 m và Bãi
+              biển Bắc
+              Mỹ An
+              2,2 km. Chỗ nghỉ này có nhà hàng, hồ bơi ngoài trời, quán bar, sảnh khách chung, vườn cũng như trung tâm chăm sóc sức khỏe và spa. Chỗ
+              nghỉ cung
+              cấp
+              dịch vụ lễ tân 24 giờ, dịch vụ đưa đón, dịch vụ phòng và WiFi miễn phí trong toàn bộ khuôn viên.
+
+              Mỗi phòng nghỉ tại King House Villa Hotel & Spa đều được trang bị ấm đun nước, máy điều hòa, TV màn hình phẳng, ga trải giường và khăn
+              tắm. Một
+              số
+              phòng có két an toàn.
+
+              Khách nghỉ tại King House Villa Hotel & Spa có thể thưởng thức bữa sáng kiểu lục địa.
+
+              Khách sạn cung cấp chỗ nghỉ 3 sao với phòng xông hơi khô và sân hiên tắm nắng.
+
+              King House Villa Hotel & Spa nằm trong bán kính 1,4 km từ Cầu khóa Tình yêu và 2,1 km từ Bảo tàng Chăm. Sân bay gần nhất là sân bay
+              quốc
+              tế Đà
+              Nẵng,
+              cách chỗ nghỉ 6 km.
+            </span>
+          </div>
+        </div>
+        <hr class="my-4">
+        <div class="room">
+          <div #roomAvailable class="">
+            <div class="row">
+              <div class="col-6">
+                <h4 class="fw-700">Phòng trống</h4>
+              </div>
+              <div class="col-6">
+                <div class="d-flex justify-content-end pointer" nzTooltipPlacement="bottom"
+                  nz-tooltip=" Giá phòng thấp • Không tính phí đặt phòng • Tìm được giá thấp hơn? Chúng tôi sẽ hoàn lại số tiền chênh lệch!">
+                  <div class="commit-logo me-2"></div>
+                  <span class="" href="#">Chúng Tôi Luôn Khớp Giá!</span>
                 </div>
               </div>
-              <div class="row mb-3">
-                <div class="col-2">
-                  <div class="">
-                    <i class="fa-solid fa-user fz-18 me-2"></i>
-                    <span>Không giới hạn tuổi</span>
-                  </div>
-                </div>
-                <div class="col-10">
-                  <span>Không có yêu cầu về độ tuổi khi nhận phòng.</span>
+            </div>
+            <div class="row">
+              <div class="col-10">
+                <nz-table #basicTable [nzData]="roomAccommodation" [nzFrontPagination]="false" [nzTemplateMode]="true" [nzLoading]="false"
+                  [nzScroll]="{ x: '900px' }" [nzWidthConfig]="[
+                    '200px',
+                    '100px',
+                    '150px',
+                    '200px',
+                    '80px',
+                  ]">
+                  <thead>
+                    <th class="text-center">Loại chỗ ở</th>
+                    <th class="text-center">Phù hợp cho</th>
+                    <th class="text-center">Giá phòng</th>
+                    <th class="text-center">Các lựa chọn</th>
+                    <th class="text-center">Số lượng phòng</th>
+                    <!-- <th class="text-center">Đặt phòng</th> -->
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of roomAccommodation">
+                      <td>
+                        <span class="fz-16 fw-700 c-dodgerblue">
+                          {{item.name}}
+                        </span>
+                      </td>
+                      <td>
+                        <div class="text-center">
+                          <span>{{item.maximumPeople}}</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="" style="line-height: 2;">
+                          <span class="fw-700">VND {{item.price}}</span>
+                          <label for="">Đã bao gồm thuế và phí</label>
+                          <div class="bgr-green w-fitcontent px-1 mt-2">
+                            <label class="c-white">Giá ưu đãi</label>
+                          </div>
+                        </div>
+                      </td>
+                      <td style="line-height: 2;">
+                        <div class="row c-green">
+                          <div class="col-1">
+                            <i class="fa-solid fa-check me-2"></i>
+                          </div>
+                          <div class="col-11">
+                            <span>Miễn phí hủy</span>
+                          </div>
+                        </div>
+                        <div class="row c-green">
+                          <div class="col-1">
+                            <i class="fa-solid fa-check me-2"></i>
+                          </div>
+                          <div class="col-11">
+                            <span>Không cần thanh toán trước – <label for="">thanh toán tại chỗ nghỉ</label> </span>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="text-center">
+                        <nz-select nzAllowClear>
+                          <nz-option nzValue="1" nzLabel="1"></nz-option>
+                          <nz-option nzValue="2" nzLabel="2"></nz-option>
+                          <nz-option nzValue="3" nzLabel="3"></nz-option>
+                          <nz-option nzValue="4" nzLabel="4"></nz-option>
+                          <nz-option nzValue="5" nzLabel="5"></nz-option>
+                        </nz-select>
+                      </td>
+                      <!-- <td>
+                        <div class="">
+                          <button nz-button nzType="primary" nzShape="round" (click)="onClick()">
+                            Đặt phòng
+                          </button>
+                        </div>
+                      </td> -->
+                    </tr>
+                  </tbody>
+                </nz-table>
+              </div>
+              <div class="col-2 d-flex align-items-center justify-content-center">
+                <div class="">
+                  <button nz-button nzType="primary" nzShape="round" (click)="onClick()">
+                    Đặt phòng
+                  </button>
                 </div>
               </div>
-              <div class="row mb-3">
-                <div class="col-2">
-                  <i class="fa-solid fa-paw fz-18 me-2"></i>
-                  <span>Vật nuôi</span>
+            </div>
+            <div class="card p-3 my-3 border-green bgr-honeydew">
+              <div class="d-flex align-items-center">
+                <svg class="me-2" fill="#008009" height="24" role="presentation" width="24" viewBox="0 0 128 128" aria-hidden="true"
+                  focusable="false">
+                  <path
+                    d="M108 24H20A12 12 0 0 0 8 36v56a12 12 0 0 0 12 12h88a12 12 0 0 0 12-12V36a12 12 0 0 0-12-12zm-88 8h88a4 4 0 0 1 4 4v4H16v-4a4 4 0 0 1 4-4zm88 64H20a4 4 0 0 1-4-4V56h96v36a4 4 0 0 1-4 4zM24 72h48v8H24z">
+                  </path>
+                </svg>
+                <span class="fw-700">Đặt phòng không cần thẻ tín dụng. <span class="fw-500"> Chúng tôi sẽ gửi cho bạn một email xác nhận đặt
+                    phòng</span></span>
+              </div>
+            </div>
+            <div class="card p-3 mb-3 border-green bgr-honeydew">
+              <div class="d-flex align-items-center">
+                <svg class="me-2" fill="#008009" height="25" width="25" viewBox="0 0 128 128" role="presentation" aria-hidden="true"
+                  focusable="false">
+                  <path
+                    d="M104 48H44V36a20 20 0 0 1 36.7-11 4 4 0 1 0 6.6-4.5A28 28 0 0 0 36 36v12H24a8 8 0 0 0-8 8v56a8 8 0 0 0 8 8h80a8 8 0 0 0 8-8V56a8 8 0 0 0-8-8zM64 96a12 12 0 1 1 12-12 12 12 0 0 1-12 12z">
+                  </path>
+                </svg>
+                <span class="fw-700">Giữ giá cho kỳ nghỉ sắp tới của bạn</span>
+              </div>
+            </div>
+          </div>
+          <div #utility class="">
+            <div class="row">
+              <div class="col-6">
+                <h4 class="fw-700">Tiện nghi của King House Villa Hotel & Spa</h4>
+              </div>
+              <div class="col-6 d-flex justify-content-end">
+                <div class="">
+                  <button nz-button nzType="primary" (click)="goToRoomAvailable()">Xem phòng trống</button>
                 </div>
-                <div class="col-10">
-                  <span>Không được phép nuôi thú cưng.</span>
+              </div>
+            </div>
+            <div class="row">
+              <!-- <div class="col-4 text-center" *ngFor="let item of iconUtilityList">
+                <i class="fa-regular fa-circle-check c-green fz-16 me-3"></i>
+                <span>{{item.displayText}}</span>
+              </div> -->
+              <div
+                class="d-flex justify-content-xl-start justify-content-lg-center justify-content-md-center justify-content-sm-center justify-content-center f-utility flex-wrap px-4 py-2">
+                <ng-container *ngFor="let item of iconUtilityList">
+                  <div class="d-flex align-items-center" [class.f-content-normal]="!isDisable(item.checked)"
+                    [class.f-content-disabled]="isDisable(item.checked)">
+                    <i *ngIf="item.checked" class="fa-regular fa-circle-check c-green fz-16 me-3"></i>
+                    <div [innerHTML]="item.icon | safe: 'html'"></div>
+                    <p class="f-label mb-0">{{item.displayText}}</p>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <div #generalRule class="">
+            <div class="row my-2">
+              <div class="col-6">
+                <h4 class="fw-700">Quy tắc chung</h4>
+              </div>
+              <div class="col-6 d-flex justify-content-end">
+                <div class="">
+                  <button nz-button nzType="primary" (click)="goToRoomAvailable()">Xem phòng trống</button>
+                </div>
+              </div>
+            </div>
+            <div class="card p-3 bgr-aliceblue">
+              <div class="">
+                <div class="row mb-5">
+                  <div class="col-2 d-flex">
+                    <div class="me-2">
+                      <svg class="bk-icon -experiments-calendar_checkin hp-policies-calendar-icon" height="20" width="20" viewBox="0 0 128 128"
+                        role="presentation" aria-hidden="true" focusable="false">
+                        <path
+                          d="m112 16h-16v-8h-8v8h-48v-8h-8v8h-16c-4.4 0-8 3.9-8 8.7v86.6c0 4.8 3.6 8.7 8 8.7h96c4.4 0 8-3.9 8-8.7v-86.6c0-4.8-3.6-8.7-8-8.7zm0 95.3a1.1 1.1 0 0 1 -.2.7h-95.6a1.1 1.1 0 0 1 -.2-.7v-71.3h96zm-80-27.3h12v12h-12zm38-16h-12v-12h12zm0 28h-12v-12h12zm26 0h-12v-12h12zm0-28h-12v-12h12zm-48-16h-20v20h20zm-6 14h-8v-8h8z">
+                        </path>
+                      </svg>
+                    </div>
+                    <span>Nhận phòng</span>
+                  </div>
+                  <div class="col-5">
+                    <nz-steps nzSize="small" class="w-100">
+                      <nz-step nzTitle="01:00" nzStatus="wait"></nz-step>
+                      <nz-step nzTitle="12:00" nzStatus="wait"></nz-step>
+                      <nz-step nzTitle="14:00" nzStatus="finish"></nz-step>
+                      <nz-step nzTitle="23:30" nzStatus="finish"></nz-step>
+                    </nz-steps>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-2 d-flex">
+                    <div class="me-2">
+                      <svg class="bk-icon -experiments-calendar_checkout hp-policies-calendar-icon" height="20" width="20" viewBox="0 0 128 128"
+                        role="presentation" aria-hidden="true" focusable="false">
+                        <path
+                          d="m112 16h-16v-8h-8v8h-48v-8h-8v8h-16c-4.4 0-8 3.9-8 8.7v86.6c0 4.8 3.6 8.7 8 8.7h96c4.4 0 8-3.9 8-8.7v-86.6c0-4.8-3.6-8.7-8-8.7zm0 95.3a1.1 1.1 0 0 1 -.2.7h-95.6a1.1 1.1 0 0 1 -.2-.7v-71.3h96zm-68-43.3h-12v-12h12zm0 28h-12v-12h12zm26-28h-12v-12h12zm0 28h-12v-12h12zm26-28h-12v-12h12zm4 12h-20v20h20zm-6 14h-8v-8h8z">
+                        </path>
+                      </svg>
+                    </div>
+                    <span>Trả phòng</span>
+                  </div>
+                  <div class="col-5">
+                    <nz-steps nzSize="small" class="w-100">
+                      <nz-step nzTitle="01:00" nzStatus="finish"></nz-step>
+                      <nz-step nzTitle="12:00" nzStatus="finish"></nz-step>
+                      <nz-step nzTitle="14:00" nzStatus="wait"></nz-step>
+                      <nz-step nzTitle="23:30" nzStatus="wait"></nz-step>
+                    </nz-steps>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-2">
+                    <div class="">
+                      <i class="fa-solid fa-children fz-18 me-2"></i>
+                      <span>Trẻ em và giường</span>
+                    </div>
+                  </div>
+                  <div class="col-10">
+                    <div class="">
+                      <span class="fw-700">Chính sách trẻ em</span>
+                      <br>
+                      <span>Phù hợp cho tất cả trẻ em.</span>
+                      <br>
+                      <span>Chỗ nghỉ không có chỗ cho nôi.</span>
+                      <br>
+                      <span>Chỗ nghỉ không có chỗ cho giường phụ.</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-2">
+                    <div class="">
+                      <i class="fa-solid fa-user fz-18 me-2"></i>
+                      <span>Không giới hạn tuổi</span>
+                    </div>
+                  </div>
+                  <div class="col-10">
+                    <span>Không có yêu cầu về độ tuổi khi nhận phòng.</span>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-2">
+                    <i class="fa-solid fa-paw fz-18 me-2"></i>
+                    <span>Vật nuôi</span>
+                  </div>
+                  <div class="col-10">
+                    <span>Không được phép nuôi thú cưng.</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -396,5 +412,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </form>
 </section>
+
+<app-create-booking *ngIf="isCreate" [detail]="accommodation" [room]="roomAccommodation" [booking]="booking" [form]="form"></app-create-booking>
