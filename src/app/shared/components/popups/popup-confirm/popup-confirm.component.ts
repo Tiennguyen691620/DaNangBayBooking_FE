@@ -16,7 +16,7 @@ export class PopupConfirmComponent implements OnInit {
   @Input() engOkBtnTitle = '(AGREE)';
   @Input() cancelBtnTitle = 'KHÔNG';
   @Input() engCancelBtnTitle = '(NOT AGREE)';
-  @Input() urlCallBack!: string;
+  @Input() urlCallBack?: string;
 
   constructor(private modal: NzModalRef, private router: Router) {}
 

@@ -5,10 +5,10 @@
         <h3 class="title text-uppercase">DaNangBooking</h3>
       </div>
       <div class="right col-4 d-flex align-items-center" [class.justify-content-between]="authService.getAuthenticationModel()"
-        [class.justify-content-around]="!authService.getAuthenticationModel()">
-        <div class="d-flex align-items-center pointer">
+        [class.justify-content-around]="!authService.getAuthenticationModel()" >
+        <div class="d-flex align-items-center pointer" (click)="myBooking()">
           <i class="fa-solid fa-suitcase me-2 c-dodgerblue fz-16"></i>
-          <span class="my-booked">Đặt chỗ của tôi</span>
+          <span class="my-booked">Đặt phòng của tôi</span>
         </div>
         <div class="btn-login pointer d-flex align-items-center" nz-dropdown [nzPlacement]="'bottomRight'" [nzDropdownMenu]="menu" (click)="login()">
           <nz-avatar *ngIf="avatarUrl == null" nzIcon="user" class="me-2"></nz-avatar>

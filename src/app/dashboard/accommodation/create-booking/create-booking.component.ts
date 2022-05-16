@@ -6,6 +6,9 @@ import { AccommodationModel } from 'src/app/shared/models/accommodation/accommod
 import { RoomModel } from 'src/app/shared/models/room/room.model';
 import { FormGroup } from '@angular/forms';
 import DateTimeConvertHelper from 'src/app/shared/helpers/datetime-convert.helper';
+import CustomValidator from 'src/app/shared/helpers/custom-validator.helper';
+import { AccommodationComponent } from '../accommodation.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-create-booking',
@@ -14,37 +17,54 @@ import DateTimeConvertHelper from 'src/app/shared/helpers/datetime-convert.helpe
 })
 export class CreateBookingComponent implements OnInit {
   @Input() detail: AccommodationModel = new AccommodationModel();
-  @Input() room: RoomModel [] = []; 
   @Input() booking: BookingModel = new BookingModel();
   @Input() form: FormGroup;
+  isShowModal = false;
 
-  constructor(private route: ActivatedRoute, private bookingService: BookingService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private bookingService: BookingService
+  ) {}
 
   ngOnInit(): void {
-    // this.booking = this.route.snapshot.queryParamMap.get('booking');
-    console.log(this.detail);
-    console.log(this.room);
-    console.log(this.booking);
+    // console.log(AccommodationComponent.test);
   }
 
-  submit():void {
+  submit(): void {
     const formInFo = this.form.getRawValue();
     const request = {
-      id: formInFo.id,
+      // id: formInFo.id,
       no: '',
-      fromDate: DateTimeConvertHelper.fromDtObjectToTimestamp(formInFo.fromDate),
+      fromDate: DateTimeConvertHelper.fromDtObjectToTimestamp(
+        formInFo.fromDate
+      ),
       toDate: DateTimeConvertHelper.fromDtObjectToTimestamp(formInFo.toDate),
+      totalDay: formInFo.totalDay,
       checkInName: formInFo.checkInName,
       checkInMail: formInFo.checkInMail,
       checkInNote: formInFo.checkInNote,
       checkInIdentityCard: formInFo.checkInIdentityCard,
       checkInPhoneNumber: formInFo.checkInPhoneNumber,
+      totalPrice: formInFo.totalPrice,
+      qty: formInFo.qty,
+      childNumber: formInFo.childNumber,
+      personNumber: formInFo.personNumber,
       accommodation: formInFo.accommodation,
-    }
-    console.log('form',request);
-    
-    // this.bookingService.createBooking(request).subscribe((res) => {
-    //   console.log('form',res);
-    // })
+      room: formInFo.room,
+    };
+    console.log('form', request);
+
+    this.bookingService.createBooking(request).subscribe((res) => {
+      this.openModal();
+    });
+  }
+
+  openModal(): void {
+    this.isShowModal = true;
+  }
+
+  closeModal(): void {
+    this.isShowModal = false;
+    window.location.href = `${environment.FE_ENDPOINT}home`;
   }
 }

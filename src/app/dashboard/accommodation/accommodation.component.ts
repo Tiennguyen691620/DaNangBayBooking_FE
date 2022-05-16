@@ -8,7 +8,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
   styleUrls: ['./accommodation.component.scss'],
 })
 export class AccommodationComponent implements OnInit {
-
+  static test: any;
   constructor() {}
 
   ngOnInit(): void {}

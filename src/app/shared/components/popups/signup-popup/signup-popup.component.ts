@@ -151,7 +151,6 @@ export class SignupPopupComponent implements OnInit {
   goBackToLogin(): void {
     this.modal.destroy();
     this.modalService.create({
-      // nzTitle: 'Đăng nhập',
       nzContent: LoginPopupComponent,
       nzCloseIcon: 'false',
       nzWidth: 400,

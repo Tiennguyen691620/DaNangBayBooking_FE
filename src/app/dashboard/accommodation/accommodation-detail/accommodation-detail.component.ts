@@ -1,3 +1,4 @@
+import { AccommodationComponent } from './../accommodation.component';
 import { LoginPopupComponent } from './../../../shared/components/popups/login-popup/login-popup.component';
 import { PopupConfirmComponent } from './../../../shared/components/popups/popup-confirm/popup-confirm.component';
 import { SignInComponent } from './../../../auth/sign-in/sign-in.component';
@@ -68,6 +69,8 @@ export class AccommodationDetailComponent implements OnInit {
   form: FormGroup;
   uploadController = [];
   isCreate = false;
+  totalDayPass = 0;
+  totalRoomPass = 0;
 
   constructor(
     private imageService: NzImageService,
@@ -97,6 +100,7 @@ export class AccommodationDetailComponent implements OnInit {
         this.accommodation = res1;
         this.form.get('accommodation').patchValue(res1);
         this.roomAccommodation = res2;
+        // this.form.get('room').patchValue(res2.filter(x => x.name));
         this.utilityList = res3;
         this.iconUtilityList.forEach((item) => {
           const icon = res3.find((x) => x.utilityType === item.value);
@@ -132,26 +136,26 @@ export class AccommodationDetailComponent implements OnInit {
     this.form = this.fb.group(
       {
         no: null,
-        // qty: [null, [CustomValidator.required, CustomValidator.requiredNumber]],
+        qty: [null, [CustomValidator.required, CustomValidator.requiredNumber]],
         fromDate: [null, [CustomValidator.required]],
-        toDate: [null, CustomValidator.required],
-        // totalDay: [{ value: null, disabled: true }],
+        toDate: [null, [CustomValidator.required]],
+        totalDay: [{ value: null, disabled: true }],
         checkInName: [null, CustomValidator.required],
-        checkInEmail: [null, [CustomValidator.required, CustomValidator.email]],
+        checkInMail: [null, [CustomValidator.required, CustomValidator.email]],
         checkInNote: null,
         checkInIdentityCard: [null, CustomValidator.required],
         checkInPhoneNumber: [
           null,
           [CustomValidator.required, CustomValidator.phoneNumber],
         ],
-        // totalPrice: ['', CustomValidator.required],
-        // childNumber: [0, CustomValidator.required],
-        // personNumber: [
-        //   null,
-        //   [CustomValidator.required, CustomValidator.requiredNumber],
-        // ],
+        totalPrice: ['', CustomValidator.required],
+        childNumber: [0, CustomValidator.required],
+        personNumber: [
+          null,
+          [CustomValidator.required, CustomValidator.requiredNumber],
+        ],
         accommodation: [null, CustomValidator.required],
-        // room: [null, CustomValidator.required],
+        room: [null, CustomValidator.required],
       },
       {
         validator: ToDate(
@@ -181,13 +185,14 @@ export class AccommodationDetailComponent implements OnInit {
           this.form
             .get('checkInIdentityCard')
             .patchValue(res?.identityCard ?? '');
-          this.form.get('checkInEmail').patchValue(res?.email ?? '');
+          this.form.get('checkInMail').patchValue(res?.email ?? '');
         });
     }
   }
 
-  onClick(): void {
-    this.isCreate = true;
+  onClick(item: RoomModel): void {
+    this.form.get('room').patchValue(item);
+    this.form.get('totalPrice').patchValue(item.price * this.form.get('qty').value * this.form.get('totalDay').value);
     if (!this.authService.getAuthenticationModel()) {
       const modal = this.modalService.create({
         nzContent: PopupConfirmComponent,
@@ -207,29 +212,87 @@ export class AccommodationDetailComponent implements OnInit {
         }
       });
     } else {
+      if(!item){
+        return;
+      }
       const doSubmit = () => {
-        this.booking = this.form?.getRawValue(); 
         // if (this.form.valid) {
-        // this.booking = this.form.getRawValue();
+          this.isCreate = true;
+          this.booking = this.form.getRawValue();
+          AccommodationComponent.test = this.booking;
+          console.log('test', this.form?.getRawValue());
         // }
       };
-      // const uploadProgresses = [];
-      // for (const item of this.uploadController) {
-      //   if (
-      //     item &&
-      //     item.uploadController &&
-      //     !item.uploadController.id &&
-      //     item.uploadController.progress
-      //   ) {
-      //     uploadProgresses.push(item.uploadController.progress);
-      //   }
-      // }
-      // if ((uploadProgresses ?? []).length < 0) {
-      //   Promise.all(uploadProgresses).then(doSubmit);
-      // } else {
-      //   doSubmit();
-      // }
+      const uploadProgresses = [];
+      for (const item of this?.uploadController) {
+        if (
+          item &&
+          item.uploadController &&
+          !item.uploadController.id &&
+          item.uploadController.progress
+        ) {
+          uploadProgresses.push(item.uploadController.progress);
+        }
+      }
+      if ((uploadProgresses ?? []).length < 0) {
+        Promise.all(uploadProgresses).then(doSubmit);
+      } else {
+        doSubmit();
+      }
     }
+  }
+
+  validatorTotalDay(): boolean {
+    const formValue = this.form.getRawValue();
+    if (!formValue?.totalDay) {
+      return true;
+    }
+    if (this.totalDayPass > 0 && formValue?.totalDay <= this.totalDayPass) {
+      return true;
+    }
+    return false;
+  }
+
+  updateTotalDay(): void {
+    const formValue = this.form.getRawValue();
+    if (!formValue?.fromDate || !formValue?.toDate) {
+      this.form.get('totalDay').patchValue('');
+      return;
+    }
+
+    const diff = Math.floor(
+      (formValue?.toDate.setHours(0, 0, 0, 0) -
+        formValue?.fromDate.setHours(0, 0, 0, 0)) /
+        86400000
+    );
+    if (diff <= 0) {
+      this.form.get('totalDay').patchValue('');
+    }
+    if (diff > 0) {
+      this.form.get('totalDay').patchValue(diff);
+    }
+  }
+
+  warningTotalQty(): boolean {
+    const formValue = this.form.getRawValue();
+    if (!formValue || !formValue?.qty || !formValue?.room) {
+      return false;
+    }
+    if (formValue?.qty <= formValue?.room?.availableQty) {
+      return false;
+    }
+    return true;
+  }
+
+  warningPersonNumber(): boolean {
+    const formValue = this.form.getRawValue();
+    if (!formValue || !formValue?.personNumber || !formValue.qty || !formValue.room) {
+      return false;
+    }
+    if ((+formValue?.personNumber / +formValue.qty) > +formValue.room?.maximumPeople) {
+      return true;
+    }
+    return false;
   }
 
   getIcon(): void {
@@ -256,10 +319,6 @@ export class AccommodationDetailComponent implements OnInit {
     });
 
     modal.afterClose.subscribe((result) => {});
-  }
-
-  onChange(result: Date): void {
-    console.log('onChange: ', result);
   }
 
   goToRoomAvailable() {

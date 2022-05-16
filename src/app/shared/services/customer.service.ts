@@ -44,4 +44,9 @@ export class CustomerService extends BaseService {
     }
     return null;
   }
+  
+  forgotPassword(email: string): Observable<any>{
+    const url=`api/Users/forgot-password/?Email=${email}`;
+    return this.put(url, email);
+  }
 }

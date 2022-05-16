@@ -11,22 +11,20 @@ export class BookingModel {
   toDate: Date;
   qty: number;
   totalDay: number;
+  totalPrice: number;
   personNumber: number;
   childNumber: number;
   checkInName: string;
   checkInPhoneNumber: string;
   checkInIdentityCard: string;
-  checkInEmail: string;
+  checkInMail: string;
   checkInNote: string;
   bookingDate: Date;
-  bookingUser: string;
   accommodation: AccommodationModel;
-  room: RoomModel[];
+  room: RoomModel;
   status: number;
   //customer: Customer;
 
-  promotionName?: string;
-  landingDate?: Date;
   index?: number;
 
   checkInCode: string; // mã nhận phòng (cslt điền khi xác nhận)

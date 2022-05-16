@@ -13,7 +13,7 @@ export class BookingService extends BaseService {
    }
 
    createBooking(data: any): Observable<any> {
-     const url = `api/BookRoom/create/book-room`;
+     const url = `api/BookRoom/create`;
      return this.post(url, data);
    }
 }

@@ -1,5 +1,5 @@
 <section *ngIf="!isCreate" class="accmmodation-detail">
-  <form action="" [formGroup]="form">
+  <form action="" [formGroup]="form" errorTailor>
     <div class="container my-3">
       <div class="row">
         <div class="search col-4">
@@ -31,12 +31,12 @@
               </div> -->
             <div class="d-flex flex-column mt-3">
               <span for="">Ngày nhận phòng:</span>
-              <nz-date-picker formControlName="fromDate" [(ngModel)]="date" (ngModelChange)="onChange($event)" nzPlaceHolder="Ngày nhận phòng">
+              <nz-date-picker formControlName="fromDate" nzFormat='dd/MM/yyyy' (ngModelChange)="updateTotalDay()"nzPlaceHolder="Ngày nhận phòng">
               </nz-date-picker>
             </div>
             <div class="d-flex flex-column mt-3">
               <span for="">Ngày trả phòng:</span>
-              <nz-date-picker formControlName="toDate" [(ngModel)]="date" (ngModelChange)="onChange($event)" nzPlaceHolder="Ngày trả phòng">
+              <nz-date-picker formControlName="toDate" nzFormat='dd/MM/yyyy' (ngModelChange)="updateTotalDay()" nzPlaceHolder="Ngày trả phòng">
               </nz-date-picker>
             </div>
             <div class="mt-3">
@@ -47,7 +47,9 @@
                     d="M20.8603262,16.99764 C19.0670751,20.0677873 15.7558994,22 12.1055414,22 C6.52440501,22 2,17.5228475 2,12 C2,6.60002933 6.33245501,2.17993379 11.7725528,2.00533665 C12.7187965,1.97496744 13.1839555,3.13337088 12.4747125,3.75395236 C10.9644875,5.07538619 10.0844331,6.96618272 10.0844331,9 C10.0844331,12.8659932 13.2515167,16 17.1583122,16 C18.0144772,16 18.8482472,15.8498904 19.6319809,15.5603732 C20.5199628,15.2323458 21.3346406,16.185587 20.8603262,16.99764 Z M12.1055414,20 C14.124164,20 16.0123367,19.2621365 17.4601631,17.9951257 C17.3597796,17.9983717 17.2591526,18 17.1583122,18 C12.1352894,18 8.06332486,13.9705627 8.06332486,9 C8.06332486,7.38924803 8.4938358,5.84646451 9.27843135,4.50238274 C6.2034475,5.63795622 4.02110829,8.5723218 4.02110829,12 C4.02110829,16.418278 7.6406323,20 12.1055414,20 Z M15,8 C14.4477153,8 14,7.55228475 14,7 C14,6.44771525 14.4477153,6 15,6 C15.5522847,6 16,6.44771525 16,7 C16,7.55228475 15.5522847,8 15,8 Z M22,11 L19,14 L16,11 L19,8 L22,11 Z M20,11 L19,10 L18,11 L19,12 L20,11 Z">
                   </path>
                 </svg>
-                Nghỉ 1 đêm</label>
+                Nghỉ 1 đêm
+              </label>
+              <input type="text" formControlName="totalDay">
             </div>
             <div class="my-3 d-flex align-items-center justify-content-center ">
               <button nz-button nzType="primary">Tìm kiếm</button>
@@ -174,15 +176,18 @@
                 </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-10">
-                <nz-table #basicTable [nzData]="roomAccommodation" [nzFrontPagination]="false" [nzTemplateMode]="true" [nzLoading]="false"
+            <div class="">
+              <div class="">
+                <nz-table #basicTable [nzFrontPagination]="false" [nzTemplateMode]="true" [nzLoading]="false"
                   [nzScroll]="{ x: '900px' }" [nzWidthConfig]="[
                     '200px',
                     '100px',
                     '150px',
                     '200px',
                     '80px',
+                    '80px',
+                    '80px',
+                    '150px',
                   ]">
                   <thead>
                     <th class="text-center">Loại chỗ ở</th>
@@ -190,11 +195,13 @@
                     <th class="text-center">Giá phòng</th>
                     <th class="text-center">Các lựa chọn</th>
                     <th class="text-center">Số lượng phòng</th>
-                    <!-- <th class="text-center">Đặt phòng</th> -->
+                    <th class="text-center">Số người lớn</th>
+                    <th class="text-center">Số trẻ em</th>
+                    <th class="text-center">Đặt phòng</th>
                   </thead>
                   <tbody>
                     <tr *ngFor="let item of roomAccommodation">
-                      <td>
+                      <td >
                         <span class="fz-16 fw-700 c-dodgerblue">
                           {{item.name}}
                         </span>
@@ -206,7 +213,7 @@
                       </td>
                       <td>
                         <div class="" style="line-height: 2;">
-                          <span class="fw-700">VND {{item.price}}</span>
+                          <span class="fw-700">VND {{item?.price ?? '0' | mask: 'separator': ','}}</span>
                           <label for="">Đã bao gồm thuế và phí</label>
                           <div class="bgr-green w-fitcontent px-1 mt-2">
                             <label class="c-white">Giá ưu đãi</label>
@@ -232,32 +239,43 @@
                         </div>
                       </td>
                       <td class="text-center">
-                        <nz-select nzAllowClear>
-                          <nz-option nzValue="1" nzLabel="1"></nz-option>
-                          <nz-option nzValue="2" nzLabel="2"></nz-option>
-                          <nz-option nzValue="3" nzLabel="3"></nz-option>
-                          <nz-option nzValue="4" nzLabel="4"></nz-option>
-                          <nz-option nzValue="5" nzLabel="5"></nz-option>
-                        </nz-select>
+                        <input nz-input class="f-field" type="text" mask="separator.0" thousandSeparator="," formControlName="qty" >
+                        <!-- <div *ngIf="warningTotalQty()">
+                          <p class="f-warning mb-0">abcsdfasd</p>
+                        </div> -->
                       </td>
-                      <!-- <td>
-                        <div class="">
-                          <button nz-button nzType="primary" nzShape="round" (click)="onClick()">
+                      <td class="text-center">
+                        <input nz-input class="f-field" type="text" mask="separator.0" thousandSeparator="," formControlName="personNumber" >
+                        <div *ngIf="warningPersonNumber()">
+                          <p class="f-warning mb-0">Khả năng Số phòng đặt sẽ khó đáp ứng được theo số lượng người
+                            lớn lưu trú, hãy kiểm
+                            tra lại nhé!</p>
+                        </div>
+                      </td>
+                      <td class="text-center">
+                        <input nz-input class="f-field" type="text" mask="separator.0" thousandSeparator="," formControlName="childNumber" (ngModelChange)="updateTotalDay()">
+                        <!-- <div *ngIf="warningTotalQty()">
+                          <p class="f-warning mb-0">abcsdfasd</p>
+                        </div> -->
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center justify-content-center">
+                          <button class="w-100" nz-button nzType="primary" type="submit" nzShape="round" (click)="onClick(item)">
                             Đặt phòng
                           </button>
                         </div>
-                      </td> -->
+                      </td>
                     </tr>
                   </tbody>
                 </nz-table>
               </div>
-              <div class="col-2 d-flex align-items-center justify-content-center">
+              <!-- <div class="col-2 d-flex align-items-center justify-content-center">
                 <div class="">
                   <button nz-button nzType="primary" nzShape="round" (click)="onClick()">
                     Đặt phòng
                   </button>
                 </div>
-              </div>
+              </div> -->
             </div>
             <div class="card p-3 my-3 border-green bgr-honeydew">
               <div class="d-flex align-items-center">
@@ -415,4 +433,4 @@
   </form>
 </section>
 
-<app-create-booking *ngIf="isCreate" [detail]="accommodation" [room]="roomAccommodation" [booking]="booking" [form]="form"></app-create-booking>
+<app-create-booking *ngIf="isCreate" [detail]="accommodation" [booking]="booking" [form]="form"></app-create-booking>
