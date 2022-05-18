@@ -1,3 +1,4 @@
+import { CancelBookingPopupComponent } from './popups/cancel-booking-popup/cancel-booking-popup.component';
 import { PipesModule } from './../pipes/pipes.module';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -41,6 +42,7 @@ const options: () => Partial<IConfig> = () => {
     PopupGoogleMapComponent,
     PopupResetPasswordComponent,
     PopupChangePasswordComponent,
+    CancelBookingPopupComponent,
   ],
   imports: [
     CommonModule,

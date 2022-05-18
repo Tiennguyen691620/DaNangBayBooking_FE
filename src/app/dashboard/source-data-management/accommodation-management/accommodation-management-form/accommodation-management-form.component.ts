@@ -292,7 +292,7 @@ export class AccommodationManagementFormComponent implements OnInit {
       case 'done':
         this.getBase64(info.file!.originFileObj!, (img: string) => {
           this.loadingImage = false;
-          if (this.photoUpload.length < 5) {
+          if (this.photoUpload.length < 6) {
             this.photoUpload.push(img);
           }
         });
@@ -314,7 +314,7 @@ export class AccommodationManagementFormComponent implements OnInit {
       this.fileService.uploadImage(item.file),
       item
     );
-    if (this.uploadController.length < 5) {
+    if (this.uploadController.length < 6) {
       this.uploadController.push(uploadController);
     }
   };

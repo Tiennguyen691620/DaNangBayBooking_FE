@@ -2,9 +2,9 @@
   display: none;
 }
 
-nz-breadcrumb {
-  margin: 16px 0;
-}
+// nz-breadcrumb {
+//   margin: 16px 0;
+// }
 
 .inner-content {
   padding: 24px;
@@ -47,104 +47,104 @@ nz-breadcrumb {
 }
 .ant-menu {
   // background: #bdb1a8;
-  border-radius: 30px;
+  // border-radius: 30px;
   border: none;
   margin-top: 40px;
-  .ant-menu-submenu {
-    // background: #bdb1a8;
-    color: #000;
-    border-radius: 30px;
-  }
+  // .ant-menu-submenu {
+  //   // background: #bdb1a8;
+  //   color: #000;
+  //   border-radius: 30px;
+  // }
 }
 
-::ng-deep .ant-menu-submenu-popup > .ant-menu {
-  // background: #c3bab5;
-  border-radius: 10px 0px 0px 10px;
-}
+// ::ng-deep .ant-menu-submenu-popup > .ant-menu {
+//   // background: #c3bab5;
+//   border-radius: 10px 0px 0px 10px;
+// }
 
-::ng-deep
-  .ant-menu-submenu.ant-menu-submenu-popup.ant-menu-submenu-placement-right {
-  > .ant-menu {
-    .ant-menu-item {
-      color: #000;
-      transition: unset !important;
-      &:hover {
-        background-color: #5fc8c2;
-        color: #fff !important;
-        border-radius: 20px 0px 0px 20px;
-      }
-    }
-  }
-  > .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
-    background-color: #5fc8c2;
-    border-radius: 20px 0px 0px 20px;
-    border-right: 3px solid #000 !important;
-    color: #fff;
-  }
-}
+// ::ng-deep
+//   .ant-menu-submenu.ant-menu-submenu-popup.ant-menu-submenu-placement-right {
+//   > .ant-menu {
+//     .ant-menu-item {
+//       color: #000;
+//       transition: unset !important;
+//       &:hover {
+//         background-color: #5fc8c2;
+//         color: #fff !important;
+//         border-radius: 20px 0px 0px 20px;
+//       }
+//     }
+//   }
+//   > .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+//     background-color: #5fc8c2;
+//     border-radius: 20px 0px 0px 20px;
+//     border-right: 3px solid #000 !important;
+//     color: #fff;
+//   }
+// }
 
-::ng-deep .ant-menu-sub.ant-menu-inline {
-  background: #f5f5f5;
-}
+// ::ng-deep .ant-menu-sub.ant-menu-inline {
+//   background: #f5f5f5;
+// }
 
-::ng-deep .ant-menu-submenu-title {
-  transition: unset !important;
-  &:hover {
-    color: #ffffff !important;
-    background: #5fc8c2;
-    border-radius: 20px;
-  }
-}
+// ::ng-deep .ant-menu-submenu-title {
+//   transition: unset !important;
+//   &:hover {
+//     color: #ffffff !important;
+//     background: #5fc8c2;
+//     border-radius: 20px;
+//   }
+// }
 
-::ng-deep
-  .ant-menu-submenu
-  > .ant-menu-submenu-title
-  > .ant-menu-submenu-arrow {
-  color: #000;
-}
+// ::ng-deep
+//   .ant-menu-submenu
+//   > .ant-menu-submenu-title
+//   > .ant-menu-submenu-arrow {
+//   color: #000;
+// }
 
-::ng-deep
-  .ant-menu-submenu:hover
-  > .ant-menu-submenu-title
-  > .ant-menu-submenu-arrow {
-  color: #fff;
-}
+// ::ng-deep
+//   .ant-menu-submenu:hover
+//   > .ant-menu-submenu-title
+//   > .ant-menu-submenu-arrow {
+//   color: #fff;
+// }
 
-::ng-deep .ant-menu {
-  .ant-menu-submenu {
-    .ant-menu-item {
-      // color: #fff;
-      transition: unset !important;
-      &:hover {
-        background-color: #5fc8c2;
-        color: #fff !important;
-        border-radius: 20px 0px 0px 20px;
-      }
-    }
-  }
-  .ant-menu-item {
-    // color: #fff;
-    color: #000;
-    transition: unset !important;
-    &:hover {
-      background-color: #5fc8c2;
-      color: #fff !important;
-      border-radius: 20px;
-    }
-  }
-}
-.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
-  background-color: #5fc8c2;
-  border-radius: 20px 0px 0px 20px;
-  color: #fff;
-  &::after {
-    border-right: 3px solid #000;
-    border-radius: 20px;
-  }
-}
+// ::ng-deep .ant-menu {
+//   .ant-menu-submenu {
+//     .ant-menu-item {
+//       // color: #fff;
+//       transition: unset !important;
+//       &:hover {
+//         background-color: #5fc8c2;
+//         color: #fff !important;
+//         border-radius: 20px 0px 0px 20px;
+//       }
+//     }
+//   }
+//   .ant-menu-item {
+//     // color: #fff;
+//     color: #000;
+//     transition: unset !important;
+//     &:hover {
+//       background-color: #5fc8c2;
+//       color: #fff !important;
+//       border-radius: 20px;
+//     }
+//   }
+// }
+// .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+//   background-color: #5fc8c2;
+//   border-radius: 20px 0px 0px 20px;
+//   color: #fff;
+//   &::after {
+//     border-right: 3px solid #000;
+//     border-radius: 20px;
+//   }
+// }
 
-@media (max-width: 767px) {
-  .abc {
-    display: none;
-  }
-}
+// @media (max-width: 767px) {
+//   .abc {
+//     display: none;
+//   }
+// }

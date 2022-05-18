@@ -1,4 +1,3 @@
-<app-header></app-header>
 <section class="dashboard">
   <nz-layout class="bgr-gainsboro" style="height: calc(100vh - 144px);">
     <nz-sider class="abc " [nzTheme]="'light'"  nzCollapsible="true" [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" [nzBreakpoint]="'lg'">
@@ -27,20 +26,10 @@
           <span class="" [class.isCollapsed-false]="isCollapsed">Quản lý đặt phòng</span>
         </li>
 
-        <!-- <li nz-submenu [nzTitle]="account">
-          <ul>
-            <li nz-menu-item>Quản lý tài khoản người dùng</li>
-            <li nz-menu-item>Quản lý nhóm người dùng</li>
-          </ul>
-        </li>
-        <ng-template #account> <i class="fa fa-users me-2"></i> <span [class.isCollapsed-false]="isCollapsed" > Quản lý người dùng DN Bay</span> </ng-template> -->
-
         <li class="ms-1" nz-submenu [nzTitle]="dataSource">
           <ul>
             <li nz-menu-item routerLink="/dashboard/source-data-management/room-type" routerLinkActive="link-active" >Danh mục loại phòng</li>
             <li nz-menu-item routerLink="/dashboard/source-data-management/accommodation" routerLinkActive="link-active" >Quản lý CSLT</li>
-            <!-- <li nz-menu-item routerLink="/dashboard/source-data-management/utility" routerLinkActive="link-active" >Quản lý tiện ích</li>
-            <li nz-menu-item routerLink="/dashboard/source-data-management/room" routerLinkActive="link-active" >Quản lý phòng</li> -->
           </ul>
         </li>
         <ng-template #dataSource> <i class="fa-solid fa-database me-2"></i> <span [class.isCollapsed-false]="isCollapsed"> Quản lý dữ liệu nguồn</span> </ng-template>

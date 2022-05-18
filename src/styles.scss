@@ -11,7 +11,7 @@
   font-size: 14px;
   font-family: "Helvetica-neue", sans-serif;
   letter-spacing: 0.2px;
-  user-select: none;
+  // user-select: none;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
@@ -62,7 +62,7 @@ button[nzType="third"] {
   color: #fff;
 }
 .c-green {
-  color: #51bd78;
+  color:green;
 }
 .c-blue {
   color: #5fc8c2;
@@ -79,11 +79,23 @@ button[nzType="third"] {
 .c-cornflowerblue {
   color: #47a7ff;
 }
-.c-lightseagreen{
+.c-lightseagreen {
   color: #2690a7;
 }
-.c-dodgerblue{
+.c-dodgerblue {
   color: #188ffd;
+}
+.c-gray {
+  color: #ccc;
+}
+.c-darkgray{
+  color: #a9a9a9;
+}
+.c-midnightblue{
+  color: #003580;
+}
+.c-red{
+  color: red;
 }
 .color-active {
   color: $active-color;
@@ -94,52 +106,64 @@ button[nzType="third"] {
 .bgr-blue {
   background: linear-gradient(45deg, #258fa7, #5fc8c2);
 }
+.bgr-white{
+  background: #fff;
+}
 .bgr-darkgray {
   background: #bdb1a8;
 }
 .bgr-gainsboro {
   background: #e5e4de !important;
 }
-.bgr-lightseagreen{
-  background: #2690a7;
+.bgr-green {
+  background: green;
 }
-.bgr-dodgerblue{
-  background:  #188ffd ;
+.bgr-dodgerblue {
+  background: #188ffd;
+}
+.bgr-midnightblue{
+  background: #003580;
+}
+.bgr-aliceblue{
+  background: #ebf3ff !important;
+}
+.bgr-honeydew{
+  background: #e7fde9 !important;
 }
 
 // font-size
 .fz-10 {
-  font-size: 0.625rem;
+  font-size: 10px;
 }
 .fz-12 {
-  font-size: 0.75rem;
+  font-size: 12px;
 }
 .fz-14 {
-  font-size: 0.875rem;
+  font-size: 14px;
 }
 .fz-16 {
-  font-size: 	1rem;
+  font-size: 16px;
 }
 .fz-18 {
-  font-size: 1.125rem;
+  font-size: 18px;
 }
 .fz-20 {
-  font-size: 1.25rem;
+  font-size: 20px;
 }
 .fz-22 {
-  font-size: 1.375rem;
+  font-size: 22px;
 }
 .fz-30 {
   font-size: 30px;
 }
 .fz-32 {
-  font-size: 2rem;
+  font-size: 32px;
 }
 .fz-66 {
   font-size: 66px;
 }
 .fz-80 {
-  font-size: 5rem;
+  font-size: 80px;
 }
 
 //font-weight
@@ -194,37 +218,66 @@ button[nzType="third"] {
   color: #666666;
 }
 
-//table-main
+// TABLE
+
+.ant-table-tbody > tr > td {
+  padding: 16px;
+}
+
+tbody {
+  td {
+    border-bottom: 1px solid #e3e3e3 !important;
+    background-color: #f0f2f5;
+    color: #666666;
+    // text-transform: uppercase;
+  }
+}
+
+thead {
+  th {
+    padding: 24px 8px;
+    font-weight: normal;
+    border: none !important;
+    text-align: center;
+    color: #666666;
+    font-size: 13px;
+  }
+}
+
+.ant-table-thead > th:first-child {
+  border-top-left-radius: 10px;
+  background: #fff !important;
+}
+
+.ant-table-thead > th:last-child {
+  border-top-right-radius: 10px;
+  background: #fff !important;
+}
+
+.ant-table-tbody > tr.ant-table-row:hover > td:first-child {
+  border-left: solid 4px #086fd0;
+  background-color: white !important;
+}
+
+.ant-table-tbody > tr.ant-table-row:hover > td {
+  background-color: white !important;
+}
+
+.ant-table-cell-fix-left,
+.ant-table-cell-fix-right {
+  position: sticky !important;
+  z-index: 1 !important;
+  background: #f0f2f5 !important;
+}
+
+// ! table-main
 .table-main {
   .ant-table-tbody > tr > td {
     padding: 16px;
   }
 
-  .ant-table-tbody > tr.ant-table-row:hover > td:first-child {
-    border-left: solid 4px #086fd0;
-    background-color: white !important;
-  }
-
-  .ant-table-tbody > tr.ant-table-row:hover > td {
-    background-color: white;
-  }
-
-  thead th {
-    background: #fff;
-    padding: 15px 0px;
-    &.ant-table-cell-fix-right {
-      background: #fff;
-    }
-  }
-
-  tbody tr {
-    background: #e5e4de;
-    .ant-table-cell-fix-left{
-    background: #e5e4de;
-    }
-    &:hover {
-      background: #fff;
-    }
+  tbody tr .ant-table-cell-fix-left {
+    background: #f0f2f5;
   }
 }
 
@@ -291,6 +344,28 @@ button[nzType="third"] {
 .is-invalid {
   border: 1px solid #dc3545 !important;
   border-radius: 5px;
+}
+
+.status-booking {
+  width: 9rem;
+  padding: 0.4rem 1rem;
+  border-radius: 0.25rem;
+  &-confirmed {
+    background-color: #0872fc;
+    color: #fff;
+  }
+  &-success {
+    background-color: #139a57;
+    color: #fff;
+  }
+  &-canceled {
+    background-color: #050d2f;
+    color: white;
+  }
+  &-closed {
+    background-color: #989898;
+    color: #fff;
+  }
 }
 
 .status-active{

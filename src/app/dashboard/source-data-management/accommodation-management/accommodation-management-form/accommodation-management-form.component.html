@@ -166,7 +166,7 @@
                         nzTheme="outline"></i>
                     </div>
                   </ng-container>
-                  <nz-upload nzAccept=".png, .jpg" *ngIf="photoUpload.length < 5 && type !== eTypeForm.view"
+                  <nz-upload nzAccept=".png, .jpg" *ngIf="photoUpload.length < 6 && type !== eTypeForm.view"
                     [nzDisabled]="this.type === this.eTypeForm.view" class="image-upload" nzName="avatar" nzListType="picture-card"
                     [nzShowUploadList]="false" [nzMultiple]="true" [nzBeforeUpload]="beforeUpload" (nzChange)="handleChange($event)"
                     [nzCustomRequest]="handleUpload">

@@ -40,7 +40,7 @@
     <div class="table-main">
       <nz-table #basicTable class="table-list mt-3" [nzFrontPagination]="false" [nzTemplateMode]="true" [nzLoading]="false" [nzData]="dataSource"
         [nzScroll]="{ x: '1200px' }" [nzTotal]="totalCount" [(nzPageSize)]="pageSize" [(nzPageIndex)]="pageIndex"
-        (nzPageIndexChange)="onPageIndexChange($event)" (nzPageSizeChange)="onPageSizeChange($event)"
+        (nzPageIndexChange)="onPageIndexChange($event)" (nzPageSizeChange)="onPageSizeChange($event)" [nzShowTotal]="rangeTemplate"
         [nzWidthConfig]="['70px', '100px', '180px', '180px', '180px', '280px', '200px', '130px']">
         <thead>
           <th nzLeft="0px" class="text-center">STT</th>

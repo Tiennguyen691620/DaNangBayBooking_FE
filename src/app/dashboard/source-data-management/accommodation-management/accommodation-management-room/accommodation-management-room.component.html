@@ -1,15 +1,16 @@
 <div class="container">
   <nz-table #basicTable class="table-list mt-2" [nzFrontPagination]="false" [nzTemplateMode]="true" [nzData]="dataSource" [nzLoading]="false"
-    [nzScroll]="{ x: '1300px' }" [nzWidthConfig]="['180px', '130px', '180px', '90px', '90px', '90px', '130px', 'auto', '40px']">
+    [nzScroll]="{ x: '1300px' }" [nzWidthConfig]="['180px', '130px', '180px', '90px', '90px', '90px', '150px', '130px', 'auto', '40px']">
     <thead>
       <th nzLeft="0px" class="required">Hình ảnh</th>
-      <th class="required">Tên phòng</th>
-      <th class="required">Thuộc loại phòng</th>
-      <th class="required">Số người lớn tối đa</th>
-      <th class="required">Số phòng đã đặt</th>
-      <th class="required">Số phòng khả dụng</th>
+      <th class="required text-center">Tên phòng</th>
+      <th class="required text-center">Thuộc loại phòng</th>
+      <th class="required text-center">Số người lớn tối đa</th>
+      <th class="required text-center">Số phòng đã đặt</th>
+      <th class="required text-center">Số phòng khả dụng</th>
+      <th class="required text-center">Giá tiền</th>
       <th class="text-center">Tình trạng sử dụng phòng</th>
-      <th>Ghi chú phòng</th>
+      <th class="text-center" >Ghi chú phòng</th>
       <th></th>
     </thead>
     <tbody>
@@ -38,7 +39,7 @@
           <input [disabled]="typeForm === eTypeForm.view" nz-input type="text" [(ngModel)]="item.name" placeholder="Nhập">
         </td>
         <td>
-          <nz-select [nzDisabled]="typeForm === eTypeForm.view" nzShowSearch nzAllowClear [nzPlaceHolder]="'Chọn'" [(ngModel)]="item.roomType"
+          <nz-select class="w-100" [nzDisabled]="typeForm === eTypeForm.view" nzShowSearch nzAllowClear [nzPlaceHolder]="'Chọn'" [(ngModel)]="item.roomType"
             [compareWith]="compareRoomType">
             <nz-option *ngFor="let item of roomTypeList" [nzValue]="item" [nzLabel]="item.name">
             </nz-option>
@@ -54,6 +55,10 @@
         </td>
         <td>
           <input [disabled]="typeForm === eTypeForm.view" nz-input type="text" [(ngModel)]="item.availableQty" mask="000000000000000"
+            placeholder="Nhập">
+        </td>
+        <td>
+          <input [disabled]="typeForm === eTypeForm.view" nz-input type="text" [(ngModel)]="item.price" mask="000000000000000"
             placeholder="Nhập">
         </td>
         <td class="text-center">

@@ -1,0 +1,217 @@
+<section class="booking-form">
+  <div class="container">
+    <div class="row align-items-center justify-content-center">
+      <div class="col-10">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="d-flex align-items-center">
+            <i class="fa-solid fa-arrow-left fz-16 fw-700 me-2 pointer" (click)="backToList()"></i>
+            <span>Thông tin chi tiết đặt phòng</span>
+          </div>
+          <span>Đã tiếp nhận</span>
+        </div>
+        <hr>
+        <div class="container card p-4 bgr-aliceblue mb-3">
+          <div class="row">
+            <div class="col-6 mb-3">
+              <div class="row align-items-center">
+                <div class="col-6 ">
+                  <span>Mã đặt phòng:</span>
+                </div>
+                <div class="col-6">
+                  <input type="text" nz-input disabled>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 mb-3">
+              <div class="row align-items-center">
+                <div class="col-6">
+                  <span>Người đặt phòng:</span>
+                </div>
+                <div class="col-6">
+                  <input type="text" nz-input>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6 mb-3">
+              <div class="row align-items-center">
+                <div class="col-6">
+                  <span>Ngày đặt phòng:</span>
+                </div>
+                <div class="col-6">
+                  <input type="text" nz-input>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 mb-3">
+              <div class="row align-items-center">
+                <div class="col-6">
+                  <span>Ngày hủy phòng:</span>
+                </div>
+                <div class="col-6">
+                  <input type="text" nz-input>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row align-items-center">
+            <div class="col-3">
+              <span>Lý do hủy đặt phòng:</span>
+            </div>
+            <div class="col-9">
+              <textarea name="" id="" class="w-100" rows="3"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="container card p-4 bgr-aliceblue mb-3">
+          <span class="mb-3 fw-700">Thông tin đặt phòng</span>
+          <div class="row">
+            <div class="col-3 mb-3">
+              <span>Cơ sở lưu trú:</span>
+            </div>
+            <div class="col-4 mb-3">
+              <nz-select class="w-100">
+                <nz-option nzValue="1" nzLabel="Cơ sở 1"></nz-option>
+                <nz-option nzValue="2" nzLabel="Cơ sở 2"></nz-option>
+              </nz-select>
+            </div>
+            <div class="col-4 mb-3 row align-items-center">
+              <div class="col-6">
+                <a href="javascript:void(0)">Xem thông tin CSLT</a>
+              </div>
+              <div class="col-6">
+                <a href="javascript:void(0)">Xem tiện ích</a>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-3 mb-3">
+              <span>Loại phòng:</span>
+            </div>
+            <div class="col-4 mb-3">
+              <nz-select class="w-100">
+                <nz-option nzValue="1" nzLabel="Cơ sở 1"></nz-option>
+                <nz-option nzValue="2" nzLabel="Cơ sở 2"></nz-option>
+              </nz-select>
+            </div>
+            <div class="col-4 mb-3 row align-items-center ">
+              <div class="col-12">
+                <a href="javascript:void(0)">Xem phòng áp dụng tại CSLT</a>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6 mb-3">
+              <div class="row align-items-center">
+                <div class="col-6">
+                  <span>Ngày nhận phòng:</span>
+                </div>
+                <div class="col-6">
+                  <nz-date-picker class="w-100"></nz-date-picker>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 mb-3">
+              <div class="row align-items-center">
+                <div class="col-6">
+                  <span>Ngày trả phòng:</span>
+                </div>
+                <div class="col-6">
+                  <nz-date-picker class="w-100"></nz-date-picker>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6 mb-3">
+              <div class="row align-items-center">
+                <div class="col-6 ">
+                  <span>Số phòng đặt:</span>
+                </div>
+                <div class="col-6">
+                  <input type="text" nz-input>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 mb-3">
+              <div class="row align-items-center">
+                <div class="col-6">
+                  <span>Tổng số đêm đặt:</span>
+                </div>
+                <div class="col-6">
+                  <input type="text" nz-input>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6 mb-3">
+              <div class="row align-items-center">
+                <div class="col-6 ">
+                  <span>Số người lớn:</span>
+                </div>
+                <div class="col-6">
+                  <input type="text" nz-input>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 mb-3">
+              <div class="row align-items-center">
+                <div class="col-6">
+                  <span>Số trẻ em:</span>
+                </div>
+                <div class="col-6">
+                  <input type="text" nz-input>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container card p-4 bgr-aliceblue mb-3">
+          <span class="mb-3 fw-700">Thông tin người nhận phòng</span>
+          <div class="row align-items-center">
+            <div class="col-3 mb-3">
+              <span>Họ và tên:</span>
+            </div>
+            <div class="col-9 mb-3">
+              <input type="text" nz-input>
+            </div>
+          </div>
+          <div class="row align-items-center">
+            <div class="col-3 mb-3">
+              <span>Số điện thoại:</span>
+            </div>
+            <div class="col-9 mb-3">
+              <input type="text" nz-input>
+            </div>
+          </div>
+          <div class="row align-items-center">
+            <div class="col-3 mb-3">
+              <span>CMND/CCCD:</span>
+            </div>
+            <div class="col-9 mb-3">
+              <input type="text" nz-input>
+            </div>
+          </div>
+          <div class="row align-items-center">
+            <div class="col-3 mb-3">
+              <span>Email:</span>
+            </div>
+            <div class="col-9 mb-3">
+              <input type="text" nz-input>
+            </div>
+          </div>
+          <div class="row align-items-center">
+            <div class="col-3">
+              <span>Lý do hủy đặt phòng:</span>
+            </div>
+            <div class="col-9">
+              <textarea name="" id="" class="w-100" rows="3"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
