@@ -5,7 +5,7 @@ import { DictionaryItem } from './../master-data/dictionary-item.model';
 //import { SubItem } from '../master-data/sub-item.model';
 
 export class BookingModel {
-  BookRoomID: string;
+  bookRoomID: string;
   no: string;
   fromDate: Date;
   toDate: Date;

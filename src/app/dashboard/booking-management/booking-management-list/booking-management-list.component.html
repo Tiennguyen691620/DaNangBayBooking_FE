@@ -1,1 +1,531 @@
-<p>booking-management-list works!</p>
+<section class="booking-management" style="height: 100vh;">
+  <div class="container my-3">
+    <div class="mt-4 table-main">
+      <div>
+        <nz-table #basicTable class="table-list" [nzData]="dataSource" [nzFrontPagination]="false" [nzTemplateMode]="true" [nzLoading]="false"
+          (nzPageIndexChange)="changePageIndex($event)" (nzPageSizeChange)="changPageSize($event)" [nzTotal]="totalCount" [(nzPageIndex)]="pageIndex"
+          [(nzPageSize)]="pageSize" [nzScroll]="{ x: '1200px' }" [nzShowTotal]="rangeTemplate"
+          [nzWidthConfig]="['80px','160px', '160px', '260px', '230px', '180px', '100px']">
+          <thead>
+            <th nzLeft="0px" class="text-center">
+              <div class="d-flex justify-content-center align-items-center">
+                <img src="/assets/images/Icongrid.svg" alt="" class="me-1">
+                <div class="ms-1 text-uppercase">STT</div>
+              </div>
+            </th>
+            <th class="text-uppercase text-center">Mã đặt phòng</th>
+            <th class="text-uppercase text-center">Ngày đặt phòng</th>
+            <th class="text-uppercase text-center">Tên CSLT</th>
+            <th class="text-uppercase text-center">
+              <div class="d-flex align-items-center justify-content-center in-out">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20.964" height="20.964" viewBox="0 0 24.964 24.964">
+                  <g id="Group_13155" data-name="Group 13155" transform="translate(-366.493 -673.744)">
+                    <path id="Path_34066" data-name="Path 34066"
+                      d="M367.475,684.525v-5.142a2.5,2.5,0,0,1,2.607-2.59h17.787a2.6,2.6,0,0,1,2.606,2.59v15.753a2.6,2.6,0,0,1-2.606,2.59H370.082m4-23v3.869m10.13-3.869v3.869m-16.691,3.1h22.906"
+                      fill="none" stroke="#777b7c" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.964" />
+                    <path id="Path_34067" data-name="Path 34067" d="M373,694.81l3.239-4.259-3.8-3.96" fill="none" stroke="#777b7c"
+                      stroke-linecap="round" stroke-linejoin="round" stroke-width="1.964" />
+                    <path id="Path_34068" data-name="Path 34068" d="M368.686,695.108l3.239-4.259-3.8-3.96" fill="none" stroke="#777b7c"
+                      stroke-linecap="round" stroke-linejoin="round" stroke-width="1.964" />
+                  </g>
+                </svg>
+                <span class="mx-2">In</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20.964" height="20.964" viewBox="0 0 25.318 24.964">
+                  <g id="Group_12701" data-name="Group 12701" transform="translate(-399.633 -673.744)">
+                    <path id="Path_34069" data-name="Path 34069"
+                      d="M423.615,684.525v-5.142a2.5,2.5,0,0,0-2.607-2.59H403.221a2.6,2.6,0,0,0-2.606,2.59v15.753a2.6,2.6,0,0,0,2.606,2.59h17.787m-4-23v3.869m-10.13-3.869v3.869m16.691,3.1H400.662"
+                      fill="none" stroke="#777b7c" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.964" />
+                    <path id="Path_34070" data-name="Path 34070" d="M420.73,694.81l3.239-4.259-3.8-3.96" fill="none" stroke="#777b7c"
+                      stroke-linecap="round" stroke-linejoin="round" stroke-width="1.964" />
+                    <path id="Path_34071" data-name="Path 34071" d="M416.414,695.108l3.239-4.259-3.8-3.96" fill="none" stroke="#777b7c"
+                      stroke-linecap="round" stroke-linejoin="round" stroke-width="1.964" />
+                  </g>
+                </svg>
+                <span class="ms-2">Out</span>
+              </div>
+            </th>
+            <th class="d-flex justify-content-center text-center text-uppercase">Trạng thái</th>
+            <th nzRight="0px" class="text-uppercase text-center">Thao tác</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of dataSource; let i = index">
+              <td nzLeft="0px" class="text-center">
+                <span *ngIf="i < 10 ">0</span>{{i + 1}}
+              </td>
+              <!-- Ma dat phong -->
+              <td class="text-center" (click)="openDraw()">
+                <p class="mb-0 pointer" [class.status-booking-confirmed-text]="item?.status === 0" [class.status-booking-success-text]="item?.status === 1" [class.status-booking-canceled-text]="item?.status === 2" [class.status-booking-closed-text]="item?.status === 3">
+                  {{item?.no ?? ''}}
+                </p>
+              </td>
+              <!-- ngay dat phong -->
+              <td>
+                <div class="d-flex align-items-center justify-content-center">
+                  <div class="table-icon-wrapper">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="13" viewBox="0 0 20 20" class="">
+                      <g id="ic-calendar" transform="translate(-2 -2)">
+                        <path id="Path_445" data-name="Path 445" d="M0,0H20V20H0Z" transform="translate(2 2)" fill="none" />
+                        <rect id="Rectangle_608" data-name="Rectangle 608" width="16" height="16" rx="2" transform="translate(4 5)" fill="none"
+                          stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
+                        <line id="Line_31" data-name="Line 31" y2="4" transform="translate(16 3)" fill="none" stroke="#ffffff" stroke-linecap="round"
+                          stroke-linejoin="round" stroke-width="1" />
+                        <line id="Line_32" data-name="Line 32" y2="4" transform="translate(8 3)" fill="none" stroke="#ffffff" stroke-linecap="round"
+                          stroke-linejoin="round" stroke-width="1" />
+                        <line id="Line_33" data-name="Line 33" x2="16" transform="translate(4 11)" fill="none" stroke="#ffffff" stroke-linecap="round"
+                          stroke-linejoin="round" stroke-width="1" />
+                      </g>
+                    </svg>
+                  </div>
+                  <p class="text-center m-0" nz-tooltip [nzTooltipTitle]="item?.bookingDate ? (item?.bookingDate | date: 'dd/MM/yyyy') : ''">
+                    {{item?.bookingDate ? (item?.bookingDate | date: 'dd/MM/yyyy') : ''}}
+                  </p>
+                </div>
+              </td>
+              <!-- Ten CSLT -->
+              <td>
+                <div class="d-flex align-items-center">
+                  <div class="table-icon-wrapper">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="4 -5 5 25">
+                      <path id="Path_34088" data-name="Path 34088"
+                        d="M693.2,610.3h-5.387v-5.866l5.387-2.687Zm6.038-10.072a1.012,1.012,0,0,0-1.013-1.013h-4.036a.989.989,0,0,0-.989.989v10.1h6.038Zm-1.7,10.072v-2.81a1.321,1.321,0,0,0-2.638,0v2.81Z"
+                        transform="translate(-687.313 -598.721)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="0.99" />
+                    </svg>
+                  </div>
+                  <p class="mb-0 text-start pointer" nz-tooltip [nzTooltipTitle]="item?.accommodation?.name">
+                    {{item?.accommodation?.name}}
+                  </p>
+                </div>
+              </td>
+              <!-- In-Out -->
+              <td class="text-center">
+                {{item?.fromDate ? (item?.fromDate | date: 'dd/MM/yyyy'): ''}} -
+                {{item?.toDate ? (item?.toDate | date: 'dd/MM/yyyy'): ''}}
+              </td>
+              <!-- trang thai -->
+              <td class="text-center ">
+                <div class="d-flex justify-content-center">
+                  <div class="text-center status-booking " nz-tooltip [nzTooltipTitle]="" 
+                  [class.status-booking-confirmed]="item?.status === 0" [class.status-booking-success]="item?.status === 1" [class.status-booking-canceled]="item?.status === 2" [class.status-booking-closed]="item?.status === 3">
+                    <p class="mb-0">
+                      {{item?.status == 0 ? 'Đã tiếp nhận' 
+                      : (item?.status == 1 ? 'Đã xác nhận' 
+                      : (item?.status == 2 ? 'Đã hủy' 
+                      : 'Đã đóng'))}}
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td nzRight="0px" class="text-center">
+                <div class="d-flex align-items-center justify-content-center" (click)="cancelBooking(item?.bookRoomID)">
+                  <i *ngIf="!(item?.status == 2) && !(item?.status == 3)" class="fa-regular fa-rectangle-xmark fz-18 c-red mt-1 pointer" nz-tooltip nzTooltipTitle="Hủy phòng" aria-hidden="true"></i>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </div>
+      <div *ngIf="(dataSource ?? []).length === 0" class="d-flex justify-content-center my-3">
+        <p class="mb-0">Không có dữ liệu</p>
+      </div>
+    </div>
+    <ng-template #rangeTemplate let-range="range" let-total>
+      <div class="mt-1">
+        Tổng số {{total}}
+      </div>
+    </ng-template>
+  </div>
+
+
+  <nz-drawer [nzClosable]="false" [nzVisible]="isDraw" nzPlacement="right" [nzWidth]="760" (nzOnClose)="closeDraw()">
+    <ng-container *nzDrawerContent>
+      <div class="drawer">
+        <div class="d-flex justify-content-between">
+          <div></div>
+          <div class="font-contain-ic-close pointer" (click)="closeDraw()">
+            <i nz-icon nzType="close" nzTheme="outline"></i>
+          </div>
+        </div>
+        <div class="header-title d-flex align-items-center my-3">
+          <div class="font-contain-ic-infor d-flex justify-content-center align-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 13.426 6.347">
+              <path id="Path_34090" data-name="Path 34090"
+                d="M701.256,625.658h9.465m-12.436,0h.963m2.009,2.678h9.465m-12.436,0h.963m2.009,2.679h9.465m-12.436,0h.963"
+                transform="translate(-697.79 -625.163)" fill="none" stroke="#f4f5f7" stroke-linecap="round" stroke-linejoin="round"
+                stroke-width="0.99" />
+            </svg>
+          </div>
+          <div class="header-title_text fs-26 mb-1">Thông tin chi tiết đặt phòng</div>
+        </div>
+        <div class="header-content">
+          <!-- <div class="border-left h-100"></div> -->
+          <div class="header-subcontent w-100">
+            <div class="ID-booking d-flex flex-wrap justify-content-between">
+              <div class="d-flex align-items-center">
+                <div class="font-dot"></div>
+                <div class="ms-2 fs-16 fw-500 me-3">BK-22-00001</div>
+              </div>
+              <div class="d-flex align-items-center ms-auto">
+                <label class="fs-10 color-label">Ngày đặt phòng</label>
+                <div class="fs-13 px-2 fw-500"> 16/07/2022</div>
+                <div class="pb-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" id="ic-calendar" width="24" height="24" viewBox="0 0 24 24">
+                    <path id="Path_445" data-name="Path 445" d="M0,0H24V24H0Z" fill="none" />
+                    <rect id="Rectangle_608" data-name="Rectangle 608" width="16" height="16" rx="2" transform="translate(4 5)" fill="none"
+                      stroke="#777b7c" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.8" />
+                    <line id="Line_31" data-name="Line 31" y2="4" transform="translate(16 3)" fill="none" stroke="#777b7c" stroke-linecap="round"
+                      stroke-linejoin="round" stroke-width="0.8" />
+                    <line id="Line_32" data-name="Line 32" y2="4" transform="translate(8 3)" fill="none" stroke="#777b7c" stroke-linecap="round"
+                      stroke-linejoin="round" stroke-width="0.8" />
+                    <line id="Line_33" data-name="Line 33" x2="16" transform="translate(4 11)" fill="none" stroke="#777b7c" stroke-linecap="round"
+                      stroke-linejoin="round" stroke-width="0.8" />
+                    <rect id="Rectangle_609" data-name="Rectangle 609" width="2" height="2" transform="translate(8 15)" fill="none" stroke="#777b7c"
+                      stroke-linecap="round" stroke-linejoin="round" stroke-width="0.8" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="status d-flex justify-content-between mt-2">
+              <span class="status-title color-label fs-14">Trạng thái</span>
+              <div class="d-flex flex-column align-items-center">
+                <div class="form-status text-uppercase">
+                  <p class="mb-0">Đã xác nhận</p>
+                </div>
+              </div>
+              <div></div>
+            </div>
+            <div class="cancel-info mt-3">
+              <div class="d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="-4 4 20.793 10.224"
+                  style="background-color: #d8d8d8; border-radius: 50%;">
+                  <path id="Path_34102" data-name="Path 34102"
+                    d="M359.224,876.082a4.242,4.242,0,1,1-4.242-4.242A4.242,4.242,0,0,1,359.224,876.082Zm1.4,11.482v-2.451a4.679,4.679,0,0,0-4.679-4.679h-1.934a4.68,4.68,0,0,0-4.679,4.679v2.451"
+                    transform="translate(-348.585 -871.09)" fill="none" stroke="#969899" stroke-linecap="round" stroke-linejoin="round"
+                    stroke-width="1.5" />
+                </svg>
+                <span class="d-flex color-gray ms-2">Người đặt phòng</span>
+                <span class="user-booking ms-2 fw-700">
+                  Nguyễn Đình Quân
+                </span>
+
+              </div>
+            </div>
+            <!-- <div class="row" *ngIf="bookingModel?.status?.value === eBookingStatus.BookingConfirmed
+                        || bookingModel?.status?.value === eBookingStatus.Cancelled
+                        || bookingModel?.status?.value === eBookingStatus.Closed">
+              <div class="cancel-info mt-2">
+                <div class="" *ngIf="bookingModel?.status?.value === eBookingStatus.Cancelled">
+                  <span class="me-3">Lý do : </span>
+                  <span class="color-gray">{{bookingModel?.cancelReason ?? ''}}
+                  </span>
+                </div>
+                <div class="d-flex align-items-center" *ngIf="bookingModel?.status?.value === eBookingStatus.Cancelled">
+                  <div class="">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="-4.5 9 30 5"
+                      style="border-radius: 50%; background: #e3e3e3">
+                      <g id="ic-calendar" transform="translate(-2 -2)">
+                        <path id="Path_445" data-name="Path 445" d="M0,0H20V20H0Z" transform="translate(2 2)" fill="none" />
+                        <rect id="Rectangle_608" data-name="Rectangle 608" width="16" height="16" rx="2" transform="translate(4 5)" fill="none"
+                          stroke="#959595" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
+                        <line id="Line_31" data-name="Line 31" y2="4" transform="translate(16 3)" fill="none" stroke="#959595" stroke-linecap="round"
+                          stroke-linejoin="round" stroke-width="1" />
+                        <line id="Line_32" data-name="Line 32" y2="4" transform="translate(8 3)" fill="none" stroke="#959595" stroke-linecap="round"
+                          stroke-linejoin="round" stroke-width="1" />
+                        <line id="Line_33" data-name="Line 33" x2="16" transform="translate(4 11)" fill="none" stroke="#959595" stroke-linecap="round"
+                          stroke-linejoin="round" stroke-width="1" />
+                      </g>
+                    </svg>
+                  </div>
+                  <span class="color-gray ms-2">Ngày hủy đơn</span>
+                  <span class="fs-12 px-2 fw-500">{{bookingModel?.cancelDate | date: "yyyy- dd 'Tháng' MM"}}</span>
+                </div>
+              </div>
+            </div> -->
+          </div>
+        </div>
+        <!-- <div class="information-confirm" *ngIf="bookingModel?.status?.value === eBookingStatus.BookingConfirmed
+                  || bookingModel?.status?.value === eBookingStatus.Closed">
+          <div class="content">
+            <ng-container *ngIf="bookingModel?.checkInCode">
+              <div class="d-flex align-items-center justify-content-between">
+                <label class="fw-500 fs-14 icon-info">
+                  Thông tin xác nhận CSLT
+                </label>
+                <i *ngIf="bookingModel?.status?.value === eBookingStatus.BookingConfirmed" nz-icon nz-tooltip nzTooltipPlacement="leftTop"
+                  nzTooltipColor="#a9acac" nzTooltipTitle="Quý khách vui lòng cung cấp mã nhận phòng cho lễ tân khi đến CSLT để nhận phòng"
+                  nzType="info-circle" nzTheme="outline" class="icon-info pointer me-3 fs-18">
+                </i>
+              </div>
+              <div class="row">
+                <div class="col-12 mb-2">
+                  <div class="row">
+                    <div class="col-6 col-sm-4 d-flex justify-content-sm-end">
+                      <span class="color-gray">Mã nhận phòng :</span>
+                    </div>
+                    <div class="col-6 col-sm-8 d-flex align-items-center justify-content-start ">
+                      <div class="text-uppercase mx-2">
+                        <a class="underline">{{bookingModel?.checkInCode}}</a>
+                      </div>
+                      <i class="fa fa-clone icon-copy pointer" (click)="copyToClipboard($event)" aria-hidden="true"
+                        *ngIf="bookingModel?.status?.value !== eBookingStatus.Closed">
+                      </i>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 mb-2" *ngIf="bookingModel?.status?.value !== eBookingStatus.WaitingAccommodationConfirm">
+                  <div class="row">
+                    <div class="col-6 col-sm-4 d-flex justify-content-sm-end">
+                      <span class="color-gray">Tình trạng đáp ứng :</span>
+                    </div>
+                    <div class="col-6 col-sm-8 d-flex align-items-center justify-content-start">
+                      <ng-container *ngIf="bookingModel?.isResponseFullService">Đáp ứng đủ dịch vụ
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div> -->
+        <div class="mt-3">
+          <nz-tabset>
+            <nz-tab nzTitle="Thông tin phòng">
+              <div class="date-grid-wrapper row justify-content-center">
+                <div class="date-take-room col-3 d-flex align-items-center flex-column">
+                  <span class="me-3">Ngày nhận phòng</span>
+                  <span class="d-flex justify-content-center border border-1 rounded-3 py-1 px-2 w-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" id="ic-calendar" width="24" height="24" viewBox="0 0 24 24">
+                      <path id="Path_445" data-name="Path 445" d="M0,0H24V24H0Z" fill="none" />
+                      <rect id="Rectangle_608" data-name="Rectangle 608" width="16" height="16" rx="2" transform="translate(4 5)" fill="none"
+                        stroke="#444" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.8" />
+                      <line id="Line_31" data-name="Line 31" y2="4" transform="translate(16 3)" fill="none" stroke="#444" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="0.8" />
+                      <line id="Line_32" data-name="Line 32" y2="4" transform="translate(8 3)" fill="none" stroke="#444" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="0.8" />
+                      <line id="Line_33" data-name="Line 33" x2="16" transform="translate(4 11)" fill="none" stroke="#444" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="0.8" />
+                    </svg>
+                    <span class="ms-2 mt-0 fs-14 fw-500 align-self-center">16/07/2022</span>
+                  </span>
+                </div>
+                <div class="date-checkout-room col-3 d-flex align-items-center flex-column">
+                  <span class="me-4">Ngày trả phòng</span>
+                  <span class="d-flex justify-content-center border border-1 rounded-3 py-1 px-2 w-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" id="ic-calendar" width="24" height="24" viewBox="0 0 24 24">
+                      <path id="Path_445" data-name="Path 445" d="M0,0H24V24H0Z" fill="none" />
+                      <rect id="Rectangle_608" data-name="Rectangle 608" width="16" height="16" rx="2" transform="translate(4 5)" fill="none"
+                        stroke="#444" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.8" />
+                      <line id="Line_31" data-name="Line 31" y2="4" transform="translate(16 3)" fill="none" stroke="#444" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="0.8" />
+                      <line id="Line_32" data-name="Line 32" y2="4" transform="translate(8 3)" fill="none" stroke="#444" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="0.8" />
+                      <line id="Line_33" data-name="Line 33" x2="16" transform="translate(4 11)" fill="none" stroke="#444" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="0.8" />
+                    </svg>
+                    <span class="ms-2 mt-0 fs-14 fw-500 align-self-center">18/07/2022</span>
+                  </span>
+                </div>
+              </div>
+              <div class="d-flex flex-column my-2 content-tabset">
+                <div>
+                  <div class="row pt-3 pb-2">
+                    <div class="col-12 col-sm-7">
+                      <div class="row">
+                        <div class="col-5 col-sm-4 col-md-5 d-flex justify-content-sm-end pe-0">
+                          <label class="color-label">Cơ sở lưu trú</label>
+                        </div>
+                        <div class="col">
+                          <div class="d-flex">
+                            <span class="pe-3">:</span>
+                            <span>Mường Thanh Grand</span>
+                          </div>
+                          <div class="d-flex">
+                            <a class="d-block pl-20">Tiện ích</a>
+                            <span class="mx-2 icon-info">/</span>
+                            <a class="d-block"> Thông tin CSLT</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="row">
+                        <div class="col-5 col-sm-6 d-flex justify-content-sm-end text-end pe-0">
+                          <label class="color-label">Số phòng đặt</label>
+                        </div>
+                        <div class="col">
+                          <div class="d-flex">
+                            <span class="pe-3">:</span>
+                            <span>1</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row py-2">
+                    <div class="col-12 col-sm-7">
+                      <div class="row">
+                        <div class="col-5 col-sm-4 col-md-5 d-flex justify-content-sm-end  pe-0">
+                          <label class="color-label">Loại phòng</label>
+                        </div>
+                        <div class="col">
+                          <div class="d-flex">
+                            <span class="pe-3">:</span>
+                            <span>VIP</span>
+                          </div>
+                          <a class="d-block pl-20" href="javascript:void(0)">Phòng khác</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="row">
+                        <div class="col-5 col-sm-6 d-flex justify-content-sm-end text-end pe-0">
+                          <label class="color-label">Tổng số đêm đặt</label>
+                        </div>
+                        <div class="col">
+                          <div class="d-flex">
+                            <span class="pe-3">:</span>
+                            <span class="font-email">1</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="footer-tabset">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="row pt-3">
+                      <div class="col-12 pb-3">
+                        <div class="row">
+                          <div class="col-5 col-sm-8 col-md-6 d-flex justify-content-sm-end pe-0">
+                            <label class="color-label">Số người lớn</label>
+                          </div>
+                          <div class="col">
+                            <div class="d-flex">
+                              <span class="pe-3">:</span>
+                              <span>1</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="row pt-sm-3">
+                      <div class="col-12 pb-3">
+                        <div class="row">
+                          <div class="col-5 col-sm-5 col-md-7 d-flex justify-content-sm-end pe-0 text-end">
+                            <label class="color-label">Số trẻ em</label>
+                          </div>
+                          <div class="col-7 col-sm-5">
+                            <div class="d-flex">
+                              <span class="pe-3">:</span>
+                              <span>1</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12 pb-3">
+                        <div class="row">
+                          <div class="col-5 col-sm-5 col-md-7 d-flex justify-content-sm-end pe-0 ">
+                            <label class="color-label">Tổng số người</label>
+                          </div>
+                          <div class="col">
+                            <div class="d-flex">
+                              <span class="pe-3">:</span>
+                              <span class="font-email">2</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </nz-tab>
+            <nz-tab nzTitle="Thông tin người nhận phòng">
+              <div>
+                <div class="row pt-3">
+                  <div class="col-12 col-sm-6 pb-2">
+                    <div class="row">
+                      <div class="col-4 col-sm-6 d-flex justify-content-sm-end">
+                        <label class="color-label">Khách hàng</label>
+                      </div>
+                      <div class="col-8 col-sm-6 ps-0">
+                        <div class="d-flex">
+                          <span class="pe-3">:</span>
+                          <span>Nguyễn Đình Quân</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-6 pb-2">
+                    <div class="row">
+                      <div class="col-4 d-flex justify-content-sm-end ">
+                        <label class="color-label">Điện thoại</label>
+                      </div>
+                      <div class="col-8 ps-0">
+                        <div class="d-flex">
+                          <span class="pe-3">:</span>
+                          <span>0889161328</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 col-sm-6 pb-2">
+                    <div class="row">
+                      <div class="col-4 col-sm-6 d-flex justify-content-sm-end">
+                        <label class="color-label">CMND / CCCD</label>
+                      </div>
+                      <div class="col-8 col-sm-6  ps-0">
+                        <div class="d-flex">
+                          <span class="pe-3">:</span>
+                          <span>421777698</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-6 pb-2">
+                    <div class="row">
+                      <div class="col-4 d-flex justify-content-sm-end ">
+                        <label class="color-label">Email</label>
+                      </div>
+                      <div class="col-8  ps-0">
+                        <div class="d-flex">
+                          <span class="pe-3">:</span>
+                          <span class="font-email">tiennguyen3129@gmail.com</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-4 col-sm-3 d-flex justify-content-sm-end ">
+                    <label class="color-label">Ghi chú</label>
+                  </div>
+                  <div class="col ps-0">
+                    <div class="d-flex">
+                      <span class="pe-3">:</span>
+                      <span>tiennguyen</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </nz-tab>
+          </nz-tabset>
+        </div>
+        <div class="d-flex justify-content-center mt-4 d-md-none">
+          <button class="btn btn-primary text-uppercase" (click)="closeDraw()">Đóng</button>
+        </div>
+      </div>
+      <!-- <app-image-carousel class="d-flex justify-content-center align-items-center" *ngIf="imageShowPopupView && imageShowPopupView.length > 0"
+        [(imageUrlArray)]="imageShowPopupView" [(indexOfImage)]="indexOfImage" (closed)="closeView()"></app-image-carousel> -->
+    </ng-container>
+
+  </nz-drawer>
+</section>

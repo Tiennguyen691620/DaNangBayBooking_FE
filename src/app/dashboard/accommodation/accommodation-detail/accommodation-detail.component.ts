@@ -136,7 +136,7 @@ export class AccommodationDetailComponent implements OnInit {
     this.form = this.fb.group(
       {
         no: null,
-        qty: [null, [CustomValidator.required, CustomValidator.requiredNumber]],
+        qty: [1, [CustomValidator.required, CustomValidator.requiredNumber]],
         fromDate: [null, [CustomValidator.required]],
         toDate: [null, [CustomValidator.required]],
         totalDay: [{ value: null, disabled: true }],
@@ -151,7 +151,7 @@ export class AccommodationDetailComponent implements OnInit {
         totalPrice: ['', CustomValidator.required],
         childNumber: [0, CustomValidator.required],
         personNumber: [
-          null,
+          1,
           [CustomValidator.required, CustomValidator.requiredNumber],
         ],
         accommodation: [null, CustomValidator.required],

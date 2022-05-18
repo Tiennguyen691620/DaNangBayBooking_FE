@@ -94,6 +94,9 @@ button[nzType="third"] {
 .c-midnightblue{
   color: #003580;
 }
+.c-red{
+  color: red;
+}
 .color-active {
   color: $active-color;
   fill: #074494;
@@ -244,37 +247,66 @@ button {
   color: #666666;
 }
 
-//table-main
+// TABLE
+
+.ant-table-tbody > tr > td {
+  padding: 16px;
+}
+
+tbody {
+  td {
+    border-bottom: 1px solid #e3e3e3 !important;
+    background-color: #f0f2f5;
+    color: #666666;
+    // text-transform: uppercase;
+  }
+}
+
+thead {
+  th {
+    padding: 24px 8px;
+    font-weight: normal;
+    border: none !important;
+    text-align: center;
+    color: #666666;
+    font-size: 13px;
+  }
+}
+
+.ant-table-thead > th:first-child {
+  border-top-left-radius: 10px;
+  background: #fff !important;
+}
+
+.ant-table-thead > th:last-child {
+  border-top-right-radius: 10px;
+  background: #fff !important;
+}
+
+.ant-table-tbody > tr.ant-table-row:hover > td:first-child {
+  border-left: solid 4px #086fd0;
+  background-color: white !important;
+}
+
+.ant-table-tbody > tr.ant-table-row:hover > td {
+  background-color: white !important;
+}
+
+.ant-table-cell-fix-left,
+.ant-table-cell-fix-right {
+  position: sticky !important;
+  z-index: 1 !important;
+  background: #f0f2f5 !important;
+}
+
+// ! table-main
 .table-main {
   .ant-table-tbody > tr > td {
     padding: 16px;
   }
 
-  .ant-table-tbody > tr.ant-table-row:hover > td:first-child {
-    border-left: solid 4px #086fd0;
-    background-color: white !important;
-  }
-
-  .ant-table-tbody > tr.ant-table-row:hover > td {
-    background-color: white;
-  }
-
-  thead th {
-    background: #fff;
-    padding: 15px 0px;
-    &.ant-table-cell-fix-right {
-      background: #fff;
-    }
-  }
-
-  tbody tr {
-    background: #e5e4de;
-    .ant-table-cell-fix-left {
-      background: #e5e4de;
-    }
-    &:hover {
-      background: #fff;
-    }
+  tbody tr .ant-table-cell-fix-left {
+    background: #f0f2f5;
   }
 }
 
@@ -398,6 +430,139 @@ button {
 .hover{
   &:hover{
     color: #188ffd;
+  }
+}
+
+// DRAWER
+.ant-drawer-body {
+  max-height: 100vh;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
+
+  .drawer {
+    background-color: white;
+    padding: 0 20px 0 0;
+
+    @media (max-width: 600px) {
+      padding: 0 !important;
+      .header-title {
+        .header-title_text {
+          font-size: 20px;
+        }
+      }
+
+      .header-content {
+        .header-subcontent {
+          padding: 6px 10px;
+        }
+      }
+    }
+
+    .font-contain-ic-close {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 26px;
+      height: 25px;
+      background-color: #f4f5f6;
+      color: #777b7c;
+      border-radius: 20%;
+    }
+
+    .header-title {
+      .font-contain-ic-infor {
+        width: 24px;
+        height: 24px;
+        background-color: #086fd0;
+        border-radius: 53%;
+      }
+
+      .header-title_text {
+        font-size: 20px;
+        font-weight: 500;
+        margin-left: 10px;
+        color: #131523;
+
+        @media (min-width: 425px) {
+          font-size: 22px;
+        }
+
+        @media (min-width: 576px) {
+          font-size: 24px;
+        }
+      }
+    }
+
+    .header-content {
+      height: 100%;
+
+      .header-subcontent {
+        padding: 8px;
+        border: dashed 1px #e3e3e3;
+
+        @media (min-width: 375px) {
+          padding: 8px 16px;
+        }
+
+        .font-dot {
+          width: 6px;
+          height: 6px;
+          background: #086fd0;
+          border-radius: 50%;
+        }
+
+        &__title {
+          font-size: 12px;
+
+          @media (min-width: 375px) {
+            font-size: 14px;
+          }
+
+          @media (min-width: 425px) {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.status-booking {
+  width: 9rem;
+  padding: 0.4rem 1rem;
+  border-radius: 0.25rem;
+  &-confirmed {
+    background-color: #0872fc;
+    color: #fff;
+  }
+  &-success {
+    background-color: #139a57;
+    color: #fff;
+  }
+  &-canceled {
+    background-color: #050d2f;
+    color: white;
+  }
+  &-closed {
+    background-color: #989898;
+    color: #fff;
+  }
+}
+
+.status-booking {
+  &-confirmed-text {
+    color: #0870d1;
+  }
+  &-success-text {
+    color: #139a57;
+  }
+  &-canceled-text {
+    color: #050d2f;
+  }
+  &-closed-text {
+    color: #989898;
   }
 }
 

@@ -1,3 +1,4 @@
+import { CancelBookingPopupComponent } from './popups/cancel-booking-popup/cancel-booking-popup.component';
 import { PopupGoogleMapComponent } from './popups/popup-google-map/popup-google-map.component';
 import { PopupConfirmComponent } from './popups/popup-confirm/popup-confirm.component';
 import { SignUpNotificationPopupComponent } from './popups/sign-up-notification-popup/sign-up-notification-popup.component';
@@ -92,6 +93,7 @@ import { ForgotPasswordPopupComponent } from './popups/forgot-password-popup/for
     PopupConfirmComponent,
     ForgotPasswordPopupComponent,
     PopupGoogleMapComponent,
+    CancelBookingPopupComponent,
   ],
   imports: [
     CommonModule,
