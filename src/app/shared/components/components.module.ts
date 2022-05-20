@@ -1,3 +1,4 @@
+import { RoomAvailablePopupComponent } from './popups/room-available-popup/room-available-popup.component';
 import { CancelBookingPopupComponent } from './popups/cancel-booking-popup/cancel-booking-popup.component';
 import { PipesModule } from './../pipes/pipes.module';
 import { RouterModule } from '@angular/router';
@@ -26,6 +27,10 @@ import { PopupGoogleMapComponent } from './popups/popup-google-map/popup-google-
 import { PopupResetPasswordComponent } from './popups/popup-reset-password/popup-reset-password.component';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { PopupChangePasswordComponent } from './popups/popup-change-password/popup-change-password.component';
+import { PopupAccommodationInfoComponent } from './popups/popup-accommodation-info/popup-accommodation-info.component';
+import { NzImageModule } from 'ng-zorro-antd/image';
+import { PopupUtilityProvidedComponent } from './popups/popup-utility-provided/popup-utility-provided.component';
+import { PopupRoomAccommodationComponent } from './popups/popup-room-accommodation/popup-room-accommodation.component';
 
 const options: () => Partial<IConfig> = () => {
   return {
@@ -43,6 +48,10 @@ const options: () => Partial<IConfig> = () => {
     PopupResetPasswordComponent,
     PopupChangePasswordComponent,
     CancelBookingPopupComponent,
+    PopupAccommodationInfoComponent,
+    PopupUtilityProvidedComponent,
+    PopupRoomAccommodationComponent,
+    RoomAvailablePopupComponent,
   ],
   imports: [
     CommonModule,
@@ -60,6 +69,7 @@ const options: () => Partial<IConfig> = () => {
     NzCheckboxModule,
     NzAvatarModule,
     NzDatePickerModule,
+    NzImageModule,
     ErrorTailorModule.forRoot({
       errors: {
         useValue: {
@@ -91,6 +101,6 @@ const options: () => Partial<IConfig> = () => {
     NzSelectModule,
     NzDrawerModule,
   ],
-  exports: [HeaderComponent, FooterComponent, PipesModule],
+  exports: [HeaderComponent, FooterComponent, PipesModule, CKEditorModule],
 })
 export class ComponentsModule {}

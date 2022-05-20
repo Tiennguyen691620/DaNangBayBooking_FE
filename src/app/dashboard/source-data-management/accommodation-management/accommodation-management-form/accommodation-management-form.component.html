@@ -190,11 +190,11 @@
             </div>
             <div class="mt-3 d-flex align-items-center justify-content-center">
               <ng-container *ngIf="type === eTypeForm.view">
-                <button nz-button type="submit" class="me-2 btn-save" (click)="edit()">Chỉnh sửa</button>
+                <button nz-button nzType="primary" type="submit" class="me-2 btn-save" (click)="edit()">Chỉnh sửa</button>
               </ng-container>
               <ng-container *ngIf="type !== eTypeForm.view">
-                <button nz-button type="submit" class="me-2 btn-save" (click)="submitForm()">Lưu</button>
-                <button nz-button type="submit" class="ms-2 btn-cancel" (click)="cancel()">Hủy</button>
+                <button nz-button nzType="primary" type="submit" class="me-2 btn-save" (click)="submitForm()">Lưu</button>
+                <button nz-button nzType="default" type="submit" class="ms-2 btn-cancel" (click)="cancel()">Hủy</button>
               </ng-container>
             </div>
           </div>

@@ -1,3 +1,4 @@
+import { add } from 'date-fns';
 import { PopupConfirmComponent } from 'src/app/shared/components/popups/popup-confirm/popup-confirm.component';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { RoomTypeService } from './../../../../shared/services/room-type.service';
@@ -16,6 +17,7 @@ import { Observable, Observer } from 'rxjs';
 import Utils from 'src/app/shared/helpers/utils.helper';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { map } from 'rxjs/operators';
+import { RoomAvailablePopupComponent } from 'src/app/shared/components/popups/room-available-popup/room-available-popup.component';
 
 @Component({
   selector: 'app-accommodation-management-room',
@@ -268,6 +270,20 @@ export class AccommodationManagementRoomComponent implements OnInit {
       return true;
     }
     return false;
+  }
+
+  openRoomAvailable(): void {
+    this.modalService.create({
+      nzContent: RoomAvailablePopupComponent,
+      nzComponentParams: {
+        accommodationId: this.id,
+        roomId: null,
+        fromDate: new Date(),
+        toDate: add(new Date(), { months: 1 }),
+      },
+      nzWidth: 1000,
+      nzFooter: null,
+    });
   }
 
   compareRoomType = (o1: RoomTypeModel, o2: RoomTypeModel) =>

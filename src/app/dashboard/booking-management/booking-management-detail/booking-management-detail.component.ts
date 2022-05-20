@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BookingManagementDetailComponent implements OnInit {
   id: string;
-  constructor() { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.id = this.route.snapshot.params.id.includes('?')
+      ? this.route.snapshot.params.id.split('?')[0]
+      : this.route.snapshot.params.id;
   }
 
 }

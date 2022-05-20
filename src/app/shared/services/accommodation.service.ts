@@ -1,3 +1,5 @@
+import { RoomAvailable } from './../models/accommodation/room-available.model';
+import { RoomAvailableFilter } from './../models/accommodation/room-available-filter.model';
 import { RoomModel } from './../models/room/room.model';
 import { LocationModel } from './../models/master-data/location.model';
 import { AccommodationTypeModel } from './../models/accommodation/accommodation-type.model';
@@ -83,6 +85,11 @@ export class AccommodationService extends BaseService {
     return this.get(url);
   }
 
+  getAllAccommodation(): Observable<AccommodationModel[]>{
+    const url = `api/Accommodation/get-all`;
+    return this.get(url);
+  }
+
   getUtilityAccommodation(accommodationId: string): Observable<any[]> {
     const url = `api/Accommodation/get/utility/${accommodationId}`;
     return this.get(url);
@@ -101,5 +108,14 @@ export class AccommodationService extends BaseService {
   updateRoomAccommodation(data: any, accommodationId: string): Observable<any>{
     const url = `api/Accommodation/update/room/${accommodationId}`;
     return this.put(url, data);
+  }
+
+  getRoomAvailable(filter: RoomAvailableFilter): Observable<RoomAvailable[]>{
+    const url = `api/Accommodation/${filter}/available`;
+    if(!filter?.roomId){
+      delete filter?.roomId;
+    }
+    delete filter?.accommodationId;
+    return this.get(url, Utils.createFilterParam(filter));
   }
 }

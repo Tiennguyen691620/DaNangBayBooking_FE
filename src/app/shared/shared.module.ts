@@ -184,7 +184,7 @@ const maskConfig: Partial<IConfig> = {
     NzPipesModule,
     ErrorTailorModule,
     NgxMaskModule,
-    CKEditorModule,
+    // CKEditorModule,
   ],
 })
 export class SharedModule {}
