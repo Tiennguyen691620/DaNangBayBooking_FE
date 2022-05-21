@@ -1,3 +1,6 @@
+import { PopupUtilityProvidedComponent } from './popups/popup-utility-provided/popup-utility-provided.component';
+import { PopupRoomAccommodationComponent } from './popups/popup-room-accommodation/popup-room-accommodation.component';
+import { PopupAccommodationInfoComponent } from './popups/popup-accommodation-info/popup-accommodation-info.component';
 import { CancelBookingPopupComponent } from './popups/cancel-booking-popup/cancel-booking-popup.component';
 import { PopupGoogleMapComponent } from './popups/popup-google-map/popup-google-map.component';
 import { PopupConfirmComponent } from './popups/popup-confirm/popup-confirm.component';
@@ -82,6 +85,7 @@ import { ErrorTailorModule } from '@ngneat/error-tailor';
 import { PipesModule } from '../pipes/pipes.module';
 import { SignupPopupComponent } from './popups/signup-popup/signup-popup.component';
 import { ForgotPasswordPopupComponent } from './popups/forgot-password-popup/forgot-password-popup.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 @NgModule({
   declarations: [
@@ -94,6 +98,9 @@ import { ForgotPasswordPopupComponent } from './popups/forgot-password-popup/for
     ForgotPasswordPopupComponent,
     PopupGoogleMapComponent,
     CancelBookingPopupComponent,
+    PopupAccommodationInfoComponent,
+    PopupRoomAccommodationComponent,
+    PopupUtilityProvidedComponent,
   ],
   imports: [
     CommonModule,
@@ -168,6 +175,7 @@ import { ForgotPasswordPopupComponent } from './popups/forgot-password-popup/for
     NzWaveModule,
     NzResizableModule,
     NzPipesModule,
+    CKEditorModule,
     ErrorTailorModule.forRoot({
       errors: {
         useValue: {
@@ -195,6 +203,12 @@ import { ForgotPasswordPopupComponent } from './popups/forgot-password-popup/for
     }),
     // IvyCarouselModule
   ],
-  exports: [HeaderComponent, FooterComponent, ErrorTailorModule, PipesModule],
+  exports: [
+    HeaderComponent,
+    FooterComponent,
+    ErrorTailorModule,
+    PipesModule,
+    CKEditorModule,
+  ],
 })
 export class ComponentsModule {}

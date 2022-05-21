@@ -51,14 +51,20 @@ export class BookingService extends BaseService {
           totalRecords: res.totalRecords,
           pageCount: res.pageCount,
           items: res.items.map((item: any, index: any) => {
-            if(item?.bookingDate) {
-              item.bookingDate = DateTimeConvertHelper.fromTimestampToDtObject(item?.bookingDate);
+            if (item?.bookingDate) {
+              item.bookingDate = DateTimeConvertHelper.fromTimestampToDtObject(
+                item?.bookingDate
+              );
             }
-            if(item?.fromDate) {
-              item.fromDate = DateTimeConvertHelper.fromTimestampToDtObject(item?.fromDate);
+            if (item?.fromDate) {
+              item.fromDate = DateTimeConvertHelper.fromTimestampToDtObject(
+                item?.fromDate
+              );
             }
-            if(item?.toDate) {
-              item.toDate = DateTimeConvertHelper.fromTimestampToDtObject(item?.toDate);
+            if (item?.toDate) {
+              item.toDate = DateTimeConvertHelper.fromTimestampToDtObject(
+                item?.toDate
+              );
             }
             item.index = index + res.pageSize * res.pageIndex + 1;
             return item;
@@ -76,5 +82,26 @@ export class BookingService extends BaseService {
   cancelBooking(data: any): Observable<any> {
     const url = `api/BookRoom/cancel`;
     return this.post(url, data);
+  }
+
+  getBookingDetail(id: string): Observable<BookingModel> {
+    const url = `api/BookRoom/detail/${id}`;
+    return this.get(url).pipe(
+      map((result: any) => {
+        if (!result) {
+          return new BookingModel();
+        }
+        result.bookingDate = result.bookingDate
+          ? DateTimeConvertHelper.fromTimestampToDtObject(result.bookingDate)
+          : null;
+        result.fromDate = result.fromDate
+          ? DateTimeConvertHelper.fromTimestampToDtObject(result.fromDate)
+          : null;
+        result.toDate = result.toDate
+          ? DateTimeConvertHelper.fromTimestampToDtObject(result.toDate)
+          : null;
+        return result;
+      })
+    );
   }
 }

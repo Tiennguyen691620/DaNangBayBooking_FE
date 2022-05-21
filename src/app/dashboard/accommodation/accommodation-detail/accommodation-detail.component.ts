@@ -216,12 +216,12 @@ export class AccommodationDetailComponent implements OnInit {
         return;
       }
       const doSubmit = () => {
-        // if (this.form.valid) {
+        if (this.form.valid) {
           this.isCreate = true;
           this.booking = this.form.getRawValue();
           AccommodationComponent.test = this.booking;
           console.log('test', this.form?.getRawValue());
-        // }
+        }
       };
       const uploadProgresses = [];
       for (const item of this?.uploadController) {

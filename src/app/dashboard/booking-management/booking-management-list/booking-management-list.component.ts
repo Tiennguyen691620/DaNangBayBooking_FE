@@ -1,3 +1,4 @@
+import { RoomModel } from 'src/app/shared/models/room/room.model';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { EBookingStatus } from './../../../shared/emun/booking/booking-status.enum';
 import { BookingService } from './../../../shared/services/booking.service';
@@ -9,6 +10,10 @@ import { debounceTime } from 'rxjs/operators';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import Utils from 'src/app/shared/helpers/utils.helper';
 import { CancelBookingPopupComponent } from 'src/app/shared/components/popups/cancel-booking-popup/cancel-booking-popup.component';
+import { PopupAccommodationInfoComponent } from 'src/app/shared/components/popups/popup-accommodation-info/popup-accommodation-info.component';
+import { PopupUtilityProvidedComponent } from 'src/app/shared/components/popups/popup-utility-provided/popup-utility-provided.component';
+import { AccommodationService } from 'src/app/shared/services/accommodation.service';
+import { PopupRoomAccommodationComponent } from 'src/app/shared/components/popups/popup-room-accommodation/popup-room-accommodation.component';
 
 @Component({
   selector: 'app-booking-management-list',
@@ -22,12 +27,15 @@ export class BookingManagementListComponent implements OnInit {
   isDraw = false;
   eBookingStatus = EBookingStatus;
   dataSource: BookingModel[] = [];
+  roomList: RoomModel[] = [];
+  bookingModel = new BookingModel();
   filterModel = new BookingFilter();
   searchTerm$ = new BehaviorSubject<string>('');
   constructor(
     private bookingService: BookingService,
     private modalService: NzModalService,
     private notification: NzNotificationService,
+    private accommodationService: AccommodationService,
   ) {}
 
   ngOnInit(): void {
@@ -76,7 +84,7 @@ export class BookingManagementListComponent implements OnInit {
           cancelReason: result.reason,
         };
         console.log(params);
-        
+
         this.bookingService.cancelBooking(params).subscribe((_) => {
           this.notification.success(
             'Hủy đặt phòng thành công',
@@ -93,7 +101,53 @@ export class BookingManagementListComponent implements OnInit {
     this.isDraw = false;
   }
 
-  openDraw(): void {
-    this.isDraw = true;
+  openDraw(id: string): void {
+    if (id) {
+      this.bookingService.getBookingDetail(id).subscribe((res) => {
+        this.bookingModel = res;
+      });
+      this.isDraw = true;
+    }
+  }
+
+  viewAccommodation(id: string): void {
+    const modal = this.modalService.create({
+      nzContent: PopupAccommodationInfoComponent,
+      nzComponentParams: {
+        id,
+      },
+      nzWidth: 1000,
+      nzFooter: null,
+    });
+  }
+
+  viewUtilities(id: string): void {
+    const modal = this.modalService.create({
+      nzContent: PopupUtilityProvidedComponent,
+      nzComponentParams: {
+        id,
+      },
+      nzWidth: 1000,
+      nzFooter: null,
+    });
+  }
+
+  viewOtherEndow(): void {
+    this.accommodationService
+      .getRoomAccommodation(this.bookingModel.accommodation?.accommodationID)
+      .subscribe((res) => {
+        this.roomList = res;
+        const modal = this.modalService.create({
+          nzContent: PopupRoomAccommodationComponent,
+          nzComponentParams: {
+            dataSource: this.roomList.filter(
+              (item) =>
+                item.roomID !== this.bookingModel?.bookRoomDetail?.room.roomID
+            ),
+          },
+          nzWidth: 800,
+          nzFooter: null,
+        });
+      });
   }
 }

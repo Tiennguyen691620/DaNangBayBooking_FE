@@ -18,6 +18,7 @@ import { ErrorTailorModule } from '@ngneat/error-tailor';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { HomeComponent } from './home/home.component';
 import { IvyCarouselModule } from 'angular-responsive-carousel';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 // registerLocaleData(en);
 registerLocaleData(vi);
@@ -37,6 +38,7 @@ const INTERCEPTOR_PROVIDES = [
     ServicesModule,
     SharedModule,
     IvyCarouselModule,
+    // CKEditorModule,
   ],
   providers: [
     INTERCEPTOR_PROVIDES,

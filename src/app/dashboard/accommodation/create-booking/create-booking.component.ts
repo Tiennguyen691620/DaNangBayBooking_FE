@@ -3,11 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { BookingModel } from './../../../shared/models/booking/booking.model';
 import { Component, Input, OnInit } from '@angular/core';
 import { AccommodationModel } from 'src/app/shared/models/accommodation/accommodation.model';
-import { RoomModel } from 'src/app/shared/models/room/room.model';
 import { FormGroup } from '@angular/forms';
 import DateTimeConvertHelper from 'src/app/shared/helpers/datetime-convert.helper';
-import CustomValidator from 'src/app/shared/helpers/custom-validator.helper';
-import { AccommodationComponent } from '../accommodation.component';
 import { environment } from 'src/environments/environment';
 
 @Component({

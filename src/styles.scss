@@ -130,6 +130,9 @@ button[nzType="third"] {
 .bgr-honeydew{
   background: #e7fde9 !important;
 }
+.bgr-whitesmoke{
+  background: whitesmoke;
+}
 
 // font-size
 .fz-10 {
@@ -314,6 +317,72 @@ thead {
   &::after {
     content: "*";
     color: red;
+  }
+}
+
+// ? table-popup
+.table-popup {
+  tbody {
+    td {
+      background-color: #fff;
+    }
+  }
+
+  tbody tr .ant-table-cell-fix-left {
+    background: #fff !important;
+  }
+
+  .ant-table-thead > th {
+    border-bottom: dashed 1px rgba(119, 123, 124, 0.4) !important;
+    padding: 1.1rem 0.5rem !important;
+  }
+
+  .ant-table-tbody > tr > td {
+    padding: 1rem;
+    background-color: transparent;
+  }
+
+  .ant-table-tbody > tr.ant-table-row:hover > td:first-child {
+    border-left: none;
+  }
+
+  .ant-table-content,
+  .ant-table-body {
+    overflow: scroll;
+
+    &::-webkit-scrollbar {
+      width: 5px !important;
+      height: 5px !important;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #ffffff;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #086fd0;
+      border-radius: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: #086fd0;
+    }
+  }
+
+  .ant-modal-content {
+    border-radius: 0px;
+  }
+
+  .ant-modal-content {
+    border-radius: 0px;
+  }
+
+  .ant-table .ant-table-container::after {
+    width: 5px !important;
+  }
+
+  .ant-table-header {
+    overflow: hidden !important;
   }
 }
 

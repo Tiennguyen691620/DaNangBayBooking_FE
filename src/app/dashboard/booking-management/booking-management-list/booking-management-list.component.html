@@ -1,6 +1,6 @@
-<section class="booking-management" style="height: 100vh;">
-  <div class="container my-3">
-    <div class="mt-4 table-main">
+<section class="booking-management bgr-aliceblue py-4" style="height: 100vh;">
+  <div class="container">
+    <div class="table-main">
       <div>
         <nz-table #basicTable class="table-list" [nzData]="dataSource" [nzFrontPagination]="false" [nzTemplateMode]="true" [nzLoading]="false"
           (nzPageIndexChange)="changePageIndex($event)" (nzPageSizeChange)="changPageSize($event)" [nzTotal]="totalCount" [(nzPageIndex)]="pageIndex"
@@ -53,7 +53,7 @@
                 <span *ngIf="i < 10 ">0</span>{{i + 1}}
               </td>
               <!-- Ma dat phong -->
-              <td class="text-center" (click)="openDraw()">
+              <td class="text-center" (click)="openDraw(item?.bookRoomID)">
                 <p class="mb-0 pointer" [class.status-booking-confirmed-text]="item?.status === 0" [class.status-booking-success-text]="item?.status === 1" [class.status-booking-canceled-text]="item?.status === 2" [class.status-booking-closed-text]="item?.status === 3">
                   {{item?.no ?? ''}}
                 </p>
@@ -163,11 +163,13 @@
             <div class="ID-booking d-flex flex-wrap justify-content-between">
               <div class="d-flex align-items-center">
                 <div class="font-dot"></div>
-                <div class="ms-2 fs-16 fw-500 me-3">BK-22-00001</div>
+                <div class="ms-2 fs-16 fw-500 me-3">{{bookingModel?.no}}</div>
               </div>
               <div class="d-flex align-items-center ms-auto">
                 <label class="fs-10 color-label">Ngày đặt phòng</label>
-                <div class="fs-13 px-2 fw-500"> 16/07/2022</div>
+                <span class="fs-13 px-2 fw-500">
+                  {{bookingModel?.bookingDate ? (bookingModel?.bookingDate | date: "dd/MM/yyyy") : ''}}
+                </span>
                 <div class="pb-2">
                   <svg xmlns="http://www.w3.org/2000/svg" id="ic-calendar" width="24" height="24" viewBox="0 0 24 24">
                     <path id="Path_445" data-name="Path 445" d="M0,0H24V24H0Z" fill="none" />
@@ -188,8 +190,13 @@
             <div class="status d-flex justify-content-between mt-2">
               <span class="status-title color-label fs-14">Trạng thái</span>
               <div class="d-flex flex-column align-items-center">
-                <div class="form-status text-uppercase">
-                  <p class="mb-0">Đã xác nhận</p>
+                <div class="status-booking text-center" [class.status-booking-confirmed]="bookingModel?.status === 0" [class.status-booking-success]="bookingModel?.status === 1" [class.status-booking-canceled]="bookingModel?.status === 2" [class.status-booking-closed]="bookingModel?.status === 3">
+                  <p class="mb-0">
+                    {{bookingModel?.status == 0 ? 'Đã tiếp nhận'
+                  : (bookingModel?.status == 1 ? 'Đã xác nhận'
+                  : (bookingModel?.status == 2 ? 'Đã hủy'
+                  : 'Đã đóng'))}}
+                  </p>
                 </div>
               </div>
               <div></div>
@@ -205,21 +212,21 @@
                 </svg>
                 <span class="d-flex color-gray ms-2">Người đặt phòng</span>
                 <span class="user-booking ms-2 fw-700">
-                  Nguyễn Đình Quân
+                  {{bookingModel?.checkInName}}
                 </span>
 
               </div>
             </div>
-            <!-- <div class="row" *ngIf="bookingModel?.status?.value === eBookingStatus.BookingConfirmed
-                        || bookingModel?.status?.value === eBookingStatus.Cancelled
-                        || bookingModel?.status?.value === eBookingStatus.Closed">
-              <div class="cancel-info mt-2">
-                <div class="" *ngIf="bookingModel?.status?.value === eBookingStatus.Cancelled">
+            <div class="row" *ngIf="bookingModel?.status === 0
+                        || bookingModel?.status === 2
+                        || bookingModel?.status === 3">
+              <div class="cancel-info mt-2 d-flex justify-content-between ">
+                <div class="" *ngIf="bookingModel?.status === 2">
                   <span class="me-3">Lý do : </span>
-                  <span class="color-gray">{{bookingModel?.cancelReason ?? ''}}
+                  <span class="color-gray">{{bookingModel?.bookRoomDetail?.cancelReason ?? ''}}
                   </span>
                 </div>
-                <div class="d-flex align-items-center" *ngIf="bookingModel?.status?.value === eBookingStatus.Cancelled">
+                <div class="d-flex align-items-center" *ngIf="bookingModel?.status === 2">
                   <div class="">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="-4.5 9 30 5"
                       style="border-radius: 50%; background: #e3e3e3">
@@ -237,21 +244,21 @@
                     </svg>
                   </div>
                   <span class="color-gray ms-2">Ngày hủy đơn</span>
-                  <span class="fs-12 px-2 fw-500">{{bookingModel?.cancelDate | date: "yyyy- dd 'Tháng' MM"}}</span>
+                  <span class="fs-12 px-2 fw-500">{{bookingModel?.bookRoomDetail?.cancelDate | date: "dd/MM/yyyy"}}</span>
                 </div>
               </div>
-            </div> -->
+            </div>
           </div>
         </div>
-        <!-- <div class="information-confirm" *ngIf="bookingModel?.status?.value === eBookingStatus.BookingConfirmed
-                  || bookingModel?.status?.value === eBookingStatus.Closed">
+        <div class="information-confirm" *ngIf="bookingModel?.status === 1
+                  || bookingModel?.status === 3">
           <div class="content">
             <ng-container *ngIf="bookingModel?.checkInCode">
               <div class="d-flex align-items-center justify-content-between">
                 <label class="fw-500 fs-14 icon-info">
                   Thông tin xác nhận CSLT
                 </label>
-                <i *ngIf="bookingModel?.status?.value === eBookingStatus.BookingConfirmed" nz-icon nz-tooltip nzTooltipPlacement="leftTop"
+                <i *ngIf="bookingModel?.status === 1" nz-icon nz-tooltip nzTooltipPlacement="leftTop"
                   nzTooltipColor="#a9acac" nzTooltipTitle="Quý khách vui lòng cung cấp mã nhận phòng cho lễ tân khi đến CSLT để nhận phòng"
                   nzType="info-circle" nzTheme="outline" class="icon-info pointer me-3 fs-18">
                 </i>
@@ -266,27 +273,16 @@
                       <div class="text-uppercase mx-2">
                         <a class="underline">{{bookingModel?.checkInCode}}</a>
                       </div>
-                      <i class="fa fa-clone icon-copy pointer" (click)="copyToClipboard($event)" aria-hidden="true"
-                        *ngIf="bookingModel?.status?.value !== eBookingStatus.Closed">
+                      <i class="fa fa-clone icon-copy pointer" aria-hidden="true"
+                        *ngIf="bookingModel?.status !== 3">
                       </i>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 mb-2" *ngIf="bookingModel?.status?.value !== eBookingStatus.WaitingAccommodationConfirm">
-                  <div class="row">
-                    <div class="col-6 col-sm-4 d-flex justify-content-sm-end">
-                      <span class="color-gray">Tình trạng đáp ứng :</span>
-                    </div>
-                    <div class="col-6 col-sm-8 d-flex align-items-center justify-content-start">
-                      <ng-container *ngIf="bookingModel?.isResponseFullService">Đáp ứng đủ dịch vụ
-                      </ng-container>
                     </div>
                   </div>
                 </div>
               </div>
             </ng-container>
           </div>
-        </div> -->
+        </div>
         <div class="mt-3">
           <nz-tabset>
             <nz-tab nzTitle="Thông tin phòng">
@@ -305,7 +301,7 @@
                       <line id="Line_33" data-name="Line 33" x2="16" transform="translate(4 11)" fill="none" stroke="#444" stroke-linecap="round"
                         stroke-linejoin="round" stroke-width="0.8" />
                     </svg>
-                    <span class="ms-2 mt-0 fs-14 fw-500 align-self-center">16/07/2022</span>
+                    <span class="ms-2 mt-0 fs-14 fw-500 align-self-center">{{bookingModel?.fromDate | date: 'dd/MM/yyyy'}}</span>
                   </span>
                 </div>
                 <div class="date-checkout-room col-3 d-flex align-items-center flex-column">
@@ -322,32 +318,32 @@
                       <line id="Line_33" data-name="Line 33" x2="16" transform="translate(4 11)" fill="none" stroke="#444" stroke-linecap="round"
                         stroke-linejoin="round" stroke-width="0.8" />
                     </svg>
-                    <span class="ms-2 mt-0 fs-14 fw-500 align-self-center">18/07/2022</span>
+                    <span class="ms-2 mt-0 fs-14 fw-500 align-self-center">{{bookingModel?.toDate | date: 'dd/MM/yyyy'}}</span>
                   </span>
                 </div>
               </div>
               <div class="d-flex flex-column my-2 content-tabset">
                 <div>
                   <div class="row pt-3 pb-2">
-                    <div class="col-12 col-sm-7">
+                    <div class="col-8">
                       <div class="row">
-                        <div class="col-5 col-sm-4 col-md-5 d-flex justify-content-sm-end pe-0">
+                        <div class="col-3 d-flex justify-content-start pe-0">
                           <label class="color-label">Cơ sở lưu trú</label>
                         </div>
-                        <div class="col">
+                        <div class="col-9">
                           <div class="d-flex">
                             <span class="pe-3">:</span>
-                            <span>Mường Thanh Grand</span>
+                            <span>{{bookingModel?.accommodation?.name}}</span>
                           </div>
                           <div class="d-flex">
-                            <a class="d-block pl-20">Tiện ích</a>
+                            <a class="d-block pl-20" (click)="viewUtilities(bookingModel?.accommodation?.accommodationID)">Tiện ích</a>
                             <span class="mx-2 icon-info">/</span>
-                            <a class="d-block"> Thông tin CSLT</a>
+                            <a class="d-block" (click)="viewAccommodation(bookingModel?.accommodation?.accommodationID)"> Thông tin CSLT</a>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div class="col">
+                    <div class="col-4">
                       <div class="row">
                         <div class="col-5 col-sm-6 d-flex justify-content-sm-end text-end pe-0">
                           <label class="color-label">Số phòng đặt</label>
@@ -355,28 +351,28 @@
                         <div class="col">
                           <div class="d-flex">
                             <span class="pe-3">:</span>
-                            <span>1</span>
+                            <span>{{bookingModel?.qty}}</span>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div class="row py-2">
-                    <div class="col-12 col-sm-7">
+                    <div class="col-8">
                       <div class="row">
-                        <div class="col-5 col-sm-4 col-md-5 d-flex justify-content-sm-end  pe-0">
+                        <div class="col-3 d-flex justify-content-start pe-0">
                           <label class="color-label">Loại phòng</label>
                         </div>
-                        <div class="col">
+                        <div class="col-9">
                           <div class="d-flex">
                             <span class="pe-3">:</span>
-                            <span>VIP</span>
+                            <span>{{bookingModel?.bookRoomDetail?.room?.roomType?.name}}</span>
                           </div>
-                          <a class="d-block pl-20" href="javascript:void(0)">Phòng khác</a>
+                          <a class="d-block pl-20" href="javascript:void(0)" (click)="viewOtherEndow()">Phòng khác</a>
                         </div>
                       </div>
                     </div>
-                    <div class="col">
+                    <div class="col-4 ">
                       <div class="row">
                         <div class="col-5 col-sm-6 d-flex justify-content-sm-end text-end pe-0">
                           <label class="color-label">Tổng số đêm đặt</label>
@@ -384,60 +380,52 @@
                         <div class="col">
                           <div class="d-flex">
                             <span class="pe-3">:</span>
-                            <span class="font-email">1</span>
+                            <span class="font-email">{{bookingModel?.totalDay}}</span>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div class="footer-tabset">
-                <div class="row">
-                  <div class="col-sm-6">
-                    <div class="row pt-3">
-                      <div class="col-12 pb-3">
-                        <div class="row">
-                          <div class="col-5 col-sm-8 col-md-6 d-flex justify-content-sm-end pe-0">
-                            <label class="color-label">Số người lớn</label>
+                  <div class="row py-2">
+                    <div class="col-8">
+                      <div class="row">
+                        <div class="col-3 d-flex justify-content-start pe-0">
+                          <label class="color-label">Số người lớn</label>
+                        </div>
+                        <div class="col-9">
+                          <div class="d-flex">
+                            <span class="pe-3">:</span>
+                            <span>{{bookingModel?.bookRoomDetail?.personNumber}}</span>
                           </div>
-                          <div class="col">
-                            <div class="d-flex">
-                              <span class="pe-3">:</span>
-                              <span>1</span>
-                            </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-4 ">
+                      <div class="row">
+                        <div class="col-5 col-sm-6 d-flex justify-content-sm-end text-end pe-0">
+                          <label class="color-label">Số trẻ em</label>
+                        </div>
+                        <div class="col">
+                          <div class="d-flex">
+                            <span class="pe-3">:</span>
+                            <span class="font-email">{{bookingModel?.bookRoomDetail?.childNumber}}</span>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div class="col-sm-6">
-                    <div class="row pt-sm-3">
-                      <div class="col-12 pb-3">
-                        <div class="row">
-                          <div class="col-5 col-sm-5 col-md-7 d-flex justify-content-sm-end pe-0 text-end">
-                            <label class="color-label">Số trẻ em</label>
-                          </div>
-                          <div class="col-7 col-sm-5">
-                            <div class="d-flex">
-                              <span class="pe-3">:</span>
-                              <span>1</span>
-                            </div>
-                          </div>
+                  <div class="row py-2">
+                    <div class="col-8">
+                      <div class="row">
+                        <div class="col-3 d-flex justify-content-start pe-0">
+                          <label class="color-label">Tổng số người</label>
                         </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-12 pb-3">
-                        <div class="row">
-                          <div class="col-5 col-sm-5 col-md-7 d-flex justify-content-sm-end pe-0 ">
-                            <label class="color-label">Tổng số người</label>
-                          </div>
-                          <div class="col">
-                            <div class="d-flex">
-                              <span class="pe-3">:</span>
-                              <span class="font-email">2</span>
-                            </div>
+                        <div class="col-9">
+                          <div class="d-flex">
+                            <span class="pe-3">:</span>
+                            <span>
+                              {{bookingModel?.bookRoomDetail?.personNumber + bookingModel?.bookRoomDetail?.childNumber}}
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -457,7 +445,7 @@
                       <div class="col-8 col-sm-6 ps-0">
                         <div class="d-flex">
                           <span class="pe-3">:</span>
-                          <span>Nguyễn Đình Quân</span>
+                          <span>{{bookingModel?.checkInName}}</span>
                         </div>
                       </div>
                     </div>
@@ -470,7 +458,7 @@
                       <div class="col-8 ps-0">
                         <div class="d-flex">
                           <span class="pe-3">:</span>
-                          <span>0889161328</span>
+                          <span>{{bookingModel?.checkInPhoneNumber}}</span>
                         </div>
                       </div>
                     </div>
@@ -485,7 +473,7 @@
                       <div class="col-8 col-sm-6  ps-0">
                         <div class="d-flex">
                           <span class="pe-3">:</span>
-                          <span>421777698</span>
+                          <span>{{bookingModel?.checkInIdentityCard}}</span>
                         </div>
                       </div>
                     </div>
@@ -498,7 +486,7 @@
                       <div class="col-8  ps-0">
                         <div class="d-flex">
                           <span class="pe-3">:</span>
-                          <span class="font-email">tiennguyen3129@gmail.com</span>
+                          <span class="font-email">{{bookingModel?.checkInMail}}</span>
                         </div>
                       </div>
                     </div>
@@ -511,7 +499,7 @@
                   <div class="col ps-0">
                     <div class="d-flex">
                       <span class="pe-3">:</span>
-                      <span>tiennguyen</span>
+                      <span>{{bookingModel?.checkInNote}}</span>
                     </div>
                   </div>
                 </div>
