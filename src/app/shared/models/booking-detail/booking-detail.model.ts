@@ -4,7 +4,7 @@ export class BookingDetailModel {
   bookRoomDetailId: string;
   personNumber: number;
   childNumber: number;
-  cancelDate: Date;
+  cancelDate: Date | any;
   cancelReason: string;
   status: number;
   room: RoomModel;

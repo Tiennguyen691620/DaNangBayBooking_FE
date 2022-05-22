@@ -1,4 +1,6 @@
 
+import { CancelBookingReportFilter } from './../models/report/cancel-booking-report-filter.model';
+
 import { BookingModel } from './../models/booking/booking.model';
 import { PaginationModel } from './../models/master-data/pagination.model';
 import { BookingFilter } from './../models/booking/booking-filter.model';
@@ -103,5 +105,10 @@ export class BookingService extends BaseService {
         return result;
       })
     );
+  }
+
+  getBookingReport(params: CancelBookingReportFilter): Observable<BookingModel[]>{
+    const url = `api/BookRoom/filter/report`;
+    return this.get(url, Utils.createFilterParam({...params}));
   }
 }

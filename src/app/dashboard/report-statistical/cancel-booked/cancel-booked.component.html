@@ -9,8 +9,8 @@
             <span>Cơ sở lưu trú</span>
           </div>
           <div class="col-7">
-            <nz-select class="w-100" nzShowSearch nzAllowClear>
-              <nz-option *ngFor="let item of accommodationList" [nzValue]="item" [nzLabel]="item.name"></nz-option>
+            <nz-select class="w-100" [(ngModel)]="filterModel.accommodationId" nzShowSearch nzAllowClear>
+              <nz-option *ngFor="let item of accommodationList" [nzValue]="item.accommodationID" [nzLabel]="item.name"></nz-option>
             </nz-select>
           </div>
         </div>
@@ -21,7 +21,7 @@
             <span>Trạng thái</span>
           </div>
           <div class="col-7">
-            <nz-select class="w-100" nzShowSearch nzAllowClear>
+            <nz-select class="w-100" [(ngModel)]="filterModel.status" nzShowSearch nzAllowClear>
               <nz-option [nzValue]="0" [nzLabel]="'Đã tiếp nhận'"></nz-option>
               <nz-option [nzValue]="1" [nzLabel]="'Đã xác nhận'"></nz-option>
               <nz-option [nzValue]="2" [nzLabel]="'Đã hủy'"></nz-option>
@@ -55,10 +55,10 @@
     </div>
     <div class="d-flex align-items-center justify-content-end">
       <div class=" d-flex justify-content-end me-3 ">
-        <button class="btn-export" nz-button nzType="primary">Xem báo cáo</button>
+        <button class="btn-export" nz-button nzType="primary" (click)="filter()">Xem báo cáo</button>
       </div>
       <div class="">
-        <button class="btn-export d-flex align-items-center" nz-button nzType="primary" nzSize="default">
+        <button class="btn-export d-flex align-items-center" nz-button nzType="primary" nzSize="default" (click)="export()" >
           <i nz-icon nzType="download"></i>
           Xuất báo cáo
         </button>
@@ -66,11 +66,10 @@
       </div>
     </div>
 
-    <div class="content">
+    <div class="content" *ngIf="isShow">
       <div class="table-main">
-        <nz-table #basicTable class="table-list mt-3" [nzFrontPagination]="false" [nzTemplateMode]="true" [nzLoading]="false"
-          [nzScroll]="{ x: '1200px' }" [nzTotal]="totalCount" [(nzPageSize)]="pageSize" [(nzPageIndex)]="pageIndex"
-          (nzPageIndexChange)="onPageIndexChange($event)" (nzPageSizeChange)="onPageSizeChange($event)" [nzShowTotal]="rangeTemplate"
+        <nz-table #basicTable class="table-list mt-3" [nzFrontPagination]="false" [nzTemplateMode]="true" [nzLoading]="false" [nzData]="dataSource"
+          [nzScroll]="{ x: '1200px' }"
           [nzWidthConfig]="['70px', '200px', '180px', '150px', '150px', '150px', '150px', '130px', '120px', '120px', '150px', '150px', '130px']">
           <thead>
             <th nzLeft="0px" class="text-center">STT</th>
@@ -88,30 +87,30 @@
             <th class="text-center">Ghi chú</th>
           </thead>
           <tbody>
-            <tr >
-              <td nzLeft="0px" class="text-center">1</td>
-              <td class="text-center">Mường thanh Grand</td>
-              <td class="text-center">Nguyễn Đính Quân</td>
-              <td class="text-center">BK-22-00001</td>
-              <td class="text-center">16/05/2022</td>
-              <td class="text-center">16/05/2022</td>
-              <td class="text-center">16/05/2022</td>
-              <td class="text-center">1</td>
-              <td class="text-center">1</td>
-              <td class="text-center">1</td>
-              <td class="text-center">Đã tiếp nhận</td>
-              <td class="text-center">16/05/2022</td>
-              <td class="text-center">Tiến</td>
+            <tr *ngFor="let item of dataSource; let i = index">
+              <td nzLeft="0px" class="text-center">{{i + 1}}</td>
+              <td class="text-center">{{item?.accommodation?.name}}</td>
+              <td class="text-center">{{item?.checkInName}}</td>
+              <td class="text-center">{{item?.no}}</td>
+              <td class="text-center">{{item?.bookingDate ? (item?.bookingDate * 1000 | date: 'dd/MM/yyyy') : ''}}</td>
+              <td class="text-center">{{item?.fromDate ? (item?.fromDate * 1000 | date: 'dd/MM/yyyy') : ''}}</td>
+              <td class="text-center">{{item?.toDate ? (item?.toDate * 1000 | date: 'dd/MM/yyyy') : ''}}</td>
+              <td class="text-center">{{item?.bookRoomDetail?.personNumber}}</td>
+              <td class="text-center">{{item?.bookRoomDetail?.childNumber}}</td>
+              <td class="text-center">{{item?.qty}}</td>
+              <td class="text-center">{{item?.status == 0 ? 'Đã tiếp nhận' : (item?.status == 1 ? 'Đã xác nhận' : (item?.status == 2 ? 'Đã hủy' : 'Đã Đóng'))}}</td>
+              <td class="text-center">{{item?.bookRoomDetail?.cancelDate | date: 'dd/MM/yyyy'}}</td>
+              <td class="text-center">{{item?.checkInNote}}</td>
             </tr>
           </tbody>
         </nz-table>
-        <!-- <div *ngIf="(dataSource ?? []).length === 0" class="d-flex justify-content-center mt-3">
+        <div *ngIf="(dataSource ?? []).length === 0" class="d-flex justify-content-center mt-3">
           <p class="mb-0 text-center">Không có dữ liệu</p>
-        </div> -->
+        </div>
       </div>
-      <ng-template #rangeTemplate let-range="range" let-total>
+      <!-- <ng-template #rangeTemplate let-range="range" let-total>
         <div class="mt-1">Tổng số {{ total }}</div>
-      </ng-template>
+      </ng-template> -->
     </div>
   </div>
 </section>

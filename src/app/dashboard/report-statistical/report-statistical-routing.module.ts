@@ -24,7 +24,7 @@ const routes: Routes = [
         component: DiaryLoginComponent,
       },
       {
-        path: 'revunue',
+        path: 'revenue',
         component: RevenueManagementComponent,
       }
     ]

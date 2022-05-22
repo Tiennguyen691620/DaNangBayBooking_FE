@@ -1,1 +1,48 @@
-<p>revenue-management works!</p>
+<section class="revenue">
+  <div class="container">
+    <div class="bgr-whitesmoke px-3 py-2">
+      <span>Biểu đồ doanh thu của CSLT</span>
+      <hr>
+      <div class="row">
+        <div class="col-5">
+          <div class="row align-items-center">
+            <div class="col-3">
+              <span>Ngày</span>
+            </div>
+            <div class="col-8">
+              <nz-range-picker nzSize="default" class="w-100" ngModel (ngModelChange)="onChange($event)"></nz-range-picker>
+            </div>
+          </div>
+        </div>
+        <div class="col-5">
+          <div class="row align-items-center">
+            <div class="col-3">
+              <span>Cơ sở lưu trú</span>
+            </div>
+            <div class="col-8">
+              <nz-select nzSize="default" class="w-100" [(ngModel)]="filterModel.accommodationId">
+                <nz-option *ngFor="let item of accommodationList" [nzValue]="item.accommodationID" [nzLabel]="item.name"></nz-option>
+              </nz-select>
+            </div>
+          </div>
+        </div>
+        <div class="col-2 d-flex justify-content-end">
+          <button nz-button nzType="primary" class="btn-export" (click)="filter()">Xem biểu đồ</button>
+        </div>
+      </div>
+    </div>
+    <div class="bgr-whitesmoke mt-3 px-3 py-2">
+      <div id="container">
+        <ng-container *ngFor="let item of pieRevenueNote">
+          <div class="d-flex align-items-center mb-2 note">
+            <div class="color me-3" [ngStyle]="{ 'background-color': item.color }"></div>
+            <div class="w-label-note">
+              <span>{{ item.name }}</span>
+              <!-- <span> (SL: {{item.value}})</span> -->
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</section>
