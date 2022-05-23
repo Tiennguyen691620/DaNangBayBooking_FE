@@ -13,7 +13,7 @@ export class ViewByAccommodationModel {
 }
 
 export class ViewByDateModel {
-  date: Date;
+  date: number;
   amount: number;
   childs: ViewByAccommodationModel[];
 }

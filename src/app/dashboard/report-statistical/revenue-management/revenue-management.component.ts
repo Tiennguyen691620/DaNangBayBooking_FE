@@ -1,3 +1,4 @@
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { ReportService } from './../../../shared/services/report.service';
 import { Router } from '@angular/router';
@@ -6,10 +7,13 @@ import { AccommodationModel } from 'src/app/shared/models/accommodation/accommod
 import { Component, OnInit } from '@angular/core';
 import { RevenueReportFilter } from 'src/app/shared/models/report/revenue/revenue-report-filter.model';
 import * as Highchart from 'highcharts';
-import DateTimeConvertHelper from 'src/app/shared/helpers/datetime-convert.helper';
+import { ToDate } from 'src/app/shared/helpers/must-match.validator';
+import variablePie from 'highcharts/modules/variable-pie';
+import station from 'highcharts/modules/variable-pie';
+import * as moment from 'moment';
 
 declare var require: any;
-let variablePie = require('highcharts/modules/variable-pie');
+// let variablePie = require('highcharts/modules/variable-pie');
 let noData = require('highcharts/modules/no-data-to-display');
 let More = require('highcharts/highcharts-more');
 
@@ -22,66 +26,112 @@ More(Highchart);
   styleUrls: ['./revenue-management.component.scss'],
 })
 export class RevenueManagementComponent implements OnInit {
+  formFilter: FormGroup;
   accommodationList: AccommodationModel[] = [];
   filterModel = new RevenueReportFilter();
   isShow = false;
+  dateRange: [Date, Date];
+  end = new Date();
+  start = new Date();
 
   pieRevenueData: any[] = [];
   pieRevenueNote: any[] = [];
+  columnData: any[] = [];
   constructor(
     private accommodationService: AccommodationService,
     private router: Router,
-    private reportService: ReportService
-  ) {}
+    private reportService: ReportService,
+    private fb: FormBuilder
+  ) {
+    this.dateRange = [this.start, this.end];
+  }
 
   ngOnInit(): void {
+    this.createForm();
     this.accommodationService.getAllAccommodation().subscribe((res) => {
       this.accommodationList = res;
     });
   }
 
-  filter(): void {
-    this.isShow = true;
-    const filter = { ...this.filterModel };
-    this.reportService.getRevenueReport(filter).subscribe((res) => {
-      const viewByAccommodationColors = this.getRandomColor(
-        (res.viewByAccommodation ?? []).length
-      );
-      (res.viewByAccommodation ?? []).forEach((item, index) => {
-        const color = Highchart.color(viewByAccommodationColors[index])
-          .brighten(-0.2)
-          .get();
-        this.pieRevenueNote.push({
-          name: item?.name,
-          color: color,
-          y: item?.amount,
-          z: 400,
-        });
+  createForm(): void {
+    this.formFilter = this.fb.group(
+      {
+        accommodation: ['', [Validators.required]],
+        fromDate: ['', [Validators.required]],
+        toDate: ['', [Validators.required]],
+      },
+      {
+        validator: ToDate(
+          'fromDate',
+          'toDate',
+          'Ngày bắt đầu',
+          'Ngày kết thúc'
+        ),
+      }
+    );
+  }
 
-        if (item?.amount > 0) {
-          this.pieRevenueData.push({
+  filter(): void {
+    if (this.formFilter.valid) {
+      this.isShow = true;
+      const filter = { ...this.filterModel };
+      this.pieRevenueData = [];
+      this.pieRevenueNote = [];
+      this.reportService.getRevenueReport(filter).subscribe((res) => {
+        //Biểu đồ tròn
+        const viewByAccommodationColors = this.getRandomColor(
+          (res.viewByAccommodation ?? []).length
+        );
+        (res.viewByAccommodation ?? []).forEach((item, index) => {
+          const color = Highchart.color(viewByAccommodationColors[index])
+            .brighten(-0.2)
+            .get();
+          this.pieRevenueNote.push({
             name: item?.name,
-            color: color,
+            color,
             y: item?.amount,
             z: 400,
           });
-        }
+
+          if (item?.amount > 0) {
+            this.pieRevenueData.push({
+              name: item?.name,
+              color,
+              y: item?.amount,
+              z: 400,
+            });
+          }
+        });
+        // this.pieRevenueNote = this.pieRevenueNote.sort(
+        //   (a, b) => b.value - a.value
+        // );
+        this.createPieChart('container', this.pieRevenueData);
+
+        //Biểu đồ cột
+        this.columnData = [];
+        (res.viewByDate ?? []).forEach((item) => {
+          this.columnData.push({
+            name: moment(item?.date * 1000).format('DD/MM'),
+            y: item?.amount ?? 0,
+            color: '#074494',
+          });
+        });
+        this.createColumnChart('columnChart', this.columnData);
       });
-      // this.pieRevenueNote = this.pieRevenueNote.sort(
-      //   (a, b) => b.value - a.value
-      // );
-      this.createPieChart('container', this.pieRevenueData);
-    });
+    }
   }
 
   createPieChart(renderTo: HTMLElement | string, data: any): void {
     const totalQty = data
       ?.map((item) => item.y)
-      ?.reduce((acc, cur) => acc + cur, 0);
+      ?.reduce((acc, cur) => Highchart.numberFormat(acc + cur,0, '', ','), 0);
     const option: Highchart.Options = {
       chart: {
         type: 'pie',
         height: 400,
+      },
+      lang: {
+        noData: 'Không có dữ liệu',
       },
       tooltip: {
         headerFormat: '',
@@ -94,27 +144,26 @@ export class RevenueManagementComponent implements OnInit {
         shape: 'square',
         pointFormat:
           '<span style="color: white;">- {point.name}</span></b><br/>' +
-          '<span style="color: white;">- abc: <b>{point.y}</span></b><br/>',
+          '<span style="color: white;">- abc: <b>{point.y} VND</span></b><br/>',
       },
       credits: {
         enabled: false,
       },
       title: {
-        text: totalQty,
+        // text: '',
+        text: totalQty + ' VND',
         verticalAlign: 'middle',
         align: 'center',
+        y: -2,
       },
       plotOptions: {
-        variablepie: {
+        pie: {
           allowPointSelect: true,
           cursor: 'pointer',
-          // dataLabels: {
-          //   enabled: false,
-          // },
           dataLabels: {
-                enabled: true,
-                format: '<b>{point.name}</b>'
-            },
+            enabled: true,
+            format: '<b>{point.name}</b>',
+          },
           borderWidth: 0,
           states: {
             hover: {
@@ -128,11 +177,174 @@ export class RevenueManagementComponent implements OnInit {
       },
       series: [
         {
-          type: 'variablepie',
-          minPointSize: 10,
-          innerSize: '50%',
-          zMin: 0,
+          type: 'pie',
+          // minPointSize: 10,
+          innerSize: '55%',
+          // zMin: 0,
           name: '',
+          data: data,
+        },
+      ],
+    };
+    Highchart.chart(`${renderTo}`, option);
+  }
+
+  createColumnChart(renderTo: HTMLElement | string, data: any): void {
+    const option: Highchart.Options = {
+      chart: {
+        type: 'column',
+        marginRight: 30,
+        marginLeft: 70,
+      },
+      credits: {
+        enabled: false,
+      },
+      title: {
+        text: null,
+      },
+      accessibility: {
+        announceNewData: {
+          enabled: true,
+        },
+      },
+      xAxis: {
+        height: '93%',
+        width: '97%',
+        type: 'category',
+        title: {
+          text: 'Ngày<br>phát hành',
+          align: 'high',
+          textAlign: 'center',
+          offset: 0,
+          rotation: 0,
+          y: 10,
+          x: 20,
+          style: {
+            textAlign: 'center',
+            fontSize: '12px',
+            fontWeight: '550',
+            fontFamily: 'Segoe UI',
+          },
+        },
+        labels: {
+          rotation: -45,
+          style: {
+            color: '#576d86',
+            fontSize: '11',
+          },
+        },
+      },
+      yAxis: {
+        height: '78%',
+        top: '15%',
+        title: {
+          text: 'SL phát hành',
+          align: 'high',
+          offset: 0,
+          rotation: 0,
+          y: -10,
+          x: 80,
+          style: {
+            fontSize: '12px',
+            fontWeight: '550',
+            fontFamily: 'Segoe UI',
+          },
+        },
+        labels: {
+          step: 1,
+          // format: '{value:.0f}',
+          style: {
+            color: '#576d86',
+            fontSize: '11px',
+          },
+        },
+      },
+      responsive: {
+        rules: [
+          {
+            condition: {
+              maxWidth: 1056,
+            },
+            chartOptions: {
+              plotOptions: {
+                column: {
+                  pointWidth: 20,
+                },
+              },
+            },
+          },
+          {
+            condition: {
+              maxWidth: 876,
+            },
+            chartOptions: {
+              xAxis: {
+                title: {
+                  y: 26,
+                  x: 0,
+                },
+              },
+              plotOptions: {
+                column: {
+                  pointWidth: 15,
+                },
+              },
+            },
+          },
+          {
+            condition: {
+              maxWidth: 700,
+            },
+            chartOptions: {
+              xAxis: {
+                title: {
+                  y: 26,
+                  x: 0,
+                },
+              },
+              plotOptions: {
+                column: {
+                  pointWidth: 10,
+                },
+              },
+            },
+          },
+        ],
+      },
+      legend: {
+        enabled: false,
+      },
+      plotOptions: {
+        series: {
+          borderWidth: 0,
+          dataLabels: {
+            enabled: false,
+          },
+        },
+        column: {
+          pointWidth: 22,
+        },
+      },
+
+      tooltip: {
+        headerFormat: '',
+        borderRadius: 0,
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        borderWidth: 0,
+        className: '',
+        padding: 10,
+        shadow: false,
+        style: {
+          color: '#f1f1f1',
+        },
+        pointFormat: '<span>{point.y}</span>',
+      },
+
+      series: [
+        {
+          name: 'Station',
+          type: 'column',
+          colorByPoint: false,
           data: data,
         },
       ],
@@ -149,11 +361,13 @@ export class RevenueManagementComponent implements OnInit {
     return colors;
   }
 
-  onChange(result: any): void {
-    this.filterModel.toDate =
-      DateTimeConvertHelper.fromDtObjectToTimestamp(result[1]);
-    this.filterModel.fromDate =
-      DateTimeConvertHelper.fromDtObjectToTimestamp(result[0]);
-    this.filter();
-  }
+  // onChange(result: any): void {
+  //   this.filterModel.toDate = DateTimeConvertHelper.fromDtObjectToTimestamp(
+  //     result[1]
+  //   );
+  //   this.filterModel.fromDate = DateTimeConvertHelper.fromDtObjectToTimestamp(
+  //     result[0]
+  //   );
+  //   this.filter();
+  // }
 }

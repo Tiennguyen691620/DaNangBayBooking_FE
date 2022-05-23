@@ -10,12 +10,9 @@
           <nz-input-group nzSearch nzSize="default">
             <input type="text" nzSize="default" nz-input (keyup)="searchTerm$.next($event.target.value)" [value]="searchTerm$.value" placeholder="Nhập Mã/Loại Phòng" />
           </nz-input-group>
-          <!-- <ng-template #suffixButton>
-            <button nz-button class="button" nzSize="default" nzSearch>Tìm kiếm</button>
-          </ng-template> -->
         </div>
         <div class="group-btn">
-          <button nz-button class="button" nzSize="default" [routerLink]="'/dashboard/source-data-management/room-type/create'"
+          <button nz-button class="btn-export" nzType="primary" nzSize="default" [routerLink]="'/dashboard/source-data-management/room-type/create'"
             [queryParams]="{typeForm: 'create'}">
             <i class="fa-solid fa-plus pe-2 fz-14"></i>
             Tạo mới
