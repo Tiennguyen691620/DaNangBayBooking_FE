@@ -1,5 +1,6 @@
 .home {
   .container {
+    padding-bottom: 1rem;
     .carousel {
       carousel {
         z-index: 1;
@@ -7,39 +8,42 @@
     }
     .filter {
       .card {
-        width: 65%;
+        width: 50%;
         border: 3px solid #e2a700;
         z-index: 2;
         top: -0.5rem;
         .search {
-          width: 54%;
+          // width: 100%;
         }
-        .group{
-          
+        .group {
         }
       }
     }
-    .accommodation-type{
+    .accommodation-type-home {
       margin: 3rem 0rem;
+      .content {
+        nz-radio-group{
+          display: flex;
+          overflow: hidden;
+        }
+      }
     }
-    .location{
-      margin: 3rem 0rem;
-      .container-location{
+    .location {
+      margin: 2rem 0rem;
+      .container-location {
         position: relative;
-        .title{
+        .title {
           position: absolute;
           bottom: 2rem;
           margin-left: 1rem;
         }
       }
     }
-    .accommodation-favorite{
+    .accommodation-favorite {
       margin: 3rem 0rem;
-      .title{
-
+      .title {
       }
-      .content{
-
+      .content {
       }
     }
   }
@@ -55,9 +59,92 @@
     "h4 h5 h6 h6";
 }
 
-.container-location:first-of-type{
+.container-location:first-of-type {
   grid-area: h1;
 }
-.container-location:last-of-type{
+.container-location:last-of-type {
   grid-area: h6;
+}
+
+//custom radio
+:host::ng-deep {
+  .ant-radio {
+    top: 0;
+  }
+
+  .ant-radio-inner {
+    position: relative;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 27px;
+    height: 27px;
+    background-color: #fff;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 50%;
+    transition: all 0.3s;
+  }
+
+  .ant-radio-checked .ant-radio-inner {
+    border-color: #fff;
+    background-color: transparent !important;
+    border-width: 2px;
+  }
+
+  .ant-radio-inner::after {
+    position: absolute;
+    top: 3px;
+    left: 8px;
+    display: table;
+    width: 8px;
+    height: 13px;
+    background-color: transparent;
+    border-top: 0;
+    border-left: 0;
+    border-radius: 0px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+    content: " ";
+  }
+
+  .ant-radio-checked .ant-radio-inner::after {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    opacity: 1;
+    transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+  }
+}
+
+//Check event radio
+
+:host ::ng-deep {
+  .ant-radio-wrapper {
+    display: flex;
+    align-items: center;
+    padding: 4px;
+    // min-width: 120px;
+    span{
+      font-weight: 700;
+    }
+    &:focus {
+      opacity: 0.78;
+    }
+  }
+
+  .ant-radio-wrapper-checked {
+    display: flex;
+    align-items: center;
+    // opacity: 0.9;
+    color: #188ffd;
+    border-radius: 20px;
+    .ant-radio-checked {
+      background: #188ffd;
+      border-radius: 50%;
+      border: 1px solid #188ffd;
+    }
+  }
 }

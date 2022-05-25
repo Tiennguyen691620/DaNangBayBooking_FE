@@ -7,8 +7,8 @@
     </section>
     <section class="filter d-flex align-items-center justify-content-center">
       <div class="card px-3 py-2">
-        <div class="d-flex align-items-center justify-content-center py-3">
-          <div class="search">
+        <div class="row py-3">
+          <div class="search col-9">
             <nz-input-group [nzSuffix]="suffixIconSearch">
               <input type="text" [(ngModel)]="filterModel.searchKey" nz-input placeholder="Khách sạn hoặc điểm đến " />
             </nz-input-group>
@@ -16,10 +16,7 @@
               <i nz-icon nzType="search"></i>
             </ng-template>
           </div>
-          <div class="group d-flex">
-            <div class="pick-datetime">
-              <nz-range-picker [nzPlaceHolder]="['Nhận phòng', 'Trả phòng']" nzFormat='dd/MM/yyyy' [(ngModel)]="date" (ngModelChange)="onChange($event)"></nz-range-picker>
-            </div>
+          <div class="group col-3 d-flex justify-content-center">
             <div class="button-search">
               <button nz-button nzType="primary" (click)="onClick()">Tìm kiếm</button>
             </div>
@@ -27,27 +24,64 @@
         </div>
       </div>
     </section>
-    <!-- <section class="accommodation-type">
+    <section class="accommodation-type-home">
       <div class="title">
         <h4 class="text-uppercase mt-4 mb-3">Tìm theo loại chỗ nghỉ</h4>
       </div>
-      <div class="content d-flex ">
-        <div class="d-flex flex-column me-3" *ngFor="let item of imageList">
-          <img class="img" style="with: 150px; height: 150px" [src]="item.path" alt="">
-          <span>Khách sạn</span>
-          <label>855.550 khách sạn</label>
-        </div>
-      </div>
-    </section> -->
-    <section class="location">
-      <div class="container-location" *ngFor="let item of imageList">
-        <img class="img h-100 w-100" [src]="item.path" alt="">
-        <div class="title">
-          <span class="c-white fz-20 fw-700">{{item.location}}</span>
+      <div class="content ">
+        <div class="d-flex">
+          <nz-radio-group [(ngModel)]="filterModel.accommodationTypeID">
+            <label nz-radio [nzValue]="''">Tất cả</label>
+            <label nz-radio *ngFor="let item of accommodationType" [nzValue]="item.accommodationTypeID">{{item.name}}</label>
+          </nz-radio-group>
         </div>
       </div>
     </section>
-    <!-- <section class="accommodation-favorite">
+    <section class="location">
+      <div class="container-location pointer" [routerLink]="['/dashboard/accommodation/list']"
+        [queryParams]="{district: '6abf0464-599e-11ec-ab77-0639800004fa'}">
+        <img class="img h-100 w-100" src="../../../assets/images/image-location/HoiAn.jpg" alt="">
+        <div class="title">
+          <span class="c-white fz-20 fw-700">Hội An</span>
+        </div>
+      </div>
+      <div class="container-location pointer" [routerLink]="['/dashboard/accommodation/list']"
+        [queryParams]="{district: '6abeeb99-599e-11ec-ab77-0639800004fa'}">
+        <img class="img h-100 w-100" src="../../../assets/images/image-location/HoiAn.jpg" alt="">
+        <div class="title">
+          <span class="c-white fz-20 fw-700">Ngũ Hành Sơn</span>
+        </div>
+      </div>
+      <div class="container-location pointer" [routerLink]="['/dashboard/accommodation/list']"
+        [queryParams]="{district: '6abee8f0-599e-11ec-ab77-0639800004fa'}">
+        <img class="img h-100 w-100" src="../../../assets/images/image-location/HoiAn.jpg" alt="">
+        <div class="title">
+          <span class="c-white fz-20 fw-700">Liên Chiểu</span>
+        </div>
+      </div>
+      <div class="container-location pointer" [routerLink]="['/dashboard/accommodation/list']"
+        [queryParams]="{district: '6abee4df-599e-11ec-ab77-0639800004fa'}">
+        <img class="img h-100 w-100" src="../../../assets/images/image-location/HoiAn.jpg" alt="">
+        <div class="title">
+          <span class="c-white fz-20 fw-700">Hải Châu</span>
+        </div>
+      </div>
+      <div class="container-location pointer" [routerLink]="['/dashboard/accommodation/list']"
+        [queryParams]="{district: '6abef09d-599e-11ec-ab77-0639800004fa'}">
+        <img class="img h-100 w-100" src="../../../assets/images/image-location/HoiAn.jpg" alt="">
+        <div class="title">
+          <span class="c-white fz-20 fw-700">Thanh Khê</span>
+        </div>
+      </div>
+      <div class="container-location pointer" [routerLink]="['/dashboard/accommodation/list']"
+        [queryParams]="{district: '6abeee3a-599e-11ec-ab77-0639800004fa'}">
+        <img class="img h-100 w-100" src="../../../assets/images/image-location/HoiAn.jpg" alt="">
+        <div class="title">
+          <span class="c-white fz-20 fw-700">Sơn Trà</span>
+        </div>
+      </div>
+    </section>
+    <section class="accommodation-favorite">
       <div class="title mt-4 mb-3">
         <h4>Khách sạn nổi bật</h4>
       </div>
@@ -58,6 +92,6 @@
           <label>855.550 khách sạn</label>
         </div>
       </div>
-    </section> -->
+    </section>
   </div>
 </section>

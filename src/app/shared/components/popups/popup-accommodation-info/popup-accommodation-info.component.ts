@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FileUploadController } from 'src/app/shared/services/file.service';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { AccommodationService } from 'src/app/shared/services/accommodation.service';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 
 @Component({

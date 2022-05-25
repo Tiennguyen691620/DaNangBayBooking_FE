@@ -1,4 +1,6 @@
-import { ActivatedRoute } from '@angular/router';
+import { IconUtility, IconUtilityList } from 'src/app/shared/constants/icon-utility';
+import { AccommodationTypeModel } from './../../../shared/models/accommodation/accommodation-type.model';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PopupGoogleMapComponent } from './../../../shared/components/popups/popup-google-map/popup-google-map.component';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AccommodationService } from './../../../shared/services/accommodation.service';
@@ -16,28 +18,32 @@ import { debounceTime } from 'rxjs/operators';
 })
 export class AccommodationListComponent implements OnInit {
   date = null;
-  checked = true;
+  checkedAccommodationType = true;
+  checkedAccommodationUtility = true;
   pageIndex = 1;
   pageSize = 10;
   totalCount = 0;
   dataSource: AccommodationModel[] = [];
+  accommodationType: AccommodationTypeModel[] = [];
+  iconUtilityList: IconUtility [] = []
   filterModel = new AccommodationFilterModel();
   searchTerm$ = new BehaviorSubject<string>('');
   constructor(
     private accommodationService: AccommodationService,
     private modalService: NzModalService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
-    this.filterModel.searchKey =
-      this.route.snapshot.queryParamMap.get('searchKey');
+    this.getIcon();
+    this.filterModel.searchKey = this.route.snapshot.queryParamMap.get('searchKey');
+    this.filterModel.accommodationTypeID = this.route.snapshot.queryParamMap.get('type');
+    this.filterModel.districtID = this.route.snapshot.queryParamMap.get('district');
     this.filter();
-    // this.searchTerm$.pipe(debounceTime(600)).subscribe((_) => {
-    //   this.filterModel.searchKey = this.searchTerm$.value;
-    //   this.pageIndex = 1;
-    //   this.filter();
-    // });
+    this.accommodationService.getAllAccommodationType().subscribe((result) => {
+      this.accommodationType = result;
+    });
   }
 
   filter(pageIndex?: number): void {
@@ -51,6 +57,14 @@ export class AccommodationListComponent implements OnInit {
           this.filter(result.pageCount);
         }
       });
+  }
+
+  getAll(): void {
+    this.router.navigate(['/dashboard/accommodation/list'])
+    this.filterModel.searchKey = '';
+    this.filterModel.districtID = '';
+    this.filterModel.provinceID = '';
+    this.filter();
   }
 
   onPageSizeChange(event: number): void {
@@ -81,7 +95,21 @@ export class AccommodationListComponent implements OnInit {
     modal.afterClose.subscribe((result) => {});
   }
 
+  getIcon(): void {
+    this.iconUtilityList = IconUtilityList;
+  }
+
   onChange(result: Date): void {
     console.log('onChange: ', result);
+  }
+
+  changeActive(event: boolean, item: AccommodationTypeModel): void {
+    if(event) {
+      this.checkedAccommodationType = false;
+      this.filterModel.accommodationTypeID = item.accommodationTypeID;
+    }
+    else {
+      this.filterModel.accommodationTypeID = null;
+    }
   }
 }

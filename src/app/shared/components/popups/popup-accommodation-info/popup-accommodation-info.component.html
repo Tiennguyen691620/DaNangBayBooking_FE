@@ -105,7 +105,7 @@
     <div class="col-lg-6 col-md-5 col-12 content-right mt-3 mt-md-0">
       <p class="mb-0">Mô tả</p>
       <div class="term-condition mt-2">
-        <ckeditor  [editor]="Editor" [ngModel]="accommodation?.description ?? ''"></ckeditor>
+        <ckeditor [disabled]="true"  [editor]="Editor" [ngModel]="accommodation?.description ?? ''"></ckeditor>
         <!-- <div *ngIf="accommodation?.termsAndConditions"
                 [innerHTML]="accommodation?.termsAndConditions | safe: 'html'"></div> -->
         <!-- <p class="mb-0">{{accommodation?.name}}</p> -->

@@ -72,9 +72,8 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzResizableModule } from 'ng-zorro-antd/resizable';
 import { NzPipesModule } from 'ng-zorro-antd/pipes';
 import { ServicesModule } from './services/services.module';
-import { ErrorTailorModule } from '@ngneat/error-tailor';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
-import { IvyCarouselModule } from 'angular-responsive-carousel/public-api';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -82,10 +81,7 @@ const maskConfig: Partial<IConfig> = {
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    NgxMaskModule.forRoot(maskConfig),
-  ],
+  imports: [CommonModule, NgxMaskModule.forRoot(maskConfig)],
   exports: [
     CommonModule,
     ComponentsModule,
@@ -161,6 +157,7 @@ const maskConfig: Partial<IConfig> = {
     NzResizableModule,
     NzPipesModule,
     NgxMaskModule,
+    CKEditorModule,
   ],
 })
 export class SharedModule {}

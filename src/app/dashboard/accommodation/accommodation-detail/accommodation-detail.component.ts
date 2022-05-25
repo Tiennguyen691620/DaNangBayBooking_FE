@@ -1,3 +1,5 @@
+import { RoomAvailable } from './../../../shared/models/accommodation/room-available.model';
+import { RoomAvailableFilter } from './../../../shared/models/accommodation/room-available-filter.model';
 import { AccommodationComponent } from './../accommodation.component';
 import { LoginPopupComponent } from './../../../shared/components/popups/login-popup/login-popup.component';
 import { PopupConfirmComponent } from './../../../shared/components/popups/popup-confirm/popup-confirm.component';
@@ -49,12 +51,15 @@ export class AccommodationDetailComponent implements OnInit {
   @ViewChild('roomAvailable') roomAvailable: ElementRef;
   @ViewChild('utility') utility: ElementRef;
   @ViewChild('generalRule') generalRule: ElementRef;
+  @ViewChild('search') search: ElementRef;
   isAnonymous = true;
   isSubmitted = false;
   date = null;
   @Input() id: string;
   booking = new BookingModel();
   accommodation = new AccommodationModel();
+  filterModel = new RoomAvailableFilter();
+  roomAvailableList: RoomAvailable[] = [];
   roomAccommodation: RoomModel[] = [];
   roomTypeList: RoomTypeModel[] = [];
   utilityList: {
@@ -62,8 +67,8 @@ export class AccommodationDetailComponent implements OnInit {
     utilityType: string;
     isPrivate: boolean;
   }[] = [];
-  iconUtilityListChecked: IconUtility[] = [];
-  iconUtilityListDisabled: IconUtility[] = [];
+  // iconUtilityListChecked: IconUtility[] = [];
+  // iconUtilityListDisabled: IconUtility[] = [];
   iconUtilityList: IconUtility[] = [];
   photoUpload = [];
   form: FormGroup;
@@ -95,12 +100,11 @@ export class AccommodationDetailComponent implements OnInit {
       forkJoin(
         this.accommodationService.detailAccommodation(this.id),
         this.accommodationService.getRoomAccommodation(this.id),
-        this.accommodationService.getUtilityAccommodation(this.id)
+        this.accommodationService.getUtilityAccommodation(this.id),
       ).subscribe(([res1, res2, res3]) => {
         this.accommodation = res1;
         this.form.get('accommodation').patchValue(res1);
         this.roomAccommodation = res2;
-        // this.form.get('room').patchValue(res2.filter(x => x.name));
         this.utilityList = res3;
         this.iconUtilityList.forEach((item) => {
           const icon = res3.find((x) => x.utilityType === item.value);
@@ -111,12 +115,6 @@ export class AccommodationDetailComponent implements OnInit {
             item.checked = false;
           }
         });
-        this.iconUtilityListChecked = this.iconUtilityList.filter(
-          (item) => item.checked
-        );
-        this.iconUtilityListDisabled = this.iconUtilityList.filter(
-          (item) => !item.checked
-        );
         this.accommodation.address = res1.address.concat(
           ', ',
           res1.subDistrict.name,
@@ -131,6 +129,11 @@ export class AccommodationDetailComponent implements OnInit {
       });
     }
   }
+
+  // filter(): void {
+  //   const filter = {...this.filterModel};
+
+  // }
 
   createForm(): void {
     this.form = this.fb.group(
@@ -341,5 +344,14 @@ export class AccommodationDetailComponent implements OnInit {
       block: 'end',
       inline: 'nearest',
     });
+  }
+  goToSearch(){
+    if(this.form.invalid){
+      this.search.nativeElement.scrollIntoView({
+      behavior: 'smooth',
+      block: 'end',
+      inline: 'nearest',
+    });
+    }
   }
 }

@@ -16,7 +16,7 @@
               </ul>
             </div>
           </nav>
-          <div class="container card bgr-aliceblue" style="max-width: 330px;">
+          <div class="container card bgr-aliceblue" style="max-width: 330px;" #search>
             <!-- <div class="mt-2 d-flex align-items-center justify-content-center">
                 <h4>Tìm kiếm</h4>
               </div>
@@ -31,7 +31,7 @@
               </div> -->
             <div class="d-flex flex-column mt-3">
               <span for="">Ngày nhận phòng:</span>
-              <nz-date-picker formControlName="fromDate" nzFormat='dd/MM/yyyy' (ngModelChange)="updateTotalDay()"nzPlaceHolder="Ngày nhận phòng">
+              <nz-date-picker formControlName="fromDate" nzFormat='dd/MM/yyyy' (ngModelChange)="updateTotalDay()" nzPlaceHolder="Ngày nhận phòng">
               </nz-date-picker>
             </div>
             <div class="d-flex flex-column mt-3">
@@ -39,23 +39,40 @@
               <nz-date-picker formControlName="toDate" nzFormat='dd/MM/yyyy' (ngModelChange)="updateTotalDay()" nzPlaceHolder="Ngày trả phòng">
               </nz-date-picker>
             </div>
+            <!-- <div class="row mt-3">
+              <div class="col-6">
+                <span>Số người lớn</span>
+                <nz-input-number class="w-100" formControlName="personNumber" [nzStep]="1"></nz-input-number>
+              </div>
+              <div class="col-6">
+                <span>Số trẻ em</span>
+                <nz-input-number class="w-100" formControlName="childNumber" [nzStep]="1"></nz-input-number>
+              </div>
+              <div class="d-flex flex-column mt-3">
+                <span for="">Số lượng phòng:</span>
+                <nz-input-number class="w-100" formControlName="qty" [nzStep]="1"></nz-input-number>
+              </div>
+            </div> -->
             <div class="mt-3">
-              <label for="">
+              <span>
                 <svg stroke-width="0" fill="currentColor" height="24" stroke="currentColor" stroke-linecap="round" viewBox="0 0 24 24" width="24"
                   xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                   <path
                     d="M20.8603262,16.99764 C19.0670751,20.0677873 15.7558994,22 12.1055414,22 C6.52440501,22 2,17.5228475 2,12 C2,6.60002933 6.33245501,2.17993379 11.7725528,2.00533665 C12.7187965,1.97496744 13.1839555,3.13337088 12.4747125,3.75395236 C10.9644875,5.07538619 10.0844331,6.96618272 10.0844331,9 C10.0844331,12.8659932 13.2515167,16 17.1583122,16 C18.0144772,16 18.8482472,15.8498904 19.6319809,15.5603732 C20.5199628,15.2323458 21.3346406,16.185587 20.8603262,16.99764 Z M12.1055414,20 C14.124164,20 16.0123367,19.2621365 17.4601631,17.9951257 C17.3597796,17.9983717 17.2591526,18 17.1583122,18 C12.1352894,18 8.06332486,13.9705627 8.06332486,9 C8.06332486,7.38924803 8.4938358,5.84646451 9.27843135,4.50238274 C6.2034475,5.63795622 4.02110829,8.5723218 4.02110829,12 C4.02110829,16.418278 7.6406323,20 12.1055414,20 Z M15,8 C14.4477153,8 14,7.55228475 14,7 C14,6.44771525 14.4477153,6 15,6 C15.5522847,6 16,6.44771525 16,7 C16,7.55228475 15.5522847,8 15,8 Z M22,11 L19,14 L16,11 L19,8 L22,11 Z M20,11 L19,10 L18,11 L19,12 L20,11 Z">
                   </path>
                 </svg>
-                Nghỉ 1 đêm
-              </label>
-              <input type="text" formControlName="totalDay">
+                Nghỉ {{form.get('totalDay')?.value ? form.get('totalDay')?.value : 0}} đêm
+              </span>
+              <!-- <input type="text" formControlName="totalDay"> -->
             </div>
             <div class="my-3 d-flex align-items-center justify-content-center ">
               <button nz-button nzType="primary">Tìm kiếm</button>
             </div>
           </div>
           <div class="gg-map">
+            <div class="gg-map-container">
+              <div class="gg-map-canvas" id="gg-map-canvas" [innerHTML]="accommodation?.mapURL | safe:'html'"></div>
+            </div>
           </div>
         </div>
         <div class="col-8">
@@ -128,39 +145,19 @@
             </div>
           </div>
           <div class="grid-image">
-            <div class="" *ngFor="let item of photoUpload, let i = index">
+            <div class="box-img" *ngFor="let item of photoUpload, let i = index">
               <img [id]="i" class="img" nz-image width="100%" height="200px" [nzSrc]="item" alt="">
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-12">
-            <span>
-              Chỗ nghỉ này cách bãi biển 4 phút đi bộ. King House Villa Hotel & Spa tọa lạc tại thành phố Đà Nẵng, cách Bãi biển Mỹ Khê 700 m và Bãi
-              biển Bắc
-              Mỹ An
-              2,2 km. Chỗ nghỉ này có nhà hàng, hồ bơi ngoài trời, quán bar, sảnh khách chung, vườn cũng như trung tâm chăm sóc sức khỏe và spa. Chỗ
-              nghỉ cung
-              cấp
-              dịch vụ lễ tân 24 giờ, dịch vụ đưa đón, dịch vụ phòng và WiFi miễn phí trong toàn bộ khuôn viên.
-
-              Mỗi phòng nghỉ tại King House Villa Hotel & Spa đều được trang bị ấm đun nước, máy điều hòa, TV màn hình phẳng, ga trải giường và khăn
-              tắm. Một
-              số
-              phòng có két an toàn.
-
-              Khách nghỉ tại King House Villa Hotel & Spa có thể thưởng thức bữa sáng kiểu lục địa.
-
-              Khách sạn cung cấp chỗ nghỉ 3 sao với phòng xông hơi khô và sân hiên tắm nắng.
-
-              King House Villa Hotel & Spa nằm trong bán kính 1,4 km từ Cầu khóa Tình yêu và 2,1 km từ Bảo tàng Chăm. Sân bay gần nhất là sân bay
-              quốc
-              tế Đà
-              Nẵng,
-              cách chỗ nghỉ 6 km.
-            </span>
+          <div class="py-3">
+            <span [innerHTML]="accommodation?.description ?? 'không có mô tả' | safe: 'html'"></span>
           </div>
         </div>
+        <!-- <div class="row">
+          <div class="col-12">
+            <span [innerHTML]="accommodation?.description ?? 'không có mô tả' | safe: 'html'"></span>
+          </div>
+        </div> -->
         <hr class="my-4">
         <div class="room">
           <div #roomAvailable class="">
@@ -178,12 +175,12 @@
             </div>
             <div class="">
               <div class="">
-                <nz-table #basicTable [nzFrontPagination]="false" [nzTemplateMode]="true" [nzLoading]="false"
-                  [nzScroll]="{ x: '900px' }" [nzWidthConfig]="[
+                <nz-table #basicTable [nzFrontPagination]="false" [nzTemplateMode]="true" [nzLoading]="false" [nzScroll]="{ x: '900px' }"
+                  [nzWidthConfig]="[
                     '200px',
                     '100px',
                     '150px',
-                    '200px',
+                    '250px',
                     '80px',
                     '80px',
                     '80px',
@@ -201,7 +198,7 @@
                   </thead>
                   <tbody>
                     <tr *ngFor="let item of roomAccommodation">
-                      <td >
+                      <td>
                         <span class="fz-16 fw-700 c-dodgerblue">
                           {{item.name}}
                         </span>
@@ -239,13 +236,11 @@
                         </div>
                       </td>
                       <td class="text-center">
-                        <input nz-input class="f-field" type="text" mask="separator.0" thousandSeparator="," formControlName="qty" >
-                        <!-- <div *ngIf="warningTotalQty()">
-                          <p class="f-warning mb-0">abcsdfasd</p>
-                        </div> -->
+                        <nz-input-number class="w-100" formControlName="qty" [nzStep]="1" 
+                        (ngModelChange)="updateTotalDay()"></nz-input-number>
                       </td>
                       <td class="text-center">
-                        <input nz-input class="f-field" type="text" mask="separator.0" thousandSeparator="," formControlName="personNumber" >
+                        <nz-input-number class="w-100" formControlName="personNumber" [nzStep]="1"></nz-input-number>
                         <div *ngIf="warningPersonNumber()">
                           <p class="f-warning mb-0">Khả năng Số phòng đặt sẽ khó đáp ứng được theo số lượng người
                             lớn lưu trú, hãy kiểm
@@ -253,14 +248,12 @@
                         </div>
                       </td>
                       <td class="text-center">
-                        <input nz-input class="f-field" type="text" mask="separator.0" thousandSeparator="," formControlName="childNumber" (ngModelChange)="updateTotalDay()">
-                        <!-- <div *ngIf="warningTotalQty()">
-                          <p class="f-warning mb-0">abcsdfasd</p>
-                        </div> -->
+                        <nz-input-number class="w-100" formControlName="childNumber" [nzStep]="1" (ngModelChange)="updateTotalDay()"></nz-input-number>
                       </td>
                       <td>
                         <div class="d-flex align-items-center justify-content-center">
-                          <button class="w-100" nz-button nzType="primary" type="submit" nzShape="round" (click)="onClick(item)">
+                          <button class="w-100" nz-button nzType="primary" type="submit" nzShape="round" (click)="goToSearch()"
+                            (click)="onClick(item)">
                             Đặt phòng
                           </button>
                         </div>
@@ -313,18 +306,14 @@
               </div>
             </div>
             <div class="row">
-              <!-- <div class="col-4 text-center" *ngFor="let item of iconUtilityList">
-                <i class="fa-regular fa-circle-check c-green fz-16 me-3"></i>
-                <span>{{item.displayText}}</span>
-              </div> -->
-              <div
-                class="d-flex justify-content-xl-start justify-content-lg-center justify-content-md-center justify-content-sm-center justify-content-center f-utility flex-wrap px-4 py-2">
+              <div class="utility-grid">
                 <ng-container *ngFor="let item of iconUtilityList">
-                  <div class="d-flex align-items-center" [class.f-content-normal]="!isDisable(item.checked)"
-                    [class.f-content-disabled]="isDisable(item.checked)">
-                    <i *ngIf="item.checked" class="fa-regular fa-circle-check c-green fz-16 me-3"></i>
-                    <div [innerHTML]="item.icon | safe: 'html'"></div>
-                    <p class="f-label mb-0">{{item.displayText}}</p>
+                  <div class="d-flex flex-column align-items-center f-content">
+                    <div class="d-flex justify-content-center align-items-center" [class.bg-icon-normal]="item.checked && !item.isPrivate"
+                      [class.bg-icon-disabled]="!item.checked" [class.bg-icon-private]="item.checked && item.isPrivate">
+                      <div class="icon ms-3" [innerHTML]="item.icon | safe: 'html'"></div>
+                    </div>
+                    <p class="f-label mb-0 mt-2">{{item.displayText}}</p>
                   </div>
                 </ng-container>
               </div>

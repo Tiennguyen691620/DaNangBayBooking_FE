@@ -250,6 +250,12 @@ button {
   color: #666666;
 }
 
+//panination
+.ant-pagination-total-text{
+  position: absolute;
+  left: 0.5rem;
+}
+
 // TABLE
 
 .ant-table-tbody > tr > td {
@@ -444,6 +450,10 @@ thead {
   display: grid;
   place-content: center;
 }
+.grid-start{
+  display: grid;
+  place-content: flex-start;
+}
 
 //font-awesome
 .fa-instagram {
@@ -633,6 +643,34 @@ thead {
   &-closed-text {
     color: #989898;
   }
+}
+
+//Webkit-box
+.webkit-box-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  height: 40px;
+  transition: unset;
+  color: #666666;
+}
+.webkit-box-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  height: 20px;
+  transition: unset;
+  color: #666666;
+}
+.webkit-box-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: unset;
+  color: #666666;
 }
 
 //error
