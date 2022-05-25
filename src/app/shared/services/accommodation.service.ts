@@ -111,7 +111,7 @@ export class AccommodationService extends BaseService {
   }
 
   getRoomAvailable(filter: RoomAvailableFilter): Observable<RoomAvailable[]>{
-    const url = `api/Accommodation/${filter}/available`;
+    const url = `api/Accommodation/${filter?.accommodationId}/available`;
     if(!filter?.roomId){
       delete filter?.roomId;
     }

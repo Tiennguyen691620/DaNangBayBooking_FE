@@ -19,7 +19,7 @@ export class PopupAccommodationInfoComponent implements OnInit {
   imageShowPopupView: FileUploadController[];
   indexOfImage: number;
   accommodation = new AccommodationModel();
-  Editor = ClassicEditor;
+  public Editor = ClassicEditor;
   constructor(
     private modal: NzModalRef,
     private accommodationService: AccommodationService

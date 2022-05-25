@@ -1,5 +1,5 @@
 <div class="container">
-  <nz-table #basicTable class="table-list mt-2" [nzFrontPagination]="false" [nzTemplateMode]="true" [nzData]="dataSource" [nzLoading]="false"
+  <nz-table #basicTable class="table mt-2" [nzFrontPagination]="false" [nzTemplateMode]="true" [nzData]="dataSource" [nzLoading]="false"
     [nzScroll]="{ x: '1300px' }" [nzWidthConfig]="['180px', '130px', '180px', '90px', '90px', '90px', '150px', '130px', 'auto', '40px']">
     <thead>
       <th nzLeft="0px" class="required">Hình ảnh</th>
@@ -58,7 +58,8 @@
             placeholder="Nhập">
         </td>
         <td>
-          <input [disabled]="typeForm === eTypeForm.view" nz-input type="text" [(ngModel)]="item.price" mask="000000000000000"
+          <input [disabled]="typeForm === eTypeForm.view" nz-input type="text" [(ngModel)]="item.price"
+          mask="000,000||0,000,000||00,000,000"
             placeholder="Nhập">
         </td>
         <td class="text-center">

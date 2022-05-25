@@ -146,12 +146,11 @@
                 <span class="">Mô tả: </span>
               </div>
               <div class="col-9">
-                <ckeditor  [editor]="editor" formControlName="description" ></ckeditor>
-                <!-- <input nz-input type="text" name="" id="" formControlName="description"> -->
+                <ckeditor  [editor]="Editor" formControlName="description" ></ckeditor>
               </div>
             </div>
             <div class="row mt-2 d-flex align-items-center">
-              <div class="col-3">
+              <div class="col-3 d-flex flex-column ">
                 <span class="">Hình ảnh cơ sở lưu trú: </span>
                 <span class="">(tối đa 5 hình)</span>
               </div>
@@ -167,7 +166,7 @@
                     </div>
                   </ng-container>
                   <nz-upload nzAccept=".png, .jpg" *ngIf="photoUpload.length < 6 && type !== eTypeForm.view"
-                    [nzDisabled]="this.type === this.eTypeForm.view" class="image-upload" nzName="avatar" nzListType="picture-card"
+                    [nzDisabled]="this.type === this.eTypeForm.view" class="" nzName="avatar" nzListType="picture-card"
                     [nzShowUploadList]="false" [nzMultiple]="true" [nzBeforeUpload]="beforeUpload" (nzChange)="handleChange($event)"
                     [nzCustomRequest]="handleUpload">
                     <ng-container *ngIf="this.type !== this.eTypeForm.view">

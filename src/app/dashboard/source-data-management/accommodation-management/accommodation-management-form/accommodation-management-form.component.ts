@@ -45,7 +45,7 @@ export class AccommodationManagementFormComponent implements OnInit {
   subDistrictList: LocationModel[] = [];
   photoUpload = [];
   uploadController = [];
-  public editor = ClassicEditor;
+  public Editor = ClassicEditor;
 
   constructor(
     private route: ActivatedRoute,

@@ -33,27 +33,6 @@ const INTERCEPTOR_PROVIDES = [
     HttpClientModule,
     ServicesModule,
     SharedModule,
-    // ErrorTailorModule.forRoot({
-    //   errors: {
-    //     useValue: {
-    //       required: 'Trường này là bắt buộc',
-    //       password:
-    //         'Mật khẩu cần phải có ít nhất 8 ký tự, bao gồm ký tự chữ và số',
-    //       mustMatch: 'Mật khẩu không khớp',
-    //       email: 'Email không đúng định dạng',
-    //       phoneNumber: 'Số điện thoại ít nhất phải có 10 số',
-    //       abbreviationName: 'Tên viết tắt phải nhập 03 ký tự',
-    //       requiredNumber: 'Nhập số lớn hơn 0',
-    //       max: ({ max }) => `Nhập số nhỏ hơn hoặc bằng ${max} `,
-    //       min: ({ min }) => `Nhập số lớn hơn ${min} `,
-    //       maxlength: ({ requiredLength, actualLength }) =>
-    //         `Tối đa ${requiredLength} ký tự`,
-    //       minlength: ({ requiredLength, actualLength }) =>
-    //         `Tối thiểu ${requiredLength} ký tự`,
-    //       invalidAddress: (error) => `Address isn't valid`,
-    //     },
-    //   },
-    // }),
   ],
   providers: [
     INTERCEPTOR_PROVIDES,
