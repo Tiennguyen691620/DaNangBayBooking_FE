@@ -31,6 +31,7 @@
     "moment": "^2.29.3",
     "ng-zorro-antd": "^12.1.1",
     "ngx-mask": "^13.1.10",
+    "ngx-spinner": "^13.1.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "uuid": "^8.3.2",

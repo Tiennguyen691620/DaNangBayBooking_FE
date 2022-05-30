@@ -5,7 +5,7 @@ import { CancelBookingPopupComponent } from './popups/cancel-booking-popup/cance
 import { PopupGoogleMapComponent } from './popups/popup-google-map/popup-google-map.component';
 import { PopupConfirmComponent } from './popups/popup-confirm/popup-confirm.component';
 import { SignUpNotificationPopupComponent } from './popups/sign-up-notification-popup/sign-up-notification-popup.component';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -86,6 +86,8 @@ import { PipesModule } from '../pipes/pipes.module';
 import { SignupPopupComponent } from './popups/signup-popup/signup-popup.component';
 import { ForgotPasswordPopupComponent } from './popups/forgot-password-popup/forgot-password-popup.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { PopupRoomAvailableComponent } from './popups/popup-room-available/popup-room-available.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -101,6 +103,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     PopupAccommodationInfoComponent,
     PopupRoomAccommodationComponent,
     PopupUtilityProvidedComponent,
+    PopupRoomAvailableComponent,
   ],
   imports: [
     CommonModule,
@@ -176,6 +179,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     NzResizableModule,
     NzPipesModule,
     CKEditorModule,
+    NgxSpinnerModule,
     ErrorTailorModule.forRoot({
       errors: {
         useValue: {
@@ -208,6 +212,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     FooterComponent,
     ErrorTailorModule,
     PipesModule,
+    NgxSpinnerModule,
     // CKEditorModule,
   ],
 })

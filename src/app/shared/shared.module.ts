@@ -74,6 +74,7 @@ import { NzPipesModule } from 'ng-zorro-antd/pipes';
 import { ServicesModule } from './services/services.module';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,

@@ -16,6 +16,7 @@ export class BookingModel {
   personNumber: number;
   childNumber: number;
   checkInName: string;
+  bookingUser: string;
   checkInPhoneNumber: string;
   checkInIdentityCard: string;
   checkInMail: string;

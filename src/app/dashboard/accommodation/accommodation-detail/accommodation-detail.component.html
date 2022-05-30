@@ -1,4 +1,4 @@
-<section *ngIf="!isCreate" class="accmmodation-detail py-4">
+<section *ngIf="current !==1" class="accmmodation-detail py-4">
   <form action="" [formGroup]="form" errorTailor>
     <div class="container">
       <div class="row">
@@ -63,15 +63,59 @@
                 </svg>
                 Nghỉ {{form.get('totalDay')?.value ? form.get('totalDay')?.value : 0}} đêm
               </span>
-              <!-- <input type="text" formControlName="totalDay"> -->
             </div>
             <div class="my-3 d-flex align-items-center justify-content-center ">
-              <button nz-button nzType="primary">Tìm kiếm</button>
+              <button nz-button nzType="primary" (click)="goToRoomAvailable()">Tìm kiếm</button>
             </div>
           </div>
           <div class="gg-map">
             <div class="gg-map-container">
               <div class="gg-map-canvas" id="gg-map-canvas" [innerHTML]="accommodation?.mapURL | safe:'html'"></div>
+            </div>
+          </div>
+          <div class="mt-3 py-3 card container bgr-aliceblue" [class.d-none]="isAnonymous" style="max-width: 330px">
+            <div class="lh-2">
+              <span class="fw-700 fz-16">Thông tin người nhận phòng</span>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <span class="required">Họ và tên:</span>
+                <div class="">
+                  <input nz-input type="text" formControlName="checkInName">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <span class="required">Số điện thoại:</span>
+                <div class="">
+                  <input nz-input type="text" formControlName="checkInPhoneNumber">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <span class="required">CMND/CCCD:</span>
+                <div class="">
+                  <input nz-input type="text" formControlName="checkInIdentityCard">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <span class="required">Email:</span>
+                <div class="">
+                  <input nz-input type="text" formControlName="checkInMail">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <span class="">Yêu cầu khi nhận phòng <label for="">(không bắt buộc)</label>:</span>
+                <div class="">
+                  <textarea class="w-100" formControlName="checkInNote"></textarea>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -97,7 +141,7 @@
                   </li>
                   <li class="nav-item">
                     <div class="">
-                      <a class="nav-link" href="#">Đánh giá</a>
+                      <a class="nav-link" href="javascript:void(0)" (click)="openDrawer()">Đánh giá</a>
                     </div>
                   </li>
                 </ul>
@@ -146,18 +190,13 @@
           </div>
           <div class="grid-image">
             <div class="box-img" *ngFor="let item of photoUpload, let i = index">
-              <img [id]="i" class="img" nz-image width="100%" height="200px" [nzSrc]="item" alt="">
+              <img loading="lazy" [id]="i" class="img" nz-image width="100%" height="200px" [nzSrc]="item" alt="">
             </div>
           </div>
           <div class="py-3">
             <span [innerHTML]="accommodation?.description ?? 'không có mô tả' | safe: 'html'"></span>
           </div>
         </div>
-        <!-- <div class="row">
-          <div class="col-12">
-            <span [innerHTML]="accommodation?.description ?? 'không có mô tả' | safe: 'html'"></span>
-          </div>
-        </div> -->
         <hr class="my-4">
         <div class="room">
           <div #roomAvailable class="">
@@ -165,7 +204,19 @@
               <div class="col-6">
                 <h4 class="fw-700">Phòng trống</h4>
               </div>
-              <div class="col-6">
+              <div class="col-6 d-flex align-items-center justify-content-end">
+                <div class="d-inline-block p-3 pointer" (click)="openRoomAvailable()">
+                  <div class="room-available d-flex align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13.5" height="13.278" viewBox="0 0 13.5 13.278">
+                      <path id="Path_34130" data-name="Path 34130"
+                        d="M91.025,981.237v-7.275a1.327,1.327,0,0,1,.6-1.108l4.672-3.079a1.329,1.329,0,0,1,1.46,0l4.672,3.079a1.327,1.327,0,0,1,.6,1.108v5.947a1.328,1.328,0,0,1-1.328,1.328s-2.594.063-4.189.063"
+                        transform="translate(-90.275 -968.772)" fill="none" stroke="#188ffd" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" />
+                      <path id="Path_34131" data-name="Path 34131" d="M97.294,980.138v5.745m2.846-3.023-2.846-2.891-2.728,2.739"
+                        transform="translate(-90.066 -973.418)" fill="none" stroke="#188ffd" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" />
+                    </svg>
+                    <span class="ms-1">Tình trạng phòng</span>
+                  </div>
+                </div>
                 <div class="d-flex justify-content-end pointer" nzTooltipPlacement="bottom"
                   nz-tooltip=" Giá phòng thấp • Không tính phí đặt phòng • Tìm được giá thấp hơn? Chúng tôi sẽ hoàn lại số tiền chênh lệch!">
                   <div class="commit-logo me-2"></div>
@@ -240,8 +291,8 @@
                         (ngModelChange)="updateTotalDay()"></nz-input-number>
                       </td>
                       <td class="text-center">
-                        <nz-input-number class="w-100" formControlName="personNumber" [nzStep]="1"></nz-input-number>
-                        <div *ngIf="warningPersonNumber()">
+                        <nz-input-number class="w-100" formControlName="personNumber"  [nzStep]="1"></nz-input-number>
+                        <div *ngIf="warningPersonNumber(item)">
                           <p class="f-warning mb-0">Khả năng Số phòng đặt sẽ khó đáp ứng được theo số lượng người
                             lớn lưu trú, hãy kiểm
                             tra lại nhé!</p>
@@ -422,4 +473,9 @@
   </form>
 </section>
 
-<app-create-booking *ngIf="isCreate" [detail]="accommodation" [booking]="booking" [form]="form"></app-create-booking>
+<nz-drawer [nzClosable]="false" [nzVisible]="isDrawer" nzPlacement="right" [nzWidth]="760" (nzOnClose)="closeDrawer()">
+
+</nz-drawer>
+
+<app-create-booking *ngIf=" current !==0" [detail]="accommodation" [booking]="booking" [form]="form" 
+[current]="current" (pre)="current=$event" [index]="index" ></app-create-booking>

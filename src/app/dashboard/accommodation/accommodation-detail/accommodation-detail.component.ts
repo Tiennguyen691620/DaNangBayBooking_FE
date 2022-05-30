@@ -1,3 +1,4 @@
+import { PopupRoomAvailableComponent } from './../../../shared/components/popups/popup-room-available/popup-room-available.component';
 import { RoomAvailable } from './../../../shared/models/accommodation/room-available.model';
 import { RoomAvailableFilter } from './../../../shared/models/accommodation/room-available-filter.model';
 import { AccommodationComponent } from './../accommodation.component';
@@ -52,10 +53,11 @@ export class AccommodationDetailComponent implements OnInit {
   @ViewChild('utility') utility: ElementRef;
   @ViewChild('generalRule') generalRule: ElementRef;
   @ViewChild('search') search: ElementRef;
+  @Input() id: string;
   isAnonymous = true;
   isSubmitted = false;
-  date = null;
-  @Input() id: string;
+  current = 0;
+  index = 'First-content';
   booking = new BookingModel();
   accommodation = new AccommodationModel();
   filterModel = new RoomAvailableFilter();
@@ -67,13 +69,12 @@ export class AccommodationDetailComponent implements OnInit {
     utilityType: string;
     isPrivate: boolean;
   }[] = [];
-  // iconUtilityListChecked: IconUtility[] = [];
-  // iconUtilityListDisabled: IconUtility[] = [];
   iconUtilityList: IconUtility[] = [];
   photoUpload = [];
   form: FormGroup;
   uploadController = [];
   isCreate = false;
+  isDrawer = false;
   totalDayPass = 0;
   totalRoomPass = 0;
 
@@ -99,15 +100,15 @@ export class AccommodationDetailComponent implements OnInit {
     if (this.id) {
       forkJoin(
         this.accommodationService.detailAccommodation(this.id),
-        this.accommodationService.getRoomAccommodation(this.id),
         this.accommodationService.getUtilityAccommodation(this.id),
+        this.accommodationService.getRoomAccommodation(this.id)
       ).subscribe(([res1, res2, res3]) => {
         this.accommodation = res1;
         this.form.get('accommodation').patchValue(res1);
-        this.roomAccommodation = res2;
-        this.utilityList = res3;
+        this.roomAccommodation = res3;
+        this.utilityList = res2;
         this.iconUtilityList.forEach((item) => {
-          const icon = res3.find((x) => x.utilityType === item.value);
+          const icon = res2.find((x) => x.utilityType === item.value);
           if (icon) {
             item.checked = true;
             item.isPrivate = icon.isPrivate ?? false;
@@ -130,11 +131,6 @@ export class AccommodationDetailComponent implements OnInit {
     }
   }
 
-  // filter(): void {
-  //   const filter = {...this.filterModel};
-
-  // }
-
   createForm(): void {
     this.form = this.fb.group(
       {
@@ -151,6 +147,7 @@ export class AccommodationDetailComponent implements OnInit {
           null,
           [CustomValidator.required, CustomValidator.phoneNumber],
         ],
+        bookingUser: [null, CustomValidator.required],
         totalPrice: ['', CustomValidator.required],
         childNumber: [0, CustomValidator.required],
         personNumber: [
@@ -182,6 +179,7 @@ export class AccommodationDetailComponent implements OnInit {
         .getCustomerDetail(this.authService.getAuthenticationModel()?.id)
         .subscribe((res) => {
           this.form.get('checkInName').patchValue(res?.fullName ?? '');
+          this.form.get('bookingUser').patchValue(res?.fullName ?? '');
           this.form
             .get('checkInPhoneNumber')
             .patchValue(res?.phoneNumber ?? '');
@@ -195,7 +193,13 @@ export class AccommodationDetailComponent implements OnInit {
 
   onClick(item: RoomModel): void {
     this.form.get('room').patchValue(item);
-    this.form.get('totalPrice').patchValue(item.price * this.form.get('qty').value * this.form.get('totalDay').value);
+    this.form
+      .get('totalPrice')
+      .patchValue(
+        item.price *
+          this.form.get('qty').value *
+          this.form.get('totalDay').value
+      );
     if (!this.authService.getAuthenticationModel()) {
       const modal = this.modalService.create({
         nzContent: PopupConfirmComponent,
@@ -215,14 +219,14 @@ export class AccommodationDetailComponent implements OnInit {
         }
       });
     } else {
-      if(!item){
+      if (!item) {
         return;
       }
       const doSubmit = () => {
         if (this.form.valid) {
-          this.isCreate = true;
           this.booking = this.form.getRawValue();
-          AccommodationComponent.test = this.booking;
+          this.current += 1;
+          this.changeContent();
           console.log('test', this.form?.getRawValue());
         }
       };
@@ -287,12 +291,21 @@ export class AccommodationDetailComponent implements OnInit {
     return true;
   }
 
-  warningPersonNumber(): boolean {
+  warningPersonNumber(item: RoomModel): boolean {
+    this.form.get('room').patchValue(item);
     const formValue = this.form.getRawValue();
-    if (!formValue || !formValue?.personNumber || !formValue.qty || !formValue.room) {
+    if (
+      !formValue ||
+      !formValue?.personNumber ||
+      !formValue.qty ||
+      !formValue.room
+    ) {
       return false;
     }
-    if ((+formValue?.personNumber / +formValue.qty) > +formValue.room?.maximumPeople) {
+    if (
+      +formValue?.personNumber / +formValue.qty >
+      +formValue.room?.maximumPeople
+    ) {
       return true;
     }
     return false;
@@ -324,6 +337,33 @@ export class AccommodationDetailComponent implements OnInit {
     modal.afterClose.subscribe((result) => {});
   }
 
+  openRoomAvailable(): void {
+    if (
+      this.form.get('fromDate').value == null &&
+      this.form.get('toDate').value == null
+    ) {
+      this.notification.warning(
+        'Vui lòng nhập ngày để xem tình trạng phòng',
+        '',
+        Utils.setStyleNotification()
+      );
+      this.goToSearch();
+    } else {
+      const formValue = this.form.getRawValue();
+      this.modalService.create({
+        nzContent: PopupRoomAvailableComponent,
+        nzComponentParams: {
+          accommodationId: this.id,
+          roomId: null,
+          fromDate: formValue?.fromDate,
+          toDate: formValue?.toDate,
+        },
+        nzWidth: 1000,
+        nzFooter: null,
+      });
+    }
+  }
+
   goToRoomAvailable() {
     this.roomAvailable.nativeElement.scrollIntoView({
       behavior: 'smooth',
@@ -345,13 +385,40 @@ export class AccommodationDetailComponent implements OnInit {
       inline: 'nearest',
     });
   }
-  goToSearch(){
-    if(this.form.invalid){
+  goToSearch() {
+    if (this.form.invalid) {
       this.search.nativeElement.scrollIntoView({
-      behavior: 'smooth',
-      block: 'end',
-      inline: 'nearest',
-    });
+        behavior: 'smooth',
+        block: 'end',
+        inline: 'nearest',
+      });
     }
+  }
+  changeContent(): void {
+    switch (this.current) {
+      case 0: {
+        this.index = 'First-content';
+        break;
+      }
+      case 1: {
+        this.index = 'Second-content';
+        break;
+      }
+      case 2: {
+        this.index = 'third-content';
+        break;
+      }
+      default: {
+        this.index = 'error';
+      }
+    }
+  }
+
+  openDrawer(): void {
+    this.isDrawer = true;
+  }
+
+  closeDrawer(): void {
+    this.isDrawer = false;
   }
 }

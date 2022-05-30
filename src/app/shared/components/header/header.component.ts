@@ -87,7 +87,8 @@ export class HeaderComponent implements OnInit {
         '',
         Utils.setStyleNotification()
       );
-    } else {
+    }
+    if(this.authService.getAuthenticationModel().id){
       this.router.navigate(['/dashboard/booking-management/list']);
     }
   }

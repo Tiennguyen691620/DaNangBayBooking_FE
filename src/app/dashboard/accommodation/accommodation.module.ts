@@ -16,12 +16,6 @@ import { AccommodationListComponent } from './accommodation-list/accommodation-l
     AccommodationDetailComponent,
     CreateBookingComponent,
   ],
-  imports: [
-    CommonModule,
-    AccommodationRoutingModule,
-    SharedModule
-  ],
-  
-
+  imports: [CommonModule, AccommodationRoutingModule, SharedModule],
 })
-export class AccommodationModule { }
+export class AccommodationModule {}

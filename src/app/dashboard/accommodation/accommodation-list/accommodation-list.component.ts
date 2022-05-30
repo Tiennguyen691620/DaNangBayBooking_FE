@@ -17,7 +17,6 @@ import { debounceTime } from 'rxjs/operators';
   styleUrls: ['./accommodation-list.component.scss'],
 })
 export class AccommodationListComponent implements OnInit {
-  date = null;
   checkedAccommodationType = true;
   checkedAccommodationUtility = true;
   pageIndex = 1;

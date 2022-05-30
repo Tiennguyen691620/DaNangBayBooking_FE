@@ -1,11 +1,13 @@
 import { BookingService } from './../../../shared/services/booking.service';
 import { ActivatedRoute } from '@angular/router';
 import { BookingModel } from './../../../shared/models/booking/booking.model';
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterContentInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AccommodationModel } from 'src/app/shared/models/accommodation/accommodation.model';
-import { FormGroup } from '@angular/forms';
+import { Form, FormGroup, Validators } from '@angular/forms';
 import DateTimeConvertHelper from 'src/app/shared/helpers/datetime-convert.helper';
 import { environment } from 'src/environments/environment';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { SpinnerService } from 'src/app/shared/services/spinner.service';
 
 @Component({
   selector: 'app-create-booking',
@@ -16,21 +18,32 @@ export class CreateBookingComponent implements OnInit {
   @Input() detail: AccommodationModel = new AccommodationModel();
   @Input() booking: BookingModel = new BookingModel();
   @Input() form: FormGroup;
+  @Input() index: string;
+  @Input() current: number;
+  @Output() pre = new EventEmitter();
   isShowModal = false;
-
+  isShow = false;
+  typeSelected: string;
   constructor(
     private route: ActivatedRoute,
-    private bookingService: BookingService
-  ) {}
+    private bookingService: BookingService,
+    private spinnerService: NgxSpinnerService,
+  ) {
+    this.typeSelected = 'ball-fussion';
+  }
 
   ngOnInit(): void {
-    // console.log(AccommodationComponent.test);
+  }
+
+  previous(): void {
+    this.current = this.current - 1;
+    this.index = 'First-content';
+    this.pre.emit(this.current);
   }
 
   submit(): void {
     const formInFo = this.form.getRawValue();
     const request = {
-      // id: formInFo.id,
       no: '',
       fromDate: DateTimeConvertHelper.fromDtObjectToTimestamp(
         formInFo.fromDate
@@ -42,6 +55,7 @@ export class CreateBookingComponent implements OnInit {
       checkInNote: formInFo.checkInNote,
       checkInIdentityCard: formInFo.checkInIdentityCard,
       checkInPhoneNumber: formInFo.checkInPhoneNumber,
+      bookingUser: formInFo.bookingUser,
       totalPrice: formInFo.totalPrice,
       qty: formInFo.qty,
       childNumber: formInFo.childNumber,
@@ -51,9 +65,10 @@ export class CreateBookingComponent implements OnInit {
     };
     console.log('form', request);
 
-    this.bookingService.createBooking(request).subscribe((res) => {
-      this.openModal();
-    });
+    // this.bookingService.createBooking(request).subscribe((res) => {
+    // this.openModal();
+    // this.spinnerService.hide();
+    // });
   }
 
   openModal(): void {
