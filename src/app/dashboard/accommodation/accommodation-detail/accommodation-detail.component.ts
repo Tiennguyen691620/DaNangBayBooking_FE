@@ -1,3 +1,5 @@
+import { RateCommentModel } from './../../../shared/models/rate-comment/rate-comment.model';
+import { RateCommentService } from './../../../shared/services/rate-comment.service';
 import { PopupRoomAvailableComponent } from './../../../shared/components/popups/popup-room-available/popup-room-available.component';
 import { RoomAvailable } from './../../../shared/models/accommodation/room-available.model';
 import { RoomAvailableFilter } from './../../../shared/models/accommodation/room-available-filter.model';
@@ -37,6 +39,7 @@ import { ToDate } from 'src/app/shared/helpers/must-match.validator';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import Utils from 'src/app/shared/helpers/utils.helper';
 import { SignupPopupComponent } from 'src/app/shared/components/popups/signup-popup/signup-popup.component';
+import { formatDistance } from 'date-fns';
 
 // @Directive({ selector: 'H4' })
 // export class H4 {
@@ -64,6 +67,7 @@ export class AccommodationDetailComponent implements OnInit {
   roomAvailableList: RoomAvailable[] = [];
   roomAccommodation: RoomModel[] = [];
   roomTypeList: RoomTypeModel[] = [];
+  rateCommentList: RateCommentModel[] = [];
   utilityList: {
     utilityID: string;
     utilityType: string;
@@ -78,6 +82,10 @@ export class AccommodationDetailComponent implements OnInit {
   totalDayPass = 0;
   totalRoomPass = 0;
 
+  likes = 0;
+  dislikes = 0;
+  time = formatDistance(new Date(), new Date());
+
   constructor(
     private imageService: NzImageService,
     private router: Router,
@@ -87,7 +95,8 @@ export class AccommodationDetailComponent implements OnInit {
     private fb: FormBuilder,
     private customerService: CustomerService,
     private authService: AuthService,
-    private notification: NzNotificationService
+    private notification: NzNotificationService,
+    private rateCommentService: RateCommentService
   ) {}
 
   ngOnInit(): void {
@@ -414,8 +423,21 @@ export class AccommodationDetailComponent implements OnInit {
     }
   }
 
+  like(): void {
+    this.likes = 1;
+    this.dislikes = 0;
+  }
+
+  dislike(): void {
+    this.likes = 0;
+    this.dislikes = 1;
+  }
+
   openDrawer(): void {
     this.isDrawer = true;
+    this.rateCommentService.getAllRateComment(this.id).subscribe((res) => {
+      this.rateCommentList = res;
+    });
   }
 
   closeDrawer(): void {

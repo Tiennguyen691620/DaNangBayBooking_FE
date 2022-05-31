@@ -70,18 +70,18 @@ export class DefaultInterceptor implements HttpInterceptor {
       // (ev instanceof HttpErrorResponse)
       return;
     }
-    const err = (ev.body && ev.body.error) || (ev.error && ev.error.error);
+    const err = (ev.body && ev.body.message);
     if (!err || ev.url.includes(`api/token/get`)) {
       return;
     } else {
       this.errData.subscribe((errData) => {
-        if (ev.status === 401 || err.code === 'USER_NOT_LOGIN_TO_SYSTEM'){
-          return errData;
+        if (ev.status === 401){
+          return;
         }
-        const itemErr = errData.find((item) => item.code === err.code);
+        const itemErr = errData.find((item) => item.message === err.message);
         if (itemErr) {
           return this.notification.error(
-            `${itemErr.text}`,
+            `${itemErr.message}`,
             ``,
             Utils.setStyleNotification()
           );
@@ -90,9 +90,9 @@ export class DefaultInterceptor implements HttpInterceptor {
           `Đã xảy ra lỗi`,
           ``,
           Utils.setStyleNotification()
-        );
-      });
-    }
+          );
+        });
+      }
   }
 
   private handleData(ev: HttpResponseBase, showSpinner: boolean): void {

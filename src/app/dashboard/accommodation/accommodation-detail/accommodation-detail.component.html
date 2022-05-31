@@ -210,9 +210,11 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="13.5" height="13.278" viewBox="0 0 13.5 13.278">
                       <path id="Path_34130" data-name="Path 34130"
                         d="M91.025,981.237v-7.275a1.327,1.327,0,0,1,.6-1.108l4.672-3.079a1.329,1.329,0,0,1,1.46,0l4.672,3.079a1.327,1.327,0,0,1,.6,1.108v5.947a1.328,1.328,0,0,1-1.328,1.328s-2.594.063-4.189.063"
-                        transform="translate(-90.275 -968.772)" fill="none" stroke="#188ffd" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" />
+                        transform="translate(-90.275 -968.772)" fill="none" stroke="#188ffd" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="1.5" />
                       <path id="Path_34131" data-name="Path 34131" d="M97.294,980.138v5.745m2.846-3.023-2.846-2.891-2.728,2.739"
-                        transform="translate(-90.066 -973.418)" fill="none" stroke="#188ffd" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" />
+                        transform="translate(-90.066 -973.418)" fill="none" stroke="#188ffd" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="1.5" />
                     </svg>
                     <span class="ms-1">Tình trạng phòng</span>
                   </div>
@@ -287,11 +289,10 @@
                         </div>
                       </td>
                       <td class="text-center">
-                        <nz-input-number class="w-100" formControlName="qty" [nzStep]="1" 
-                        (ngModelChange)="updateTotalDay()"></nz-input-number>
+                        <nz-input-number class="w-100" formControlName="qty" [nzStep]="1" (ngModelChange)="updateTotalDay()"></nz-input-number>
                       </td>
                       <td class="text-center">
-                        <nz-input-number class="w-100" formControlName="personNumber"  [nzStep]="1"></nz-input-number>
+                        <nz-input-number class="w-100" formControlName="personNumber" [nzStep]="1"></nz-input-number>
                         <div *ngIf="warningPersonNumber(item)">
                           <p class="f-warning mb-0">Khả năng Số phòng đặt sẽ khó đáp ứng được theo số lượng người
                             lớn lưu trú, hãy kiểm
@@ -299,7 +300,8 @@
                         </div>
                       </td>
                       <td class="text-center">
-                        <nz-input-number class="w-100" formControlName="childNumber" [nzStep]="1" (ngModelChange)="updateTotalDay()"></nz-input-number>
+                        <nz-input-number class="w-100" formControlName="childNumber" [nzStep]="1" (ngModelChange)="updateTotalDay()">
+                        </nz-input-number>
                       </td>
                       <td>
                         <div class="d-flex align-items-center justify-content-center">
@@ -473,9 +475,67 @@
   </form>
 </section>
 
-<nz-drawer [nzClosable]="false" [nzVisible]="isDrawer" nzPlacement="right" [nzWidth]="760" (nzOnClose)="closeDrawer()">
+<nz-drawer [nzClosable]="false" [nzVisible]="isDrawer" nzPlacement="right" [nzWidth]="600" (nzOnClose)="closeDrawer()">
+  <ng-container *nzDrawerContent>
+    <p>Đánh giá của du khách</p>
+    <div class="row align-items-center" *ngFor="let item of rateCommentList">
+      <div class="col-6">
+        <nz-comment [nzAuthor]="name" [nzDatetime]="date">
+          <nz-avatar nz-comment-avatar nzIcon="user" [nzSrc]="item?.avatarUrl"></nz-avatar>
+          <nz-comment-content>
+            <nz-rate class="mb-2" [ngModel]="item.rating" nzDisabled></nz-rate>
+            <p>
+              {{item?.description}}
+            </p>
+          </nz-comment-content>
+          <!-- <nz-comment-action>
+                <i nz-tooltip nzTitle="Like" nz-icon nzType="like" [nzTheme]="likes > 0 ? 'twotone' : 'outline'" (click)="like()"></i>
+                <span class="count like">{{ likes }}</span>
+              </nz-comment-action>
+              <nz-comment-action>
+                <i nz-tooltip nzTitle="Dislike" nz-icon nzType="dislike" [nzTheme]="dislikes > 0 ? 'twotone' : 'outline'" (click)="dislike()"></i>
+                <span class="count dislike">{{ dislikes }}</span>
+              </nz-comment-action> -->
+        </nz-comment>
+      </div>
+      <div class="col-6 ">
+        <div class="">
+          <div class="row justify-content-end">
+            <div class="col-10 d-flex justify-content-end align-items-center">
+              <label>{{item?.roomName}}</label>
+            </div>
+            <div class="col-2">
+              <i class="fa-solid fa-door-open c-dodgerblue fz-16"></i>
+            </div>
+          </div>
+          <div class="row justify-content-end">
+            <div class="col-10 d-flex justify-content-end align-items-center">
+              <label>{{item?.totalDay}} đêm - {{item?.bookingDate * 1000 | date:'dd/MM/yyyy'}}</label>
+            </div>
+            <div class="col-2">
+              <i class="fa-regular fa-calendar-check c-dodgerblue fz-16"></i>
+            </div>
+          </div>
+          <div class="row justify-content-end">
+            <div class="col-10 d-flex justify-content-end align-items-center">
+              <label>{{item?.roomTypeName}}</label>
+            </div>
+            <div class="col-2">
+              <i class="fa-solid fa-person c-dodgerblue fz-16"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-template #name>
+        <span>{{item?.fullName}}</span>
+      </ng-template>
+      <ng-template #date>
+        <span>{{item?.rateCommentDate * 1000 | date: 'dd/MM/yyyy'}}</span>
+      </ng-template>
+    </div>
 
+  </ng-container>
 </nz-drawer>
 
-<app-create-booking *ngIf=" current !==0" [detail]="accommodation" [booking]="booking" [form]="form" 
-[current]="current" (pre)="current=$event" [index]="index" ></app-create-booking>
+<app-create-booking *ngIf=" current !==0" [detail]="accommodation" [booking]="booking" [form]="form" [current]="current" (pre)="current=$event"
+  [index]="index"></app-create-booking>

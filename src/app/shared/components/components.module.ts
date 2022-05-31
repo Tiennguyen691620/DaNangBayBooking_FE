@@ -88,6 +88,7 @@ import { ForgotPasswordPopupComponent } from './popups/forgot-password-popup/for
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { PopupRoomAvailableComponent } from './popups/popup-room-available/popup-room-available.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { PopupRatecommentComponent } from './popups/popup-ratecomment/popup-ratecomment.component';
 
 @NgModule({
   declarations: [
@@ -104,6 +105,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     PopupRoomAccommodationComponent,
     PopupUtilityProvidedComponent,
     PopupRoomAvailableComponent,
+    PopupRatecommentComponent,
   ],
   imports: [
     CommonModule,

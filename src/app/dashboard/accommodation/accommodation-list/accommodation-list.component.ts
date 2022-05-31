@@ -1,3 +1,4 @@
+import { RateCommentService } from './../../../shared/services/rate-comment.service';
 import { IconUtility, IconUtilityList } from 'src/app/shared/constants/icon-utility';
 import { AccommodationTypeModel } from './../../../shared/models/accommodation/accommodation-type.model';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -32,6 +33,7 @@ export class AccommodationListComponent implements OnInit {
     private modalService: NzModalService,
     private route: ActivatedRoute,
     private router: Router,
+    private rateCommentService: RateCommentService,
   ) {}
 
   ngOnInit(): void {

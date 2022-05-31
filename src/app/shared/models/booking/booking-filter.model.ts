@@ -1,6 +1,6 @@
 export class BookingFilter {
     searchKey: string;
-    employee: string;
+    userId: string;
     status: string;
     bookingFromDate: Date;
     bookingToDate: Date;

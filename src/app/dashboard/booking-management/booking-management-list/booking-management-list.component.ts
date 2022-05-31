@@ -1,3 +1,5 @@
+import { RateCommentService } from './../../../shared/services/rate-comment.service';
+import { AuthService } from './../../../shared/services/auth/auth.service';
 import { RoomModel } from 'src/app/shared/models/room/room.model';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { EBookingStatus } from './../../../shared/emun/booking/booking-status.enum';
@@ -14,6 +16,7 @@ import { PopupAccommodationInfoComponent } from 'src/app/shared/components/popup
 import { PopupUtilityProvidedComponent } from 'src/app/shared/components/popups/popup-utility-provided/popup-utility-provided.component';
 import { AccommodationService } from 'src/app/shared/services/accommodation.service';
 import { PopupRoomAccommodationComponent } from 'src/app/shared/components/popups/popup-room-accommodation/popup-room-accommodation.component';
+import { PopupRatecommentComponent } from 'src/app/shared/components/popups/popup-ratecomment/popup-ratecomment.component';
 
 @Component({
   selector: 'app-booking-management-list',
@@ -36,9 +39,12 @@ export class BookingManagementListComponent implements OnInit {
     private modalService: NzModalService,
     private notification: NzNotificationService,
     private accommodationService: AccommodationService,
+    private authService: AuthService,
+    private rateCommentService: RateCommentService
   ) {}
 
   ngOnInit(): void {
+    this.filterModel.userId = this.authService.getAuthenticationModel().id;
     this.searchTerm$.pipe(debounceTime(600)).subscribe((_) => {
       this.filterModel.searchKey = this.searchTerm$.value;
       this.pageIndex = 1;
@@ -83,11 +89,37 @@ export class BookingManagementListComponent implements OnInit {
           id,
           cancelReason: result.reason,
         };
-        console.log(params);
-
         this.bookingService.cancelBooking(params).subscribe((_) => {
           this.notification.success(
             'Hủy đặt phòng thành công',
+            '',
+            Utils.setStyleNotification()
+          );
+          this.filter();
+        });
+      }
+    });
+  }
+
+  rateComment(bookRoomId: string): void {
+    const modal = this.modalService.create({
+      nzContent: PopupRatecommentComponent,
+      nzComponentParams: {},
+      nzWidth: 500,
+      nzFooter: null,
+      nzClosable: null,
+    });
+    modal.afterClose.subscribe((result) => {
+      if (result && result.description && result.rating) {
+        const params = {
+          bookRoomId,
+          description: result.description,
+          rating: result.rating,
+          title: result.title,
+        };
+        this.rateCommentService.createRateComment(params).subscribe((_) => {
+          this.notification.success(
+            'Đánh giá thành công',
             '',
             Utils.setStyleNotification()
           );
