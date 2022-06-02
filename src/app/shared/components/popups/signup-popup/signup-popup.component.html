@@ -33,10 +33,14 @@
                     <span class="required">Giới tính:</span>
                   </div>
                   <div class="col-6 ">
-                    <nz-select class="w-100" nzAllowClear nzShowSearch nzPlaceHolder="Giới tính" formControlName="gender">
+                    <!-- <nz-select class="w-100" nzAllowClear nzShowSearch nzPlaceHolder="Giới tính" formControlName="gender">
                       <nz-option [nzValue]="true" nzLabel="Nam"></nz-option>
                       <nz-option [nzValue]="false" nzLabel="Nữ"></nz-option>
-                    </nz-select>
+                    </nz-select> -->
+                    <nz-radio-group formControlName="gender">
+                      <label nz-radio [nzValue]="true">Nam</label>
+                      <label nz-radio [nzValue]="false">Nữ</label>
+                    </nz-radio-group>
                   </div>
                 </div>
               </div>
@@ -66,7 +70,7 @@
                     <span class="required">Số điện thoại:</span>
                   </div>
                   <div class="col-6">
-                    <input nz-input type="text" formControlName="phoneNumber" mask="(000) 0 000-000" placeholder="số điện thoại">
+                    <input nz-input type="text" formControlName="phoneNumber" mask="(0000) 000-000" placeholder="số điện thoại">
                   </div>
                 </div>
               </div>

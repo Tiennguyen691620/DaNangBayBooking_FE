@@ -47,9 +47,4 @@ export class BaseService {
       })
       .pipe(map((result) => result as T));
   }
-  // public delete<T>(url: string, data?: any, headers?: any): Observable<any> {
-  //   return this.http
-  //     .delete(this.apiEndPoint + url, { headers, body: data })
-  //     .pipe(map((result: ResponseData<T>) => result.data as T));
-  // }
 }

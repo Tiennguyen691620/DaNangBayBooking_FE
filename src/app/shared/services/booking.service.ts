@@ -42,7 +42,7 @@ export class BookingService extends BaseService {
     if (!params.status) {
       delete paramsFilter.status;
     }
-    const url = `api/BookRoom/filter?pageIndex=${pageNumber}&pageSize=${pageSize}`;
+    const url = `api/BookRoom/filter/client?pageIndex=${pageNumber}&pageSize=${pageSize}`;
     return this.get(url, Utils.createFilterParam({ ...paramsFilter })).pipe(
       map((res: any) => {
         return {

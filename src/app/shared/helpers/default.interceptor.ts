@@ -54,7 +54,7 @@ export class DefaultInterceptor implements HttpInterceptor {
   }
 
   getErrData(): Observable<any> {
-    return this.http.get('./assets/err/err.json');
+    return this.http.get('./assets/data/err.json');
   }
 
   private get notification(): NzNotificationService {
@@ -67,32 +67,40 @@ export class DefaultInterceptor implements HttpInterceptor {
 
   private checkStatus(ev: any): any {
     if (!ev) {
-      // (ev instanceof HttpErrorResponse)
       return;
     }
-    const err = (ev.body && ev.body.message);
-    if (!err || ev.url.includes(`api/token/get`)) {
-      return;
-    } else {
-      this.errData.subscribe((errData) => {
-        if (ev.status === 401){
-          return;
-        }
-        const itemErr = errData.find((item) => item.message === err.message);
-        if (itemErr) {
-          return this.notification.error(
-            `${itemErr.message}`,
-            ``,
-            Utils.setStyleNotification()
-          );
-        }
-        this.notification.error(
-          `Đã xảy ra lỗi`,
-          ``,
-          Utils.setStyleNotification()
-          );
-        });
-      }
+    if(ev?.body?.data !== null && ev.status === 200 && ev.url.includes(`https://localhost:5001/api/Users/login-client`)){
+        return this.notification.success('Đăng nhập thành công', '', Utils.setStyleNotification());
+    }
+    const err = (ev?.body && ev.body.message);
+    if (err && ev.status === 200  && ev.url.includes(`https://localhost:5001/api/Users/login-client`)
+    ) {
+      return this.notification.error(err, '', Utils.setStyleNotification());
+    } 
+    const errorRegister = (ev.error && ev.error.message)
+    if(errorRegister && ev.error.data === false && ev.status === 400 && ev.url.includes(`https://localhost:5001/api/Users/register-client`)){
+      return this.notification.error(errorRegister, '', Utils.setStyleNotification());
+    }
+    // else {
+    //   this.errData.subscribe((errData: any) => {
+    //     if (ev.status === 401){
+    //       return errData;
+    //     }
+    //     const itemErr = errData.find((item) => item.message === err.message);
+    //     if (itemErr) {
+    //       return this.notification.error(
+    //         `${itemErr.message}`,
+    //         ``,
+    //         Utils.setStyleNotification()
+    //       );
+    //     }
+    //     this.notification.error(
+    //       `Đã xảy ra lỗi`,
+    //       ``,
+    //       Utils.setStyleNotification()
+    //       );
+    //     });
+      // }
   }
 
   private handleData(ev: HttpResponseBase, showSpinner: boolean): void {

@@ -81,7 +81,10 @@ export class AccommodationDetailComponent implements OnInit {
   isDrawer = false;
   totalDayPass = 0;
   totalRoomPass = 0;
-
+  qtyRateComment : {
+    qty: number;
+    point: number;
+  }
   likes = 0;
   dislikes = 0;
   time = formatDistance(new Date(), new Date());
@@ -96,7 +99,7 @@ export class AccommodationDetailComponent implements OnInit {
     private customerService: CustomerService,
     private authService: AuthService,
     private notification: NzNotificationService,
-    private rateCommentService: RateCommentService
+    private rateCommentService: RateCommentService,
   ) {}
 
   ngOnInit(): void {
@@ -110,11 +113,13 @@ export class AccommodationDetailComponent implements OnInit {
       forkJoin(
         this.accommodationService.detailAccommodation(this.id),
         this.accommodationService.getUtilityAccommodation(this.id),
-        this.accommodationService.getRoomAccommodation(this.id)
-      ).subscribe(([res1, res2, res3]) => {
+        this.accommodationService.getRoomAccommodation(this.id),
+        this.rateCommentService.getAllQtyAndPointRateComment(this.id),
+      ).subscribe(([res1, res2, res3, res4]) => {
         this.accommodation = res1;
         this.form.get('accommodation').patchValue(res1);
         this.roomAccommodation = res3;
+        this.qtyRateComment = res4;
         this.utilityList = res2;
         this.iconUtilityList.forEach((item) => {
           const icon = res2.find((x) => x.utilityType === item.value);
@@ -144,6 +149,7 @@ export class AccommodationDetailComponent implements OnInit {
     this.form = this.fb.group(
       {
         no: null,
+        userId: null,
         qty: [1, [CustomValidator.required, CustomValidator.requiredNumber]],
         fromDate: [null, [CustomValidator.required]],
         toDate: [null, [CustomValidator.required]],
@@ -196,6 +202,7 @@ export class AccommodationDetailComponent implements OnInit {
             .get('checkInIdentityCard')
             .patchValue(res?.identityCard ?? '');
           this.form.get('checkInMail').patchValue(res?.email ?? '');
+          this.form.get('userId').patchValue(res?.id ?? '');
         });
     }
   }
@@ -434,9 +441,13 @@ export class AccommodationDetailComponent implements OnInit {
   }
 
   openDrawer(): void {
-    this.isDrawer = true;
     this.rateCommentService.getAllRateComment(this.id).subscribe((res) => {
-      this.rateCommentList = res;
+      if(res.length > 0){
+        this.rateCommentList = res;
+        this.isDrawer = true;
+      } else {
+        this.notification.info('Không có đánh giá nào của khách', '', Utils.setStyleNotification());
+      }
     });
   }
 

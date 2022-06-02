@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
-import { NotiticationType } from 'src/app/shared/emun/notification-type.enum';
+import { NotificationType } from 'src/app/shared/emun/notification-type.enum';
 import CustomValidator from 'src/app/shared/helpers/custom-validator.helper';
 import DateTimeConvertHelper from 'src/app/shared/helpers/datetime-convert.helper';
 import { MustMatch } from 'src/app/shared/helpers/must-match.validator';
@@ -51,23 +51,24 @@ export class SignupPopupComponent implements OnInit {
         dob: ['', [Validators.required]],
         gender: ['', [Validators.required]],
         identityCard: ['', [Validators.required]],
-        phoneNumber: ['', [Validators.required, CustomValidator.phoneNumber]],
+        phoneNumber: ['', [Validators.required, Validators.minLength(10)]],
         email: ['', [Validators.required, Validators.email]],
         province: ['', [Validators.required]],
         district: ['', [Validators.required]],
         subDistrict: ['', [Validators.required]],
-        password: ['', [Validators.required]],
+        password: ['', [Validators.required, CustomValidator.passwordULN]],
         confirmPassword: ['', [Validators.required]],
       },
       {
         validator: MustMatch('password', 'confirmPassword'),
-      }
+      },
     );
   }
 
   submitForm(): void {
     this.isSubmitted = true;
     if (this.signUpForm.valid) {
+      console.log(this.signUpForm.value);
       this.authService.registerUser(this.mapData()).subscribe(
         (res) => {
           this.goBack();
@@ -99,11 +100,10 @@ export class SignupPopupComponent implements OnInit {
       nzContent: SignUpNotificationPopupComponent,
       nzComponentParams: {
         title: 'Thông báo',
-        type: NotiticationType.Success,
+        type: NotificationType.Success,
         subTitle: 'Đăng ký thành công!',
-        // content: `Cảm ơn bạn đã đăng ký tài khoản trên hệ thống Crystal Bay Group.
-        // Vui lòng kiểm tra email và nhấp vào đường dẫn để xác thực tài khoản.
-        // Nếu không nhận được email vui lòng kiểm tra Spam.`,
+        content: `Cảm ơn bạn, bạn đã đăng ký thành công tài khoản trên hệ thống đặt phòng Da Nang Booking.
+        Trở lại trang chủ để đăng nhập và sử dụng hệ thống.`,
         btnTitle: 'Quay về trang chủ',
       },
       nzWidth: 600,
@@ -111,6 +111,7 @@ export class SignupPopupComponent implements OnInit {
       nzClosable: null,
     });
     modal.afterClose.subscribe((result) => {
+      this.modal.destroy();
       this.router.navigate(['home']);
     });
   }

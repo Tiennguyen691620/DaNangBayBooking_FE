@@ -152,7 +152,7 @@ export default class CustomValidator {
 
   static phoneNumber(control: AbstractControl): ValidationErrors | null {
     return CustomValidator.isNullOrEmpty(control.value) ||
-      control.value.length >= PHONE_NUMBER_MIN_LENGTH || control.value.length <= PHONE_NUMBER_MAX_LENGTH
+      control.value.length >= PHONE_NUMBER_MIN_LENGTH && control.value.length <= PHONE_NUMBER_MAX_LENGTH
       ? null
       : {
           phoneNumber: {

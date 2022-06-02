@@ -82,7 +82,10 @@ const maskConfig: Partial<IConfig> = {
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, NgxMaskModule.forRoot(maskConfig)],
+  imports: [
+    CommonModule, 
+    // NgxMaskModule.forRoot(maskConfig)
+  ],
   exports: [
     CommonModule,
     ComponentsModule,
@@ -157,7 +160,7 @@ const maskConfig: Partial<IConfig> = {
     NzWaveModule,
     NzResizableModule,
     NzPipesModule,
-    NgxMaskModule,
+    // NgxMaskModule,
     CKEditorModule,
   ],
 })

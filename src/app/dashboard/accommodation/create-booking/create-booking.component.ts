@@ -1,7 +1,14 @@
 import { BookingService } from './../../../shared/services/booking.service';
 import { ActivatedRoute } from '@angular/router';
 import { BookingModel } from './../../../shared/models/booking/booking.model';
-import { AfterContentInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  AfterContentInit,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { AccommodationModel } from 'src/app/shared/models/accommodation/accommodation.model';
 import { Form, FormGroup, Validators } from '@angular/forms';
 import DateTimeConvertHelper from 'src/app/shared/helpers/datetime-convert.helper';
@@ -27,13 +34,12 @@ export class CreateBookingComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private bookingService: BookingService,
-    private spinnerService: NgxSpinnerService,
+    private spinnerService: NgxSpinnerService
   ) {
     this.typeSelected = 'ball-fussion';
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   previous(): void {
     this.current = this.current - 1;
@@ -42,9 +48,11 @@ export class CreateBookingComponent implements OnInit {
   }
 
   submit(): void {
+    this.spinnerService.show();
     const formInFo = this.form.getRawValue();
     const request = {
       no: '',
+      userId: formInFo.userId,
       fromDate: DateTimeConvertHelper.fromDtObjectToTimestamp(
         formInFo.fromDate
       ),
@@ -63,12 +71,12 @@ export class CreateBookingComponent implements OnInit {
       accommodation: formInFo.accommodation,
       room: formInFo.room,
     };
-    console.log('form', request);
+    // console.log('form', request);
 
-    // this.bookingService.createBooking(request).subscribe((res) => {
-    // this.openModal();
-    // this.spinnerService.hide();
-    // });
+    this.bookingService.createBooking(request).subscribe((res) => {
+      this.openModal();
+      this.spinnerService.hide();
+    });
   }
 
   openModal(): void {

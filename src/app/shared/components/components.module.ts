@@ -89,6 +89,11 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { PopupRoomAvailableComponent } from './popups/popup-room-available/popup-room-available.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { PopupRatecommentComponent } from './popups/popup-ratecomment/popup-ratecomment.component';
+import { IConfig, NgxMaskModule } from 'ngx-mask';
+
+const maskConfig: Partial<IConfig> = {
+  validation: false,
+};
 
 @NgModule({
   declarations: [
@@ -182,12 +187,13 @@ import { PopupRatecommentComponent } from './popups/popup-ratecomment/popup-rate
     NzPipesModule,
     CKEditorModule,
     NgxSpinnerModule,
+    NgxMaskModule.forRoot(maskConfig),
     ErrorTailorModule.forRoot({
       errors: {
         useValue: {
           required: 'Trường này bắt buộc!',
           password:
-            'Mật khẩu cần phải có ít nhất 8 ký tự, bao gồm ký tự chữ hoa, chữ thường và số',
+            'Mật khẩu cần phải có ít nhất 8 ký tự, bao gồm ký tự chữ hoa, chữ thường, số và kí tự đặc biệt!',
           mustMatch: 'Mật khẩu không khớp',
           toDate: ({ fromDateName, toDateName }) => {
             return `${toDateName} không được bé hơn hoặc bằng ${fromDateName}`;
@@ -215,6 +221,7 @@ import { PopupRatecommentComponent } from './popups/popup-ratecomment/popup-rate
     ErrorTailorModule,
     PipesModule,
     NgxSpinnerModule,
+    NgxMaskModule,
     // CKEditorModule,
   ],
 })
