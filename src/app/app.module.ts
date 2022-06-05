@@ -1,5 +1,5 @@
 import { SharedModule } from './shared/shared.module';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -18,6 +18,7 @@ import { ErrorTailorModule } from '@ngneat/error-tailor';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { HomeComponent } from './home/home.component';
 import { IvyCarouselModule } from 'angular-responsive-carousel';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 // registerLocaleData(en);
 registerLocaleData(vi);
@@ -25,6 +26,7 @@ registerLocaleData(vi);
 const INTERCEPTOR_PROVIDES = [
   { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true },
 ];
+
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],
@@ -36,6 +38,7 @@ const INTERCEPTOR_PROVIDES = [
     ServicesModule,
     SharedModule,
     IvyCarouselModule,
+    // CKEditorModule,
   ],
   providers: [
     INTERCEPTOR_PROVIDES,

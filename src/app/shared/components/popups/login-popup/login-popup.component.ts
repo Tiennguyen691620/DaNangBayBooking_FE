@@ -102,7 +102,7 @@ export class LoginPopupComponent implements OnInit {
     this.modalService.create({
       nzContent: ForgotPasswordPopupComponent,
       nzCloseIcon: 'false',
-      nzWidth: 800,
+      nzWidth: 500,
       nzFooter: null,
     });
   }

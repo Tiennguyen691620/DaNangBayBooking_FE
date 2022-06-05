@@ -1,0 +1,28 @@
+.img-bir {
+  position: absolute;
+  top: 4px;
+  right: 8px;
+}
+
+:host ::ng-deep {
+  .ant-table-pagination.ant-pagination {
+    margin: 10px 0px 0px 16px;
+  }
+}
+
+.label-fromDate {
+  width: 65px;
+}
+
+.label-toDate {
+  width: 65px;
+}
+
+.f-title {
+  font-size: 15px;
+}
+
+nz-date-picker {
+  width: 200px;
+  min-width: 200px;
+}

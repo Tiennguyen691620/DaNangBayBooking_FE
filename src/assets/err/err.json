@@ -1,0 +1,125 @@
+[
+  {
+    "code": "INTERNAL_SERVER_ERROR",
+    "text": "Đã xảy ra lỗi. Vui lòng thử lại"
+  },
+  {
+    "code": "GET_DATA_NOT_SUCCESS",
+    "text": "Đã xảy ra lỗi. Vui lòng thử lại"
+  },
+  {
+    "message": "Tài khoản hoặc mật khẩu không đúng"
+  },
+  {
+    "code": "WRONG_USERNAME_OR_PASSWORD",
+    "text": "Tên tài khoản hoặc mật khẩu không đúng"
+  },
+  {
+    "code": "WRONG_PASSWORD",
+    "text": "Mật khẩu không đúng"
+  },
+  {
+    "code": "WRONG_CURRENT_PASSWORD",
+    "text": "Mật khẩu không đúng"
+  },
+  {
+    "code": "ACCOUNT_NOT_EXIST",
+    "text": "Tài khoản không tồn tại"
+  },
+  {
+    "code": "ACCOUNT_NOT_ACTIVE",
+    "text": "Tài khoản chưa được kích hoạt"
+  },
+  {
+    "code": "TOKEN_NOT_EXIST",
+    "text": "Token không tồn tại"
+  },
+  {
+    "code": "OBJECT_NOT_FOUND",
+    "text": "Không tìm thấy đối tượng"
+  },
+  {
+    "code": "NOT_VALIDATED_EMAIL",
+    "text": "Email không đúng định dạng"
+  },
+  {
+    "code": "VERIFIED_ACCOUNT",
+    "text": "Tài khoản đã xác thực"
+  },
+  {
+    "code": "EMAIL_EXIST",
+    "text": "Email đã tồn tại trong hệ thống"
+  },
+  {
+    "code": "USERNAME_EXIST",
+    "text": "Tên tài khoản đã tồn tại trong hệ thống"
+  },
+  {
+    "code": "USERNAME_EMAIL_EXIST",
+    "text": "Tên tài khoản hoặc tên email đã tồn tại"
+  },
+  {
+    "code": "PERMISSION_DENIED",
+    "text": "Bạn không được phép truy cập trang này"
+  },
+  {
+    "code": "USER_EXIST_GROUP",
+    "text": "Tài khoản đã tồn tại trong nhóm"
+  },
+  {
+    "code": "DUPPLICATED",
+    "text": "Đã gửi yêu cầu trước đó, đang chờ xác minh"
+  },
+  {
+    "code": "ASYNCHRONOUS_DATA",
+    "text": "Dữ liệu này đang được cập nhật bởi cùng 1 tài khoản trên thiết bị khác, vui lòng thực hiện tải lại trang để có dữ liệu mới nhất"
+  },
+  {
+    "code": "INVALID_STATUS",
+    "text": "Trạng thái hồ sơ không hợp lệ"
+  },
+  {
+    "code": "INVALID_PARAMETER",
+    "text": "Đã xảy ra lỗi. Vui lòng thử lại"
+  },
+  {
+    "code": "USER_INACTIVE",
+    "text": "Tài khoản bị khóa"
+  },
+  {
+    "code": "USER_IS_NOT_ACTIVE",
+    "text": "Tài khoản chưa kích hoạt"
+  },
+  {
+    "code": "TAX_CODE_EXIST",
+    "text": "Mã số thuế đã tồn tại trong hệ thống"
+  },
+  {
+    "code": "IDENTITY_CARD_EXIST",
+    "text": "Số CMND đã tồn tại trong hệ thống"
+  },
+  {
+    "code": "PHONE_NUMBER_EXIST",
+    "text": "Số điện thoại di động đã tồn tại trong hệ thống"
+  },
+  {
+    "code": "USERGROUP_HAS_BEEN_USED",
+    "text": "Nhóm người dùng này đang được sử dụng"
+  },
+  {
+    "code": "EXISTED_NO",
+    "text": "Mã đã tồn tại"
+  },
+  {
+    "code": "ROOM_NOT_ENOUGH",
+    "text": "Số phòng trống ko đủ"
+  },
+  {
+    "code": "INVALID_DAY_PER_YEAR_LIMIT",
+    "text": "Số đêm đã quá số đêm cho phép được sử dụng/năm"
+  },
+  {
+    "code": "DUPLICATE_EMAIL_OR_PHONE",
+    "text": "Thông tin đăng ký đã được sử dụng. Vui lòng nhập thông tin khác"
+  }
+]

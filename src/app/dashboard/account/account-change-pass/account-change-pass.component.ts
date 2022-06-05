@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { PopupConfirmComponent } from './../../../shared/components/popups/popup-confirm/popup-confirm.component';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -24,6 +25,7 @@ export class AccountChangePassComponent implements OnInit {
     private authService: AuthService,
     private modal: NzModalService,
     private notification: NzNotificationService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -57,6 +59,7 @@ export class AccountChangePassComponent implements OnInit {
             '',
             Utils.setStyleNotification()
           );
+          this.router.navigate(['/dashboard/account/profile']);
         });
     }
   }

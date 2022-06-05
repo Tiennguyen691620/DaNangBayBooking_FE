@@ -1,3 +1,10 @@
+import { RateCommentService } from './../../../shared/services/rate-comment.service';
+import {
+  IconUtility,
+  IconUtilityList,
+} from 'src/app/shared/constants/icon-utility';
+import { AccommodationTypeModel } from './../../../shared/models/accommodation/accommodation-type.model';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PopupGoogleMapComponent } from './../../../shared/components/popups/popup-google-map/popup-google-map.component';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AccommodationService } from './../../../shared/services/accommodation.service';
@@ -14,33 +21,40 @@ import { debounceTime } from 'rxjs/operators';
   styleUrls: ['./accommodation-list.component.scss'],
 })
 export class AccommodationListComponent implements OnInit {
-  date = null;
-  checked = true;
+  checkedAccommodationType = true;
+  checkedAccommodationUtility = true;
   pageIndex = 1;
   pageSize = 10;
   totalCount = 0;
   dataSource: AccommodationModel[] = [];
+  accommodationType: AccommodationTypeModel[] = [];
+  iconUtilityList: IconUtility[] = [];
   filterModel = new AccommodationFilterModel();
   searchTerm$ = new BehaviorSubject<string>('');
-  isSearch = false;
   constructor(
     private accommodationService: AccommodationService,
-    private modalService: NzModalService
+    private modalService: NzModalService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private rateCommentService: RateCommentService
   ) {}
 
   ngOnInit(): void {
+    this.getIcon();
+    this.filterModel.searchKey =
+      this.route.snapshot.queryParamMap.get('searchKey');
+    this.filterModel.accommodationTypeID =
+      this.route.snapshot.queryParamMap.get('type');
+    this.filterModel.districtID =
+      this.route.snapshot.queryParamMap.get('district');
     this.filter();
-    // this.searchTerm$.pipe(debounceTime(600)).subscribe((_) => {
-    //   this.filterModel.searchKey = this.searchTerm$.value;
-    //   this.pageIndex = 1;
-    //   this.filter();
-    // });
+    this.accommodationService.getAllAccommodationType().subscribe((result) => {
+      this.accommodationType = result;
+    });
   }
 
   filter(pageIndex?: number): void {
-    this.isSearch = true;
     const filter = { ...this.filterModel };
-    HomeComponent.filterModel = filter;
     this.accommodationService
       .filter(pageIndex ? pageIndex : 1, this.pageSize, filter)
       .subscribe((result) => {
@@ -49,7 +63,54 @@ export class AccommodationListComponent implements OnInit {
         if (result.items && result.items.length == 0 && result.pageCount > 0) {
           this.filter(result.pageCount);
         }
+        result.items.forEach((item) => {
+          const params = this.dataSource.find((x) => x.accommodationID == item.accommodationID);
+          this.rateCommentService
+          .getAllQtyAndPointRateComment(params.accommodationID)
+          .subscribe((result) => {
+                params.qty = result.qty;
+                params.point = result.point;
+                params.text = params.point == 5 ? 'Tuyệt vời' : (params.point == 4 ? 'Hoàn hảo' : (params.point == 3 ? 'Bình thường' : (params.point == 2 ? 'Không tốt' : (params.point == 1 && params.qty !== 0 ? 'Tệ' : 'Chưa có đánh giá'))));
+                // this.textComment(params);
+            });
+        });
       });
+  }
+
+  textComment(item: AccommodationModel): void {
+    switch (item.point) {
+      case 5: {
+        item.text = 'Tuyệt vời';
+        break;
+      }
+      case 4: {
+        item.text = 'Hoàn hảo';
+        break;
+      }
+      case 3: {
+        item.text = 'Bình thường';
+        break;
+      }
+      case 2: {
+        item.text = 'Không tốt';
+        break;
+      }
+      case 1: {
+        item.text = 'Tệ';
+        break;
+      }
+      default: {
+        item.text = '123';
+      }
+    }
+  }
+
+  getAll(): void {
+    this.router.navigate(['/dashboard/accommodation/list']);
+    this.filterModel.searchKey = '';
+    this.filterModel.districtID = '';
+    this.filterModel.provinceID = '';
+    this.filter();
   }
 
   onPageSizeChange(event: number): void {
@@ -62,26 +123,38 @@ export class AccommodationListComponent implements OnInit {
     this.filter(event);
   }
 
-  viewMap(): void {
-    const isCorrectFormat =
-      this.dataSource.map((o) => o.mapURL) &&
-      this.dataSource.map((o) => o.mapURL.length) &&
-      this.dataSource.map((o) => o.mapURL.trim().startsWith('<iframe>')) &&
-      this.dataSource.map((o) => o.mapURL.trim().endsWith(`</iframe>`));
+  viewMap(item: AccommodationModel): void {
+    const isCorrect =
+      item?.mapURL != null &&
+      item?.mapURL.trim().startsWith('<iframe') &&
+      item?.mapURL.trim().endsWith(`</iframe>`);
     const modal = this.modalService.create({
       nzContent: PopupGoogleMapComponent,
       nzComponentParams: {
-        content: this.dataSource.map((o) => o.mapURL).toString(),
-        // isCorrectFormat,
+        content: item?.mapURL,
+        isCorrect,
       },
       nzFooter: null,
-      nzWidth: isCorrectFormat ? (window.innerWidth * 7) / 10 : 350,
+      nzWidth: isCorrect ? (window.innerWidth * 7) / 10 : 350,
     });
 
     modal.afterClose.subscribe((result) => {});
   }
 
+  getIcon(): void {
+    this.iconUtilityList = IconUtilityList;
+  }
+
   onChange(result: Date): void {
     console.log('onChange: ', result);
+  }
+
+  changeActive(event: boolean, item: AccommodationTypeModel): void {
+    if (event) {
+      this.checkedAccommodationType = false;
+      this.filterModel.accommodationTypeID = item.accommodationTypeID;
+    } else {
+      this.filterModel.accommodationTypeID = null;
+    }
   }
 }

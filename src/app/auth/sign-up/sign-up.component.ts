@@ -8,7 +8,7 @@ import CustomValidator from 'src/app/shared/helpers/custom-validator.helper';
 import { MustMatch } from 'src/app/shared/helpers/must-match.validator';
 import DateTimeConvertHelper from 'src/app/shared/helpers/datetime-convert.helper';
 import { SignUpNotificationPopupComponent } from 'src/app/shared/components/popups/sign-up-notification-popup/sign-up-notification-popup.component';
-import { NotiticationType } from 'src/app/shared/emun/notification-type.enum';
+import { NotificationType } from 'src/app/shared/emun/notification-type.enum';
 import { Location } from '@angular/common';
 import { LocationModel } from 'src/app/shared/models/master-data/location.model';
 
@@ -97,7 +97,7 @@ export class SignUpComponent implements OnInit {
       nzContent: SignUpNotificationPopupComponent,
       nzComponentParams: {
         title: 'Thông báo',
-        type: NotiticationType.Success,
+        type: NotificationType.Success,
         subTitle: 'Đăng ký thành công!',
         // content: `Cảm ơn bạn đã đăng ký tài khoản trên hệ thống Crystal Bay Group.
         // Vui lòng kiểm tra email và nhấp vào đường dẫn để xác thực tài khoản.

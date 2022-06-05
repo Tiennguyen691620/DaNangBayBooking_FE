@@ -1,0 +1,18 @@
+<form [formGroup]="form" errorTailor>
+  <div class="d-flex align-items-center justify-content-center">
+    <p class="f-title-confirm mb-0 me-1">Đánh giá</p>
+  </div>
+  <div class="">
+    <nz-rate formControlName="rating" [(ngModel)]="value" [nzTooltips]="tooltips"></nz-rate>
+    <span *ngIf="value" class="ant-rate-text">{{ value ? tooltips[value - 1] : '' }}</span>
+  </div>
+  <div class="mt-2">
+    <p class="mb-0 required"><i>Đánh giá của bạn: </i></p>
+    <textarea class="form-control mt-2" rows="2" formControlName="description"></textarea>
+  </div>
+
+  <div class="d-flex align-items-center justify-content-center mt-3">
+    <button nz-button class="me-2" nzType="primary" (click)="acceptModal()" type="submit">Đồng ý</button>
+    <button nz-button (click)="closeModal()" type="button">Đóng</button>
+  </div>
+</form>

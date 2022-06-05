@@ -1,7 +1,11 @@
+import { PopupUtilityProvidedComponent } from './popups/popup-utility-provided/popup-utility-provided.component';
+import { PopupRoomAccommodationComponent } from './popups/popup-room-accommodation/popup-room-accommodation.component';
+import { PopupAccommodationInfoComponent } from './popups/popup-accommodation-info/popup-accommodation-info.component';
+import { CancelBookingPopupComponent } from './popups/cancel-booking-popup/cancel-booking-popup.component';
 import { PopupGoogleMapComponent } from './popups/popup-google-map/popup-google-map.component';
 import { PopupConfirmComponent } from './popups/popup-confirm/popup-confirm.component';
 import { SignUpNotificationPopupComponent } from './popups/sign-up-notification-popup/sign-up-notification-popup.component';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -81,6 +85,15 @@ import { ErrorTailorModule } from '@ngneat/error-tailor';
 import { PipesModule } from '../pipes/pipes.module';
 import { SignupPopupComponent } from './popups/signup-popup/signup-popup.component';
 import { ForgotPasswordPopupComponent } from './popups/forgot-password-popup/forgot-password-popup.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { PopupRoomAvailableComponent } from './popups/popup-room-available/popup-room-available.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { PopupRatecommentComponent } from './popups/popup-ratecomment/popup-ratecomment.component';
+import { IConfig, NgxMaskModule } from 'ngx-mask';
+
+const maskConfig: Partial<IConfig> = {
+  validation: false,
+};
 
 @NgModule({
   declarations: [
@@ -92,6 +105,12 @@ import { ForgotPasswordPopupComponent } from './popups/forgot-password-popup/for
     PopupConfirmComponent,
     ForgotPasswordPopupComponent,
     PopupGoogleMapComponent,
+    CancelBookingPopupComponent,
+    PopupAccommodationInfoComponent,
+    PopupRoomAccommodationComponent,
+    PopupUtilityProvidedComponent,
+    PopupRoomAvailableComponent,
+    PopupRatecommentComponent,
   ],
   imports: [
     CommonModule,
@@ -166,12 +185,15 @@ import { ForgotPasswordPopupComponent } from './popups/forgot-password-popup/for
     NzWaveModule,
     NzResizableModule,
     NzPipesModule,
+    CKEditorModule,
+    NgxSpinnerModule,
+    NgxMaskModule.forRoot(maskConfig),
     ErrorTailorModule.forRoot({
       errors: {
         useValue: {
           required: 'Trường này bắt buộc!',
           password:
-            'Mật khẩu cần phải có ít nhất 8 ký tự, bao gồm ký tự chữ hoa, chữ thường và số',
+            'Mật khẩu cần phải có ít nhất 8 ký tự, bao gồm ký tự chữ hoa, chữ thường, số và kí tự đặc biệt!',
           mustMatch: 'Mật khẩu không khớp',
           toDate: ({ fromDateName, toDateName }) => {
             return `${toDateName} không được bé hơn hoặc bằng ${fromDateName}`;
@@ -193,6 +215,14 @@ import { ForgotPasswordPopupComponent } from './popups/forgot-password-popup/for
     }),
     // IvyCarouselModule
   ],
-  exports: [HeaderComponent, FooterComponent, ErrorTailorModule, PipesModule],
+  exports: [
+    HeaderComponent,
+    FooterComponent,
+    ErrorTailorModule,
+    PipesModule,
+    NgxSpinnerModule,
+    NgxMaskModule,
+    // CKEditorModule,
+  ],
 })
 export class ComponentsModule {}

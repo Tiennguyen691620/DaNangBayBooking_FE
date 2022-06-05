@@ -8,6 +8,18 @@
     }
   }
 }
+.gg-map {
+  .gg-map-container {
+    padding: 2rem 0rem;
+    display: grid;
+    place-content: center;
+  }
+}
+
+:host::ng-deep .gg-map-canvas > iframe {
+  max-width: 330px;
+  height: 220px;
+}
 .commit-logo {
   background: url("../../../../assets/images/commit-logo.png") center center
     no-repeat transparent;
@@ -22,6 +34,85 @@
   }
 }
 
-.border-green{
+.border-green {
   border: 1px solid green;
+}
+
+.grid-image {
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  .box-img {
+    box-shadow: 5px 6px 10px 0px #959595;
+  }
+}
+
+.utility-grid {
+  display: grid;
+  grid-gap: 16px;
+  padding: 16px;
+
+  @media (min-width: 320px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 375px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (min-width: 568px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  @media (min-width: 960px) {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(7, 1fr);
+  }
+
+  .f-content {
+    margin: 15px 0;
+
+    .bg-icon {
+      height: 50px;
+      width: 50px;
+      border-radius: 50%;
+      fill: white;
+
+      &-normal {
+        @extend .bg-icon;
+        background-color: #086fd0;
+      }
+
+      &-private {
+        @extend .bg-icon;
+        background-color: #f5a066;
+      }
+
+      &-disabled {
+        @extend .bg-icon;
+        background-color: #959595;
+      }
+    }
+  }
+}
+
+.f-label {
+  font-size: 11px;
+  color: #000;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.room-available {
+  border: 1px solid #188ffd;
+  padding: 0px 5px;
+  border-radius: 5px;
+  color: #188ffd;
 }

@@ -10,6 +10,8 @@ import { PaginationModel } from '../models/master-data/pagination.model';
 import { Observable } from 'rxjs';
 import Utils from '../helpers/utils.helper';
 import { map } from 'rxjs/operators';
+import { RoomAvailableFilter } from '../models/accommodation/room-available-filter.model';
+import { RoomAvailable } from '../models/accommodation/room-available.model';
 
 @Injectable({
   providedIn: 'root',
@@ -37,7 +39,7 @@ export class AccommodationService extends BaseService {
     if (!paramsFilter.districtID) {
       delete paramsFilter.districtID;
     }
-    const fileUrl = `api/Accommodation/filter?PageIndex=${pageNumber}&PageSize=${pageSize}`;
+    const fileUrl = `api/Accommodation/filter/client?PageIndex=${pageNumber}&PageSize=${pageSize}`;
     return this.get(fileUrl, Utils.createFilterParam({ ...paramsFilter })).pipe(
       map((res: any) => {
         return {
@@ -68,7 +70,10 @@ export class AccommodationService extends BaseService {
     return this.post(url, data);
   }
 
-  updateStatusAccommodation(AccommodationID: any, Status: boolean): Observable<any>{
+  updateStatusAccommodation(
+    AccommodationID: any,
+    Status: boolean
+  ): Observable<any> {
     const url = `api/Accommodation/update/${AccommodationID}/status?Status=${Status}`;
     return this.put(url, null);
   }
@@ -83,23 +88,40 @@ export class AccommodationService extends BaseService {
     return this.get(url);
   }
 
+  detailAccommodationShow(id: string): Observable<AccommodationModel> {
+    const url = `api/Accommodation/detail/${id}`;
+    return this.get(url);
+  }
+
   getUtilityAccommodation(accommodationId: string): Observable<any[]> {
     const url = `api/Accommodation/get/utility/${accommodationId}`;
     return this.get(url);
   }
 
-  updateAccommodationUtility(data: any, accommodationId: string): Observable<any>{
+  updateUtilityAccommodation(
+    data: any,
+    accommodationId: string
+  ): Observable<any> {
     const url = `api/Accommodation/update/utility/${accommodationId}`;
-    return this.put(url, data)
+    return this.put(url, data);
   }
 
-  getRoomAccommodation(accommodationId: string): Observable<RoomModel[]>{
+  getRoomAccommodation(accommodationId: string): Observable<RoomModel[]> {
     const url = `api/Accommodation/get/room/${accommodationId}`;
     return this.get(url);
   }
 
-  updateRoomAccommodation(data: any, accommodationId: string): Observable<any>{
+  updateRoomAccommodation(data: any, accommodationId: string): Observable<any> {
     const url = `api/Accommodation/update/room/${accommodationId}`;
     return this.put(url, data);
+  }
+
+  getRoomAvailable(filter: RoomAvailableFilter): Observable<RoomAvailable[]> {
+    const url = `api/Accommodation/${filter?.accommodationId}/available`;
+    if (!filter?.roomId) {
+      delete filter?.roomId;
+    }
+    delete filter?.accommodationId;
+    return this.get(url, Utils.createFilterParam(filter));
   }
 }

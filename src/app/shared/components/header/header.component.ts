@@ -9,6 +9,8 @@ import { Component, HostListener, OnInit, TemplateRef } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { windowCount } from 'rxjs/operators';
 import { auto } from '@popperjs/core';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import Utils from '../../helpers/utils.helper';
 
 @Component({
   selector: 'app-header',
@@ -26,17 +28,18 @@ export class HeaderComponent implements OnInit {
     private modalService: NzModalService,
     private router: Router,
     public authService: AuthService,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private notification: NzNotificationService
   ) {}
 
   ngOnInit(): void {
     this.fullName = this.authService.getAuthenticationModel()?.fullName;
     this.customerService
-    .getCustomerDetail(this.authService.getAuthenticationModel()?.id)
-    .subscribe((res) => {
-      this.customer = res;
-      this.avatarUrl = res.avatar;
-    });
+      .getCustomerDetail(this.authService.getAuthenticationModel()?.id)
+      .subscribe((res) => {
+        this.customer = res;
+        this.avatarUrl = res.avatar;
+      });
     this.authService.showName$.subscribe((data) => {
       this.fullName = data;
     });
@@ -48,7 +51,6 @@ export class HeaderComponent implements OnInit {
   login(): void {
     if (!this.authService.getAuthenticationModel()) {
       this.modalService.create({
-        // nzTitle: 'Đăng nhập',
         nzContent: LoginPopupComponent,
         nzCloseIcon: 'false',
         nzWidth: 400,
@@ -76,6 +78,19 @@ export class HeaderComponent implements OnInit {
     this.authService.setShowName(null);
     this.authService.logOut();
     window.location.href = `${environment.FE_ENDPOINT}home`;
+  }
+
+  myBooking(): void {
+    if (!this.authService.getAuthenticationModel()) {
+      this.notification.warning(
+        'Vui lòng đăng nhập để sử dụng chức năng này',
+        '',
+        Utils.setStyleNotification()
+      );
+    }
+    if(this.authService.getAuthenticationModel().id){
+      this.router.navigate(['/dashboard/booking-management/list']);
+    }
   }
 
   backToHome(): void {

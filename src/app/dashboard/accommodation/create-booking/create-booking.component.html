@@ -1,5 +1,5 @@
-<section class="create-booking">
-  <div class="container my-3">
+<section class="create-booking py-4">
+  <div class="container">
     <div class="row">
       <div class="col-4">
         <div class="container card py-3 mb-3">
@@ -12,7 +12,7 @@
                 <span>Nhận phòng</span>
               </div>
               <div class="fw-700">
-                <span>Ngày 05 Tháng 05 Năm 2022</span>
+                <span>{{booking?.fromDate ? (booking?.fromDate | date: ' dd / MM / yyyy') : ''}}</span>
               </div>
               <span class="c-darkgray">14:00 - 23:30</span>
             </div>
@@ -21,9 +21,9 @@
                 <span>Trả phòng</span>
               </div>
               <div class="fw-700">
-                <span>Ngày 05 Tháng 05 Năm 2022</span>
+                <span>{{booking?.toDate ? (booking?.toDate | date: 'dd / MM / yyyy') : ''}}</span>
               </div>
-              <span class="c-darkgray">14:00 - 23:30</span>
+              <span class="c-darkgray">01:00 - 12:00</span>
             </div>
           </div>
           <div class="">
@@ -31,7 +31,19 @@
               <span>Tổng thời gian lưu trú:</span>
             </div>
             <div class="">
-              <span>1 đêm</span>
+              <span>{{booking?.totalDay}} đêm</span>
+            </div>
+          </div>
+          <hr>
+          <div class="">
+            <div class="">
+              <span class="fw-700 fz-16">Bạn đã chọn</span>
+            </div>
+            <div class="">
+              <span>Phòng: <span class="fw-700">{{booking?.room?.name}}</span></span>
+            </div>
+            <div class="">
+              <span class="c-dodgerblue pointer" (click)="previous()">Đổi lựa chọn của bạn</span>
             </div>
           </div>
           <hr>
@@ -42,7 +54,7 @@
             <div class="col-12">
               <span class="required">Họ và tên:</span>
               <div class="">
-                <input nz-input type="text">
+                <input nz-input type="text" [disabled]="true" [(ngModel)]="booking.checkInName" >
               </div>
             </div>
           </div>
@@ -50,7 +62,7 @@
             <div class="col-12">
               <span class="required">Số điện thoại:</span>
               <div class="">
-                <input nz-input type="text">
+                <input nz-input type="text" [disabled]="true" [(ngModel)]="booking.checkInPhoneNumber">
               </div>
             </div>
           </div>
@@ -58,7 +70,7 @@
             <div class="col-12">
               <span class="required">CMND/CCCD:</span>
               <div class="">
-                <input nz-input type="text">
+                <input nz-input type="text" [disabled]="true" [(ngModel)]="booking.checkInIdentityCard">
               </div>
             </div>
           </div>
@@ -66,7 +78,7 @@
             <div class="col-12">
               <span class="required">Email:</span>
               <div class="">
-                <input nz-input type="text">
+                <input nz-input type="text" [disabled]="true" [(ngModel)]="booking.checkInMail">
               </div>
             </div>
           </div>
@@ -76,27 +88,27 @@
             <span class="fw-700 fz-16">Tóm tắt giá</span>
           </div>
           <div class="row">
-            <div class="col-6">
-              <span>Giá phòng:</span>
+            <div class="col-7">
+              <span>Giá phòng: (x{{booking?.qty}}) phòng/{{booking?.totalDay}} đêm</span>
             </div>
-            <div class="col-6 d-flex justify-content-end">
-              <span>VND 200.000</span>
+            <div class="col-5 d-flex justify-content-end">
+              <span>VND {{booking?.totalPrice - booking.totalPrice * 8 / 100 - booking.totalPrice * 5 / 100 | mask: 'separator': ',' }}</span>
             </div>
           </div>
           <div class="row">
-            <div class="col-6">
+            <div class="col-7">
               <span>8 % Thuế GTGT:</span>
             </div>
-            <div class="col-6 d-flex justify-content-end">
-              <span>VND 20.000</span>
+            <div class="col-5 d-flex justify-content-end">
+              <span>VND {{booking.totalPrice * 8 / 100 | mask: 'separator': ','}}</span>
             </div>
           </div>
           <div class="row">
-            <div class="col-6">
+            <div class="col-7">
               <span>5 % dịch vụ của chỗ nghỉ:</span>
             </div>
-            <div class="col-6 d-flex justify-content-end">
-              <span>VND 10.000</span>
+            <div class="col-5 d-flex justify-content-end">
+              <span>VND {{booking.totalPrice * 5 / 100 | mask: 'separator': ','}}</span>
             </div>
           </div>
           <div class="row py-5 bgr-aliceblue">
@@ -104,11 +116,11 @@
               <span class="fz-16 fw-700">Giá</span>
             </div>
             <div class="col-6 d-flex justify-content-end">
-              <span class="fw-700 fz-16">VND 230.000</span>
+              <span class="fw-700 fz-16">VND {{booking.totalPrice | mask: 'separator': ','}}</span>
             </div>
           </div>
           <div class="d-flex justify-content-center mt-3">
-            <button nz-button nzType="primary">Xác nhận đặt phòng</button>
+            <button nz-button nzType="primary" (click)="submit()">Xác nhận đặt phòng</button>
           </div>
         </div>
         <div class="container card py-3 mb-3 lh-2">
@@ -132,16 +144,16 @@
         <div class="container card mb-3">
           <div class="row py-4">
             <div class="col-3">
-              <img class="img w-100 h-100 border-r" src="../../../../assets/images/background.png" alt="">
+              <img class="img border-r" nz-image width="100%" height="160px" [nzSrc]="booking?.accommodation?.images[0].image" alt="">
             </div>
-            <div class="col-7">
+            <div class="col-9">
               <div class="d-flex flex-column">
                 <div class="accommodation-type mb-2">
-                  <span class="c-dodgerblue">Khách sạn</span>
+                  <span class="c-dodgerblue">{{booking?.accommodation?.accommodationType?.name}}</span>
                 </div>
-                <h5 class="fw-700">King House Villa Hotel & Spa</h5>
+                <h5 class="fw-700">{{booking?.accommodation?.name}}</h5>
                 <div class="mb-2">
-                  <span>25, Mỹ Khê 1, Ngũ Hành Sơn, Đà Nẵng</span>
+                  <span>{{booking?.accommodation?.address}}</span>
                 </div>
                 <div class="d-flex align-items-center mb-2">
                   <div class="d-flex align-items-center me-2">
@@ -153,6 +165,59 @@
                       <div class="mx-1">.</div>
                       <label for="">100 đánh giá</label>
                     </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container card py-3 mb-3 lh-2">
+          <div class="">
+            <span class="fz-16 fw-700">Thông tin phòng bạn đã chọn</span>
+          </div>
+          <div class="row py-2">
+            <div class="col-3">
+              <img class="img border-r" nz-image width="100%" height="160px" [nzSrc]="booking?.room?.image" alt="">
+            </div>
+            <div class="col-9">
+              <div class="d-flex flex-column">
+                <h5 class="fw-700">(x{{booking?.qty}}) phòng {{booking?.room?.name}}</h5>
+                <div class="row">
+                  <div class="col-6 mb-2">
+                    <div class="d-flex align-items-center">
+                      <span class="me-2" for="">Loại phòng:</span>
+                      <span class="fw-700">{{booking?.room?.roomType?.name}}</span>
+                    </div>
+                  </div>
+                  <div class="col-6 mb-2">
+                    <div class="d-flex align-items-center">
+                      <span class="me-2" for="">Số khách/phòng:</span>
+                      <span class="fw-700">{{booking?.room?.maximumPeople}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6 mb-2">
+                    <div class="d-flex align-items-center">
+                      <span class="me-2" for="">Số người lớn:</span>
+                      <span class="fw-700">{{booking?.personNumber}}</span>
+                    </div>
+                  </div>
+                  <div class="col-6 mb-2">
+                    <div class="d-flex align-items-center">
+                      <span class="me-2" for="">Số trẻ em:</span>
+                      <span class="fw-700">{{booking?.childNumber}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6 mb-2">
+                    <div class="d-flex align-items-center">
+                      <span class="me-2" for="">Số lượng phòng:</span>
+                      <span class="fw-700">(x{{booking?.qty}}) phòng</span>
+                    </div>
+                  </div>
+                  <div class="col-6 mb-2">
                   </div>
                 </div>
               </div>
@@ -213,10 +278,10 @@
               hoàn tất đặt phòng của mình!</span>
             </div>
             <div class="col-6">
-              <span class="fw-700">Vui lòng ghi yêu cầu của bạn tại đây. <label for="" class="fw-500">(không bắt buộc)</label></span>
+              <span class="fw-700">Yêu cầu của bạn. <label for="" class="fw-500">(không bắt buộc)</label></span>
             </div>
             <div class="col-12">
-              <textarea class="w-100"></textarea>
+              <textarea [disabled]="true" class="w-100" [(ngModel)]="booking.checkInNote"></textarea>
             </div>
           </div>
         </div>
@@ -266,3 +331,27 @@
     </div>
   </div>
 </section>
+
+
+<nz-modal nzWidth="25rem" [(nzVisible)]="isShowModal" [nzTitle]="null" [nzFooter]="null" nzCentered (nzOnCancel)="closeModal()"
+  (nzOnOk)="closeModal()" [nzClosable]="false">
+  <ng-container *nzModalContent>
+    <div class="text-center">
+      <div class="">
+        <i class="fa fa-check-circle f-icon-check pb-2" aria-hidden="true"></i>
+        <p class="f-title-confirm mb-0 me-1 fz-16 fw-700">Gửi thông tin đặt phòng thành công!</p>
+      </div>
+      <p class="mb-0">
+        <i class="f-color">
+        Thông tin đặt phòng đã được gửi về email của cơ sở lưu trú</i>
+      </p>
+      <p>Quay trở lại <span class="c-dodgerblue pointer" [routerLink]="['/dashboard/booking-management/list']">Đặt phòng của tôi</span> để kiểm tra phòng đã đặt</p>
+      <button class="mt-3" nz-button (click)="closeModal()">Đóng</button>
+    </div>
+  </ng-container>
+</nz-modal>
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+  <p style="font-size: 20px; color: white">Đang tải...</p>
+</ngx-spinner>
+

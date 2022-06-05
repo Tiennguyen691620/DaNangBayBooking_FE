@@ -1,7 +1,7 @@
 <div class="title mb-4 text-center">
   <h4 class="fw-700">Đăng nhập</h4>
 </div>
-<form nz-form [formGroup]="signInForm" class="login-form" (ngSubmit)="submitForm()">
+<form nz-form [formGroup]="signInForm" class="login-form">
   <nz-form-item>
     <nz-form-control>
       <nz-input-group nzPrefixIcon="user">
@@ -21,7 +21,7 @@
       </ng-template>
     </nz-form-control>
   </nz-form-item>
-  <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">
+  <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" (click)="submitForm()">
     Đăng nhập
   </button>
   <div class="d-flex align-items-center justify-content-center">

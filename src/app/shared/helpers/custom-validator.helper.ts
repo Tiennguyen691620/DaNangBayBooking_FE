@@ -11,7 +11,7 @@ const PHONE_NUMBER_MIN_LENGTH = 1;
 const PHONE_NUMBER_MAX_LENGTH = 10;
 const AbbreviationName_MIN_LENGTH = 3;
 const FAX_NUMBER_MIN_LENGTH = 10;
-const PASSWORD_MIN_LENGTH = 6;
+const PASSWORD_MIN_LENGTH =8;
 const PASSWORD_ULN_MIN_LENGTH = 8;
 const TAX_NUMBER_MIN_LENGTH = 10;
 const TAX_NUMBER_MAX_LENGTH = 15;
@@ -152,7 +152,7 @@ export default class CustomValidator {
 
   static phoneNumber(control: AbstractControl): ValidationErrors | null {
     return CustomValidator.isNullOrEmpty(control.value) ||
-      control.value.length >= PHONE_NUMBER_MIN_LENGTH || control.value.length <= PHONE_NUMBER_MAX_LENGTH
+      control.value.length >= PHONE_NUMBER_MIN_LENGTH && control.value.length <= PHONE_NUMBER_MAX_LENGTH
       ? null
       : {
           phoneNumber: {
@@ -208,7 +208,9 @@ export default class CustomValidator {
   }
 
   static passwordULN(control: AbstractControl): ValidationErrors | null {
-    const passwordReg = new RegExp('^(?=.*?[A-Za-z])(?=.*?[0-9]).{6,}$');
+    const passwordReg = new RegExp(
+      '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})'
+    );
     return CustomValidator.isNullOrEmpty(control.value) ||
       !passwordReg.test(control.value)
       ? {

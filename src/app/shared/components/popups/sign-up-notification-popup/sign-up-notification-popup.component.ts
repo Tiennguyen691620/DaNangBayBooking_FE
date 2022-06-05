@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
@@ -13,7 +14,7 @@ export class SignUpNotificationPopupComponent implements OnInit {
   @Input() subTitle: string;
   @Input() content: string;
   @Input() btnTitle: string = 'Đồng ý';
-  constructor(private modal: NzModalRef) { }
+  constructor(private modal: NzModalRef, private router: Router) { }
 
   ngOnInit(): void { }
 
@@ -23,6 +24,7 @@ export class SignUpNotificationPopupComponent implements OnInit {
 
   closePopupYes(): void {
     this.modal.destroy({ data: true });
+    this.router.navigate(['/home']);
   }
 
 }
