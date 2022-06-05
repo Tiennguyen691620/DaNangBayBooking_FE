@@ -1,5 +1,8 @@
 import { RateCommentService } from './../../../shared/services/rate-comment.service';
-import { IconUtility, IconUtilityList } from 'src/app/shared/constants/icon-utility';
+import {
+  IconUtility,
+  IconUtilityList,
+} from 'src/app/shared/constants/icon-utility';
 import { AccommodationTypeModel } from './../../../shared/models/accommodation/accommodation-type.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PopupGoogleMapComponent } from './../../../shared/components/popups/popup-google-map/popup-google-map.component';
@@ -25,7 +28,7 @@ export class AccommodationListComponent implements OnInit {
   totalCount = 0;
   dataSource: AccommodationModel[] = [];
   accommodationType: AccommodationTypeModel[] = [];
-  iconUtilityList: IconUtility [] = []
+  iconUtilityList: IconUtility[] = [];
   filterModel = new AccommodationFilterModel();
   searchTerm$ = new BehaviorSubject<string>('');
   constructor(
@@ -33,14 +36,17 @@ export class AccommodationListComponent implements OnInit {
     private modalService: NzModalService,
     private route: ActivatedRoute,
     private router: Router,
-    private rateCommentService: RateCommentService,
+    private rateCommentService: RateCommentService
   ) {}
 
   ngOnInit(): void {
     this.getIcon();
-    this.filterModel.searchKey = this.route.snapshot.queryParamMap.get('searchKey');
-    this.filterModel.accommodationTypeID = this.route.snapshot.queryParamMap.get('type');
-    this.filterModel.districtID = this.route.snapshot.queryParamMap.get('district');
+    this.filterModel.searchKey =
+      this.route.snapshot.queryParamMap.get('searchKey');
+    this.filterModel.accommodationTypeID =
+      this.route.snapshot.queryParamMap.get('type');
+    this.filterModel.districtID =
+      this.route.snapshot.queryParamMap.get('district');
     this.filter();
     this.accommodationService.getAllAccommodationType().subscribe((result) => {
       this.accommodationType = result;
@@ -52,16 +58,55 @@ export class AccommodationListComponent implements OnInit {
     this.accommodationService
       .filter(pageIndex ? pageIndex : 1, this.pageSize, filter)
       .subscribe((result) => {
-          this.dataSource = result.items;
-          this.totalCount = result.totalRecords;
+        this.dataSource = result.items;
+        this.totalCount = result.totalRecords;
         if (result.items && result.items.length == 0 && result.pageCount > 0) {
           this.filter(result.pageCount);
         }
+        result.items.forEach((item) => {
+          const params = this.dataSource.find((x) => x.accommodationID == item.accommodationID);
+          this.rateCommentService
+          .getAllQtyAndPointRateComment(params.accommodationID)
+          .subscribe((result) => {
+                params.qty = result.qty;
+                params.point = result.point;
+                params.text = params.point == 5 ? 'Tuyệt vời' : (params.point == 4 ? 'Hoàn hảo' : (params.point == 3 ? 'Bình thường' : (params.point == 2 ? 'Không tốt' : (params.point == 1 && params.qty !== 0 ? 'Tệ' : 'Chưa có đánh giá'))));
+                // this.textComment(params);
+            });
+        });
       });
   }
 
+  textComment(item: AccommodationModel): void {
+    switch (item.point) {
+      case 5: {
+        item.text = 'Tuyệt vời';
+        break;
+      }
+      case 4: {
+        item.text = 'Hoàn hảo';
+        break;
+      }
+      case 3: {
+        item.text = 'Bình thường';
+        break;
+      }
+      case 2: {
+        item.text = 'Không tốt';
+        break;
+      }
+      case 1: {
+        item.text = 'Tệ';
+        break;
+      }
+      default: {
+        item.text = '123';
+      }
+    }
+  }
+
   getAll(): void {
-    this.router.navigate(['/dashboard/accommodation/list'])
+    this.router.navigate(['/dashboard/accommodation/list']);
     this.filterModel.searchKey = '';
     this.filterModel.districtID = '';
     this.filterModel.provinceID = '';
@@ -105,11 +150,10 @@ export class AccommodationListComponent implements OnInit {
   }
 
   changeActive(event: boolean, item: AccommodationTypeModel): void {
-    if(event) {
+    if (event) {
       this.checkedAccommodationType = false;
       this.filterModel.accommodationTypeID = item.accommodationTypeID;
-    }
-    else {
+    } else {
       this.filterModel.accommodationTypeID = null;
     }
   }

@@ -1,4 +1,4 @@
-<section class="booking-management bgr-aliceblue py-4" style="height: 100vh;">
+<section class="booking-management bgr-aliceblue py-4">
   <div class="container">
     <div class="table-main">
       <div>
@@ -49,9 +49,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let item of dataSource; let i = index">
-              <td nzLeft="0px" class="text-center">
-                <span *ngIf="i < 10 ">0</span>{{i + 1}}
-              </td>
+              <td nzLeft="0px" class="text-center">{{item?.index - 10}}</td>
               <!-- Ma dat phong -->
               <td class="text-center" (click)="openDraw(item?.bookRoomID)">
                 <p class="mb-0 pointer" [class.status-booking-confirmed-text]="item?.status === 0" [class.status-booking-success-text]="item?.status === 1" [class.status-booking-canceled-text]="item?.status === 2" [class.status-booking-closed-text]="item?.status === 3">
@@ -118,8 +116,8 @@
               </td>
               <td nzRight="0px" class="text-center">
                 <div class="d-flex align-items-center justify-content-center" (click)="rateComment(item?.bookRoomID)">
-                  <i class="fa-regular fa-comment-dots fz-18 c-limegreen pointer" *ngIf="item?.status == 3"></i>
-                  <!-- <i class="fa-regular fa-comments" ></i> -->
+                  <i class="fa-regular fa-comment-dots fz-18 c-limegreen pointer" *ngIf="item?.status == 3 && item?.checkComment == true"></i>
+                  <i class="fa-solid fa-comment-slash fz-18 pointer" *ngIf="item?.status == 3 && item?.checkComment == false"></i>
                 </div>
                 <div class="d-flex align-items-center justify-content-center" (click)="cancelBooking(item?.bookRoomID)">
                   <i *ngIf="!(item?.status == 2) && !(item?.status == 3)" class="fa-regular fa-rectangle-xmark fz-18 c-red mt-1 pointer" nz-tooltip nzTooltipTitle="Hủy phòng" aria-hidden="true"></i>

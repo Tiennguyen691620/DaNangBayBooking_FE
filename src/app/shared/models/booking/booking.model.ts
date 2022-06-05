@@ -26,6 +26,7 @@ export class BookingModel {
   room: RoomModel;
   bookRoomDetail: BookingDetailModel;
   status: number;
+  checkComment: boolean;
   //customer: Customer;
 
   index?: number;

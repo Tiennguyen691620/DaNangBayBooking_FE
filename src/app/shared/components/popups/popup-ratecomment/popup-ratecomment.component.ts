@@ -9,8 +9,8 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
 })
 export class PopupRatecommentComponent implements OnInit {
   form: FormGroup;
-  tooltips = ['Rất tệ', 'Tệ', 'Bình thường', 'Hoàn hảo', 'Tuyệt vời'];
-  value = 0;
+  tooltips = ['Tệ', 'Không tốt', 'Bình thường', 'Hoàn hảo', 'Tuyệt vời'];
+  value = 5;
   constructor(private fb: FormBuilder, private modal: NzModalRef) {}
 
   ngOnInit(): void {

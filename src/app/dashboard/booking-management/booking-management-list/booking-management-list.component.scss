@@ -1,4 +1,6 @@
-
+// .booking-management{
+//   height: 100vh;
+// }
 .table-icon-wrapper {
   width: 23px;
   height: 23px;
@@ -9,5 +11,17 @@
   border-radius: 50%;
   margin-right: 10px;
 }
+
+@media (min-height: 850px) {
+  .booking-management{
+    height: 100vh !important;
+  }
+}
+@media (min-height: 650px) {
+  .booking-management{
+    height: calc(100vh + 200px);
+  }
+}
+
 
 

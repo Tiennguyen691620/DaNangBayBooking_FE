@@ -76,57 +76,63 @@ export class BookingManagementListComponent implements OnInit {
   }
 
   cancelBooking(id: string): void {
-    const modal = this.modalService.create({
-      nzContent: CancelBookingPopupComponent,
-      nzComponentParams: {},
-      nzWidth: 500,
-      nzFooter: null,
-      nzClosable: null,
-    });
-    modal.afterClose.subscribe((result) => {
-      if (result && result.reason) {
-        const params = {
-          id,
-          cancelReason: result.reason,
-        };
-        this.bookingService.cancelBooking(params).subscribe((_) => {
-          this.notification.success(
-            'Hủy đặt phòng thành công',
-            '',
-            Utils.setStyleNotification()
-          );
-          this.filter();
-        });
-      }
-    });
+      const modal = this.modalService.create({
+        nzContent: CancelBookingPopupComponent,
+        nzComponentParams: {},
+        nzWidth: 500,
+        nzFooter: null,
+        nzClosable: null,
+      });
+      modal.afterClose.subscribe((result) => {
+        if (result && result.reason) {
+          const params = {
+            id,
+            cancelReason: result.reason,
+          };
+          this.bookingService.cancelBooking(params).subscribe((_) => {
+            this.notification.success(
+              'Hủy đặt phòng thành công',
+              '',
+              Utils.setStyleNotification()
+            );
+            this.filter();
+          });
+        }
+      });
   }
 
   rateComment(bookRoomId: string): void {
-    const modal = this.modalService.create({
-      nzContent: PopupRatecommentComponent,
-      nzComponentParams: {},
-      nzWidth: 500,
-      nzFooter: null,
-      nzClosable: null,
-    });
-    modal.afterClose.subscribe((result) => {
-      if (result && result.description && result.rating) {
-        const params = {
-          bookRoomId,
-          description: result.description,
-          rating: result.rating,
-          title: result.title,
-        };
-        this.rateCommentService.createRateComment(params).subscribe((_) => {
-          this.notification.success(
-            'Đánh giá thành công',
-            '',
-            Utils.setStyleNotification()
-          );
-          this.filter();
-        });
-      }
-    });
+    if(!this.dataSource.find(x => x.bookRoomID == bookRoomId).checkComment === true)  {
+      return null;
+    } 
+    else {
+      const modal = this.modalService.create({
+        nzContent: PopupRatecommentComponent,
+        nzComponentParams: {},
+        nzWidth: 500,
+        nzFooter: null,
+        nzClosable: null,
+      });
+      modal.afterClose.subscribe((result) => {
+        if (result && result.description && result.rating) {
+          const params = {
+            bookRoomId,
+            description: result.description,
+            rating: result.rating,
+            title: result.title,
+          };
+          this.rateCommentService.createRateComment(params).subscribe((_) => {
+            this.notification.success(
+              'Đánh giá thành công',
+              '',
+              Utils.setStyleNotification()
+            );
+            this.filter();
+          });
+        }
+      });
+
+    }
   }
 
   closeDraw(): void {

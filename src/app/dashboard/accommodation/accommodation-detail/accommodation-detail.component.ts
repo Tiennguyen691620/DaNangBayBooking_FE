@@ -88,6 +88,7 @@ export class AccommodationDetailComponent implements OnInit {
   likes = 0;
   dislikes = 0;
   time = formatDistance(new Date(), new Date());
+  arr: any[] = [];
 
   constructor(
     private imageService: NzImageService,
@@ -106,6 +107,7 @@ export class AccommodationDetailComponent implements OnInit {
     this.id = this.route.snapshot.params['id'].includes('?')
       ? this.route.snapshot.params['id'].split('?')[0]
       : this.route.snapshot.params['id'];
+    this.filterModel.accommodationId = this.id;
     this.getIcon();
     this.createForm();
     this.updateCheckIn();
@@ -144,6 +146,17 @@ export class AccommodationDetailComponent implements OnInit {
       });
     }
   }
+
+  // filterRoom(): void {
+  //   const filter = {...this.filterModel};
+  //   this.accommodationService.getRoomAvailable(filter).subscribe((res) => {
+  //     this.roomAvailableList = res
+  //     this.arr = this.roomAvailableList.filter((item) => {
+  //       return this.arr.includes(item.id) ? '' : this.arr.push(item.id);
+  //     });
+  //     console.log("arr",this.arr);
+  //   });
+  // }
 
   createForm(): void {
     this.form = this.fb.group(
@@ -207,62 +220,69 @@ export class AccommodationDetailComponent implements OnInit {
     }
   }
 
-  onClick(item: RoomModel): void {
-    this.form.get('room').patchValue(item);
-    this.form
-      .get('totalPrice')
-      .patchValue(
-        item.price *
-          this.form.get('qty').value *
-          this.form.get('totalDay').value
-      );
-    if (!this.authService.getAuthenticationModel()) {
-      const modal = this.modalService.create({
-        nzContent: PopupConfirmComponent,
-        nzComponentParams: {
-          vnContent: 'Vui lòng đăng nhập để đặt phòng',
-        },
-        nzFooter: null,
-      });
-      modal.afterClose.subscribe((res) => {
-        if (res && res.data) {
-          this.modalService.create({
-            nzContent: LoginPopupComponent,
-            nzCloseIcon: 'false',
-            nzWidth: 400,
-            nzFooter: null,
-          });
+  onClick(item: string): void {
+    if (this.warningPersonNumber(item) == true) {
+      this.notification.warning('Vượt quá số lượng người cho phòng đặt', ' ' , Utils.setStyleNotification());
+      return null;
+    } else{
+      this.roomAccommodation.forEach((result) => {
+        if (result.roomID === item) {
+          this.form.get('room').patchValue(result);
+          this.form.get('totalPrice').patchValue(result.price * this.form.get('qty').value * this.form.get('totalDay').value
+            );
         }
-      });
-    } else {
-      if (!item) {
-        return;
-      }
-      const doSubmit = () => {
-        if (this.form.valid) {
-          this.booking = this.form.getRawValue();
-          this.current += 1;
-          this.changeContent();
-          console.log('test', this.form?.getRawValue());
-        }
-      };
-      const uploadProgresses = [];
-      for (const item of this?.uploadController) {
-        if (
-          item &&
-          item.uploadController &&
-          !item.uploadController.id &&
-          item.uploadController.progress
-        ) {
-          uploadProgresses.push(item.uploadController.progress);
-        }
-      }
-      if ((uploadProgresses ?? []).length < 0) {
-        Promise.all(uploadProgresses).then(doSubmit);
+      })
+      if (!this.authService.getAuthenticationModel()) {
+        const modal = this.modalService.create({
+          nzContent: PopupConfirmComponent,
+          nzComponentParams: {
+            vnContent: 'Vui lòng đăng nhập để đặt phòng',
+          },
+          nzFooter: null,
+        });
+        modal.afterClose.subscribe((res) => {
+          if (res && res.data) {
+            this.modalService.create({
+              nzContent: LoginPopupComponent,
+              nzCloseIcon: 'false',
+              nzWidth: 400,
+              nzFooter: null,
+            });
+          }
+        });
       } else {
-        doSubmit();
+        if (!item) {
+          return;
+        }
+        const doSubmit = () => {
+          if (this.form.valid) {
+            this.booking = this.form.getRawValue();
+            this.current += 1;
+            this.changeContent();
+            console.log('test', this.form?.getRawValue());
+          }
+        };
+        const uploadProgresses = [];
+        for (const item of this?.uploadController) {
+          if (
+            item &&
+            item.uploadController &&
+            !item.uploadController.id &&
+            item.uploadController.progress
+          ) {
+            uploadProgresses.push(item.uploadController.progress);
+          }
+        }
+        if ((uploadProgresses ?? []).length < 0) {
+          Promise.all(uploadProgresses).then(doSubmit);
+        } else {
+          doSubmit();
+        }
       }
+
     }
+
+    
   }
 
   validatorTotalDay(): boolean {
@@ -307,24 +327,25 @@ export class AccommodationDetailComponent implements OnInit {
     return true;
   }
 
-  warningPersonNumber(item: RoomModel): boolean {
-    this.form.get('room').patchValue(item);
+  warningPersonNumber(item: string): boolean {
+    this.roomAccommodation.forEach((result) => {
+      if (result.roomID === item) {
+        this.form.get('room').patchValue(result);
+      }
+    })
     const formValue = this.form.getRawValue();
     if (
-      !formValue ||
-      !formValue?.personNumber ||
-      !formValue.qty ||
-      !formValue.room
+      !formValue || !formValue?.personNumber || !formValue.qty || !formValue.room
     ) {
       return false;
     }
     if (
-      +formValue?.personNumber / +formValue.qty >
-      +formValue.room?.maximumPeople
+      +formValue?.personNumber / +formValue.qty > +formValue.room?.maximumPeople
     ) {
       return true;
     }
     return false;
+    
   }
 
   getIcon(): void {

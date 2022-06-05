@@ -255,6 +255,7 @@
                       <td>
                         <span class="fz-16 fw-700 c-dodgerblue">
                           {{item.name}}
+                          <!-- {{item.roomName}} -->
                         </span>
                       </td>
                       <td>
@@ -294,11 +295,11 @@
                       </td>
                       <td class="text-center">
                         <nz-input-number class="w-100" formControlName="personNumber" [nzStep]="1"></nz-input-number>
-                        <div *ngIf="warningPersonNumber(item)">
+                        <!-- <div *ngIf="warningPersonNumber(item.roomID)">
                           <p class="f-warning mb-0">Khả năng Số phòng đặt sẽ khó đáp ứng được theo số lượng người
                             lớn lưu trú, hãy kiểm
                             tra lại nhé!</p>
-                        </div>
+                        </div> -->
                       </td>
                       <td class="text-center">
                         <nz-input-number class="w-100" formControlName="childNumber" [nzStep]="1" (ngModelChange)="updateTotalDay()">
@@ -307,7 +308,7 @@
                       <td>
                         <div class="d-flex align-items-center justify-content-center">
                           <button class="w-100" nz-button nzType="primary" type="submit" nzShape="round" (click)="goToSearch()"
-                            (click)="onClick(item)">
+                            (click)="onClick(item.roomID)" >
                             Đặt phòng
                           </button>
                         </div>
@@ -538,5 +539,4 @@
   </ng-container>
 </nz-drawer>
 
-<app-create-booking *ngIf=" current !==0" [detail]="accommodation" [booking]="booking" [form]="form" [current]="current" (pre)="current=$event"
-  [index]="index"></app-create-booking>
+<app-create-booking *ngIf=" current !==0" [detail]="accommodation" [booking]="booking" [form]="form" [current]="current" (pre)="current=$event" [index]="index"></app-create-booking>

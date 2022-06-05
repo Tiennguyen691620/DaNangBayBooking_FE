@@ -24,6 +24,10 @@ export class AccommodationModel {
   // rooms!: RoomModel[];
   // bookRooms!: BookRoomModel[];
 
+  qty?: number;
+  point?: number;
+  text?: string;
+
   status?: boolean;
   isStatus?: DictionaryItem;
 }
