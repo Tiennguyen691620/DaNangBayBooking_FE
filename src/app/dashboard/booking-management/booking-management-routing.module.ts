@@ -2,6 +2,7 @@ import { BookingManagementListComponent } from './booking-management-list/bookin
 import { BookingManagementComponent } from './booking-management.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { BookingManagementDetailComponent } from './booking-management-detail/booking-management-detail.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
       {
         path: 'list',
         component: BookingManagementListComponent
+      },
+      {
+        path: 'detail/:id',
+        component: BookingManagementDetailComponent
       }
     ]
   }

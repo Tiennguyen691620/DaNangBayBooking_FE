@@ -1,19 +1,20 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { ReportStatisticalRoutingModule } from './report-statistical-routing.module';
 import { RevenueManagementComponent } from './revenue-management/revenue-management.component';
 import { CancelBookedComponent } from './cancel-booked/cancel-booked.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { DiaryLoginComponent } from './diary-login/diary-login.component';
 
 
 @NgModule({
   declarations: [
     RevenueManagementComponent,
-    CancelBookedComponent
+    CancelBookedComponent,
+    DiaryLoginComponent,
   ],
-  imports: [
-    CommonModule,
-    ReportStatisticalRoutingModule
-  ]
+  imports: [CommonModule, SharedModule, ReportStatisticalRoutingModule],
+  providers: [DatePipe],
 })
-export class ReportStatisticalModule { }
+export class ReportStatisticalModule {}

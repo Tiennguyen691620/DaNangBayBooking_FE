@@ -1,1 +1,195 @@
-<p>booking-management-list works!</p>
+<section class="list-member">
+  <div class="header">
+    <div class="title">
+      <span>Danh sách đặt phòng</span>
+    </div>
+    <hr>
+    <div class="content row">
+      <div class="content-header col-3">
+        <div class="search d-flex">
+          <nz-input-group nzSearch nzSize="default">
+            <input type="text" nzSize="default" (keyup)="searchTerm$.next($event.target.value)" [value]="searchTerm$.value" nz-input
+              placeholder="Nhập mã đặt phòng/tên CSLT/SĐT check-in" />
+          </nz-input-group>
+        </div>
+        <div class="filter-container">
+          <p class="m-0 f-label-booking color-label fs-12">Ngày đặt phòng</p>
+          <div class="date-booking">
+            <div class="contain-date-filter" #dateRanger>
+              <div class="gr-date">
+                <nz-date-picker class="form-control" nzFormat='dd / MM / yyyy' nzPlaceHolder='_ _ / _ _ / _ _ _ _'
+                  [(ngModel)]="filterModel.bookingFromDate" (ngModelChange)="filter()" [nzSuffixIcon]="null">
+                </nz-date-picker>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 20 20" class="ic-calendar">
+                  <g id="ic-calendar" transform="translate(-2 -2)">
+                    <path id="Path_445" data-name="Path 445" d="M0,0H20V20H0Z" transform="translate(2 2)" fill="none" />
+                    <rect id="Rectangle_608" data-name="Rectangle 608" width="16" height="16" rx="2" transform="translate(4 5)" fill="none"
+                      stroke="#7e84a3" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
+                    <line id="Line_31" data-name="Line 31" y2="4" transform="translate(16 3)" fill="none" stroke="#7e84a3" stroke-linecap="round"
+                      stroke-linejoin="round" stroke-width="1" />
+                    <line id="Line_32" data-name="Line 32" y2="4" transform="translate(8 3)" fill="none" stroke="#7e84a3" stroke-linecap="round"
+                      stroke-linejoin="round" stroke-width="1" />
+                    <line id="Line_33" data-name="Line 33" x2="16" transform="translate(4 11)" fill="none" stroke="#7e84a3" stroke-linecap="round"
+                      stroke-linejoin="round" stroke-width="1" />
+                  </g>
+                </svg>
+              </div>
+              <span class="font-to">đến</span>
+              <div class="gr-date">
+                <nz-date-picker class="form-control" nzFormat='dd / MM / yyyy' nzPlaceHolder='_ _ / _ _ / _ _ _ _'
+                  [(ngModel)]="filterModel.bookingToDate" (ngModelChange)="filter()" [nzSuffixIcon]="null">
+                </nz-date-picker>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 20 20" class="ic-calendar">
+                  <g id="ic-calendar" transform="translate(-2 -2)">
+                    <path id="Path_445" data-name="Path 445" d="M0,0H20V20H0Z" transform="translate(2 2)" fill="none" />
+                    <rect id="Rectangle_608" data-name="Rectangle 608" width="16" height="16" rx="2" transform="translate(4 5)" fill="none"
+                      stroke="#7e84a3" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
+                    <line id="Line_31" data-name="Line 31" y2="4" transform="translate(16 3)" fill="none" stroke="#7e84a3" stroke-linecap="round"
+                      stroke-linejoin="round" stroke-width="1" />
+                    <line id="Line_32" data-name="Line 32" y2="4" transform="translate(8 3)" fill="none" stroke="#7e84a3" stroke-linecap="round"
+                      stroke-linejoin="round" stroke-width="1" />
+                    <line id="Line_33" data-name="Line 33" x2="16" transform="translate(4 11)" fill="none" stroke="#7e84a3" stroke-linecap="round"
+                      stroke-linejoin="round" stroke-width="1" />
+                  </g>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <p class="m-0 f-label-checkin color-label fs-12">Ngày nhận / trả phòng</p>
+          <div class="date-checkin">
+            <div class="contain-date-filter" #dateRanger>
+              <div class="gr-date">
+                <nz-date-picker class="form-control" nzFormat='dd / MM / yyyy' nzPlaceHolder='_ _ / _ _ / _ _ _ _'
+                  [(ngModel)]="filterModel.fromDate" (ngModelChange)="filter()" [nzSuffixIcon]="null">
+                </nz-date-picker>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 20 20" class="ic-calendar">
+                  <g id="ic-calendar" transform="translate(-2 -2)">
+                    <path id="Path_445" data-name="Path 445" d="M0,0H20V20H0Z" transform="translate(2 2)" fill="none" />
+                    <rect id="Rectangle_608" data-name="Rectangle 608" width="16" height="16" rx="2" transform="translate(4 5)" fill="none"
+                      stroke="#7e84a3" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
+                    <line id="Line_31" data-name="Line 31" y2="4" transform="translate(16 3)" fill="none" stroke="#7e84a3" stroke-linecap="round"
+                      stroke-linejoin="round" stroke-width="1" />
+                    <line id="Line_32" data-name="Line 32" y2="4" transform="translate(8 3)" fill="none" stroke="#7e84a3" stroke-linecap="round"
+                      stroke-linejoin="round" stroke-width="1" />
+                    <line id="Line_33" data-name="Line 33" x2="16" transform="translate(4 11)" fill="none" stroke="#7e84a3" stroke-linecap="round"
+                      stroke-linejoin="round" stroke-width="1" />
+                  </g>
+                </svg>
+              </div>
+              <span class="font-to">đến</span>
+              <div class="gr-date">
+                <nz-date-picker class="form-control" nzFormat='dd / MM / yyyy' nzPlaceHolder='_ _ / _ _ / _ _ _ _'
+                  [(ngModel)]="filterModel.toDate" (ngModelChange)="filter()" [nzSuffixIcon]="null">
+                </nz-date-picker>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 20 20" class="ic-calendar">
+                  <g id="ic-calendar" transform="translate(-2 -2)">
+                    <path id="Path_445" data-name="Path 445" d="M0,0H20V20H0Z" transform="translate(2 2)" fill="none" />
+                    <rect id="Rectangle_608" data-name="Rectangle 608" width="16" height="16" rx="2" transform="translate(4 5)" fill="none"
+                      stroke="#7e84a3" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
+                    <line id="Line_31" data-name="Line 31" y2="4" transform="translate(16 3)" fill="none" stroke="#7e84a3" stroke-linecap="round"
+                      stroke-linejoin="round" stroke-width="1" />
+                    <line id="Line_32" data-name="Line 32" y2="4" transform="translate(8 3)" fill="none" stroke="#7e84a3" stroke-linecap="round"
+                      stroke-linejoin="round" stroke-width="1" />
+                    <line id="Line_33" data-name="Line 33" x2="16" transform="translate(4 11)" fill="none" stroke="#7e84a3" stroke-linecap="round"
+                      stroke-linejoin="round" stroke-width="1" />
+                  </g>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="table-main">
+      <nz-table #basicTable class="table-list mt-3" [nzFrontPagination]="false" [nzTemplateMode]="true" [nzLoading]="false" [nzData]="dataSource"
+        [nzScroll]="{ x: '1200px' }" [nzTotal]="totalCount" [(nzPageSize)]="pageSize" [(nzPageIndex)]="pageIndex"
+        (nzPageIndexChange)="onPageIndexChange($event)" (nzPageSizeChange)="onPageSizeChange($event)" [nzShowTotal]="rangeTemplate"
+        [nzWidthConfig]="['70px', '100px', '180px', '180px', '180px', '280px', '100px']">
+        <thead>
+          <th nzLeft="0px" class="text-center">STT</th>
+          <th class="text-center">Mã đặt phòng</th>
+          <th class="text-center">Ngày đặt phòng</th>
+          <th class="text-center">Tên CSLT</th>
+          <th class="text-uppercase text-center">
+            <div class="d-flex align-items-center justify-content-center in-out">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20.964" height="20.964" viewBox="0 0 24.964 24.964">
+                <g id="Group_13155" data-name="Group 13155" transform="translate(-366.493 -673.744)">
+                  <path id="Path_34066" data-name="Path 34066"
+                    d="M367.475,684.525v-5.142a2.5,2.5,0,0,1,2.607-2.59h17.787a2.6,2.6,0,0,1,2.606,2.59v15.753a2.6,2.6,0,0,1-2.606,2.59H370.082m4-23v3.869m10.13-3.869v3.869m-16.691,3.1h22.906"
+                    fill="none" stroke="#777b7c" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.964" />
+                  <path id="Path_34067" data-name="Path 34067" d="M373,694.81l3.239-4.259-3.8-3.96" fill="none" stroke="#777b7c"
+                    stroke-linecap="round" stroke-linejoin="round" stroke-width="1.964" />
+                  <path id="Path_34068" data-name="Path 34068" d="M368.686,695.108l3.239-4.259-3.8-3.96" fill="none" stroke="#777b7c"
+                    stroke-linecap="round" stroke-linejoin="round" stroke-width="1.964" />
+                </g>
+              </svg>
+              <span class="mx-2">In</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20.964" height="20.964" viewBox="0 0 25.318 24.964">
+                <g id="Group_12701" data-name="Group 12701" transform="translate(-399.633 -673.744)">
+                  <path id="Path_34069" data-name="Path 34069"
+                    d="M423.615,684.525v-5.142a2.5,2.5,0,0,0-2.607-2.59H403.221a2.6,2.6,0,0,0-2.606,2.59v15.753a2.6,2.6,0,0,0,2.606,2.59h17.787m-4-23v3.869m-10.13-3.869v3.869m16.691,3.1H400.662"
+                    fill="none" stroke="#777b7c" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.964" />
+                  <path id="Path_34070" data-name="Path 34070" d="M420.73,694.81l3.239-4.259-3.8-3.96" fill="none" stroke="#777b7c"
+                    stroke-linecap="round" stroke-linejoin="round" stroke-width="1.964" />
+                  <path id="Path_34071" data-name="Path 34071" d="M416.414,695.108l3.239-4.259-3.8-3.96" fill="none" stroke="#777b7c"
+                    stroke-linecap="round" stroke-linejoin="round" stroke-width="1.964" />
+                </g>
+              </svg>
+              <span class="ms-2">Out</span>
+            </div>
+          </th>
+          <th class="text-center">Trạng thái</th>
+          <th nzRight="0px" class="text-center">Thao tác</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of dataSource; let i = index">
+            <td nzLeft="0px" class="text-center">{{i + 1}}</td>
+            <td class="text-center">{{item?.no}}</td>
+            <td class="text-center">{{item?.bookingDate ? (item?.bookingDate | date: 'dd/MM/yyyy') : ''}}</td>
+            <td class="text-center">{{item?.accommodation?.name}}</td>
+            <td class="text-center">{{item?.fromDate ? (item?.fromDate | date: 'dd/MM/yyyy'): ''}} -
+              {{item?.toDate ? (item?.toDate | date: 'dd/MM/yyyy'): ''}}</td>
+            <td class="text-center">
+              <div class="d-flex justify-content-center">
+                <div class="text-center status-booking " nz-tooltip [nzTooltipTitle]="item?.status == 0 ? 'Đã tiếp nhận'
+                    : (item?.status == 1 ? 'Đã xác nhận'
+                    : (item?.status == 2 ? 'Đã hủy'
+                    : 'Đã đóng'))" [class.status-booking-confirmed]="item?.status === 0"
+                  [class.status-booking-success]="item?.status === 1" [class.status-booking-canceled]="item?.status === 2"
+                  [class.status-booking-closed]="item?.status === 3">
+                  <p class="mb-0">
+                    {{item?.status == 0 ? 'Đã tiếp nhận'
+                    : (item?.status == 1 ? 'Đã xác nhận'
+                    : (item?.status == 2 ? 'Đã hủy'
+                    : 'Đã đóng'))}}
+                  </p>
+                </div>
+              </div>
+            </td>
+            <td nzRight="0px" class="text-center">
+              <div class="d-flex align-items-center justify-content-around">
+                <i class="fa-solid fa-eye pointer c-dodgerblue" [routerLink]="['/dashboard/booking-management/detail', item?.bookRoomID]"
+                  nz-tooltip [nzTooltipTitle]="'Xem'"></i>
+                <div class="d-flex align-items-center justify-content-center" (click)="cancelBooking(item?.bookRoomID)">
+                  <i *ngIf="!(item?.status == 2) && !(item?.status == 3)" class="fa-regular fa-rectangle-xmark fz-18 c-red mt-1 pointer" nz-tooltip
+                    nzTooltipTitle="Hủy phòng" aria-hidden="true"></i>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+      <div *ngIf="(dataSource ?? []).length === 0" class="d-flex justify-content-center mt-3">
+        <p class="mb-0 text-center">Không có dữ liệu</p>
+      </div>
+    </div>
+    <ng-template #rangeTemplate let-range="range" let-total>
+      <div class="mt-1">Tổng số {{ total }}</div>
+    </ng-template>
+  </div>
+  <div class="footer">
+
+  </div>
+</section>

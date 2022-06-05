@@ -1,4 +1,4 @@
-import { BookRoomModel } from "../book-room/book-room.model";
+
 import { LocationModel } from "../master-data/location.model";
 import { RoleModel } from "../role/role.model";
 
@@ -19,5 +19,4 @@ export class CustomerModel{
   status: boolean;
   role: RoleModel;
   location: LocationModel;
-  // bookRooms: BookRoomModel;
 }

@@ -12,12 +12,6 @@
               placeholder="Nhập Email/SĐT/Họ và tên" />
           </nz-input-group>
         </div>
-        <!-- <div class="group-btn">
-          <button nz-button class="button" nzSize="default" [routerLink]="'/dashboard/customer-management/member-customer/create'" [queryParams]="{typeForm: 'create'}" >
-            <i class="fa-solid fa-plus pe-2 fz-14"></i>
-            Tạo mới
-          </button>
-        </div> -->
       </div>
     </div>
   </div>
@@ -67,11 +61,8 @@
         <p class="mb-0 text-center">Không có dữ liệu</p>
       </div>
     </div>
-    <ng-template #rangeTemplate let-range="range" let-total>
-      <div class="mt-1">Tổng số {{ total }}</div>
-    </ng-template>
   </div>
-  <div class="footer">
-
-  </div>
+  <ng-template #rangeTemplate let-range="range" let-total>
+    <div class="mt-1">Tổng số {{ total }}</div>
+  </ng-template>
 </section>

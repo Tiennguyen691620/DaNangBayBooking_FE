@@ -11,7 +11,6 @@ import { SourceDataManagementComponent } from './source-data-management/source-d
 import { CustomerManagementComponent } from './customer-management/customer-management.component';
 import { UserManagementComponent } from './user-management/user-management.component';
 import { ReportStatisticalComponent } from './report-statistical/report-statistical.component';
-import { DiaryLoginComponent } from './report-statistical/diary-login/diary-login.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +22,6 @@ import { DiaryLoginComponent } from './report-statistical/diary-login/diary-logi
     CustomerManagementComponent,
     UserManagementComponent,
     ReportStatisticalComponent,
-    DiaryLoginComponent,
   ],
   imports: [CommonModule, DashboardRoutingModule, SharedModule],
 })

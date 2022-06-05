@@ -1,0 +1,22 @@
+:host ::ng-deep {
+  .ant-table-pagination.ant-pagination {
+    margin: 10px 0px 0px 16px;
+  }
+}
+
+.label-fromDate {
+  width: 65px;
+}
+
+.label-toDate {
+  width: 65px;
+}
+
+.f-title {
+  font-size: 15px;
+}
+
+nz-date-picker {
+  width: 125px;
+  min-width: 125px;
+}

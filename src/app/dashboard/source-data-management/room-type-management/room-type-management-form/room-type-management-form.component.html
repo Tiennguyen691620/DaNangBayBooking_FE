@@ -40,10 +40,10 @@
             <div class="row">
               <div class="col-4"></div>
               <div class="col-8">
-                <button type="submit" (click)="submitForm()" class="me-2 btn-save" nz-button>
+                <button type="submit" nzType="primary" (click)="submitForm()" class="me-2 btn-save" nz-button>
                   Lưu
                 </button>
-                <button type="button" nz-button class="ms-2 btn-cancel" [routerLink]="[
+                <button type="button" nzType="default" nz-button class="ms-2 btn-cancel" [routerLink]="[
                     '/dashboard/source-data-management/room-type/list'
                   ]">
                   Hủy bỏ

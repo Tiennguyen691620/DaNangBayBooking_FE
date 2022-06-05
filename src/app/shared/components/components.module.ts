@@ -1,3 +1,5 @@
+import { RoomAvailablePopupComponent } from './popups/room-available-popup/room-available-popup.component';
+import { CancelBookingPopupComponent } from './popups/cancel-booking-popup/cancel-booking-popup.component';
 import { PipesModule } from './../pipes/pipes.module';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -15,7 +17,6 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzInputModule } from 'ng-zorro-antd/input';
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { ErrorTailorModule } from '@ngneat/error-tailor';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
@@ -25,6 +26,66 @@ import { PopupGoogleMapComponent } from './popups/popup-google-map/popup-google-
 import { PopupResetPasswordComponent } from './popups/popup-reset-password/popup-reset-password.component';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { PopupChangePasswordComponent } from './popups/popup-change-password/popup-change-password.component';
+import { PopupAccommodationInfoComponent } from './popups/popup-accommodation-info/popup-accommodation-info.component';
+import { NzImageModule } from 'ng-zorro-antd/image';
+import { PopupUtilityProvidedComponent } from './popups/popup-utility-provided/popup-utility-provided.component';
+import { PopupRoomAccommodationComponent } from './popups/popup-room-accommodation/popup-room-accommodation.component';
+import { NzAffixModule } from 'ng-zorro-antd/affix';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
+import { NzAnchorModule } from 'ng-zorro-antd/anchor';
+import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
+import { NzBackTopModule } from 'ng-zorro-antd/back-top';
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
+import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
+import { NzCalendarModule } from 'ng-zorro-antd/calendar';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzCarouselModule } from 'ng-zorro-antd/carousel';
+import { NzCollapseModule } from 'ng-zorro-antd/collapse';
+import { NzCascaderModule } from 'ng-zorro-antd/cascader';
+import { NzCommentModule } from 'ng-zorro-antd/comment';
+import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzI18nModule } from 'ng-zorro-antd/i18n';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import { NzPipesModule } from 'ng-zorro-antd/pipes';
+import { NzResizableModule } from 'ng-zorro-antd/resizable';
+import { NzWaveModule } from 'ng-zorro-antd/core/wave';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
+import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
+import { NzTreeViewModule } from 'ng-zorro-antd/tree-view';
+import { NzTreeModule } from 'ng-zorro-antd/tree';
+import { NzTransferModule } from 'ng-zorro-antd/transfer';
+import { NzTransButtonModule } from 'ng-zorro-antd/core/trans-button';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTimelineModule } from 'ng-zorro-antd/timeline';
+import { NzTimePickerModule } from 'ng-zorro-antd/time-picker';
+import { NzTagModule } from 'ng-zorro-antd/tag';
+import { NzSwitchModule } from 'ng-zorro-antd/switch';
+import { NzStepsModule } from 'ng-zorro-antd/steps';
+import { NzStatisticModule } from 'ng-zorro-antd/statistic';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzSliderModule } from 'ng-zorro-antd/slider';
+import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
+import { NzResultModule } from 'ng-zorro-antd/result';
+import { NzRateModule } from 'ng-zorro-antd/rate';
+import { NzProgressModule } from 'ng-zorro-antd/progress';
+import { NzPopoverModule } from 'ng-zorro-antd/popover';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
+import { NzNotificationModule } from 'ng-zorro-antd/notification';
+import { NzNoAnimationModule } from 'ng-zorro-antd/core/no-animation';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { NzMentionModule } from 'ng-zorro-antd/mention';
+import { NzListModule } from 'ng-zorro-antd/list';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 const options: () => Partial<IConfig> = () => {
   return {
@@ -41,23 +102,86 @@ const options: () => Partial<IConfig> = () => {
     PopupGoogleMapComponent,
     PopupResetPasswordComponent,
     PopupChangePasswordComponent,
+    CancelBookingPopupComponent,
+    PopupAccommodationInfoComponent,
+    PopupUtilityProvidedComponent,
+    PopupRoomAccommodationComponent,
+    RoomAvailablePopupComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule,
-    RouterModule,
     PipesModule,
-    NgxMaskModule.forRoot(options),
-    NzIconModule,
-    NzInputModule,
+    ReactiveFormsModule,
+    NzAffixModule,
+    NzAlertModule,
+    NzAnchorModule,
+    NzAutocompleteModule,
+    NzAvatarModule,
+    NzBackTopModule,
+    NzBadgeModule,
     NzButtonModule,
-    CKEditorModule,
+    NzBreadCrumbModule,
+    NzCalendarModule,
+    NzCardModule,
+    NzCarouselModule,
+    NzCascaderModule,
+    NzCheckboxModule,
+    NzCollapseModule,
+    NzCommentModule,
+    NzDatePickerModule,
+    NzDescriptionsModule,
+    NzDividerModule,
+    NzDrawerModule,
+    NzDropDownModule,
+    NzEmptyModule,
+    NzFormModule,
+    NzGridModule,
+    NzI18nModule,
+    NzIconModule,
+    NzImageModule,
+    NzInputModule,
+    NzInputNumberModule,
+    NzLayoutModule,
+    NzListModule,
+    NzMentionModule,
+    NzMenuModule,
+    NzMessageModule,
+    NzModalModule,
+    NzNoAnimationModule,
+    NzNotificationModule,
+    NzPageHeaderModule,
+    NzPaginationModule,
+    NzPopconfirmModule,
+    NzPopoverModule,
+    NzProgressModule,
+    NzRadioModule,
+    NzRateModule,
+    NzResultModule,
+    NzSelectModule,
+    NzSkeletonModule,
+    NzSliderModule,
+    NzSpinModule,
+    NzStatisticModule,
+    NzStepsModule,
+    NzSwitchModule,
     NzTableModule,
     NzTabsModule,
-    NzCheckboxModule,
-    NzAvatarModule,
-    NzDatePickerModule,
+    NzTagModule,
+    NzTimePickerModule,
+    NzTimelineModule,
+    NzToolTipModule,
+    NzTransButtonModule,
+    NzTransferModule,
+    NzTreeModule,
+    NzTreeViewModule,
+    NzTreeSelectModule,
+    NzTypographyModule,
+    NzUploadModule,
+    NzWaveModule,
+    NzResizableModule,
+    NzPipesModule,
+    CKEditorModule,
     ErrorTailorModule.forRoot({
       errors: {
         useValue: {
@@ -83,12 +207,13 @@ const options: () => Partial<IConfig> = () => {
         },
       },
     }),
-    NzCheckboxModule,
-    NzRadioModule,
-    NzUploadModule,
-    NzSelectModule,
-    NzDrawerModule,
   ],
-  exports: [HeaderComponent, FooterComponent, PipesModule],
+  exports: [
+    HeaderComponent,
+    FooterComponent,
+    PipesModule,
+    ErrorTailorModule,
+    CKEditorModule,
+  ],
 })
 export class ComponentsModule {}

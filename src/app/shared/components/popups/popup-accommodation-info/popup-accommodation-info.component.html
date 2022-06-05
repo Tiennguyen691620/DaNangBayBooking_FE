@@ -1,0 +1,142 @@
+<div class="container-fluid py-2 ">
+  <div class="px-3 mt-2 d-flex align-items-center">
+    <div class="font-dot"></div>
+    <p class="f-title mb-0 ms-2">Thông tin cơ sở lưu trú</p>
+  </div>
+  <div class="mt-2 row">
+    <div class="col-lg-6 col-md-7 col-12 content-left">
+      <div class="row">
+        <div class="col-md-5 col-sm-4 col-5 pe-0">
+          <p class="mb-0 text-sm-end color-label">Mã cơ sở lưu trú</p>
+        </div>
+        <div class="col-md-7 col-sm-8 col-7">
+          <div class="d-flex">
+            <span class="pe-3">:</span>
+            <p class="mb-0">{{accommodation?.no}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-md-5 col-sm-4 col-5 pe-0">
+          <p class="mb-0 text-sm-end color-label">Tên cơ sở lưu trú</p>
+        </div>
+        <div class="col-md-7 col-sm-8 col-7">
+          <div class="d-flex">
+            <span class="pe-3">:</span>
+            <p class="mb-0">{{accommodation?.name}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-md-5 col-sm-4 col-5 pe-0">
+          <p class="mb-0 text-sm-end color-label">Viết tắt</p>
+        </div>
+        <div class="col-md-7 col-sm-8 col-7">
+          <div class="d-flex">
+            <span class="pe-3">:</span>
+            <p class="mb-0">{{accommodation?.abbreviationName}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-md-5 col-sm-4 col-5 pe-0">
+          <p class="mb-0 text-sm-end color-label">Loại cơ sở lưu trú</p>
+        </div>
+        <div class="col-md-7 col-sm-8 col-7">
+          <div class="d-flex">
+            <span class="pe-3">:</span>
+            <p class="mb-0">{{accommodation?.accommodationType?.name}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-md-5 col-sm-4 col-5 pe-0">
+          <p class="mb-0 text-sm-end color-label">Tỉnh/Thành phố</p>
+        </div>
+        <div class="col-md-7 col-sm-8 col-7">
+          <div class="d-flex">
+            <span class="pe-3">:</span>
+            <p class="mb-0">{{accommodation?.province?.name}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-md-5 col-sm-4 col-5 pe-0">
+          <p class="mb-0 text-sm-end color-label">Quận/Huyện</p>
+        </div>
+        <div class="col-md-7 col-sm-8 col-7">
+          <div class="d-flex">
+            <span class="pe-3">:</span>
+            <p class="mb-0">{{accommodation?.district?.name}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-md-5 col-sm-4 col-5 pe-0">
+          <p class="mb-0 text-sm-end color-label">Phường/Xã</p>
+        </div>
+        <div class="col-md-7 col-sm-8 col-7">
+          <div class="d-flex">
+            <span class="pe-3">:</span>
+            <p class="mb-0">{{accommodation?.subDistrict?.name}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-md-5 col-sm-4 col-5 pe-0">
+          <p class="mb-0 text-sm-end color-label">Địa chỉ</p>
+        </div>
+        <div class="col-md-7 col-sm-8 col-7">
+          <div class="d-flex">
+            <span class="pe-3">:</span>
+            <p class="mb-0 text-justify">{{accommodation?.address ?? ''}}</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-lg-6 col-md-5 col-12 content-right mt-3 mt-md-0">
+      <p class="mb-0">Mô tả</p>
+      <div class="term-condition mt-2">
+        <ckeditor [disabled]="true" [editor]="Editor" [ngModel]="accommodation?.description ?? ''"></ckeditor>
+        <!-- <div *ngIf="accommodation?.termsAndConditions"
+                [innerHTML]="accommodation?.termsAndConditions | safe: 'html'"></div> -->
+        <!-- <p class="mb-0">{{accommodation?.name}}</p> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mt-3">
+  <div class="mt-md-0 mt-sm-1 mt-1">
+    <div *ngIf="isCorrectFormat" [innerHTML]="mapUrl | safe: 'html'"></div>
+  </div>
+</div>
+
+<div>
+  <nz-image-group class="img-wrapper">
+    <ng-container *ngFor="let item of photoUpload; let i = index">
+      <div class="position-relative">
+        <img class="image-upload pointer" nz-image [nzSrc]="item" alt="" />
+        <!-- <img class="image-upload pointer" [src]="item" (click)="viewFullScreenImage(photoUpload, photoIndex)" /> -->
+      </div>
+    </ng-container>
+  </nz-image-group>
+</div>
+
+<div class="d-flex justify-content-center mt-4 pb-4 d-md-none">
+  <button class="btn btn-primary text-uppercase" (click)="cancel()">Đóng</button>
+</div>
+
+<div class="m-2">
+  <!-- <app-image-carousel class="d-flex justify-content-center align-items-center" *ngIf="imageShowPopupView && imageShowPopupView.length > 0"
+    [(imageUrlArray)]="imageShowPopupView" [(indexOfImage)]="indexOfImage" (closed)="closeView()"></app-image-carousel> -->
+</div>
+

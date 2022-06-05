@@ -1,0 +1,51 @@
+<div class="card px-3 py-2 border-0 mb-3">
+    <p class="f-title fw-bold mb-3">Tình trạng phòng trống theo thời gian</p>
+    <div class="d-flex flex-wrap">
+        <div class="d-flex align-items-center me-3 mb-2">
+            <div class="label-fromDate">Từ ngày:</div>
+            <nz-date-picker nzFormat='dd/MM/yyyy' nzPlaceHolder='dd/MM/yyyy' [(ngModel)]="filterModel.fromDate"
+                (ngModelChange)="filter()">
+            </nz-date-picker>
+        </div>
+        <div class="d-flex align-items-center mb-2">
+            <div class="label-toDate">Đến ngày:</div>
+            <nz-date-picker class="form-control" nzFormat='dd/MM/yyyy' nzPlaceHolder='dd/MM/yyyy'
+                [(ngModel)]="filterModel.toDate" (ngModelChange)="filter()">
+            </nz-date-picker>
+        </div>
+    </div>
+    <nz-table #basicTable class="table-list mt-3" [nzFrontPagination]="false" [nzTemplateMode]="true"
+        [nzData]="dataSource" [nzLoading]="false" [nzScroll]="{ x: '750px' }" [nzShowTotal]="rangeTemplate"
+        [nzWidthConfig]="getWidthConfig()">
+        <thead>
+            <th nzLeft="0px" class="text-center">Tên loại phòng</th>
+            <th nzLeft="150px" class="text-center">Thuộc loại phòng</th>
+            <ng-container *ngFor="let data of qtyPerDateList">
+                <th class="text-center">{{data?.date ? (data?.date | date:'dd/MM/yyyy') : ''}}</th>
+            </ng-container>
+            <th></th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of dataSource; let i = index">
+                <td nzLeft="0px" class="text-center">{{item?.roomAvailable?.roomName ?? ''}}</td>
+                <td nzLeft="150px" class="text-center">{{item?.roomAvailable?.roomTypeName ?? ''}}</td>
+                <ng-container *ngFor="let data of item.qtyPerDateList">
+                    <td class="text-center">{{data?.qty ?? 0}}</td>
+                </ng-container>
+                <td></td>
+            </tr>
+        </tbody>
+    </nz-table>
+    <div *ngIf="(dataSource ?? []).length === 0" class="d-flex justify-content-center mt-3">
+        <p class="mb-0">Không có dữ liệu</p>
+    </div>
+    <div class="d-flex justify-content-center mt-3">
+        <button nz-button type="button" class="but-width" (click)="cancel()">Đóng</button>
+    </div>
+</div>
+
+<ng-template #rangeTemplate let-range="range" let-total>
+    <div class="mt-1">
+        Tổng số {{total}}
+    </div>
+</ng-template>
