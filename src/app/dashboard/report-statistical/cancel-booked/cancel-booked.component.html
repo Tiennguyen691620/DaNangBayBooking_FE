@@ -38,7 +38,7 @@
             <span>Ngày yêu cầu</span>
           </div>
           <div class="col-7">
-            <nz-range-picker nzSize="default" class="w-100"></nz-range-picker>
+            <nz-range-picker (ngModelChange)="onChangeBooking($event)" ngModel nzSize="default" class="w-100"></nz-range-picker>
           </div>
        </div>
       </div>
@@ -48,7 +48,7 @@
             <span>Ngày nhận/trả phòng</span>
           </div>
           <div class="col-7">
-            <nz-range-picker nzSize="default" class="w-100"></nz-range-picker>
+            <nz-range-picker (ngModelChange)="onChangeCheckIn($event)" ngModel nzSize="default" class="w-100"></nz-range-picker>
           </div>
         </div>
       </div>
@@ -97,8 +97,15 @@
               <td class="text-center">{{item?.toDate ? (item?.toDate * 1000 | date: 'dd/MM/yyyy') : ''}}</td>
               <td class="text-center">{{item?.bookRoomDetail?.personNumber}}</td>
               <td class="text-center">{{item?.bookRoomDetail?.childNumber}}</td>
-              <td class="text-center">{{item?.qty}}</td>
-              <td class="text-center">{{item?.status == 0 ? 'Đã tiếp nhận' : (item?.status == 1 ? 'Đã xác nhận' : (item?.status == 2 ? 'Đã hủy' : 'Đã Đóng'))}}</td>
+              <td class="text-center">{{item?.totalDay}}</td>
+              <td class="text-center" >
+              <div class="" [class.status-booking-confirmed]="item?.status == 0" 
+              [class.status-booking-success]="item?.status == 1" 
+              [class.status-booking-canceled]="item?.status == 2" 
+              [class.status-booking-closed]="item?.status == 3">
+                {{item?.status == 0 ? 'Đã tiếp nhận' : (item?.status == 1 ? 'Đã xác nhận' : (item?.status == 2 ? 'Đã hủy' : 'Đã Đóng'))}}
+              </div>
+              </td>
               <td class="text-center">{{item?.bookRoomDetail?.cancelDate | date: 'dd/MM/yyyy'}}</td>
               <td class="text-center">{{item?.checkInNote}}</td>
             </tr>

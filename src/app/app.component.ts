@@ -1,3 +1,4 @@
+import { AuthService } from './shared/services/auth/auth.service';
 import { SpinnerService } from './shared/services/spinner.service';
 import { Router } from '@angular/router';
 import {
@@ -18,10 +19,11 @@ export class AppComponent implements OnInit, AfterContentInit {
   constructor(
     private router: Router,
     private spinnerService: SpinnerService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   ngAfterContentInit(): void {
     this.isShow = false;

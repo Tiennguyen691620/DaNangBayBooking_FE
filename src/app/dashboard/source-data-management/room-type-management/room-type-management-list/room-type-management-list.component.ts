@@ -100,4 +100,40 @@ export class RoomTypeManagementListComponent implements OnInit {
       }
     });
   }
+
+  changeActive(Status: boolean, roomType: RoomTypeModel): void {
+    if (!roomType) {
+      return;
+    }
+
+    const type = Status ? 'kích hoạt lại' : 'vô hiệu hoá';
+    const modal = this.modalService.create({
+      nzContent: PopupConfirmComponent,
+      nzComponentParams: {
+        vnContent: `Bạn có thực sự muốn ${type} loại phòng này không?`,
+      },
+      nzFooter: null,
+    });
+    modal.afterClose.subscribe((result) => {
+      if (result && result.data) {
+        // const queryParams = { UserAdminID: employee?.id };
+        this.roomTypeService.updateStatusRoomType(roomType.roomTypeID, Status).subscribe(
+          (_) => {
+            this.notification.success(
+              `Đã ${type} loại phòng!`,
+              '',
+              Utils.setStyleNotification()
+            );
+            // this.filter(this.pageIndex);
+          },
+          (err) => {
+            roomType.status = !roomType.status;
+          }
+        );
+      }
+      if (!result || !result?.data) {
+        roomType.status = !roomType.status;
+      }
+    });
+  }
 }

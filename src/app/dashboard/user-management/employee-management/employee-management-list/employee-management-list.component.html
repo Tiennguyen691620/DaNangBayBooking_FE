@@ -55,7 +55,7 @@
                 <nz-switch nz-tooltip [nzTooltipTitle]="'Thay đổi trạng thái'" nzSize="small" class="" [(ngModel)]="item.status"(ngModelChange)="changeActive($event, item)"></nz-switch>
                 <i class="fa-solid fa-eye pointer c-dodgerblue" [routerLink]="['/dashboard/user-management/employee/view', item.id]"
                   [queryParams]="{typeForm: 'view'}"></i>
-                <i nz-tooltip="xóa" class="fa-regular fa-trash-can pointer c-red" ></i>
+                <!-- <i nz-tooltip="xóa" class="fa-regular fa-trash-can pointer c-red" ></i> -->
               </div>
             </td>
           </tr>

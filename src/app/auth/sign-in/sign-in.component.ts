@@ -66,6 +66,8 @@ export class SignInComponent implements OnInit {
             this.authService.setAuthenticationModel(
               res.data as AuthenticationModel
             );
+            this.authService.setShowName(res.data.fullName);
+            this.authService.setChangeAvatar(res.data.avatar);
             this.router.navigate(['/dashboard']);
           },
           (error) => {}

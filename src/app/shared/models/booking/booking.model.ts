@@ -8,8 +8,8 @@ import { BookingDetailModel } from '../booking-detail/booking-detail.model';
 export class BookingModel {
   bookRoomID: string;
   no: string;
-  fromDate: Date | any;
-  toDate: Date | any;
+  fromDate: number ;
+  toDate: number ;
   qty: number;
   totalDay: number;
   totalPrice: number;
@@ -20,7 +20,7 @@ export class BookingModel {
   checkInIdentityCard: string;
   checkInMail: string;
   checkInNote: string;
-  bookingDate: Date | any;
+  bookingDate: number ;
   accommodation: AccommodationModel;
   room: RoomModel;
   bookRoomDetail: BookingDetailModel;

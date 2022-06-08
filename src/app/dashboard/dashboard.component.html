@@ -1,4 +1,5 @@
 <section class="dashboard">
+  <app-header></app-header>
   <nz-layout class="bgr-gainsboro" style="height: calc(100vh - 144px);">
     <nz-sider class="abc " [nzTheme]="'light'"  nzCollapsible="true" [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" [nzBreakpoint]="'lg'">
       <!-- <div class="logo"></div> -->
@@ -38,15 +39,15 @@
             <li nz-menu-item routerLink="/dashboard/report-statistical/cancel-booked" routerLinkActive="link-active" >Lượt khách hủy phòng</li>
             <li nz-menu-item  routerLink="/dashboard/report-statistical/revenue" routerLinkActive="link-active" >Quản lý doanh thu</li>
             <!-- <li nz-menu-item>Thông tin CSLT</li> -->
-            <li nz-menu-item  routerLink="/dashboard/report-statistical/diary-login" routerLinkActive="link-active" >Nhật kí đăng nhập người dùng</li>
+            <!-- <li nz-menu-item  routerLink="/dashboard/report-statistical/diary-login" routerLinkActive="link-active" >Nhật kí đăng nhập người dùng</li> -->
           </ul>
         </li>
         <ng-template #statistical> <i class="fa-solid fa-flag me-2"></i> <span [class.isCollapsed-false]="isCollapsed"> Báo cáo thống kê </span> </ng-template>
 
-        <li nz-menu-item routerLink="/dashboard/request-support/list" >
+        <!-- <li nz-menu-item routerLink="/dashboard/request-support/list" >
           <i class="fa-solid fa-comments me-2"></i>
           <span class="" [class.isCollapsed-false]="isCollapsed">Ghi nhận & xử lý yêu cầu/hỗ trợ</span>
-        </li>
+        </li> -->
       </ul>
     </nz-sider>
     <nz-layout class="bgr-gainsboro ms-4 mt-3">

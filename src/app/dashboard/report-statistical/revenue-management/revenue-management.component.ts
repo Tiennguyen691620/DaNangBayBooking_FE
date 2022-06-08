@@ -89,7 +89,8 @@ export class RevenueManagementComponent implements OnInit {
           this.pieRevenueNote.push({
             name: item?.name,
             color,
-            y: item?.amount,
+            x: Highchart.numberFormat(item?.amount, 0, ',', ','),
+            y: item?.qty,
             z: 400,
           });
 
@@ -97,7 +98,8 @@ export class RevenueManagementComponent implements OnInit {
             this.pieRevenueData.push({
               name: item?.name,
               color,
-              y: item?.amount,
+              x: Highchart.numberFormat(item?.amount, 0,',', ','),
+              y: item?.qty,
               z: 400,
             });
           }
@@ -122,9 +124,12 @@ export class RevenueManagementComponent implements OnInit {
   }
 
   createPieChart(renderTo: HTMLElement | string, data: any): void {
-    const totalQty = data
+    const qty = data
       ?.map((item) => item.y)
-      ?.reduce((acc, cur) => Highchart.numberFormat(acc + cur,0, '', ','), 0);
+      ?.reduce((acc, cur) => acc + cur, 0);
+    // const totalQty = data
+    //   ?.map((item) => item.y)
+    //   ?.reduce((acc, cur) => Highchart.numberFormat(acc + cur,0,',', ','));
     const option: Highchart.Options = {
       chart: {
         type: 'pie',
@@ -144,17 +149,23 @@ export class RevenueManagementComponent implements OnInit {
         shape: 'square',
         pointFormat:
           '<span style="color: white;">- {point.name}</span></b><br/>' +
-          '<span style="color: white;">- abc: <b>{point.y} VND</span></b><br/>',
+          '<span style="color: white;">- Tổng tiền: <b>{point.x} VND</span></b><br/>' +
+          '<span style="color: white;">- Số lượng đặt: <b>{point.y} </span></b><br/>',
+      },
+      //  +'<span style="color: white;">- abc: <b>{point.percentage:.1f}%</span></b><br/>'
+      accessibility: {
+        point: {
+          valueSuffix: '%',
+        },
       },
       credits: {
         enabled: false,
       },
       title: {
-        // text: '',
-        text: totalQty + ' VND',
+        text: qty,
         verticalAlign: 'middle',
         align: 'center',
-        y: -2,
+        y: 0,
       },
       plotOptions: {
         pie: {
@@ -162,7 +173,7 @@ export class RevenueManagementComponent implements OnInit {
           cursor: 'pointer',
           dataLabels: {
             enabled: true,
-            format: '<b>{point.name}</b>',
+            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
           },
           borderWidth: 0,
           states: {
@@ -212,7 +223,7 @@ export class RevenueManagementComponent implements OnInit {
         width: '97%',
         type: 'category',
         title: {
-          text: 'Ngày<br>phát hành',
+          text: 'Ngày<br>đặt phòng',
           align: 'high',
           textAlign: 'center',
           offset: 0,
@@ -238,7 +249,7 @@ export class RevenueManagementComponent implements OnInit {
         height: '78%',
         top: '15%',
         title: {
-          text: 'SL phát hành',
+          text: 'SL phòng đặt',
           align: 'high',
           offset: 0,
           rotation: 0,
@@ -361,13 +372,9 @@ export class RevenueManagementComponent implements OnInit {
     return colors;
   }
 
-  // onChange(result: any): void {
-  //   this.filterModel.toDate = DateTimeConvertHelper.fromDtObjectToTimestamp(
-  //     result[1]
-  //   );
-  //   this.filterModel.fromDate = DateTimeConvertHelper.fromDtObjectToTimestamp(
-  //     result[0]
-  //   );
-  //   this.filter();
-  // }
+  onChange(result: any): void {
+    this.filterModel.fromDate = result[0];
+    this.filterModel.toDate = result[1];
+    // this.filter();
+  }
 }

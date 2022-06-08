@@ -73,7 +73,7 @@ export class CancelBookedComponent implements OnInit {
     this.bookingService.getBookingReport(filter).subscribe((res) => {
       const dataExport = res.map((item, index) => {
         return {
-          'STT': {
+          STT: {
             t: 'n',
             v: index + 1,
             s: {
@@ -166,10 +166,7 @@ export class CancelBookedComponent implements OnInit {
 
           'Số đêm nghỉ': {
             t: 's',
-            v:
-              Math.floor(
-                ((item?.toDate as any) - (item?.fromDate as any)) / 86400
-              ) * item?.qty ?? 0,
+            v: item?.totalDay,
             s: {
               border: borderTable,
             },
@@ -197,7 +194,10 @@ export class CancelBookedComponent implements OnInit {
 
           'Ngày hủy': {
             t: 's',
-            v: this.datePipe.transform(item?.bookRoomDetail?.cancelDate, 'dd/MM/yyyy'),
+            v: this.datePipe.transform(
+              item?.bookRoomDetail?.cancelDate,
+              'dd/MM/yyyy'
+            ),
             s: {
               border: borderTable,
             },
@@ -213,7 +213,7 @@ export class CancelBookedComponent implements OnInit {
         };
       });
       const headers = {
-        'STT': '',
+        STT: '',
         'Cơ Sở lưu trú': '',
         'Họ & tên': '',
         'Mã đặt phòng': '',
@@ -227,15 +227,48 @@ export class CancelBookedComponent implements OnInit {
         'Ngày hủy': '',
         'Ghi chú': '',
       };
-      XLSXFile.reportBookingCancel(headers, dataExport, 'BÁO CÁO THỐNG KÊ LƯỢT KHÁCH ĐẶT HỦY PHÒNG',
-          {
-            bookingFromDate: this.datePipe.transform(this.filterModel?.bookingFromDate, 'dd/MM/yyyy') ?? '',
-            bookingToDate: this.datePipe.transform(this.filterModel?.bookingToDate, 'dd/MM/yyyy') ?? '',
-            checkInFromDate: this.datePipe.transform(this.filterModel?.checkInFromDate, 'dd/MM/yyyy') ?? '',
-            checkInToDate: this.datePipe.transform(this.filterModel?.checkInToDate, 'dd/MM/yyyy') ?? '',
-            accommodationId: this.accommodationList.find(item => item.accommodationID === this.filterModel.accommodationId)?.name ?? 'Tất cả',
-            status: this.filterModel?.status == 0 ? 'Đã tiếp nhận' : (this.filterModel?.status == 1 ? 'Đã xác nhận' : this.filterModel?.status == 2 ? 'Đã hủy' : 'Đã Đóng') ?? '',
-          });
+      XLSXFile.reportBookingCancel(
+        headers,
+        dataExport,
+        'BÁO CÁO THỐNG KÊ LƯỢT KHÁCH ĐẶT HỦY PHÒNG',
+        {
+          bookingFromDate:
+            this.datePipe.transform(
+              this.filterModel?.bookingFromDate,
+              'dd/MM/yyyy'
+            ) ?? '',
+          bookingToDate:
+            this.datePipe.transform(
+              this.filterModel?.bookingToDate,
+              'dd/MM/yyyy'
+            ) ?? '',
+          checkInFromDate:
+            this.datePipe.transform(
+              this.filterModel?.checkInFromDate,
+              'dd/MM/yyyy'
+            ) ?? '',
+          checkInToDate:
+            this.datePipe.transform(
+              this.filterModel?.checkInToDate,
+              'dd/MM/yyyy'
+            ) ?? '',
+          accommodationId:
+            this.accommodationList.find(
+              (item) =>
+                item.accommodationID === this.filterModel.accommodationId
+            )?.name ?? 'Tất cả',
+          status:
+            this.filterModel?.status == 0
+              ? 'Đã tiếp nhận'
+              : (this.filterModel?.status == 1
+                  ? 'Đã xác nhận'
+                  : this.filterModel?.status == 2
+                  ? 'Đã hủy'
+                  : this.filterModel?.status == 3
+                  ? 'Đã đóng'
+                  : 'Tất cả') ?? 'tất cả',
+        }
+      );
     });
   }
 
@@ -251,16 +284,28 @@ export class CancelBookedComponent implements OnInit {
           fgColor: { rgb: '139a57' },
         };
       }
-      case 3: {
+      case 2: {
         return {
           fgColor: { rgb: '585858' },
         };
       }
-      case 2: {
+      case 3: {
         return {
           fgColor: { rgb: '989898' },
         };
       }
     }
+  }
+
+  onChangeBooking(result: any): void {
+    this.filterModel.bookingFromDate = result[0];
+    this.filterModel.bookingToDate = result[1];
+    // this.filter();
+  }
+
+  onChangeCheckIn(result: any): void {
+    this.filterModel.checkInFromDate = result[0];
+    this.filterModel.checkInToDate = result[1];
+    // this.filter();
   }
 }

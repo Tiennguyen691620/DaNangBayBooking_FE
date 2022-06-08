@@ -14,6 +14,7 @@ export class HeaderComponent implements OnInit {
   fullName: string;
   avatarUrl: string;
   id: string;
+  isShow = false;
 
   constructor(
     private router: Router,
@@ -23,14 +24,20 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.fullName = this.authService.getAuthenticationModel().fullName;
-    this.userService.getUser(this.authService.getAuthenticationModel().id).subscribe((res) => {
-        this.avatarUrl = res.avatar;
-        this.id= res.id
-    })
+    this.fullName = this.authService.getAuthenticationModel()?.fullName;
+    this.avatarUrl = this.authService.getAuthenticationModel()?.avatar;
+    this.id = this.authService.getAuthenticationModel()?.id;
+    // this.userService.getUser(this.authService.getAuthenticationModel().id).subscribe((res) => {
+    //   this.avatarUrl = res.avatar;
+    //   // this.fullName = res.fullName;
+    //   this.id= res.id;
+    // });
+    this.authService.showName$.subscribe((data) => {
+      this.fullName = data;
+    });
     this.authService.changeAvatar$.subscribe((data) => {
       this.avatarUrl = data;
-    })
+    });
   }
 
   profile(): void {
@@ -48,5 +55,7 @@ export class HeaderComponent implements OnInit {
 
   logOut(): void {
     this.authService.logOut();
+    this.authService.setShowName(null);
+    this.authService.setShowLogin(false);
   }
 }
