@@ -1,32 +1,88 @@
-.f-utility {
+// .f-utility {
+//   .f-content {
+//     width: 230px;
+//     margin: 15px 30px;
+//     &-normal {
+//       @extend .f-content;
+//       fill: #484848;
+//     }
+//     &-disabled {
+//       @extend .f-content;
+//       color: #888888;
+//       fill: #888888;
+//     }
+//   }
+// }
+// .f-label {
+//   font-size: 14px;
+// }
+// svg {
+//   width: 30px;
+// }
+
+// .f-title {
+//   font-size: 15px;
+//   font-weight: 700;
+// }
+
+// .f-note {
+//   margin-left: 54px;
+// }
+
+.utility-grid {
+  display: grid;
+  grid-gap: 16px;
+  padding: 16px;
+
+  @media (min-width: 320px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 375px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (min-width: 568px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  @media (min-width: 960px) {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(7, 1fr);
+  }
+
   .f-content {
-    width: 230px;
-    margin: 15px 30px;
-    &-normal {
-      @extend .f-content;
-      fill: #484848;
-    }
-    &-disabled {
-      @extend .f-content;
-      color: #888888;
-      fill: #888888;
+    margin: 15px 0;
+
+    .bg-icon {
+      height: 50px;
+      width: 50px;
+      border-radius: 50%;
+      fill: white;
+
+      &-normal {
+        @extend .bg-icon;
+        background-color: #086fd0;
+      }
+
+      &-private {
+        @extend .bg-icon;
+        background-color: #f5a066;
+      }
+
+      &-disabled {
+        @extend .bg-icon;
+        background-color: #959595;
+      }
     }
   }
-}
-.f-label {
-  font-size: 14px;
-}
-svg {
-  width: 30px;
-}
-
-.f-title {
-  font-size: 15px;
-  font-weight: 700;
-}
-
-.f-note {
-  margin-left: 54px;
 }
 
 :host ::ng-deep {
@@ -72,4 +128,17 @@ svg {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.note-enable {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: #188ffd;
+}
+.note-disable{
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: #a9a9a9;
 }

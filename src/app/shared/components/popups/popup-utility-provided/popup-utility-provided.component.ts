@@ -11,8 +11,6 @@ import { AccommodationService } from 'src/app/shared/services/accommodation.serv
 export class PopupUtilityProvidedComponent implements OnInit {
   @Input() id: string;
   iconUtilityList: IconUtility[] = [];
-  iconUtilityListChecked: IconUtility[] = [];
-  iconUtilityListDisabled: IconUtility[] = [];
   utilityApiList: {
     id: string;
     utilityType: string;
@@ -44,12 +42,6 @@ export class PopupUtilityProvidedComponent implements OnInit {
             item.checked = false;
           }
         });
-        this.iconUtilityListChecked = this.iconUtilityList.filter(
-          (item) => item.checked
-        );
-        this.iconUtilityListDisabled = this.iconUtilityList.filter(
-          (item) => !item.checked
-        );
       });
   }
   isDisableForm(isSelected: boolean): boolean {

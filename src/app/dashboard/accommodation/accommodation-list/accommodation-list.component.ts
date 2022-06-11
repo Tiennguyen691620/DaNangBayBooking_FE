@@ -24,7 +24,7 @@ export class AccommodationListComponent implements OnInit {
   checkedAccommodationType = true;
   checkedAccommodationUtility = true;
   pageIndex = 1;
-  pageSize = 10;
+  pageSize = 5;
   totalCount = 0;
   dataSource: AccommodationModel[] = [];
   accommodationType: AccommodationTypeModel[] = [];
@@ -71,7 +71,6 @@ export class AccommodationListComponent implements OnInit {
                 params.qty = result.qty;
                 params.point = result.point;
                 params.text = params.point == 5 ? 'Tuyệt vời' : (params.point == 4 ? 'Hoàn hảo' : (params.point == 3 ? 'Bình thường' : (params.point == 2 ? 'Không tốt' : (params.point == 1 && params.qty !== 0 ? 'Tệ' : 'Chưa có đánh giá'))));
-                // this.textComment(params);
             });
         });
       });
@@ -111,6 +110,12 @@ export class AccommodationListComponent implements OnInit {
     this.filterModel.districtID = '';
     this.filterModel.provinceID = '';
     this.filter();
+  }
+  getSort(): void {
+    this.dataSource.sort((a, b) => {
+      console.log(b.point - a.point);
+      return b.point - a.point;
+    });
   }
 
   onPageSizeChange(event: number): void {
