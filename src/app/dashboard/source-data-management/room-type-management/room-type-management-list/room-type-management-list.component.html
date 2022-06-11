@@ -42,12 +42,14 @@
             <td class="text-center">{{item.no}}</td>
             <td class="text-start">{{item.name}}</td>
             <td class="">{{item.description}}</td>
-            <td class="text-center">{{item.status == true ? 'Đang hoạt động' : 'Không hoạt động' }}</td>
+            <td class="text-center" [class.status-active]="item.status === true" [class.status-inActive]="item.status === false">{{item.status == true ? 'Đang hoạt động' : 'Không hoạt động' }}</td>
             <td nzRight="0px" class="text-center">
               <div class="d-flex align-items-center justify-content-evenly">
                 <i nz-tooltip="chỉnh sửa" class="fa-solid fa-pen-to-square pointer c-dodgerblue" 
                 [routerLink]="['/dashboard/source-data-management/room-type/edit', item.roomTypeID]"></i>
-                <i nz-tooltip="xóa" class="fa-regular fa-trash-can pointer c-red" (click)="deleteProgram(item)"></i>
+                <nz-switch nz-tooltip [nzTooltipTitle]="'Thay đổi trạng thái'" nzSize="small" class="" [(ngModel)]="item.status"
+                  (ngModelChange)="changeActive($event, item)"></nz-switch>
+                <!-- <i nz-tooltip="xóa" class="fa-regular fa-trash-can pointer c-red" (click)="deleteProgram(item)"></i> -->
               </div>
             </td>
           </tr>

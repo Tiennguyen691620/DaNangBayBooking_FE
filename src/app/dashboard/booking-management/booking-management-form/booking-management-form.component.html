@@ -37,7 +37,7 @@
                   <span>Người đặt phòng:</span>
                 </div>
                 <div class="col-6">
-                  <input type="text" nz-input [(ngModel)]="bookingModel.checkInName">
+                  <input type="text" nz-input disabled [(ngModel)]="bookingModel.checkInName">
                 </div>
               </div>
             </div>
@@ -49,7 +49,7 @@
                   <span>Ngày đặt phòng:</span>
                 </div>
                 <div class="col-6">
-                  <nz-date-picker class="w-100" type="text" nzFormat="dd/MM/yyyy" [(ngModel)]="bookingModel.bookingDate">
+                  <nz-date-picker class="w-100" type="text" nzFormat="dd/MM/yyyy" disabled [(ngModel)]="bookingModel.bookingDate">
                   </nz-date-picker>
                 </div>
               </div>
@@ -60,7 +60,7 @@
                   <span>Ngày hủy phòng:</span>
                 </div>
                 <div class="col-6">
-                  <nz-date-picker class="w-100" type="text" [(ngModel)]="bookingModel.bookRoomDetail.cancelDate">
+                  <nz-date-picker class="w-100" type="text" disabled [(ngModel)]="bookingModel.bookRoomDetail.cancelDate">
                   </nz-date-picker>
                 </div>
               </div>
@@ -71,7 +71,7 @@
               <span>Lý do hủy đặt phòng:</span>
             </div>
             <div class="col-9">
-              <textarea name="" id="" class="w-100" rows="3" [(ngModel)]="bookingModel.bookRoomDetail.cancelReason"></textarea>
+              <textarea name="" id="" class="w-100" rows="3" disabled [(ngModel)]="bookingModel.bookRoomDetail.cancelReason"></textarea>
             </div>
           </div>
         </div>
@@ -85,7 +85,7 @@
               <!-- <nz-select class="w-100" [(ngModel)]="bookingModel.accommodation.name" >
                 <nz-option [nzValue]="bookingModel.accommodation" [nzLabel]="bookingModel?.accommodation?.name"></nz-option>
               </nz-select> -->
-              <input type="text" nz-input [(ngModel)]="bookingModel?.accommodation.name">
+              <input type="text" nz-input disabled [(ngModel)]="bookingModel?.accommodation.name">
             </div>
             <div class="col-4 mb-3 row align-items-center">
               <div class="col-6">
@@ -101,10 +101,7 @@
               <span>Loại phòng:</span>
             </div>
             <div class="col-4 mb-3">
-              <!-- <nz-select class="w-100" [(ngModel)]="bookingModel.bookRoomDetail.room.name">
-                <nz-option [nzValue]="bookingModel.bookRoomDetail.room.name" [nzLabel]="bookingModel.bookRoomDetail.room.name"></nz-option>
-              </nz-select> -->
-              <input type="text" nz-input [(ngModel)]="bookingModel?.bookRoomDetail?.room.name">
+              <input type="text" nz-input disabled [(ngModel)]="bookingModel?.bookRoomDetail?.room.name">
             </div>
             <div class="col-4 mb-3 row align-items-center ">
               <div class="col-12">
@@ -113,13 +110,26 @@
             </div>
           </div>
           <div class="row">
+            <div class="col-3 mb-3">
+              <span>Tổng tiền:</span>
+            </div>
+            <div class="col-4 mb-3">
+              <input type="text" nz-input disabled [(ngModel)]="bookingModel.totalPrice" mask="000,000 || 0,000,000">
+            </div>
+            <!-- <div class="col-4 mb-3 row align-items-center ">
+              <div class="col-12">
+                <a href="javascript:void(0)" (click)="viewOtherEndow()">Xem phòng áp dụng tại CSLT</a>
+              </div>
+            </div> -->
+          </div>
+          <div class="row">
             <div class="col-6 mb-3">
               <div class="row align-items-center">
                 <div class="col-6">
                   <span>Ngày nhận phòng:</span>
                 </div>
                 <div class="col-6">
-                  <nz-date-picker class="w-100" [(ngModel)]="bookingModel.fromDate" nzFormat="dd/MM/yyyy"></nz-date-picker>
+                  <nz-date-picker class="w-100" disabled [(ngModel)]="bookingModel.fromDate" nzFormat="dd/MM/yyyy"></nz-date-picker>
                 </div>
               </div>
             </div>
@@ -129,7 +139,7 @@
                   <span>Ngày trả phòng:</span>
                 </div>
                 <div class="col-6">
-                  <nz-date-picker class="w-100" [(ngModel)]="bookingModel.toDate" nzFormat="dd/MM/yyyy"></nz-date-picker>
+                  <nz-date-picker class="w-100" disabled [(ngModel)]="bookingModel.toDate" nzFormat="dd/MM/yyyy"></nz-date-picker>
                 </div>
               </div>
             </div>
@@ -141,7 +151,7 @@
                   <span>Số phòng đặt:</span>
                 </div>
                 <div class="col-6">
-                  <input type="text" nz-input [(ngModel)]="bookingModel.qty">
+                  <input type="text" nz-input disabled [(ngModel)]="bookingModel.qty">
                 </div>
               </div>
             </div>
@@ -151,7 +161,7 @@
                   <span>Tổng số đêm đặt:</span>
                 </div>
                 <div class="col-6">
-                  <input type="text" nz-input [(ngModel)]="bookingModel.totalDay">
+                  <input type="text" nz-input disabled [(ngModel)]="bookingModel.totalDay">
                 </div>
               </div>
             </div>
@@ -163,7 +173,7 @@
                   <span>Số người lớn:</span>
                 </div>
                 <div class="col-6">
-                  <input type="text" nz-input [(ngModel)]="bookingModel.personNumber">
+                  <input type="text" nz-input disabled [(ngModel)]="bookingModel.personNumber">
                 </div>
               </div>
             </div>
@@ -173,7 +183,7 @@
                   <span>Số trẻ em:</span>
                 </div>
                 <div class="col-6">
-                  <input type="text" nz-input [(ngModel)]="bookingModel.childNumber">
+                  <input type="text" nz-input disabled [(ngModel)]="bookingModel.childNumber">
                 </div>
               </div>
             </div>
@@ -186,7 +196,7 @@
               <span>Họ và tên:</span>
             </div>
             <div class="col-9 mb-3">
-              <input type="text" nz-input [(ngModel)]="bookingModel.checkInName">
+              <input type="text" nz-input disabled [(ngModel)]="bookingModel.checkInName">
             </div>
           </div>
           <div class="row align-items-center">
@@ -194,7 +204,7 @@
               <span>Số điện thoại:</span>
             </div>
             <div class="col-9 mb-3">
-              <input type="text" nz-input [(ngModel)]="bookingModel.checkInPhoneNumber">
+              <input type="text" nz-input disabled [(ngModel)]="bookingModel.checkInPhoneNumber">
             </div>
           </div>
           <div class="row align-items-center">
@@ -202,7 +212,7 @@
               <span>CMND/CCCD:</span>
             </div>
             <div class="col-9 mb-3">
-              <input type="text" nz-input [(ngModel)]="bookingModel.checkInIdentityCard">
+              <input type="text" nz-input disabled [(ngModel)]="bookingModel.checkInIdentityCard">
             </div>
           </div>
           <div class="row align-items-center">
@@ -210,7 +220,7 @@
               <span>Email:</span>
             </div>
             <div class="col-9 mb-3">
-              <input type="text" nz-input [(ngModel)]="bookingModel.checkInMail">
+              <input type="text" nz-input disabled [(ngModel)]="bookingModel.checkInMail">
             </div>
           </div>
           <div class="row align-items-center">
@@ -218,7 +228,7 @@
               <span>Lý do hủy đặt phòng:</span>
             </div>
             <div class="col-9">
-              <textarea name="" id="" class="w-100" rows="3" [(ngModel)]="bookingModel.checkInNote"></textarea>
+              <textarea name="" id="" class="w-100" rows="3" disabled [(ngModel)]="bookingModel.checkInNote"></textarea>
             </div>
           </div>
         </div>

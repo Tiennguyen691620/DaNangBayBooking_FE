@@ -22,7 +22,8 @@
                 <nz-date-picker class="w-100" [(ngModel)]="filterModel.toDate" nzFormat="dd/MM/yyyy" formControlName="toDate"></nz-date-picker>
               </div>
             </div>
-            <!-- <nz-range-picker nzSize="default" class="w-100" ></nz-range-picker>  -->
+            <!-- <nz-range-picker (ngModelChange)="onChange($event)" ngModel nzSize="default" class="w-100" ></nz-range-picker>  -->
+            <!-- <nz-range-picker (ngModelChange)="onChange($event)" ngModel nzSize="default" class="w-100" ></nz-range-picker>  -->
           </div>
           <div class="col-5">
             <div class="row">

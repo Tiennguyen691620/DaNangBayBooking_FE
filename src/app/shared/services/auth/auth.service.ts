@@ -21,16 +21,22 @@ export class AuthService extends BaseService {
     super(httpClient);
   }
   showLoginSubject: Subject<boolean> = new Subject();
+  showNameSubject: Subject<string> = new Subject();
   changeAvatarSubject: Subject<string> = new Subject();
 
   showLogin$ = this.showLoginSubject.asObservable();
+  showName$ = this.showNameSubject.asObservable();
   changeAvatar$ = this.changeAvatarSubject.asObservable();
 
   setShowLogin(value: boolean) {
     this.showLoginSubject.next(value);
   }
 
-  setChangeAvatar(value: string){
+  setShowName(value: string) {
+    this.showNameSubject.next(value);
+  }
+
+  setChangeAvatar(value: string) {
     this.changeAvatarSubject.next(value);
   }
 

@@ -64,8 +64,14 @@ export class RoomTypeService extends BaseService {
     return this.delete(url, data);
   }
 
-  getAllRoomType(data?: any): Observable<RoomTypeModel[]>{
+  getAllRoomType(data?: any): Observable<RoomTypeModel[]> {
     const url = `api/RoomTypes/get-all`;
     return this.get(url, data);
+  }
+
+  updateStatusRoomType(RoomTypeId: any, Status: boolean): Observable<any> {
+    let url = '';
+    url = `api/RoomTypes/update/${RoomTypeId}/status?Status=${Status}`;
+    return this.put(url, null);
   }
 }

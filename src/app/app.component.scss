@@ -14,3 +14,7 @@
   bottom: 0;
   z-index: 9999;
 }
+
+:host::ng-deep .ant-spin-nested-loading>div>.ant-spin{
+  max-height: 100vh;
+}

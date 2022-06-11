@@ -70,29 +70,37 @@ export class DefaultInterceptor implements HttpInterceptor {
       // (ev instanceof HttpErrorResponse)
       return;
     }
-    const err = (ev.body && ev.body.error) || (ev.error && ev.error.error);
-    if (!err || ev.url.includes(`api/token/get`)) {
-      return;
-    } else {
-      this.errData.subscribe((errData) => {
-        if (ev.status === 401 || err.code === 'USER_NOT_LOGIN_TO_SYSTEM'){
-          return errData;
-        }
-        const itemErr = errData.find((item) => item.code === err.code);
-        if (itemErr) {
-          return this.notification.error(
-            `${itemErr.text}`,
-            ``,
-            Utils.setStyleNotification()
-          );
-        }
-        this.notification.error(
-          `Đã xảy ra lỗi`,
-          ``,
-          Utils.setStyleNotification()
-        );
-      });
+    if(ev?.body?.data !== null && ev.status === 200 && ev.url.includes(`https://localhost:5001/api/Users/login-admin`)){
+        return this.notification.success('Đăng nhập thành công', '', Utils.setStyleNotification());
     }
+    const err = (ev?.body && ev.body.message);
+    if (err && ev.status === 200  && ev.url.includes(`https://localhost:5001/api/Users/login-admin`)
+    ) {
+      return this.notification.error(err, '', Utils.setStyleNotification());
+    } 
+    // const err = (ev.body && ev.body.error) || (ev.error && ev.error.error);
+    // if (!err || ev.url.includes(`api/token/get`)) {
+    //   return;
+    // } else {
+    //   this.errData.subscribe((errData) => {
+    //     if (ev.status === 401 || err.code === 'USER_NOT_LOGIN_TO_SYSTEM'){
+    //       return errData;
+    //     }
+    //     const itemErr = errData.find((item) => item.code === err.code);
+    //     if (itemErr) {
+    //       return this.notification.error(
+    //         `${itemErr.text}`,
+    //         ``,
+    //         Utils.setStyleNotification()
+    //       );
+    //     }
+    //     this.notification.error(
+    //       `Đã xảy ra lỗi`,
+    //       ``,
+    //       Utils.setStyleNotification()
+    //     );
+    //   });
+    // }
   }
 
   private handleData(ev: HttpResponseBase, showSpinner: boolean): void {
