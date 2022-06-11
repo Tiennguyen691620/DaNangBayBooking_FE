@@ -110,6 +110,7 @@ export class AccommodationDetailComponent implements OnInit {
     this.filterModel.accommodationId = this.id;
     this.getIcon();
     this.createForm();
+    this.form.get('qty').disable();
     this.updateCheckIn();
     if (this.id) {
       forkJoin(
@@ -132,14 +133,15 @@ export class AccommodationDetailComponent implements OnInit {
             item.checked = false;
           }
         });
-        this.accommodation.address = res1.address.concat(
-          ', ',
-          res1.subDistrict.name,
-          ', ',
-          res1.district.name,
-          ', ',
-          res1.province.name
-        );
+        this.accommodation.address = `${res1.subDistrict.name}, ${res1.district.name}, ${res1.province.name}`;
+        // this.accommodation.address = res1.address.concat(
+        //   ', ',
+        //   res1.subDistrict.name,
+        //   ', ',
+        //   res1.district.name,
+        //   ', ',
+        //   res1.province.name
+        // );
         this.accommodation.images.forEach((o) => {
           this.photoUpload.push(o.image);
         });
@@ -163,7 +165,7 @@ export class AccommodationDetailComponent implements OnInit {
       {
         no: null,
         userId: null,
-        qty: [1, [CustomValidator.required, CustomValidator.requiredNumber]],
+        qty: [0, [CustomValidator.required]],
         fromDate: [null, [CustomValidator.required]],
         toDate: [null, [CustomValidator.required]],
         totalDay: [{ value: null, disabled: true }],
@@ -180,7 +182,7 @@ export class AccommodationDetailComponent implements OnInit {
         childNumber: [0, CustomValidator.required],
         personNumber: [
           1,
-          [CustomValidator.required, CustomValidator.requiredNumber],
+          [CustomValidator.required],
         ],
         accommodation: [null, CustomValidator.required],
         room: [null, CustomValidator.required],
@@ -221,8 +223,9 @@ export class AccommodationDetailComponent implements OnInit {
   }
 
   onClick(item: string): void {
-    if (this.warningPersonNumber(item) == true) {
-      this.notification.warning('Vượt quá số lượng người cho phòng đặt', ' ' , Utils.setStyleNotification());
+    if (this.warningPersonNumber(item) == true || this.warningChildNumber(item) == true) {
+      this.notification.warning(this.warningPersonNumber(item) == true ? 'Vượt quá số lượng người cho phòng đặt' : 'Vượt quá số lượng trẻ em', ' ' , Utils.setStyleNotification());
+      this.goToRoomAvailable();
       return null;
     } else{
       this.roomAccommodation.forEach((result) => {
@@ -255,6 +258,15 @@ export class AccommodationDetailComponent implements OnInit {
           return;
         }
         const doSubmit = () => {
+          if(this.form.get('fromDate').value == null && this.form.get('toDate').value == null){
+            this.goToSearch();
+            this.notification.warning('Vui lòng chọn ngày nhận phòng và trả phòng', ' ', Utils.setStyleNotification());
+            return;
+          }
+          if(this.form.get('qty').value === 0 || this.form.get('personNumber').value === 0){
+            this.notification.warning( this.form.get('qty').value === 0 ?'Số lượng phòng phải lớn hơn 0': 'Số người lớn phải lớn hơn 0', ' ', Utils.setStyleNotification());
+            return;
+          }
           if (this.form.valid) {
             this.booking = this.form.getRawValue();
             this.current += 1;
@@ -345,7 +357,22 @@ export class AccommodationDetailComponent implements OnInit {
       return true;
     }
     return false;
-    
+  }
+
+  warningChildNumber(item: string): boolean {
+    this.roomAccommodation.forEach((result) => {
+      if (result.roomID === item) {
+        this.form.get('room').patchValue(result);
+      }
+    });
+    const formValue = this.form.getRawValue();
+    if (!formValue || !formValue?.childNumber || !formValue?.qty || !formValue?.room) {
+      return false;
+    }
+    if (+formValue?.childNumber > +formValue?.qty) {
+      return true;
+    }
+    return false;
   }
 
   getIcon(): void {
@@ -387,6 +414,7 @@ export class AccommodationDetailComponent implements OnInit {
       this.goToSearch();
     } else {
       const formValue = this.form.getRawValue();
+      this.form.get('qty').enable();
       this.modalService.create({
         nzContent: PopupRoomAvailableComponent,
         nzComponentParams: {

@@ -157,13 +157,13 @@
                 </div>
                 <div class="d-flex align-items-center mb-2">
                   <div class="d-flex align-items-center me-2">
-                    <div class="bgr-midnightblue border-point p-1 me-2">
-                      <span class="c-white">9,4</span>
+                    <div class="bgr-midnightblue border-point px-3 py-2 me-2">
+                      <span class="c-white">{{qtyRateComment?.point}}</span>
                     </div>
                     <div class="d-flex align-items-center">
-                      <span class="fw-700">Rất tốt</span>
+                      <span class="fw-700">{{qtyRateComment.point == 5 ? 'Tuyệt vời' : qtyRateComment.point == 4 ? 'Hoàn hảo' : qtyRateComment.point == 3 ? 'Bình thường' : qtyRateComment.point == 2 ? 'Không tốt' : qtyRateComment.point == 1 ? 'Tệ' : 'Chưa đánh giá'}}</span>
                       <div class="mx-1">.</div>
-                      <label for="">100 đánh giá</label>
+                      <label for="">{{qtyRateComment?.qty}} đánh giá</label>
                     </div>
                   </div>
                 </div>
@@ -314,7 +314,7 @@
             <div class="col-11">
               <span>Lễ tân 24 giờ - Luôn có trợ giúp mỗi khi bạn cần!</span>
             </div>
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-12">
                 <span class="fw-700">Thêm thời gian đến dự kiến của bạn <label for="" class="fw-500">(Không bắt buộc)</label></span>
               </div>
@@ -324,7 +324,7 @@
               <div class="col-12">
                 <span class="c-darkgray">Thời gian theo múi giờ Việt Nam</span>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>

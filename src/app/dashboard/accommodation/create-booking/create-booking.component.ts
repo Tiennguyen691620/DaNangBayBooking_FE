@@ -25,6 +25,10 @@ export class CreateBookingComponent implements OnInit {
   @Input() detail: AccommodationModel = new AccommodationModel();
   @Input() booking: BookingModel = new BookingModel();
   @Input() form: FormGroup;
+  @Input() qtyRateComment: {
+    qty: number;
+    point: number;
+  };
   @Input() index: string;
   @Input() current: number;
   @Output() pre = new EventEmitter();

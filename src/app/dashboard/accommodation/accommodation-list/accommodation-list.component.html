@@ -18,6 +18,7 @@
           <div class="d-flex flex-column mt-3">
             <span for="">Quận/huyện:</span>
             <nz-select [(ngModel)]="filterModel.districtID" nzShowSearch nzAllowClear nzPlaceHolder="Chọn Quận/Huyện">
+              <nz-option [nzValue]="''" [nzLabel]="'Tất cả'"></nz-option>
               <nz-option  [nzValue]="'6abf0464-599e-11ec-ab77-0639800004fa'" [nzLabel]="'Hội An'"></nz-option>
               <nz-option  [nzValue]="'6abeeb99-599e-11ec-ab77-0639800004fa'" [nzLabel]="'Ngũ Hành Sơn'"></nz-option>
               <nz-option  [nzValue]="'6abee8f0-599e-11ec-ab77-0639800004fa'" [nzLabel]="'Liên Chiểu'"></nz-option>
@@ -29,6 +30,7 @@
           <div class="d-flex flex-column mt-3">
             <span for="">Thành phố:</span>
             <nz-select [(ngModel)]="filterModel.provinceID" nzShowSearch nzAllowClear nzPlaceHolder="Chọn Tỉnh/TP">
+              <nz-option [nzValue]="''" [nzLabel]="'Tất cả'"></nz-option>
               <nz-option  [nzValue]="'f4f9a2b9-599c-11ec-ab77-0639800004fa'" [nzLabel]="'Quảng Nam'"></nz-option>
               <nz-option  [nzValue]="'f4f99727-599c-11ec-ab77-0639800004fa'" [nzLabel]="'Đà Nẵng'"></nz-option>
             </nz-select>
@@ -42,7 +44,7 @@
             <div class="">
               <h5 class="mt-2">Chọn lọc theo</h5>
             </div>
-            <hr>
+            <!-- <hr>
             <div class="">
               <nz-collapse nzGhost>
                 <nz-collapse-panel [nzHeader]="'Xếp hạng sao'" [nzActive]="'true'" [nzDisabled]="'false'">
@@ -56,7 +58,7 @@
                   </div>
                 </nz-collapse-panel>
               </nz-collapse>
-            </div>
+            </div> -->
             <hr>
             <div class="">
               <nz-collapse nzGhost>
@@ -73,7 +75,7 @@
                 </nz-collapse-panel>
               </nz-collapse>
             </div>
-            <hr>
+            <!-- <hr>
             <div class="">
               <nz-collapse nzGhost>
                 <nz-collapse-panel [nzHeader]="'Tiện ích'" [nzActive]="'true'" [nzDisabled]="'false'">
@@ -82,7 +84,7 @@
                   </div>
                 </nz-collapse-panel>
               </nz-collapse>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -101,8 +103,7 @@
             <nz-dropdown-menu #menu="nzDropdownMenu">
               <ul nz-menu>
                 <li nz-menu-item (click)="getAll()">Tất cả</li>
-                <li nz-menu-item>test</li>
-                <li nz-menu-item>test</li>
+                <!-- <li nz-menu-item (click)="getSort()">;ọc</li> -->
               </ul>
             </nz-dropdown-menu>
           </div>
