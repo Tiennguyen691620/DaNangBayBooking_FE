@@ -1,3 +1,4 @@
+
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { ReportService } from './../../../shared/services/report.service';
@@ -11,6 +12,7 @@ import { ToDate } from 'src/app/shared/helpers/must-match.validator';
 import variablePie from 'highcharts/modules/variable-pie';
 import station from 'highcharts/modules/variable-pie';
 import * as moment from 'moment';
+import CustomValidator from 'src/app/shared/helpers/custom-validator.helper';
 
 declare var require: any;
 // let variablePie = require('highcharts/modules/variable-pie');
@@ -57,8 +59,8 @@ export class RevenueManagementComponent implements OnInit {
     this.formFilter = this.fb.group(
       {
         accommodation: ['', [Validators.required]],
-        fromDate: ['', [Validators.required]],
-        toDate: ['', [Validators.required]],
+        fromDate: ['', [CustomValidator.required]],
+        toDate: ['', [CustomValidator.required]],
       },
       {
         validator: ToDate(
@@ -98,7 +100,7 @@ export class RevenueManagementComponent implements OnInit {
             this.pieRevenueData.push({
               name: item?.name,
               color,
-              x: Highchart.numberFormat(item?.amount, 0,',', ','),
+              x: Highchart.numberFormat(item?.amount, 0, ',', ','),
               y: item?.qty,
               z: 400,
             });
@@ -124,9 +126,7 @@ export class RevenueManagementComponent implements OnInit {
   }
 
   createPieChart(renderTo: HTMLElement | string, data: any): void {
-    const qty = data
-      ?.map((item) => item.y)
-      ?.reduce((acc, cur) => acc + cur, 0);
+    const qty = data?.map((item) => item.y)?.reduce((acc, cur) => acc + cur, 0);
     // const totalQty = data
     //   ?.map((item) => item.y)
     //   ?.reduce((acc, cur) => Highchart.numberFormat(acc + cur,0,',', ','));
@@ -134,6 +134,7 @@ export class RevenueManagementComponent implements OnInit {
       chart: {
         type: 'pie',
         height: 400,
+        backgroundColor: 'transparent',
       },
       lang: {
         noData: 'Không có dữ liệu',
@@ -152,7 +153,6 @@ export class RevenueManagementComponent implements OnInit {
           '<span style="color: white;">- Tổng tiền: <b>{point.x} VND</span></b><br/>' +
           '<span style="color: white;">- Số lượng đặt: <b>{point.y} </span></b><br/>',
       },
-      //  +'<span style="color: white;">- abc: <b>{point.percentage:.1f}%</span></b><br/>'
       accessibility: {
         point: {
           valueSuffix: '%',
@@ -206,6 +206,7 @@ export class RevenueManagementComponent implements OnInit {
         type: 'column',
         marginRight: 30,
         marginLeft: 70,
+        backgroundColor: 'transparent',
       },
       credits: {
         enabled: false,
@@ -348,7 +349,7 @@ export class RevenueManagementComponent implements OnInit {
         style: {
           color: '#f1f1f1',
         },
-        pointFormat: '<span>{point.y}</span>',
+        pointFormat: '<span>- số lượng đặt: {point.y}</span>',
       },
 
       series: [
