@@ -8,7 +8,6 @@ import { AccommodationModel } from '../shared/models/accommodation/accommodation
 import { BehaviorSubject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -41,6 +40,7 @@ export class HomeComponent implements OnInit {
   }
 
   onClick(): void {
+    this.filterModel.districtID = '';
     this.router.navigate(['/dashboard/accommodation/list'], {
       queryParams: {
         searchKey: this.filterModel.searchKey,

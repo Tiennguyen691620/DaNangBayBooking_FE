@@ -133,7 +133,7 @@ export class AccommodationDetailComponent implements OnInit {
             item.checked = false;
           }
         });
-        this.accommodation.address = `${res1.subDistrict.name}, ${res1.district.name}, ${res1.province.name}`;
+        this.accommodation.address = `${res1.address}, ${res1.subDistrict.name}, ${res1.district.name}, ${res1.province.name}`;
         // this.accommodation.address = res1.address.concat(
         //   ', ',
         //   res1.subDistrict.name,
