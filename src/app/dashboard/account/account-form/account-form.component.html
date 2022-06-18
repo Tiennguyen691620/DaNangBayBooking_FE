@@ -47,6 +47,7 @@
       <div class="container">
         <div class="info row my-4 my-lg-5 ">
           <div class="img-wrapper col-4">
+            <img class="img w-100 h-100" *ngIf="!avatarUrl" nz-image nzSrc="./../../../../assets/images/default-thumbnail.jpg" alt="" />
             <img class="img w-100 h-100" *ngIf="avatarUrl" nz-image [nzSrc]="avatarUrl" alt="" />
             <nz-upload class="p-2 rounded " [nzDisabled]="type === eTypeForm.view" [nzShowUploadList]="false" [nzBeforeUpload]="beforeUpload" (nzChange)="handleChange($event)"
               [nzCustomRequest]="handleUpload" nzName="avatar">
@@ -62,7 +63,7 @@
           </div>
 
           <div class="customer-info col-8 p-4 bgr-aliceblue rounded-3 ">
-            <p class="fw-700 fz-16">Nguyễn Đình Quân</p>
+            <p class="fw-700 fz-16">{{accountForm.get('fullName').value}}</p>
             <div class="customer-info--list lh-2">
               <div class="row my-2">
                 <div class="customer-info__item col-6">

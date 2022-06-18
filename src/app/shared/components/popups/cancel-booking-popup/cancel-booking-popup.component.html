@@ -1,6 +1,6 @@
 <form [formGroup]="form" errorTailor>
-    <div class="d-flex align-items-center justify-content-center">
-        <p class="f-title-confirm mb-0 me-1">Bạn chắc chắn muốn Hủy phiên đặt phòng này?</p>
+    <div class="d-flex align-items-center justify-content-center" *ngFor="let item of dataSource">
+        <p class="f-title-confirm mb-0 me-1">Bạn chắc chắn muốn HỦY phiên đặt phòng có mã {{item?.no}} ?</p>
     </div>
     <div class="mt-2">
         <p class="mb-0 required"><i>Nhập lý do hủy đặt phòng: </i></p>

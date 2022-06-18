@@ -23,7 +23,7 @@ import { MasterDataService } from 'src/app/shared/services/master-data.service';
   styleUrls: ['./account-form.component.scss'],
 })
 export class AccountFormComponent implements OnInit {
-  // @Input() id: string;
+  @Input() id: string;
   @Input() type: string;
   accountForm: FormGroup;
   customer = new CustomerModel();
@@ -36,6 +36,7 @@ export class AccountFormComponent implements OnInit {
   subDistrictList: LocationModel[] = [];
   eTypeForm = ETypeForm;
   loadingImage = false;
+  
 
   constructor(
     private fb: FormBuilder,
@@ -69,7 +70,7 @@ export class AccountFormComponent implements OnInit {
   createForm(): void {
     this.accountForm = this.fb.group({
       no: [''],
-      avatar: [null, [CustomValidator.required]],
+      // avatar: [null, [CustomValidator.required]],
       fullName: ['', [CustomValidator.required]],
       phoneNumber: ['', [CustomValidator.required]],
       identityCard: ['', [CustomValidator.required]],
@@ -87,6 +88,7 @@ export class AccountFormComponent implements OnInit {
   submitForm(): void {
     const doSubmit = () => {
       if (this.accountForm.valid) {
+        // console.log(this.mapData(this.accountForm.getRawValue()));
         this.customerService
           .updateCustomer(this.mapData(this.accountForm.getRawValue()))
           .subscribe((res) => {

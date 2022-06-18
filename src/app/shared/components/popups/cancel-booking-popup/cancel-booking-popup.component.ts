@@ -1,6 +1,7 @@
+import { BookingModel } from './../../../models/booking/booking.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzModalRef } from 'ng-zorro-antd/modal';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-cancel-booking-popup',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cancel-booking-popup.component.scss']
 })
 export class CancelBookingPopupComponent implements OnInit {
-
+  @Input() dataSource: BookingModel[] = []
   form: FormGroup;
   constructor(
     private modal: NzModalRef,
