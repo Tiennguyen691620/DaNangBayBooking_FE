@@ -44,6 +44,7 @@
       </div>
     </form>
     <div class="bgr-whitesmoke mt-3 px-3 py-2" *ngIf="isShow">
+      <h5 class="d-flex justify-content-center fw-700" *ngIf="pieRevenueData.length > 0">Doanh thu của CSLT</h5>
       <div id="container" >
         <ng-container *ngFor="let item of pieRevenueNote">
           <div class="d-flex align-items-center mb-2 note">
@@ -57,6 +58,7 @@
       </div>
     </div>
     <div class="bgr-whitesmoke mt-3 px-3 py-2" *ngIf="isShow">
+      <h5 class="d-flex justify-content-center fw-700">Biểu đồ số lượng đặt phòng theo ngày của CSLT</h5>
       <div id="columnChart" class="container" style="width: 100%">
       </div>
     </div>

@@ -24,7 +24,7 @@ import { EAccommodationStatus } from 'src/app/shared/enum/accommodation/accommod
 })
 export class AccommodationManagementListComponent implements OnInit {
   pageIndex = 1;
-  pageSize = 10;
+  pageSize = 5;
   totalCount = 0;
   filterModel = new AccommodationFilterModel();
   dataSource: AccommodationModel[] = [];

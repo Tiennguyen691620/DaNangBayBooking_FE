@@ -19,7 +19,7 @@
             <li nz-menu-item routerLink="/dashboard/user-management/employee/list" routerLinkActive="link-active">Quản lý người dùng DN</li>
           </ul>
         </li>
-        <ng-template #user> <i class="fa-solid fa-user me-2 "></i> <span [class.isCollapsed-false]="isCollapsed" >Quản lý người dùng</span> </ng-template>
+        <ng-template #user> <i class="fa-solid fa-user me-2 "></i> <span [class.isCollapsed-false]="isCollapsed" >Quản lý tài khoản</span> </ng-template>
 
         <li nz-menu-item routerLink="/dashboard/booking-management/list" routerLinkActive="link-active">
           <i class="fa-solid fa-comments  me-2"></i>
@@ -36,7 +36,7 @@
         
         <li nz-submenu [nzTitle]="statistical" >
           <ul>
-            <li nz-menu-item routerLink="/dashboard/report-statistical/cancel-booked" routerLinkActive="link-active" >Lượt khách hủy phòng</li>
+            <li nz-menu-item routerLink="/dashboard/report-statistical/cancel-booked" routerLinkActive="link-active" >Lượt khách đặt/hủy phòng</li>
             <li nz-menu-item  routerLink="/dashboard/report-statistical/revenue" routerLinkActive="link-active" >Quản lý doanh thu</li>
             <!-- <li nz-menu-item>Thông tin CSLT</li> -->
             <!-- <li nz-menu-item  routerLink="/dashboard/report-statistical/diary-login" routerLinkActive="link-active" >Nhật kí đăng nhập người dùng</li> -->

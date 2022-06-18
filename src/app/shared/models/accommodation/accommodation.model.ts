@@ -22,6 +22,7 @@ export class AccommodationModel {
     image: string;
   }[];
 
+  index?: number;
   status: boolean;
   isStatus: DictionaryItem;
 }

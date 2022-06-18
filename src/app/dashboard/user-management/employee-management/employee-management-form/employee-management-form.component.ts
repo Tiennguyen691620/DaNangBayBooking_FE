@@ -198,7 +198,9 @@ export class EmployeeManagementFormComponent implements OnInit {
         this.getBase64(info.file!.originFileObj!, (img: string) => {
           this.loadingImage = false;
           this.avatarUrl = img;
-          this.authService.setChangeAvatar(this.avatarUrl);
+          if(this.type === this.eTypeForm.edit){
+            this.authService.setChangeAvatar(this.avatarUrl);
+          }
         });
         break;
       case 'error':

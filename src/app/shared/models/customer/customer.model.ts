@@ -19,4 +19,6 @@ export class CustomerModel{
   status: boolean;
   role: RoleModel;
   location: LocationModel;
+
+  index?: number
 }

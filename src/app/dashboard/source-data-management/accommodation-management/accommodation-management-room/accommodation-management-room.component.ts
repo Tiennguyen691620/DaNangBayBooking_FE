@@ -29,7 +29,7 @@ export class AccommodationManagementRoomComponent implements OnInit {
   @Input() type: string;
   typeForm: string;
   eTypeForm = ETypeForm;
-  isSubmitted: false;
+  isSubmitted = false;
   loadingImage = false;
   indexOfImage: number;
   dataSource: RoomModel[] = [];
@@ -64,8 +64,9 @@ export class AccommodationManagementRoomComponent implements OnInit {
 
   submit(): void {
     const doSubmit = () => {
-      // this.isSubmitted = true;
+      this.isSubmitted = true;
       // if (this.validateList()) {
+      // console.log(this.mapData(), this.id);
       this.accommodationService
         .updateRoomAccommodation(this.mapData(), this.id)
         .subscribe((_) => {
@@ -104,12 +105,12 @@ export class AccommodationManagementRoomComponent implements OnInit {
         roomType: item.roomType,
         maximumPeople: +item.maximumPeople,
         availableQty: +item.availableQty,
-        purchasedQty: +item.purchasedQty,
-        bookedQty: +item.bookedQty,
+        purchasedQty: 0,
+        bookedQty: 0,
         price: +item.price,
         no: item.no,
         description: item.description,
-        image: item.uploadController.fileUrl,
+        image: item.uploadController?.fileUrl,
       };
     });
   }

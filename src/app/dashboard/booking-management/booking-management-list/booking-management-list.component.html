@@ -145,7 +145,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let item of dataSource; let i = index">
-            <td nzLeft="0px" class="text-center">{{i + 1}}</td>
+            <td nzLeft="0px" class="text-center">{{item?.index -10}}</td>
             <td class="text-center">{{item?.no}}</td>
             <td class="text-center">{{item?.bookingDate ? (item?.bookingDate | date: 'dd/MM/yyyy') : ''}}</td>
             <td class="text-center">{{item?.accommodation?.name}}</td>
