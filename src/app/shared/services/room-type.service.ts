@@ -44,7 +44,7 @@ export class RoomTypeService extends BaseService {
     );
   }
 
-  createRoomType(data: any): Observable<any> {
+  createOrUpdateRoomType(data: any): Observable<any> {
     let url = '';
     if (data?.roomTypeID) {
       url = `api/RoomTypes/update`;

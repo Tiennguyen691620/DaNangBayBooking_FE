@@ -173,7 +173,8 @@ export class RevenueManagementComponent implements OnInit {
           cursor: 'pointer',
           dataLabels: {
             enabled: true,
-            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+            format: '<b>{point.name}</b>: {point.percentage:.1f} % <br/>' +
+                    '<b>({point.x} VND)</b>',
           },
           borderWidth: 0,
           states: {

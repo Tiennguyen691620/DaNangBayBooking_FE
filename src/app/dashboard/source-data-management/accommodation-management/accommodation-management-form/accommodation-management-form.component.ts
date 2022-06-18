@@ -102,7 +102,7 @@ export class AccommodationManagementFormComponent implements OnInit {
       abbreviationName: ['', Validators.required],
       accommodationType: ['', Validators.required],
       address: ['', Validators.required],
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       phone: ['', Validators.required],
       province: ['', Validators.required],
       district: ['', Validators.required],
