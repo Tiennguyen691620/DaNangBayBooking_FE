@@ -6,7 +6,7 @@ import { EBookingStatus } from './../../../shared/emun/booking/booking-status.en
 import { BookingService } from './../../../shared/services/booking.service';
 import { BehaviorSubject } from 'rxjs';
 import { BookingModel } from './../../../shared/models/booking/booking.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { BookingFilter } from 'src/app/shared/models/booking/booking-filter.model';
 import { debounceTime } from 'rxjs/operators';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -78,8 +78,10 @@ export class BookingManagementListComponent implements OnInit {
   cancelBooking(id: string): void {
       const modal = this.modalService.create({
         nzContent: CancelBookingPopupComponent,
-        nzComponentParams: {},
-        nzWidth: 500,
+        nzComponentParams: {
+          dataSource: this.dataSource.filter(x => x.bookRoomID == id),
+        },
+        nzWidth: 520,
         nzFooter: null,
         nzClosable: null,
       });

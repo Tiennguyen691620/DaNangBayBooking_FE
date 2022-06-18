@@ -231,10 +231,11 @@
               <div class="">
                 <nz-table #basicTable [nzFrontPagination]="false" [nzTemplateMode]="true" [nzLoading]="false" [nzScroll]="{ x: '900px' }"
                   [nzWidthConfig]="[
-                    '200px',
+                    '180px',
+                    '150px',
                     '100px',
                     '150px',
-                    '250px',
+                    '280px',
                     '100px',
                     '80px',
                     '80px',
@@ -242,6 +243,7 @@
                   ]">
                   <thead>
                     <th class="text-center">Loại chỗ ở</th>
+                    <th class="text-center">Hình ảnh</th>
                     <th class="text-center">Phù hợp cho</th>
                     <th class="text-center">Giá phòng</th>
                     <th class="text-center">Các lựa chọn</th>
@@ -256,6 +258,9 @@
                         <span class="fz-16 fw-700 c-dodgerblue">
                           {{item.name}}
                         </span>
+                      </td>
+                      <td class="text-center">
+                        <img loading="lazy" width="150px" height="120px" nz-image [nzSrc]="item.image" alt="">
                       </td>
                       <td>
                         <div class="text-center">
