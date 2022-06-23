@@ -66,36 +66,36 @@
       </div>
     </div>
 
-    <div class="content" *ngIf="isShow">
-      <div class="table-main">
-        <nz-table #basicTable class="table-list mt-3" [nzFrontPagination]="false" [nzTemplateMode]="true" [nzLoading]="false" [nzData]="dataSource" [nzTotal]="totalCount" [(nzPageSize)]="pageSize" [(nzPageIndex)]="pageIndex"
-        (nzPageIndexChange)="onPageIndexChange($event)" (nzPageSizeChange)="onPageSizeChange($event)" [nzShowTotal]="rangeTemplate"
-          [nzScroll]="{ x: '1200px' }"
-          [nzWidthConfig]="['70px', '200px', '180px', '150px', '150px', '150px', '150px', '130px', '120px', '120px', '150px', '150px', '130px']">
+    <div class="content" *ngIf="isShow" >
+      <div class="table-main" #epltable>
+        <nz-table #basicTable class="table-list mt-3" [nzFrontPagination]="false" [nzTemplateMode]="true" [nzLoading]="false" [nzData]="dataSource"
+          [nzScroll]="{ x: '1200px', y: '430px' }"
+          [nzWidthConfig]="['70px', '200px', '180px', '150px', '150px', '150px', '150px', '130px', '120px', '120px', '150px', '150px', '130px', '130px']">
           <thead>
             <th nzLeft="0px" class="text-center">STT</th>
-            <th class="text-center">Sơ sở lưu trú</th>
-            <th class="text-center">Họ & Tên</th>
+            <th class="text-center">Cơ sở lưu trú</th>
+            <th class="text-center">Họ & tên</th>
             <th class="text-center">Mã đặt phòng</th>
             <th class="text-center">Ngày đặt phòng</th>
             <th class="text-center">Ngày nhận phòng</th>
             <th class="text-center">Ngày trả phòng</th>
-            <th class="text-center">Số người lớn</th>
-            <th class="text-center">Số trẻ em</th>
+            <th class="text-center">SL người lớn</th>
+            <th class="text-center">SL trẻ em</th>
             <th class="text-center">Số đêm nghỉ</th>
             <th class="text-center">Trạng thái</th>
             <th class="text-center">Ngày hủy</th>
+            <th class="text-center">Lý do hủy</th>
             <th class="text-center">Ghi chú</th>
           </thead>
           <tbody>
-            <tr *ngFor="let item of dataSource; let i = index">
-              <td nzLeft="0px" class="text-center">{{item?.index}}</td>
+            <tr *ngFor="let item of basicTable.data; let i = index">
+              <td nzLeft="0px" class="text-center">{{i + 1}}</td>
               <td class="text-center">{{item?.accommodation?.name}}</td>
               <td class="text-center">{{item?.checkInName}}</td>
               <td class="text-center">{{item?.no}}</td>
               <td class="text-center">{{item?.bookingDate ? (item?.bookingDate * 1000 | date: 'dd/MM/yyyy') : ''}}</td>
               <td class="text-center">{{item?.fromDate ? (item?.fromDate * 1000 | date: 'dd/MM/yyyy') : ''}}</td>
-              <td class="text-center">{{item?.toDate ? (item?.toDate * 1000 | date: 'dd/MM/yyyy') : ''}}</td>
+              <td class="text-center">{{item?.toDate? (item?.toDate * 1000 | date: 'dd/MM/yyyy') : ''}}</td>
               <td class="text-center">{{item?.bookRoomDetail?.personNumber}}</td>
               <td class="text-center">{{item?.bookRoomDetail?.childNumber}}</td>
               <td class="text-center">{{item?.totalDay}}</td>
@@ -108,6 +108,7 @@
               </div>
               </td>
               <td class="text-center">{{item?.bookRoomDetail?.cancelDate | date: 'dd/MM/yyyy'}}</td>
+              <td class="text-center">{{item?.bookRoomDetail?.cancelReason}}</td>
               <td class="text-center">{{item?.checkInNote}}</td>
             </tr>
           </tbody>
@@ -116,9 +117,9 @@
           <p class="mb-0 text-center">Không có dữ liệu</p>
         </div>
       </div>
-      <ng-template #rangeTemplate let-range="range" let-total>
+      <!-- <ng-template #rangeTemplate let-range="range" let-total>
         <div class="mt-1">Tổng số {{ total }}</div>
-      </ng-template>
+      </ng-template> -->
     </div>
   </div>
 </section>
