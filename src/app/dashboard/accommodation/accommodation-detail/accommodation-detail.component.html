@@ -68,6 +68,9 @@
               <button nz-button nzType="primary" (click)="goToRoomAvailable()">Tìm kiếm</button>
             </div>
           </div>
+          <div class="container text-center mt-2 ">
+            <a class="text-decoration-none " href="javascript:void(0)" [routerLink]="'/dashboard/accommodation/list'">Đổi lựa chọn chỗ nghỉ</a>
+          </div>
           <div class="gg-map">
             <div class="gg-map-container">
               <div class="gg-map-canvas" id="gg-map-canvas" [innerHTML]="accommodation?.mapURL | safe:'html'"></div>

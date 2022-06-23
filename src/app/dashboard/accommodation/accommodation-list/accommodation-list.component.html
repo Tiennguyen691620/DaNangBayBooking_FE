@@ -48,8 +48,8 @@
             <div class="">
               <nz-collapse nzGhost>
                 <nz-collapse-panel [nzHeader]="'Xếp hạng sao'" [nzActive]="'true'" [nzDisabled]="'false'">
-                  <div class="d-flex flex-column">
-                    <label nz-checkbox >1 sao</label>
+                  <div class="d-flex flex-column" *ngFor="let item of dataSource" (click)="filter()" >
+                    <label nz-checkbox [nzValue]="item?.point == 1" >1 sao</label>
                     <label nz-checkbox  class="ms-0">2 sao</label>
                     <label nz-checkbox  class="ms-0">3 sao</label>
                     <label nz-checkbox  class="ms-0">4 sao</label>
@@ -103,7 +103,8 @@
             <nz-dropdown-menu #menu="nzDropdownMenu">
               <ul nz-menu>
                 <li nz-menu-item (click)="getAll()">Tất cả</li>
-                <!-- <li nz-menu-item (click)="getSort()">;ọc</li> -->
+                <li nz-menu-item (click)="getSortDesc()">Số sao từ cao xuống thấp</li>
+                <li nz-menu-item (click)="getSortAsc()">Số sao từ thấp đến cao</li>
               </ul>
             </nz-dropdown-menu>
           </div>
@@ -117,10 +118,13 @@
               <div class="col-6">
                 <div class="d-flex flex-column">
                   <h5 class="fw-700">{{item.name}}</h5>
-                  <div class="accommodation-type mb-2">
-                    <span class="c-dodgerblue">{{item.accommodationType?.name}}</span>
+                  <div class="d-flex align-items-center">
+                    <div class="accommodation-type">
+                      <span class="c-dodgerblue">{{item.accommodationType?.name}}</span>
+                    </div>
+                    <nz-rate *ngIf="item.point !== 0" class="mb-2 ms-2" [nz-tooltip]="item.point == 5 ? 'tuyệt vời': item.point == 4 ? 'Hoàn hảo' : item.point == 3 ? 'Bình thường' : item.point == 2 ? 'Không tốt' : 'Tệ'" [ngModel]="item.point" nzDisabled></nz-rate>
                   </div>
-                  <div class="row align-items-center mb-2">
+                  <div class="row align-items-center my-2">
                     <div class="d-flex align-items-center w-fitcontent col-3 " *ngIf="item?.district.locationID == '6abeeb99-599e-11ec-ab77-0639800004fa' ||item?.district.locationID == '6abeee3a-599e-11ec-ab77-0639800004fa'">
                       <svg class="me-2" style="width: 15px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <path
