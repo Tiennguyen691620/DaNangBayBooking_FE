@@ -48,7 +48,7 @@ export class HeaderComponent implements OnInit {
     this.modalService.create({
       nzContent: PopupChangePasswordComponent,
       nzCloseIcon: 'false',
-      nzWidth: '1100px',
+      nzWidth: '500px',
       nzFooter: null,
     })
   }

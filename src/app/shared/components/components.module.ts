@@ -187,7 +187,7 @@ const options: () => Partial<IConfig> = () => {
         useValue: {
           required: 'Trường này là bắt buộc',
           password:
-            'Mật khẩu cần phải có ít nhất 6 ký tự, bao gồm ký tự chữ và số',
+            'Mật khẩu cần phải có ít nhất 8 ký tự, bao gồm ký tự chữ hoa, chữ thường, số và kí tự đặc biệt!',
           mustMatch: 'Mật khẩu không khớp',
           email: 'Email không đúng định dạng',
           phoneNumber: 'Số điện thoại ít nhất phải có 10 số',

@@ -88,6 +88,10 @@ export class UserService extends BaseService {
   }
 
   changePassword(data: any): Observable<any> {
-    return;
+    if(data?.id){
+      const url = `api/Users/change-password`;
+      return this.put(url, data);
+    }
+    return null;
   }
 }

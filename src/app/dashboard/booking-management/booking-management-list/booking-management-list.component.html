@@ -5,6 +5,16 @@
     </div>
     <hr>
     <div class="content row">
+      <div class="col-9 ">
+        <div class="row align-items-center justify-content-start">
+          <span class="col-2">Ngày đặt phòng</span>
+          <nz-range-picker (ngModelChange)="onChangeBooking($event)" nzFormat="dd/MM/yyyy" ngModel nzSize="default" class="col-4"></nz-range-picker>
+        </div>
+        <div class="row align-items-center justify-content-start mt-3">
+          <span class="col-2">Ngày nhận/trả phòng</span>
+          <nz-range-picker (ngModelChange)="onChangeCheckIn($event)" nzFormat="dd/MM/yyyy" ngModel nzSize="default" class="col-4"></nz-range-picker>
+        </div>
+      </div>
       <div class="content-header col-3">
         <div class="search d-flex">
           <nz-input-group nzSearch nzSize="default">
@@ -12,6 +22,8 @@
               placeholder="Nhập mã đặt phòng/tên CSLT/SĐT check-in" />
           </nz-input-group>
         </div>
+      </div>
+      <!-- <div class="col-6">
         <div class="filter-container">
           <p class="m-0 f-label-booking color-label fs-12">Ngày đặt phòng</p>
           <div class="date-booking">
@@ -98,13 +110,13 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
   <div class="content">
     <div class="table-main">
-      <nz-table #basicTable class="table-list mt-3" [nzFrontPagination]="false" [nzTemplateMode]="true" [nzLoading]="false" [nzData]="dataSource"
-        [nzScroll]="{ x: '1200px' }" [nzTotal]="totalCount" [(nzPageSize)]="pageSize" [(nzPageIndex)]="pageIndex"
+      <nz-table #basicTable class="table-list mt-3" [nzFrontPagination]="false" [nzTemplateMode]="true" [nzLoading]="false" [nzData]="dataSource" [nzPageSizeOptions]="[10,20,30,40]" [nzShowSizeChanger]="true"
+        [nzScroll]="{ x: '1200px', y:'500px' }" [nzTotal]="totalCount" [(nzPageSize)]="pageSize" [(nzPageIndex)]="pageIndex"
         (nzPageIndexChange)="onPageIndexChange($event)" (nzPageSizeChange)="onPageSizeChange($event)" [nzShowTotal]="rangeTemplate"
         [nzWidthConfig]="['70px', '100px', '180px', '180px', '180px', '280px', '100px']">
         <thead>

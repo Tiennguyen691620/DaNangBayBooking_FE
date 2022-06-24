@@ -207,7 +207,9 @@ export default class CustomValidator {
   }
 
   static passwordULN(control: AbstractControl): ValidationErrors | null {
-    const passwordReg = new RegExp('^(?=.*?[A-Za-z])(?=.*?[0-9]).{6,}$');
+    const passwordReg = new RegExp(
+      '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})'
+    );
     return CustomValidator.isNullOrEmpty(control.value) ||
       !passwordReg.test(control.value)
       ? {

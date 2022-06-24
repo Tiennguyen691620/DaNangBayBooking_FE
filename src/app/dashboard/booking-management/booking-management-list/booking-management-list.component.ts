@@ -85,4 +85,15 @@ export class BookingManagementListComponent implements OnInit {
       }
     });
   }
+
+  onChangeBooking(result: any): void {
+    this.filterModel.bookingFromDate = result[0];
+    this.filterModel.bookingToDate = result[1];
+    this.filter();
+  }
+  onChangeCheckIn(result: any): void {
+    this.filterModel.fromDate = result[0];
+    this.filterModel.toDate = result[1];
+    this.filter();
+  }
 }
