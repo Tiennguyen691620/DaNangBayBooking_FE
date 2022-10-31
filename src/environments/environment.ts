@@ -4,8 +4,9 @@
 
 export const environment = {
   production: false,
-  API_ENDPOINT: 'https://localhost:5001/',
+  API_ENDPOINT: 'http://tiennguyen691620-001-site1.gtempurl.com',
   FE_ENDPOINT: 'http://localhost:5200/#/',
+  API_ENDPOINT_LOCAL: 'https://localhost:5001/'
 };
 
 /*

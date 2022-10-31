@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 })
 export class BaseService {
   get apiEndPoint(): string {
-    return environment.API_ENDPOINT;
+    return window['debugLocal'] ? environment.API_ENDPOINT_LOCAL : environment.API_ENDPOINT;
   }
 
   constructor(public http: HttpClient) {}
