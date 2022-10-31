@@ -94,7 +94,7 @@ export class HeaderComponent implements OnInit {
   }
 
   backToHome(): void {
-    window.location.href = `${environment.FE_ENDPOINT}home`;
+    window.location.href = `${environment.FE_ENDPOINT || environment.FE_ENDPOINT_LOCAL}home`;
   }
 
   goToProfile(): void {
