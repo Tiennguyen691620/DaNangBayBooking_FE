@@ -2,8 +2,10 @@
   .box {
     height: 5rem;
     .left {
-      .title{
-        font-family: 'Lobster', cursive;
+      .group-title{
+        .title {
+          font-family: "Lobster", cursive;
+        }
       }
     }
     .right {
@@ -37,7 +39,7 @@
   transition: 1.2s;
   top: -50px;
 }
-.ant-dropdown-menu{
+.ant-dropdown-menu {
   top: 12px;
 }
 
@@ -47,4 +49,31 @@
 // .justify-around{
 //   display: block !important;
 // }
+@media (min-width: 768px) and (max-width: 991px) {
+  .container-fluid {
+    .box {
+      .left {
+        svg {
+          width: 65px;
+        }
+      }
+      .right {
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .container-fluid {
+    .box {
+      .left {
+        svg {
+          width: 60px;
+        }
+      }
+      .right {
+      }
+    }
+  }
+}
 

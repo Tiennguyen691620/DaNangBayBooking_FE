@@ -22,7 +22,7 @@
     .accommodation-type-home {
       margin: 3rem 0rem;
       .content {
-        nz-radio-group{
+        nz-radio-group {
           display: flex;
           overflow: hidden;
         }
@@ -30,8 +30,21 @@
     }
     .location {
       margin: 2rem 0rem;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 350px);
+      grid-gap: 1.5rem;
+      grid-template-areas:
+        "h1 h1 h2 h3"
+        "h4 h5 h6 h6";
       .container-location {
         position: relative;
+        &:first-of-type {
+          grid-area: h1;
+        }
+        &:last-of-type {
+          grid-area: h6;
+        }
         .title {
           position: absolute;
           bottom: 2rem;
@@ -47,23 +60,6 @@
       }
     }
   }
-}
-
-.location {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(2, 350px);
-  grid-gap: 1.5rem;
-  grid-template-areas:
-    "h1 h1 h2 h3"
-    "h4 h5 h6 h6";
-}
-
-.container-location:first-of-type {
-  grid-area: h1;
-}
-.container-location:last-of-type {
-  grid-area: h6;
 }
 
 //custom radio
@@ -127,7 +123,7 @@
     align-items: center;
     padding: 4px;
     // min-width: 120px;
-    span{
+    span {
       font-weight: 700;
     }
     &:focus {
@@ -145,6 +141,67 @@
       background: #188ffd;
       border-radius: 50%;
       border: 1px solid #188ffd;
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .home {
+    .container {
+      .location {
+        grid-template-rows: repeat(2, 250px);
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .home {
+    .container {
+      .carousel {
+        carousel {
+          height: 300px !important;
+        }
+      }
+      .filter {
+        .card {
+          width: unset;
+        }
+      }
+      .location {
+        grid-template-rows: repeat(2, 200px);
+        .container-location {
+          .title {
+            span {
+              font-size: 16px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media (max-width: 575px) {
+  .home {
+    .container {
+      .carousel {
+        carousel {
+          height: 200px !important;
+        }
+      }
+      .location {
+          grid-template-columns: repeat(2, 1fr);
+          grid-template-rows: repeat(3, 200px);
+          grid-template-areas:unset;
+        .container-location {
+          &:first-of-type {
+            grid-area: unset;
+          }
+          &:last-of-type {
+            grid-area: unset;
+          }
+        }
+      }
     }
   }
 }

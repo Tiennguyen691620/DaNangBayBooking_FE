@@ -11,6 +11,7 @@ import { windowCount } from 'rxjs/operators';
 import { auto } from '@popperjs/core';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import Utils from '../../helpers/utils.helper';
+import { NzDrawerPlacement } from 'ng-zorro-antd/drawer';
 
 @Component({
   selector: 'app-header',
@@ -23,6 +24,8 @@ export class HeaderComponent implements OnInit {
   avatarUrl?: string;
   fullName: string;
   isShow = false;
+  visible = false;
+  placement: NzDrawerPlacement = 'left';
 
   constructor(
     private modalService: NzModalService,
@@ -94,7 +97,7 @@ export class HeaderComponent implements OnInit {
   }
 
   backToHome(): void {
-    window.location.href = `${environment.FE_ENDPOINT || environment.FE_ENDPOINT_LOCAL}home`;
+    window.location.href = `${environment.FE_ENDPOINT}home`;
   }
 
   goToProfile(): void {
@@ -110,5 +113,13 @@ export class HeaderComponent implements OnInit {
     } else {
       this.navbarfixed = false;
     }
+  }
+
+  open(): void {
+    this.visible = true;
+  }
+
+  close(): void {
+    this.visible = false;
   }
 }
