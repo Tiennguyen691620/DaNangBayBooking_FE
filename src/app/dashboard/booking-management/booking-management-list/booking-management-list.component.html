@@ -433,6 +433,27 @@
                       </div>
                     </div>
                   </div>
+                  <div class="row py-2" *ngIf="bookingModel?.status !== 2">
+                    <div class="col-8">
+                      <div class="row">
+                        <div class="col-3 d-flex justify-content-start pe-0">
+                          <h5 class="fw-700">Tổng tiền</h5>
+                        </div>
+                        <div class="col-9">
+                          <div class="d-flex">
+                            <span class="pe-3">:</span>
+                            <h5 class="fw-700">
+                              {{bookingModel?.totalPrice  ?? '0' | mask: 'separator': ','}} VND
+                            </h5>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div class="">
+                    <span>Tổng tiền:</span>
+                    <span>{{bookingModel?.totalPrice}}</span>
+                  </div> -->
                 </div>
               </div>
             </nz-tab>

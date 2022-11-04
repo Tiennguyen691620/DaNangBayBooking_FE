@@ -1,8 +1,8 @@
 <section class="container-fluid p-0" (scroll)="onScroll()" [ngClass]="navbarfixed ? 'fixed' : 'infixed'">
   <div class="container">
     <div class="box row d-flex align-items-center justify-content-between">
-      <div class="left pointer col-8 d-flex align-items-center" (click)="backToHome()">
-        <div class="">
+      <div class="left pointer col-10 col-sm-7 col-xl-8 col-lg-7 col-md-5 d-flex align-items-center">
+        <div class="" (click)="backToHome()">
           <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="90px"
             height="70px" viewBox="0 0 152 133" enable-background="new 0 0 152 133" xml:space="preserve">
             <image id="image0" width="150" height="125" x="0" y="0" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJgAAACFCAYAAACnijFkAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
@@ -173,23 +173,25 @@
           dGRhdGU6bW9kaWZ5ADIwMjItMDUtMjRUMDQ6NDY6NTArMDM6MDBKPY7tAAAAAElFTkSuQmCC" />
           </svg>
         </div>
-        <h3 class="title text-uppercase m-0 me-2 c-blue">Da Nang</h3>
-        <h3 class="title text-uppercase m-0 c-orange">Booking</h3>
+        <div class="group-title d-flex align-items-center">
+          <h3 class="title text-uppercase m-0 me-2 c-blue">Da Nang</h3>
+          <h3 class="title text-uppercase m-0 c-orange">Booking</h3>
+        </div>
       </div>
-      <div class="right col-4 d-flex align-items-center" [class.justify-content-between]="authService.getAuthenticationModel()"
-        [class.justify-content-around]="!authService.getAuthenticationModel()" >
+      <div class="right col-sm-5 col-xl-4 col-lg-5 col-md-7 d-none d-sm-flex align-items-center"
+        [class.justify-content-between]="authService.getAuthenticationModel()" [class.justify-content-around]="!authService.getAuthenticationModel()">
         <div class="d-flex align-items-center pointer" (click)="myBooking()">
           <i class="fa-solid fa-suitcase me-2 c-dodgerblue fz-16"></i>
-          <span class="my-booked">Đặt phòng của tôi</span>
+          <span class="my-booked d-none d-md-block">Đặt phòng của tôi</span>
         </div>
         <div class="btn-login pointer d-flex align-items-center" nz-dropdown [nzPlacement]="'bottomRight'" [nzDropdownMenu]="menu" (click)="login()">
           <nz-avatar *ngIf="avatarUrl == null" nzIcon="user" class="me-2"></nz-avatar>
           <nz-avatar *ngIf="avatarUrl" [nzSrc]="avatarUrl" nzIcon="user" class="me-2"></nz-avatar>
-          <div >
-            <span>{{authService.getAuthenticationModel() ? fullName : 'Đăng nhập'}}</span>
+          <div>
+            <span class="d-none d-md-block">{{authService.getAuthenticationModel() ? fullName : 'Đăng nhập'}}</span>
           </div>
-          <nz-dropdown-menu  #menu="nzDropdownMenu">
-            <ul nz-menu *ngIf="authService.getAuthenticationModel()" >
+          <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu *ngIf="authService.getAuthenticationModel()">
               <li nz-menu-item (click)="goToProfile()">Tài khoản của tôi</li>
               <li nz-menu-item (click)="goToChangePass()">Đổi mật khẩu</li>
               <li nz-menu-item (click)="logout()">Đăng xuất</li>
@@ -200,6 +202,35 @@
           <button nz-button nzType="primary" class="border-r" (click)="signup()">Đăng ký</button>
         </div>
       </div>
+      <div class="d-block d-sm-none col-2 text-center" (click)="open()">
+        <i class="fa-solid fa-bars fz-22"></i>
+      </div>
     </div>
   </div>
+  <div class="">
+    <nz-drawer [nzClosable]="false" [nzVisible]="visible" [nzPlacement]="placement" [nzTitle]="name" (nzOnClose)="close()">
+      <ng-container *nzDrawerContent>
+        <p class="" (click)="login()">{{authService.getAuthenticationModel() ? fullName : 'Đăng nhập'}}</p>
+        <div class="d-flex align-items-center pointer" (click)="myBooking()" (click)="close()">
+          <i class="fa-solid fa-suitcase me-2 c-dodgerblue fz-16"></i>
+          <span class="my-booked">Đặt phòng của tôi</span>
+        </div>
+        <p (click)="goToProfile()" (click)="close()">Tài khoản của tôi</p>
+        <p (click)="goToChangePass()" (click)="close()">Đổi mật khẩu</p>
+        <p (click)="signup()" (click)="close()">Đăng ký</p>
+        <p (click)="logout()" (click)="close()">Đăng xuất</p>
+      </ng-container>
+    </nz-drawer>
+  </div>
+
+  <ng-template #name>
+    <div class="group-title d-flex align-items-center">
+      <h3 class="title text-uppercase m-0 me-2 c-blue">Da Nang</h3>
+      <h3 class="title text-uppercase m-0 c-orange">Booking</h3>
+    </div>
+  </ng-template>
+  
+
+  
+
 </section>

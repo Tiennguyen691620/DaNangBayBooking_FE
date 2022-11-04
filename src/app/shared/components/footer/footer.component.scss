@@ -4,4 +4,18 @@
   .container{
   }
 }
+@media screen and (max-width:575px) {
+  .container-fluid{
+    .container{
+      .copyright{
+        p {
+          font-size: 10px;
+        }
+        svg {
+          width: 10px;
+        }
+      }
+    }
+  }
+}
 

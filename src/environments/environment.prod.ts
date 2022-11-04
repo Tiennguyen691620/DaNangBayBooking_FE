@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
-  API_ENDPOINT: 'https://localhost:5001/',
-  FE_ENDPOINT: 'http://localhost:5200/#/',
+  API_ENDPOINT: 'https://tiennguyen.bsite.net/',
+  API_ENDPOINT_LOCAL: 'https://localhost:5001/',
+  FE_ENDPOINT: 'https://danangbooking-app.web.app/#/',
 };

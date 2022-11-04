@@ -31,6 +31,7 @@ export class AccommodationListComponent implements OnInit {
   iconUtilityList: IconUtility[] = [];
   filterModel = new AccommodationFilterModel();
   searchTerm$ = new BehaviorSubject<string>('');
+  tooltips = ['Tệ', 'Không tốt', 'Bình thường', 'Hoàn hảo', 'Tuyệt vời'];
   constructor(
     private accommodationService: AccommodationService,
     private modalService: NzModalService,
@@ -70,7 +71,8 @@ export class AccommodationListComponent implements OnInit {
           .subscribe((result) => {
                 params.qty = result.qty;
                 params.point = result.point;
-                params.text = params.point == 5 ? 'Tuyệt vời' : (params.point == 4 ? 'Hoàn hảo' : (params.point == 3 ? 'Bình thường' : (params.point == 2 ? 'Không tốt' : (params.point == 1 && params.qty !== 0 ? 'Tệ' : 'Chưa có đánh giá'))));
+                // params.text = params.point == 5 ? 'Tuyệt vời' : (params.point == 4 ? 'Hoàn hảo' : (params.point == 3 ? 'Bình thường' : (params.point == 2 ? 'Không tốt' : (params.point == 1 && params.qty !== 0 ? 'Tệ' : 'Chưa có đánh giá'))));
+                this.textComment(params);
             });
         });
       });
@@ -99,7 +101,8 @@ export class AccommodationListComponent implements OnInit {
         break;
       }
       default: {
-        item.text = '123';
+        item.text = 'Chưa có đánh giá';
+        break;
       }
     }
   }
@@ -111,10 +114,16 @@ export class AccommodationListComponent implements OnInit {
     this.filterModel.provinceID = '';
     this.filter();
   }
-  getSort(): void {
+  getSortDesc(): void {
     this.dataSource.sort((a, b) => {
-      console.log(b.point - a.point);
+      // console.log(b.point - a.point);
       return b.point - a.point;
+    });
+  }
+  getSortAsc(): void {
+    this.dataSource.sort((a, b) => {
+      // console.log(a.point - b.point);
+      return a.point - b.point;
     });
   }
 

@@ -6,9 +6,9 @@
       </carousel>
     </section>
     <section class="filter d-flex align-items-center justify-content-center">
-      <div class="card px-3 py-2">
+      <div class="card px-2 py-1 px-sm-3 py-sm-2">
         <div class="row py-3">
-          <div class="search col-9">
+          <div class="search col-8 col-md-8 col-lg-9">
             <nz-input-group [nzSuffix]="suffixIconSearch">
               <input type="text" [(ngModel)]="filterModel.searchKey" nz-input placeholder="Khách sạn hoặc điểm đến " />
             </nz-input-group>
@@ -16,7 +16,7 @@
               <i nz-icon nzType="search"></i>
             </ng-template>
           </div>
-          <div class="group col-3 d-flex justify-content-center">
+          <div class="group col-4 col-md-4 col-lg-3 d-flex justify-content-center">
             <div class="button-search">
               <button nz-button nzType="primary" (click)="onClick()">Tìm kiếm</button>
             </div>
@@ -30,7 +30,7 @@
       </div>
       <div class="content ">
         <div class="d-flex">
-          <nz-radio-group [(ngModel)]="filterModel.accommodationTypeID">
+          <nz-radio-group class="flex-wrap" [(ngModel)]="filterModel.accommodationTypeID">
             <label nz-radio [nzValue]="''">Tất cả</label>
             <label nz-radio *ngFor="let item of accommodationType" [nzValue]="item.accommodationTypeID">{{item.name}}</label>
           </nz-radio-group>
