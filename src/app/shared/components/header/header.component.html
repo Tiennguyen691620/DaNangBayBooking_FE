@@ -210,7 +210,7 @@
   <div class="">
     <nz-drawer [nzClosable]="false" [nzVisible]="visible" [nzPlacement]="placement" [nzTitle]="name" (nzOnClose)="close()">
       <ng-container *nzDrawerContent>
-        <p class="" (click)="login()">{{authService.getAuthenticationModel() ? fullName : 'Đăng nhập'}}</p>
+        <p class="" (click)="login()" (click)="close()">{{authService.getAuthenticationModel() ? fullName : 'Đăng nhập'}}</p>
         <div class="d-flex align-items-center pointer" (click)="myBooking()" (click)="close()">
           <i class="fa-solid fa-suitcase me-2 c-dodgerblue fz-16"></i>
           <span class="my-booked">Đặt phòng của tôi</span>
