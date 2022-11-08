@@ -1,11 +1,38 @@
-.content {
-  .acccommodation-list {
-    // display: grid;
-    // grid-template-columns: 1fr;
-    // grid-template-rows: repeat(10, 1fr);
-    // grid-gap: 20px;
+:host::ng-deep {
+  .container {
+    .search {
+      .card {
+        .search-title {
+        }
+        .name {
+        }
+        .ant-input-affix-wrapper {
+          .ant-input {
+            &:placeholder-shown {
+            }
+          }
+        }
+        .ant-btn {
+          & > span {
+          }
+        }
+      }
+    }
+    .content {
+      .acccommodation-list {
+        .grid-center {
+          .img {
+            @media (max-width: 767px) {
+              width: 180px;
+              height: 150px;
+            }
+          }
+        }
+      }
+    }
   }
 }
+
 nz-collapse-panel {
   border: 1px dashed #ccc;
   border-bottom: 1px dashed #ccc !important;
@@ -20,12 +47,30 @@ nz-collapse-panel {
 :host::ng-deep .ant-collapse > .ant-collapse-item > .ant-collapse-header {
   display: flex;
   align-items: center;
+  @media (max-width: 575px) {
+    font-size: 12px;
+    padding: 6px;
+  }
+}
+:host::ng-deep
+  .ant-collapse-ghost
+  > .ant-collapse-item
+  > .ant-collapse-content
+  > .ant-collapse-content-box {
+  @media (max-width: 575px) {
+    padding: 2px;
+  }
 }
 
 //custom radio
 :host::ng-deep {
   .ant-radio {
     top: 0;
+  }
+  span.ant-radio + * {
+    @media (max-width: 575px) {
+      font-size: 10px;
+    }
   }
 
   .ant-radio-inner {
@@ -40,6 +85,10 @@ nz-collapse-panel {
     border-width: 1px;
     border-radius: 50%;
     transition: all 0.3s;
+    @media (max-width: 575px) {
+      width: 20px;
+      height: 20px;
+    }
   }
 
   .ant-radio-checked .ant-radio-inner {
@@ -64,6 +113,12 @@ nz-collapse-panel {
     opacity: 0;
     transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
     content: " ";
+    @media (max-width: 575px) {
+      top: 2px;
+      left: 5px;
+      width: 6px;
+      height: 10px;
+    }
   }
 
   .ant-radio-checked .ant-radio-inner::after {
@@ -103,45 +158,58 @@ nz-collapse-panel {
   }
 }
 
-.grid-center{
+.grid-center {
   place-content: end !important;
+  @media (max-width: 767px) {
+    place-content: center !important;
+  }
 }
 
-@media (max-width:575px) {
-  :host::ng-deep{
-    .container{
-      .search{
-        .card{
-          .search-title{
+@media (max-width: 575px) {
+  :host::ng-deep {
+    .container {
+      .search {
+        .card {
+          .search-title {
             font-size: 14px;
           }
-          .name{
+          .name {
             font-size: 11px;
           }
-          .ant-input-affix-wrapper{
+          .ant-input-affix-wrapper {
             padding: 0px 4px;
-            .ant-input{
-              &:placeholder-shown{
+            .ant-input {
+              &:placeholder-shown {
                 font-size: 10px;
               }
             }
           }
-          .ant-btn{
-            &>span{
+          .ant-btn {
+            & > span {
               font-size: 11px;
             }
           }
         }
       }
-      .content{
-    
+      .content {
+        .search-total{
+          font-size:15px
+        }
+        .acccommodation-list {
+          .acc-name{
+            font-size:14px
+          }
+          .accommodation-type{
+            span{
+              font-size: 11px;
+            }
+          }
+          .grid-center {
+            .img {
+            }
+          }
+        }
       }
     }
   }
 }
-// :host ::ng-deep .ant-btn>span{
-//   font-size: 10px;
-// }
-// :host::ng-deep .ant-select-single.ant-select-sm:not(.ant-select-customize-input).ant-select-show-arrow .ant-select-selection-item, .ant-select-single.ant-select-sm:not(.ant-select-customize-input).ant-select-show-arrow .ant-select-selection-placeholder{
-//   font-size: 10px;
-// }
