@@ -16,6 +16,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { AuthService } from '../services/auth/auth.service';
 import Utils from './utils.helper';
 import { SpinnerService } from '../services/spinner.service';
+import { environment } from 'src/environments/environment';
 // import { AuthService } from '../services/auth.service';
 // import { SpinnerService } from '../services/spinner.service';
 
@@ -44,7 +45,7 @@ export class DefaultInterceptor implements HttpInterceptor {
     private injector: Injector,
     private authService: AuthService,
     private spinnerService: SpinnerService,
-    private http: HttpClient
+    private http: HttpClient,
   ) {}
   get errData(): any {
     if (!this.cacheErrData$) {
@@ -69,16 +70,16 @@ export class DefaultInterceptor implements HttpInterceptor {
     if (!ev) {
       return;
     }
-    if(ev?.body?.data !== null && ev.status === 200 && ev.url.includes(`https://localhost:5001/api/Users/login-client`)){
+    if(ev?.body?.data !== null && ev.status === 200 && ev.url.includes(environment.API_ENDPOINT+`api/Users/login-client`)){
         return this.notification.success('Đăng nhập thành công', '', Utils.setStyleNotification());
     }
     const err = (ev?.body && ev.body.message);
-    if (err && ev.status === 200  && ev.url.includes(`https://localhost:5001/api/Users/login-client`)
+    if (err && ev.status === 200  && ev.url.includes(environment.API_ENDPOINT+`api/Users/login-client`)
     ) {
       return this.notification.error(err, '', Utils.setStyleNotification());
     } 
     const errorRegister = (ev.error && ev.error.message)
-    if(errorRegister && ev.error.data === false && ev.status === 400 && ev.url.includes(`https://localhost:5001/api/Users/register-client`)){
+    if(errorRegister && ev.error.data === false && ev.status === 400 && ev.url.includes(environment.API_ENDPOINT+`api/Users/register-client`)){
       return this.notification.error(errorRegister, '', Utils.setStyleNotification());
     }
     // else {
