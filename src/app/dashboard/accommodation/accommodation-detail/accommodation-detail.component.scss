@@ -1,3 +1,14 @@
+.section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  &__item {
+    .nav-link {
+      color: #003580;
+      font-weight: 700;
+    }
+  }
+}
 .navbar {
   .navbar-nav {
     .nav-item {
@@ -19,6 +30,20 @@
 :host::ng-deep .gg-map-canvas > iframe {
   max-width: 330px;
   height: 220px;
+  @media (max-width: 1200px) {
+    width: 290px;
+  }
+  @media (max-width: 992px) {
+    width: 280px;
+  }
+  @media (max-width: 768px) {
+    width: 180px;
+    height: 200px;
+  }
+  @media (max-width: 576px) {
+    width: 140px;
+    height: 140px;
+  }
 }
 .commit-logo {
   background: url("../../../../assets/images/commit-logo.png") center center
@@ -42,6 +67,9 @@
   display: grid;
   grid-gap: 20px;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  @media (max-width:991.5px) {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
   .box-img {
     box-shadow: 5px 6px 10px 0px #959595;
   }
@@ -115,4 +143,57 @@
   padding: 0px 5px;
   border-radius: 5px;
   color: #188ffd;
+}
+
+@media (max-width: 991.5px) {
+  .section {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
+    grid-auto-flow: column;
+    grid-auto-columns: auto;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-snap-stop: always;
+    justify-content: unset;
+    text-align: center;
+    padding: 0.5rem 0rem;
+    &__item {
+      scroll-snap-align: start;
+      width: 180px;
+    }
+  }
+}
+
+@media (max-width: 767.5px) {
+  .grid-image {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)) !important;
+    grid-gap: 15px;
+    grid-auto-flow: column;
+    grid-auto-columns: auto;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-snap-stop: always;
+    justify-content: unset;
+    .box-img {
+      scroll-snap-align: start;
+      box-shadow: 5px 6px 10px 0px #959595;
+      width: 160px;
+    }
+  }
+}
+
+.title{
+  h4{
+    font-size: 18px;
+    @media (max-width:576px) {
+      text-align: center;
+      font-size: 16px;
+    }
+  }
+ 
+}
+.text{
+  @media (max-width:576px) {
+    // font-size: 11px;
+  }
 }

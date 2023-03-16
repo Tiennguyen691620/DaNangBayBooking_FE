@@ -3,40 +3,36 @@
     <span class="text-uppercase d-flex align-items-center justify-content-center fz-18 fw-700 p-4 ">
       Đăng ký tài khoản
     </span>
-    <div class="form mx-5">
+    <div class="form mx-0 mx-md-5">
       <form [formGroup]="signUpForm" errorTailor>
         <div class="content">
-          <div class="mx-5 my-3">
+          <div class="m-3 mx-md-5">
             <div class="row">
-              <div class="col-xxl-3">
+              <div class="col-12 col-md-3">
                 <span class=" required">Họ và tên:</span>
               </div>
-              <div class="col-xxl-9">
+              <div class="col-12 col-md-9">
                 <input nz-input type="text" formControlName="fullName" placeholder="Họ và tên">
               </div>
             </div>
             <div class="row">
-              <div class="col-6 my-3">
+              <div class="col-12 col-md-6 my-3">
                 <div class="row ">
-                  <div class="col-6">
+                  <div class="col-12 col-md-6">
                     <span class="required">Ngày sinh:</span>
                   </div>
-                  <div class="col-6">
+                  <div class="col-12 col-md-6">
                     <nz-date-picker class="w-100" nzAllowClear nzPlaceHolder="ngày sinh" formControlName="dob" nzFormat="dd/MM/yyyy">
                     </nz-date-picker>
                   </div>
                 </div>
               </div>
-              <div class="col-6 my-3">
+              <div class="col-12 col-md-6 my-3">
                 <div class="row">
-                  <div class="col-6">
+                  <div class="col-5 col-md-4 col-lg-6">
                     <span class="required">Giới tính:</span>
                   </div>
-                  <div class="col-6 ">
-                    <!-- <nz-select class="w-100" nzAllowClear nzShowSearch nzPlaceHolder="Giới tính" formControlName="gender">
-                      <nz-option [nzValue]="true" nzLabel="Nam"></nz-option>
-                      <nz-option [nzValue]="false" nzLabel="Nữ"></nz-option>
-                    </nz-select> -->
+                  <div class="col-7 col-md-8 col-lg-6">
                     <nz-radio-group formControlName="gender">
                       <label nz-radio [nzValue]="true">Nam</label>
                       <label nz-radio [nzValue]="false">Nữ</label>
@@ -45,43 +41,43 @@
                 </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-xxl-3">
-                <span class="required">Email</span>
+            <div class="row mb-3 mb-sm-0">
+              <div class="col-12 col-md-3">
+                <span class="required">Email:</span>
               </div>
-              <div class="col-xxl-9">
+              <div class="col-12 col-md-9">
                 <input nz-input type="text" formControlName="email" placeholder="Email">
               </div>
             </div>
             <div class="row">
-              <div class="col-6 my-3">
+              <div class="col-12 col-md-6 my-0 my-sm-3 mb-3 mb-sm-0">
                 <div class="row ">
-                  <div class="col-6">
+                  <div class="col-12 col-sm-3 col-md-6">
                     <span class="required">CMND/CCCD:</span>
                   </div>
-                  <div class="col-6">
+                  <div class="col-12 col-sm-9 col-md-6">
                     <input nz-input type="text" formControlName="identityCard" placeholder="CMND/CCCD">
                   </div>
                 </div>
               </div>
-              <div class="col-6 my-3">
+              <div class="col-12 col-md-6 my-0 my-sm-3 mb-3 mb-sm-0">
                 <div class="row">
-                  <div class="col-6">
+                  <div class="col-12 col-sm-3 col-md-6">
                     <span class="required">Số điện thoại:</span>
                   </div>
-                  <div class="col-6">
+                  <div class="col-12 col-sm-9 col-md-6">
                     <input nz-input type="text" formControlName="phoneNumber" mask="(0000) 000-000" placeholder="số điện thoại">
                   </div>
                 </div>
               </div>
             </div>
             <div class="row">
-              <div class="col-4 my-3">
+              <div class="col-12 col-lg-6 col-xl-4 my-3">
                 <div class="row ">
-                  <div class="col-5">
+                  <div class="col-12 col-sm-3 col-lg-6 col-xl-5">
                     <span class="required">Tỉnh/TP:</span>
                   </div>
-                  <div class="col-7">
+                  <div class="col-12 col-sm-9 col-lg-6 col-xl-7">
                     <nz-select (ngModelChange)="changeProvince($event)" class="w-100" nzAllowClear nzShowSearch nzPlaceHolder="Tỉnh/TP"
                       formControlName="province">
                       <nz-option *ngFor="let item of provinceList" [nzValue]="item" [nzLabel]="item.name"></nz-option>
@@ -89,12 +85,12 @@
                   </div>
                 </div>
               </div>
-              <div class="col-4 my-3">
+              <div class="col-12 col-lg-6 col-xl-4 my-3">
                 <div class="row">
-                  <div class="col-5">
+                  <div class="col-12 col-sm-3 col-lg-6 col-xl-5">
                     <span class="required">Quận/Huyện:</span>
                   </div>
-                  <div class="col-7">
+                  <div class="col-12 col-sm-9 col-lg-6 col-xl-7">
                     <nz-select (ngModelChange)="changeDistrict($event)" class="w-100" nzAllowClear nzShowSearch nzPlaceHolder="Quận/Huyện"
                       formControlName="district">
                       <nz-option *ngFor="let item of districtList" [nzValue]="item" [nzLabel]="item.name"></nz-option>
@@ -102,12 +98,12 @@
                   </div>
                 </div>
               </div>
-              <div class="col-4 my-3">
+              <div class="col-12 col-lg-6 col-xl-4 my-3">
                 <div class="row ">
-                  <div class="col-5">
+                  <div class="col-12 col-sm-3 col-lg-6 col-xl-5">
                     <span class="required">Phường/Xã:</span>
                   </div>
-                  <div class="col-7">
+                  <div class="col-12 col-sm-9 col-lg-6 col-xl-7">
                     <nz-select class="w-100" nzAllowClear nzShowSearch nzPlaceHolder="Phường/Xã" formControlName="subDistrict">
                       <nz-option *ngFor="let item of subDistrictList" [nzValue]="item" [nzLabel]="item.name"></nz-option>
                     </nz-select>
@@ -117,22 +113,22 @@
             </div>
             <hr>
             <div class="row">
-              <div class="col-6 my-3">
+              <div class="col-12 col-xl-6 my-3">
                 <div class="row ">
-                  <div class="col-6">
-                    <span class="required">Mật khẩu</span>
+                  <div class="col-4 col-lg-3 col-xl-5">
+                    <span class="required">Mật khẩu:</span>
                   </div>
-                  <div class="col-6">
+                  <div class="col-8 col-lg-9 col-xl-7">
                     <input nz-input type="password" formControlName="password" placeholder="mật khẩu">
                   </div>
                 </div>
               </div>
-              <div class="col-6 my-3">
+              <div class="col-12 col-xl-6 my-3">
                 <div class="row">
-                  <div class="col-6">
-                    <span class="required">Nhập lại mật khẩu</span>
+                  <div class="col-4 col-lg-3 col-xl-5">
+                    <span class="required">Nhập lại mật khẩu:</span>
                   </div>
-                  <div class="col-6">
+                  <div class="col-8 col-lg-9 col-xl-7">
                     <input nz-input type="password" formControlName="confirmPassword" placeholder="nhập lại mật khẩu">
                   </div>
                 </div>

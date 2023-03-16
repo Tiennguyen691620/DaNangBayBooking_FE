@@ -1,98 +1,75 @@
 <section class="acccommodation-list py-4">
   <div class="container">
     <div class="row">
-      <div class="search col-4">
-        <div class="container card" style="max-width: 330px; background: aliceblue;">
-          <div class="mt-2 d-flex align-items-center justify-content-center">
-            <h4>Tìm kiếm</h4>
-          </div>
-          <div class="mt-3">
-            <span for="">Tên chỗ nghỉ:</span>
-            <nz-input-group [nzSuffix]="suffixIconSearch">
-              <input type="text" [(ngModel)]="filterModel.searchKey"  nz-input placeholder="Nhập tên chỗ nghỉ" />
-            </nz-input-group>
-            <ng-template #suffixIconSearch>
-              <i nz-icon nzType="search"></i>
-            </ng-template>
-          </div>
-          <div class="d-flex flex-column mt-3">
-            <span for="">Quận/huyện:</span>
-            <nz-select [(ngModel)]="filterModel.districtID" nzShowSearch nzAllowClear nzPlaceHolder="Chọn Quận/Huyện">
-              <nz-option [nzValue]="''" [nzLabel]="'Tất cả'"></nz-option>
-              <nz-option  [nzValue]="'6abf0464-599e-11ec-ab77-0639800004fa'" [nzLabel]="'Hội An'"></nz-option>
-              <nz-option  [nzValue]="'6abeeb99-599e-11ec-ab77-0639800004fa'" [nzLabel]="'Ngũ Hành Sơn'"></nz-option>
-              <nz-option  [nzValue]="'6abee8f0-599e-11ec-ab77-0639800004fa'" [nzLabel]="'Liên Chiểu'"></nz-option>
-              <nz-option  [nzValue]="'6abee4df-599e-11ec-ab77-0639800004fa'" [nzLabel]="'Hải Châu'"></nz-option>
-              <nz-option  [nzValue]="'6abef09d-599e-11ec-ab77-0639800004fa'" [nzLabel]="'Thanh Khê'"></nz-option>
-              <nz-option  [nzValue]="'6abeee3a-599e-11ec-ab77-0639800004fa'" [nzLabel]="'Sơn Trà'"></nz-option>
+      <div class="search col-5 col-lg-4">
+        <div class="row">
+          <div class="container card" style="max-width: 330px; background: aliceblue;">
+            <div class="mt-2 d-flex align-items-center justify-content-center">
+              <h4 class="search-title">Tìm kiếm</h4>
+            </div>
+            <div class="mt-3">
+              <span class="name">Tên chỗ nghỉ:</span>
+              <nz-input-group [nzSuffix]="suffixIconSearch" class="px-2 py-0">
+                <input type="text" [(ngModel)]="filterModel.searchKey" nzSize="small"  nz-input placeholder="Nhập tên chỗ nghỉ" />
+              </nz-input-group>
+              <ng-template #suffixIconSearch>
+                <i nz-icon nzType="search"></i>
+              </ng-template>
+            </div>
+            <div class="d-flex flex-column mt-3">
+              <span class="name">Quận/huyện:</span>
+              <nz-select [(ngModel)]="filterModel.districtID" nzSize="small" nzShowSearch nzAllowClear nzPlaceHolder="Chọn Quận/Huyện">
+                <nz-option [nzValue]="''" [nzLabel]="'Tất cả'"></nz-option>
+                <nz-option  [nzValue]="'6abf0464-599e-11ec-ab77-0639800004fa'" [nzLabel]="'Hội An'"></nz-option>
+                <nz-option  [nzValue]="'6abeeb99-599e-11ec-ab77-0639800004fa'" [nzLabel]="'Ngũ Hành Sơn'"></nz-option>
+                <nz-option  [nzValue]="'6abee8f0-599e-11ec-ab77-0639800004fa'" [nzLabel]="'Liên Chiểu'"></nz-option>
+                <nz-option  [nzValue]="'6abee4df-599e-11ec-ab77-0639800004fa'" [nzLabel]="'Hải Châu'"></nz-option>
+                <nz-option  [nzValue]="'6abef09d-599e-11ec-ab77-0639800004fa'" [nzLabel]="'Thanh Khê'"></nz-option>
+                <nz-option  [nzValue]="'6abeee3a-599e-11ec-ab77-0639800004fa'" [nzLabel]="'Sơn Trà'"></nz-option>
+                </nz-select>
+            </div>
+            <div class="d-flex flex-column mt-3">
+              <span class="name">Thành phố:</span>
+              <nz-select [(ngModel)]="filterModel.provinceID" nzSize="small" nzShowSearch nzAllowClear nzPlaceHolder="Chọn Tỉnh/TP">
+                <nz-option [nzValue]="''" [nzLabel]="'Tất cả'"></nz-option>
+                <nz-option  [nzValue]="'f4f9a2b9-599c-11ec-ab77-0639800004fa'" [nzLabel]="'Quảng Nam'"></nz-option>
+                <nz-option  [nzValue]="'f4f99727-599c-11ec-ab77-0639800004fa'" [nzLabel]="'Đà Nẵng'"></nz-option>
               </nz-select>
-          </div>
-          <div class="d-flex flex-column mt-3">
-            <span for="">Thành phố:</span>
-            <nz-select [(ngModel)]="filterModel.provinceID" nzShowSearch nzAllowClear nzPlaceHolder="Chọn Tỉnh/TP">
-              <nz-option [nzValue]="''" [nzLabel]="'Tất cả'"></nz-option>
-              <nz-option  [nzValue]="'f4f9a2b9-599c-11ec-ab77-0639800004fa'" [nzLabel]="'Quảng Nam'"></nz-option>
-              <nz-option  [nzValue]="'f4f99727-599c-11ec-ab77-0639800004fa'" [nzLabel]="'Đà Nẵng'"></nz-option>
-            </nz-select>
-          </div>
-          <div class="my-3 d-flex align-items-center justify-content-center ">
-            <button nz-button nzType="primary" (click)="filter()">Tìm kiếm</button>
-          </div>
-        </div>
-        <div class="container card mt-3 " style="max-width: 330px;">
-          <div class="py-3">
-            <div class="">
-              <h5 class="mt-2">Chọn lọc theo</h5>
             </div>
-            <!-- <hr>
-            <div class="">
-              <nz-collapse nzGhost>
-                <nz-collapse-panel [nzHeader]="'Xếp hạng sao'" [nzActive]="'true'" [nzDisabled]="'false'">
-                  <div class="d-flex flex-column" *ngFor="let item of dataSource" (click)="filter()" >
-                    <label nz-checkbox [nzValue]="item?.point == 1" >1 sao</label>
-                    <label nz-checkbox  class="ms-0">2 sao</label>
-                    <label nz-checkbox  class="ms-0">3 sao</label>
-                    <label nz-checkbox  class="ms-0">4 sao</label>
-                    <label nz-checkbox  class="ms-0">5 sao</label>
-                    <label nz-checkbox  class="ms-0">Không đánh giá</label>
-                  </div>
-                </nz-collapse-panel>
-              </nz-collapse>
-            </div> -->
-            <hr>
-            <div class="">
-              <nz-collapse nzGhost>
-                <nz-collapse-panel [nzHeader]="'Loại hình lưu trú'" [nzActive]="'true'" [nzDisabled]="'false'">
-                  <div class="d-flex flex-column" >
-                    <!-- <label class="m-0" [(ngModel)]="checkedAccommodationType" nz-checkbox *ngFor="let item of accommodationType" [nzValue]="item.accommodationTypeID" (ngModelChange)="changeActive($event, item)">{{item.name}}</label> -->
-                    <nz-radio-group [(ngModel)]="filterModel.accommodationTypeID" (ngModelChange)="filter()">
-                        <div class="grid-start">
-                          <label nz-radio [nzValue]="''">Tất cả</label>
-                          <label nz-radio *ngFor="let item of accommodationType" [nzValue]="item.accommodationTypeID">{{item.name}}</label>
-                        </div>
-                    </nz-radio-group>
-                  </div>
-                </nz-collapse-panel>
-              </nz-collapse>
+            <div class="my-3 d-flex align-items-center justify-content-center ">
+              <button nz-button nzType="primary" nzSize="small" (click)="filter()">Tìm kiếm</button>
             </div>
-            <!-- <hr>
-            <div class="">
-              <nz-collapse nzGhost>
-                <nz-collapse-panel [nzHeader]="'Tiện ích'" [nzActive]="'true'" [nzDisabled]="'false'">
-                  <div class="d-flex flex-column">
-                    <label class="m-0" *ngFor="let item of iconUtilityList" [nzValue]="item.value" nz-checkbox (ngModel)="checkedAccommodationUtility">{{item?.displayText}}</label>
-                  </div>
-                </nz-collapse-panel>
-              </nz-collapse>
-            </div> -->
+          </div>
+          <div class="container card mt-3 " style="max-width: 330px;">
+            <div class="py-3">
+              <div class="">
+                <h4 class="search-title mt-2 text-center">Chọn lọc theo</h4>
+              </div>
+              <hr>
+              <div class="">
+                <nz-collapse nzGhost>
+                  <nz-collapse-panel [nzHeader]="'Loại hình lưu trú'" [nzActive]="'true'" [nzDisabled]="'false'">
+                    <div class="d-flex flex-column" >
+                      <!-- <label class="m-0" [(ngModel)]="checkedAccommodationType" nz-checkbox *ngFor="let item of accommodationType" [nzValue]="item.accommodationTypeID" (ngModelChange)="changeActive($event, item)">{{item.name}}</label> -->
+                      <nz-radio-group [(ngModel)]="filterModel.accommodationTypeID" (ngModelChange)="filter()">
+                          <div class="grid-start">
+                            <label nz-radio [nzValue]="''">Tất cả</label>
+                            <label nz-radio *ngFor="let item of accommodationType" [nzValue]="item.accommodationTypeID">{{item.name}}</label>
+                          </div>
+                      </nz-radio-group>
+                    </div>
+                  </nz-collapse-panel>
+                </nz-collapse>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="content col-8" >
+      <div class="content col-7 col-lg-8" >
         <div class="title row">
           <div class="col-10">
             <div class="">
-              <h4>Tìm thấy {{totalCount}} chỗ nghỉ</h4>
+              <h4 class="search-total">Tìm thấy {{totalCount}} chỗ nghỉ</h4>
             </div>
           </div>
           <div class="col-2">
@@ -112,13 +89,13 @@
         <div class="acccommodation-list mb-3" *ngFor="let item of dataSource; let i = index">
           <div class="container card">
             <div class="row py-4">
-              <div class="col-3">
+              <div class="col-3 d-none d-lg-block">
                 <img [id]="i" *ngIf="item.images?.length > 0" nz-image width="100%" height="160px" class="img border-r" [nzSrc]="item.images[0]?.image" alt="">
               </div>
-              <div class="col-6">
+              <div class="col-12 col-md-7 col-lg-6">
                 <div class="d-flex flex-column">
-                  <h5 class="fw-700">{{item.name}}</h5>
-                  <div class="d-flex align-items-center">
+                  <h5 class="acc-name fw-700">{{item.name}}</h5>
+                  <div class="d-flex flex-column flex-md-row align-items-center">
                     <div class="accommodation-type">
                       <span class="c-dodgerblue">{{item.accommodationType?.name}}</span>
                     </div>
@@ -138,12 +115,14 @@
                       <a class="fz-12 text-decoration-none" (click)="viewMap(item)">Xem trên bản đồ</a>
                     </div>
                   </div>
-                  <span class="webkit-box-3" [innerHTML]="item?.description | safe: 'html'"></span>
+                  <div class="d-none d-sm-block" >
+                    <p class="webkit-box-3" [innerHTML]="item?.description | safe: 'html'"></p>
+                  </div>
                 </div> 
               </div>
-              <div class="col-3">
+              <div class="col-12 col-md-5 col-lg-3">
                 <div class="grid-center">
-                  <div class="d-flex align-items-center justify-content-between mb-2">
+                  <div class="d-flex align-items-center justify-content-md-between justify-content-center mb-2">
                     <div class="d-flex flex-column align-items-end me-2">
                       <span class="fw-700">{{item?.text}}</span>
                       <label for="">{{item?.qty}} đánh giá</label>
@@ -152,7 +131,10 @@
                       <span class="c-white">{{item?.point}}</span>
                     </div>
                   </div>
-                  <div class="text-end">
+                  <div class="d-block d-lg-none">
+                    <img [id]="i" *ngIf="item.images?.length > 0" nz-image width="100%" height="160px" class="img border-r" [nzSrc]="item.images[0]?.image" alt="">
+                  </div>
+                  <div class="text-center text-md-end mt-2 mt-lg-0">
                     <button nz-button nzType="primary" [routerLink]="['/dashboard/accommodation/detail', item?.accommodationID]" >
                       Xem chi tiết
                     </button>

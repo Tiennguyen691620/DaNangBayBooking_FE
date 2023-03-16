@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   API_ENDPOINT: 'https://tiennguyen.bsite.net/',
+  // API_ENDPOINT: 'https://localhost:5001/',
   API_ENDPOINT_LOCAL: 'https://localhost:5001/',
   FE_ENDPOINT: 'http://localhost:5200/#/',
 };
