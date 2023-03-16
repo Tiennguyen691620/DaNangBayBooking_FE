@@ -81,11 +81,11 @@ export class AccommodationListComponent implements OnInit {
   textComment(item: AccommodationModel): void {
     switch (item.point) {
       case 5: {
-        item.text = 'Tuyệt vời';
+        item.text = 'Hoàn hảo';
         break;
       }
       case 4: {
-        item.text = 'Hoàn hảo';
+        item.text = 'Tuyệt vời';
         break;
       }
       case 3: {
