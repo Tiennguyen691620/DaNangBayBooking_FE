@@ -1,13 +1,13 @@
 <section class="create-booking py-4">
   <div class="container">
     <div class="row">
-      <div class="col-4">
-        <div class="container card py-3 mb-3">
-          <div class="lh-2">
-            <span class="fw-700 fz-16">Chi tiết đặt phòng của bạn</span>
+      <div class=" col-5 col-md-4">
+        <div class="container card py-3 px-2 mb-3">
+          <div class="">
+            <span class="fw-700 fz-16">Chi tiết đặt phòng</span>
           </div>
           <div class="row">
-            <div class="col-6">
+            <div class="ol-12 col-lg-6">
               <div class="">
                 <span>Nhận phòng</span>
               </div>
@@ -16,7 +16,7 @@
               </div>
               <span class="c-darkgray">14:00 - 23:30</span>
             </div>
-            <div class="col-6">
+            <div class="ol-12 col-lg-6">
               <div class="">
                 <span>Trả phòng</span>
               </div>
@@ -47,7 +47,7 @@
             </div>
           </div>
           <hr>
-          <div class="lh-2">
+          <div class="">
             <span class="fw-700 fz-16">Thông tin người nhận phòng</span>
           </div>
           <div class="row">
@@ -83,47 +83,47 @@
             </div>
           </div>
         </div>
-        <div class="container card py-3 mb-3 lh-2">
+        <div class="container card py-3 px-2 mb-3 lh-2">
           <div class="">
             <span class="fw-700 fz-16">Tóm tắt giá</span>
           </div>
           <div class="row">
-            <div class="col-7">
-              <span>Giá phòng: (x{{booking?.qty}}) phòng/{{booking?.totalDay}} đêm</span>
+            <div class="col-12 col-lg-7">
+              <span>Giá phòng: (x{{booking?.qty}}) phòng/{{booking?.totalDay}} đêm:</span>
             </div>
-            <div class="col-5 d-flex justify-content-end">
+            <div class="col-12 col-lg-5 d-lg-flex justify-content-lg-end ">
               <span>VND {{booking?.totalPrice - booking.totalPrice * 8 / 100 - booking.totalPrice * 5 / 100 | mask: 'separator': ',' }}</span>
             </div>
           </div>
           <div class="row">
-            <div class="col-7">
+            <div class="col-12 col-lg-7">
               <span>8 % Thuế GTGT:</span>
             </div>
-            <div class="col-5 d-flex justify-content-end">
+            <div class="col-12 col-lg-5 d-lg-flex justify-content-lg-end ">
               <span>VND {{booking.totalPrice * 8 / 100 | mask: 'separator': ','}}</span>
             </div>
           </div>
           <div class="row">
-            <div class="col-7">
+            <div class="col-12 col-lg-7">
               <span>5 % dịch vụ của chỗ nghỉ:</span>
             </div>
-            <div class="col-5 d-flex justify-content-end">
+            <div class="col-12 col-lg-5 d-lg-flex justify-content-lg-end ">
               <span>VND {{booking.totalPrice * 5 / 100 | mask: 'separator': ','}}</span>
             </div>
           </div>
-          <div class="row py-5 bgr-aliceblue">
-            <div class="col-6">
-              <span class="fz-16 fw-700">Giá</span>
+          <div class="row py-5 bgr-aliceblue align-items-center text-center">
+            <div class="col-12 col-lg-6">
+              <span class="fz-16 fw-700">Thành tiền</span>
             </div>
-            <div class="col-6 d-flex justify-content-end">
+            <div class="col-12 col-lg-6 d-lg-flex justify-content-lg-end">
               <span class="fw-700 fz-16">VND {{booking.totalPrice | mask: 'separator': ','}}</span>
             </div>
           </div>
           <div class="d-flex justify-content-center mt-3">
-            <button nz-button nzType="primary" (click)="submit()">Xác nhận đặt phòng</button>
+            <button nz-button nzType="primary" (click)="submit()">Xác nhận đặt</button>
           </div>
         </div>
-        <div class="container card py-3 mb-3 lh-2">
+        <div class="container card py-3 px-2 mb-3 lh-2">
           <div class="">
             <span class="fz-16 fw-700">Lịch thanh toán của bạn</span>
           </div>
@@ -131,7 +131,7 @@
             <span class="c-green">không cần thanh toán hôm nay. Bạn sẽ trả khi đến nghỉ</span>
           </div>
         </div>
-        <div class="container card py-3 mb-3 lh-2">
+        <div class="container card py-3 px-2 mb-3 lh-2">
           <div class="">
             <span class="fz-16 fw-700">Chi phí hủy là bao nhiêu ?</span>
           </div>
@@ -140,15 +140,15 @@
           </div>
         </div>
       </div>
-      <div class="col-8">
+      <div class="col-7 col-md-8">
         <div class="container card mb-3">
-          <div class="row py-4">
-            <div class="col-3">
+          <div class="row py-4 flex-column flex-md-row">
+            <div class="col-12 col-md-3">
               <img class="img border-r" nz-image width="100%" height="160px" [nzSrc]="booking?.accommodation?.images[0].image" alt="">
             </div>
-            <div class="col-9">
-              <div class="d-flex flex-column">
-                <div class="accommodation-type mb-2">
+            <div class="col-12 col-md-9">
+              <div class="d-flex flex-column align-items-center align-items-md-start">
+                <div class="accommodation-type mb-2 mt-2 mt-md-0">
                   <span class="c-dodgerblue">{{booking?.accommodation?.accommodationType?.name}}</span>
                 </div>
                 <h5 class="fw-700">{{booking?.accommodation?.name}}</h5>
@@ -176,20 +176,20 @@
             <span class="fz-16 fw-700">Thông tin phòng bạn đã chọn</span>
           </div>
           <div class="row py-2">
-            <div class="col-3">
+            <div class="col-12 col-md-3">
               <img class="img border-r" nz-image width="100%" height="160px" [nzSrc]="booking?.room?.image" alt="">
             </div>
-            <div class="col-9">
+            <div class="col-12 col-md-9">
               <div class="d-flex flex-column">
-                <h5 class="fw-700">(x{{booking?.qty}}) phòng {{booking?.room?.name}}</h5>
+                <h5 class="fw-700 mt-2 mt-md-0">(x{{booking?.qty}}) phòng {{booking?.room?.name}}</h5>
                 <div class="row">
-                  <div class="col-6 mb-2">
+                  <div class="col-12 col-lg-6 mb-2">
                     <div class="d-flex align-items-center">
                       <span class="me-2" for="">Loại phòng:</span>
                       <span class="fw-700">{{booking?.room?.roomType?.name}}</span>
                     </div>
                   </div>
-                  <div class="col-6 mb-2">
+                  <div class="col-12 col-lg-6 mb-2">
                     <div class="d-flex align-items-center">
                       <span class="me-2" for="">Số khách/phòng:</span>
                       <span class="fw-700">{{booking?.room?.maximumPeople}}</span>
@@ -197,13 +197,13 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-6 mb-2">
+                  <div class="col-12 col-lg-6 mb-2">
                     <div class="d-flex align-items-center">
                       <span class="me-2" for="">Số người lớn:</span>
                       <span class="fw-700">{{booking?.personNumber}}</span>
                     </div>
                   </div>
-                  <div class="col-6 mb-2">
+                  <div class="col-12 col-lg-6 mb-2">
                     <div class="d-flex align-items-center">
                       <span class="me-2" for="">Số trẻ em:</span>
                       <span class="fw-700">{{booking?.childNumber}}</span>
@@ -211,13 +211,13 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-6 mb-2">
+                  <div class="col-12 col-lg-6 mb-2">
                     <div class="d-flex align-items-center">
                       <span class="me-2" for="">Số lượng phòng:</span>
                       <span class="fw-700">(x{{booking?.qty}}) phòng</span>
                     </div>
                   </div>
-                  <div class="col-6 mb-2">
+                  <div class="col-12 col-lg-6 mb-2">
                   </div>
                 </div>
               </div>
