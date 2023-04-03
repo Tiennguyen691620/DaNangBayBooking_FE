@@ -11,8 +11,11 @@ export default class Utils {
           filter[key] = new Date(filter[key].setHours(0, 0, 0, 0));
         }
         if (key === 'toDate') {
-          filter[key] = new Date(filter[key].setHours(23, 59, 59, 999));
+          filter[key] = new Date(filter[key].setHours(12, 0, 0, 0));
         }
+        // if (key === 'toDate') {
+        //   filter[key] = new Date(filter[key].setHours(23, 59, 59, 999));
+        // }
         filter[key] = DateTimeConvertHelper.fromDtObjectToTimestamp(
           filter[key]
         );

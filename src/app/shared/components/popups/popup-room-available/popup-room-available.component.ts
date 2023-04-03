@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { RoomAvailableFilter } from 'src/app/shared/models/accommodation/room-available-filter.model';
 import { RoomAvailable } from 'src/app/shared/models/accommodation/room-available.model';
 import { AccommodationService } from 'src/app/shared/services/accommodation.service';
 import { add } from 'date-fns';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-popup-room-available',
@@ -15,6 +16,7 @@ export class PopupRoomAvailableComponent implements OnInit {
   @Input() roomId: string;
   @Input() fromDate: Date;
   @Input() toDate: Date;
+  @Input() form: FormGroup;
   dataSource: {
     roomAvailable: RoomAvailable;
     qtyPerDateList: { date: number; qty: number }[];
@@ -43,11 +45,14 @@ export class PopupRoomAvailableComponent implements OnInit {
     }
     this.accommodationService.getRoomAvailable(filter).subscribe((res) => {
       this.dataSource = [];
+      //console.log("res",res)
       res.forEach((item) => {
         if (!this.dataSource.some((o) => o.roomAvailable?.id === item.id)) {
           this.dataSource.push({
             roomAvailable: item,
             qtyPerDateList: this.qtyPerDateList.map((o) => {
+              //console.log("item",item)
+              //console.log("test",{...o});
               return { ...o };
             }),
           });
@@ -56,20 +61,27 @@ export class PopupRoomAvailableComponent implements OnInit {
             ?.qtyPerDateList?.forEach((i) => {
               if (i.date === item.dateAvailable * 1000) {
                 i.qty = item.qty;
+                //console.log("test1",i.qty);
               }
             });
-        } else {
-          this.dataSource
+          } else {
+            this.dataSource
             .find((o) => o.roomAvailable?.id === item.id)
             ?.qtyPerDateList?.forEach((i) => {
               if (i.date === item.dateAvailable * 1000) {
                 i.qty = item.qty;
+                //console.log("test2",i.qty);
               }
             });
-        }
+          }
       });
     });
   }
+
+  // checkQty():void {
+  //   const check = this.form.get('qty').value;
+  //   if(check > this.dataSource.find((o) => o.roomAvailable?.id === ))
+  // }
 
   validatorFilter(filter: RoomAvailableFilter): boolean {
     if (
@@ -108,9 +120,10 @@ export class PopupRoomAvailableComponent implements OnInit {
           86400000
       );
       n++
-    ) {
-      const date = add(filter?.fromDate, { days: n }).setHours(0, 0, 0, 0);
-      this.qtyPerDateList.push({ date, qty: 0 });
+    ) 
+    {
+      const date = add(filter?.fromDate, { days: n }).setHours(12, 0, 0, 0);
+      this.qtyPerDateList.push({ date, qty: 0});
     }
   }
 

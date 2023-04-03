@@ -165,7 +165,7 @@ export class AccommodationDetailComponent implements OnInit {
       {
         no: null,
         userId: null,
-        qty: [0, [CustomValidator.required]],
+        qty: [null, [CustomValidator.required]],
         fromDate: [null, [CustomValidator.required]],
         toDate: [null, [CustomValidator.required]],
         totalDay: [{ value: null, disabled: true }],
