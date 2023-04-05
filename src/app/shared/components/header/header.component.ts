@@ -102,6 +102,7 @@ export class HeaderComponent implements OnInit {
   }
 
   goToProfile(): void {
+    // window.location.href = `${environment.FE_ENDPOINT}dashboard/account/profile`;
     this.router.navigate(['/dashboard/account/profile']);
   }
   goToChangePass(): void {

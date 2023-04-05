@@ -11,7 +11,7 @@
     justify-content: end;
   }
 
-  .btn {
+  .btn-button {
     border: none !important;
     text-transform: uppercase;
     padding: 8px 4px 8px 8px;
@@ -31,7 +31,7 @@
       display: inline-block;
 
       @media (min-width: 576px) {
-        line-height: 23px;
+        // line-height: 23px;
         margin: 0 4px;
       }
 
@@ -42,7 +42,16 @@
 
     &:nth-child(1) {
       background-color: #fff;
+      border: 1px dashed #ccc !important;
       color: #777b7c;
+    }
+    &:nth-child(3) {
+      background-color: #fff;
+      border: 1px dashed #ccc !important;
+      i{
+        color: #777B7C;
+        padding: 2px;
+      }
     }
 
     &:focus {
@@ -62,6 +71,37 @@
 
     @media (max-height: 820px) {
       height: 100% !important;
+    }
+    .content-head{
+      .heading{
+        @media (max-width:576px) {
+          font-size: 18px;
+        }
+      }
+      .group-button{
+        .rounded-pill{
+          .btn-button{
+            @media (max-width:576px) {
+              padding: 5px 8px 5px 8px;
+            }
+            i{
+              @media (max-width:576px) {
+                font-size: 13px;
+              }
+            }
+          }
+          svg{
+            @media (max-width:767px) {
+              width: 20px;
+              height: 20px;
+            }
+            @media (max-width:576px) {
+              width: 15px;
+              height: 15px;
+            }
+          }
+        }
+      }
     }
   }
 }

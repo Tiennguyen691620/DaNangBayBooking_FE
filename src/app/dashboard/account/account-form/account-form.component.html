@@ -1,15 +1,15 @@
 <section class="account-view py-4">
   <div class="container box">
-    <div class="header-content content-head row ">
-      <div class="col-6">
-        <h2 class="heading m-0 pt-0">
+    <div class="header-content content-head d-flex align-items-center justify-content-between ">
+      <div class="">
+        <h2 class="heading fw-700 m-0 pt-0">
           Thông tin tài khoản của bạn
         </h2>
       </div>
-      <div class="group-button col-6">
+      <div class="group-button">
         <div class="bg-white rounded-pill d-flex justify-content-end">
-          <button class="btn-button rounded-pill">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 21.674 21.67">
+          <button class="btn-button rounded-pill d-lg-flex align-items-lg-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 21.674 21.67">
               <g id="Group_12657" data-name="Group 12657" transform="translate(1.138 0.982)">
                 <ellipse id="Ellipse_295" data-name="Ellipse 295" cx="4.534" cy="4.5" rx="4.534" ry="4.5" transform="translate(4.649 3.594)"
                   fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.964" />
@@ -22,10 +22,10 @@
                   fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.964" />
               </g>
             </svg>
-            <span class="btn-text">Tài khoản của tôi</span>
+            <span class="btn-text d-none d-lg-block">Tài khoản của tôi</span>
           </button>
-          <button class="btn-button rounded-pill" routerLink="/dashboard/account/change-password">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 21.674 21.67">
+          <button class="btn-button rounded-pill d-lg-flex align-items-lg-center" routerLink="/dashboard/account/change-password">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 21.674 21.67">
               <g id="Group_12657" data-name="Group 12657" transform="translate(-563.237 -662.51)">
                 <path id="Path_34036" data-name="Path 34036" d="M567.082,680.312a9.851,9.851,0,1,0-2.585-9.4" transform="translate(0.026 0)"
                   fill="none" stroke="#777B7C" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.964" />
@@ -37,7 +37,11 @@
                   stroke-width="1.9" />
               </g>
             </svg>
-            <span class="btn-text">Thay đổi mật khẩu</span>
+            <span class="btn-text d-none d-lg-block">Thay đổi mật khẩu</span>
+          </button>
+          <button class="btn-button rounded-pill d-block d-md-none" routerLink="/dashboard/booking-management/list">
+            <i class="fa-solid fa-suitcase fz-20"></i>
+            <!-- <span class="btn-text">Thay đổi mật khẩu</span> -->
           </button>
         </div>
       </div>
@@ -45,8 +49,8 @@
 
     <form action="" [formGroup]="accountForm" errorTailor>
       <div class="container">
-        <div class="info row my-4 my-lg-5 ">
-          <div class="img-wrapper col-4">
+        <div class="info row align-items-center my-4 my-lg-5 ">
+          <div class="img-wrapper col-6 col-sm-4">
             <img class="img w-100 h-100" *ngIf="!avatarUrl" nz-image nzSrc="./../../../../assets/images/default-thumbnail.jpg" alt="" />
             <img class="img w-100 h-100" *ngIf="avatarUrl" nz-image [nzSrc]="avatarUrl" alt="" />
             <nz-upload class="p-2 rounded " [nzDisabled]="type === eTypeForm.view" [nzShowUploadList]="false" [nzBeforeUpload]="beforeUpload" (nzChange)="handleChange($event)"
@@ -62,25 +66,25 @@
             </nz-upload>
           </div>
 
-          <div class="customer-info col-8 p-4 bgr-aliceblue rounded-3 ">
+          <div class="customer-info col-6 col-sm-8 p-4 bgr-aliceblue rounded-3 ">
             <p class="fw-700 fz-16">{{accountForm.get('fullName').value}}</p>
             <div class="customer-info--list lh-2">
               <div class="row my-2">
-                <div class="customer-info__item col-6">
+                <div class="customer-info__item col-12 col-sm-6">
                   <span class="color-label required">Mã khách hàng</span>
                   <input type="text" nz-input formControlName="no">
                 </div>
-                <div class="customer-info__item col-6">
+                <div class="customer-info__item col-12 col-sm-6">
                   <span class="color-label required">Họ và tên</span>
                   <input type="text" nz-input formControlName="fullName">
                 </div>
               </div>
               <div class="row mb-2">
-                <div class="customer-info__item col-6">
+                <div class="customer-info__item col-12 col-sm-6">
                   <span class="color-label required">Số điện thoại</span>
                   <input type="text" nz-input formControlName="phoneNumber">
                 </div>
-                <div class="customer-info__item col-6">
+                <div class="customer-info__item col-12 col-sm-6">
                   <span class="text-uppercase required" class="color-label">CMND/CCCD</span>
                   <input type="text" nz-input formControlName="identityCard">
                 </div>
@@ -94,12 +98,12 @@
         <p class="heading fw-700 fz-16">Thông tin chi tiết</p>
         <div class="customer-info--list mb-4">
           <div class="row my-3">
-            <div class="customer-info__item col-2">
+            <div class="customer-info__item col-6 col-sm-4 col-lg-2">
               <span class="color-label required">Ngày sinh</span>
               <nz-date-picker class="w-100" nz-input formControlName="dob" nzFormat='dd/MM/yyyy' nzPlaceHolder="Ngày sinh">
               </nz-date-picker>
             </div>
-            <div class="customer-info__item col-2">
+            <div class="customer-info__item col-6 col-sm-4 col-lg-2">
               <span class="color-label required">Giới tính</span>
               <div class="">
                 <nz-select class="w-100" formControlName="gender">
@@ -108,18 +112,18 @@
                 </nz-select>
               </div>
             </div>
-            <div class="customer-info__item col-2">
+            <div class="customer-info__item col-6 col-sm-4 col-lg-2">
               <span class="color-label required">Ngày kích hoạt</span>
               <nz-date-picker class="w-100" [disabled]="true" formControlName="activeDate" nzFormat='dd/MM/yyyy'>
               </nz-date-picker>
             </div>
-            <div class="customer-info__item col-6">
+            <div class="customer-info__item col-12 col-sm-8 col-lg-6">
               <span class="color-label required">Email</span>
               <input type="text" nz-input formControlName="email">
             </div>
           </div>
           <div class="row mb-3">
-            <div class="customer-info__item col-2">
+            <div class="customer-info__item col-6 col-sm-4 col-lg-2">
               <span class="color-label required">Tỉnh/TP</span>
               <nz-select class="w-100" formControlName="province" (ngModelChange)="changeProvince($event)"
                 [compareWith]="compareDictionaryMasterData">
@@ -127,21 +131,21 @@
                 </nz-option>
               </nz-select>
             </div>
-            <div class="customer-info__item col-2">
+            <div class="customer-info__item col-6 col-sm-4 col-lg-2">
               <span class="color-label required">Quận/huyện</span>
               <nz-select class="w-100" nzShowSearch nzAllowClear formControlName="district" nzPlaceHolder="Quận/Huyện"
                 (ngModelChange)="changeDistrict($event)" [compareWith]="compareDictionaryMasterData">
                 <nz-option *ngFor="let item of districtList" [nzValue]="item" [nzLabel]="item.name"></nz-option>
               </nz-select>
             </div>
-            <div class="customer-info__item col-2">
+            <div class="customer-info__item col-6 col-sm-4 col-lg-2">
               <span class="color-label required">Phường xã</span>
               <nz-select class="w-100" nzShowSearch nzAllowClear formControlName="subDistrict" nzPlaceHolder="Phường/Xã"
                 [compareWith]="compareDictionaryMasterData">
                 <nz-option *ngFor="let item of subDistrictList" [nzValue]="item" [nzLabel]="item.name"></nz-option>
               </nz-select>
             </div>
-            <div class="customer-info__item col-6">
+            <div class="customer-info__item col-12 col-sm-8 col-lg-6">
               <span class="color-label required">Địa chỉ</span>
               <input type="text" nz-input formControlName="address">
             </div>

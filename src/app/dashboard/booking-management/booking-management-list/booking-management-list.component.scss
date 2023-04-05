@@ -1,6 +1,60 @@
 // .booking-management{
 //   height: 100vh;
 // }
+
+.btn-button {
+  border: none !important;
+  text-transform: uppercase;
+  padding: 8px 4px 8px 8px;
+  background: #188ffd;
+  color: #fff;
+  border: none;
+  font-size: 12px;
+
+  @media (min-width: 425px) {
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+
+  .btn-text {
+    margin: 0 4px 0 6px;
+    line-height: 20px;
+    display: inline-block;
+
+    @media (min-width: 576px) {
+      line-height: 23px;
+      margin: 0 4px;
+    }
+
+    @media (min-width: 926px) {
+      margin: 0 8px;
+    }
+  }
+
+  &:nth-child(1) {
+    background-color: #fff;
+    border: 1px dashed #ccc !important;
+    color: #777b7c;
+  }
+  &:nth-child(2) {
+    svg{
+      g{
+        path{
+          stroke: #777B7C;
+        }
+      }
+    }
+    background-color: #fff;
+    border: 1px dashed #ccc !important;
+    color: #777b7c;
+  }
+
+  &:focus {
+    box-shadow: none !important;
+  }
+}
+
+
 .table-icon-wrapper {
   width: 23px;
   height: 23px;
@@ -24,6 +78,37 @@
 }
 .text-underline{
   text-decoration: unset;
+}
+.content-head{
+  .heading{
+    @media (max-width:576px) {
+      font-size: 18px;
+    }
+  }
+  .group-button{
+    .rounded-pill{
+      .btn-button{
+        @media (max-width:576px) {
+          padding: 5px 8px 6px 8px;
+        }
+        i{
+          @media (max-width:576px) {
+            font-size: 13px;
+          }
+        }
+      }
+      svg{
+        @media (max-width:767px) {
+          width: 20px;
+          height: 20px;
+        }
+        @media (max-width:576px) {
+          width: 15px;
+          height: 15px;
+        }
+      }
+    }
+  }
 }
 
 

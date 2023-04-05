@@ -192,10 +192,10 @@ export class AccountFormComponent implements OnInit {
   beforeUpload = (file: NzUploadFile, _fileList: NzUploadFile[]) => {
     return new Observable((observer: Observer<boolean>) => {
       const isJpgOrPng =
-        file.type === 'image/jpeg' || file.type === 'image/png';
+        file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpeg';
       if (!isJpgOrPng) {
         this.notification.error(
-          'Bạn chỉ có thể tải lên tệp JPG!',
+          'Bạn chỉ có thể tải lên tệp JPG, JPEG hoặc PNG!',
           '',
           Utils.setStyleNotification()
         );

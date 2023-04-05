@@ -1,13 +1,13 @@
 <section class="account-change-pass py-4">
   <div class="container box">
     <div class="content-head d-flex align-items-center justify-content-between">
-      <h2 class="heading m-0 ">
+      <h2 class="heading fw-700 m-0 ">
         Thay đổi mật khẩu
       </h2>
       <div class="group-button">
-        <div class="bg-white rounded-pill">
-          <button class="btn rounded-pill" routerLink="/dashboard/account/profile">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 21.674 21.67">
+        <div class="bg-white rounded-pill d-flex align-items-center">
+          <button class="btn-button rounded-pill d-lg-flex align-items-lg-center" routerLink="/dashboard/account/profile">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 21.674 21.67">
               <g id="Group_12657" data-name="Group 12657" transform="translate(1.138 0.982)">
                 <ellipse id="Ellipse_295" data-name="Ellipse 295" cx="4.534" cy="4.5" rx="4.534" ry="4.5" transform="translate(4.649 3.594)" fill="none"
                   stroke="#777B7C" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.964" />
@@ -20,10 +20,10 @@
                   fill="none" stroke="#777B7C" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.964" />
               </g>
             </svg>
-            <span class="btn-text">Tài khoản của tôi</span>
+            <span class="btn-text d-none d-lg-block">Tài khoản của tôi</span>
           </button>
-          <button class="btn rounded-pill">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 21.674 21.67">
+          <button class="btn-button rounded-pill d-lg-flex align-items-lg-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 21.674 21.67">
               <g id="Group_12657" data-name="Group 12657" transform="translate(-563.237 -662.51)">
                 <path id="Path_34036" data-name="Path 34036" d="M567.082,680.312a9.851,9.851,0,1,0-2.585-9.4" transform="translate(0.026 0)" fill="none"
                   stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.964" />
@@ -34,15 +34,19 @@
                   transform="translate(217.383 188.81)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" />
               </g>
             </svg>
-            <span class="btn-text">Thay đổi mật khẩu</span>
+            <span class="btn-text d-none d-lg-block">Thay đổi mật khẩu</span>
+          </button>
+          <button class="btn-button rounded-pill d-block d-md-none" routerLink="/dashboard/booking-management/list">
+            <i class="fa-solid fa-suitcase fz-20"></i>
+            <!-- <span class="btn-text">Thay đổi mật khẩu</span> -->
           </button>
         </div>
       </div>
     </div>
     <div class="d-flex justify-content-center">
       <div class="card mt-4 mt-lg-5 p-5 bgr-aliceblue rounded-3" style="width: 500px;">
-        <h4 class="fw-700">Thay đổi mật khẩu của bạn</h4>
-        <p class="m-0">Nhập thông tin đầy đủ để tạo thay đổi</p>
+        <h4 class="fw-700 text-center">Thay đổi mật khẩu của bạn</h4>
+        <p class="m-0 text-center">Nhập thông tin đầy đủ để tạo thay đổi</p>
         <form class="p-3 p-sm-4 pb-0" [formGroup]="changePassForm" errorTailor>
           <span class="required fs-14">Mật khẩu hiện tại: </span>
           <input type="password" class="form-control mt-2" formControlName="oldPassword" >

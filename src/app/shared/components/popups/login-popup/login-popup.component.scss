@@ -17,3 +17,14 @@
 :host::ng-deep .ant-modal-title{
   text-align: center;
 }
+
+// :host .ant-modal{
+//   @media (max-width: 567px) {
+//     width: 350px;
+//   }
+// }
+:host::ng-deep.ant-modal.ng-tns-c36-0 {
+  @media (max-width: 567px) {
+        width: 350px !important;
+      }
+}
