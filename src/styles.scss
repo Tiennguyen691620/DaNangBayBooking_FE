@@ -203,7 +203,11 @@ label {
   border-radius: 5px !important;
 }
 .border-r20{
-  border-radius: 20px;
+  border-radius: 20px !important;
+}
+
+.border-r20-bl{
+  border-radius: 20px rgb(44, 158, 240);
 }
 .border-point{
   border-radius: 5px 5px 5px 0px;
@@ -213,6 +217,7 @@ label {
 .border-right{
   border-right: 2px solid #fff;
 }
+
 
 //button
 button {

@@ -1,7 +1,7 @@
 <section class="container-fluid p-0" (scroll)="onScroll()" [ngClass]="navbarfixed ? 'fixed' : 'infixed'">
   <div class="container">
     <div class="box row d-flex align-items-center justify-content-between">
-      <div class="left pointer col-10 col-sm-7 col-xl-8 col-lg-7 col-md-5 d-flex align-items-center">
+      <div class="left pointer col-9 col-sm-7 col-md-5 col-lg-7 col-xl-8 d-flex align-items-center">
         <div class="" (click)="backToHome()">
           <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="90px"
             height="70px" viewBox="0 0 152 133" enable-background="new 0 0 152 133" xml:space="preserve">
@@ -178,33 +178,40 @@
           <h3 class="title text-uppercase m-0 c-orange">Booking</h3>
         </div>
       </div>
-      <div class="right col-sm-5 col-xl-4 col-lg-5 col-md-7 d-none d-sm-flex align-items-center"
-        [class.justify-content-between]="authService.getAuthenticationModel()" [class.justify-content-around]="!authService.getAuthenticationModel()">
-        <div class="d-flex align-items-center pointer" (click)="myBooking()">
+      <div class="right col-3 col-sm-5 col-md-7 col-lg-5 col-xl-4 d-flex align-items-center justify-content-around"
+        [class.justify-content-md-between]="authService.getAuthenticationModel()" [class.justify-content-end]="!authService.getAuthenticationModel()">
+        <div class="d-none d-md-flex align-items-center pointer " *ngIf="authService.getAuthenticationModel()" (click)="myBooking()">
           <i class="fa-solid fa-suitcase me-2 c-dodgerblue fz-16"></i>
           <span class="my-booked d-none d-md-block">Đặt phòng của tôi</span>
         </div>
-        <div class="btn-login pointer d-flex align-items-center" nz-dropdown [nzPlacement]="'bottomRight'" [nzDropdownMenu]="menu" (click)="login()">
+        <div class="btn-login pointer d-flex align-items-center" nz-dropdown [nzPlacement]="'bottomRight'" (click)="login()" *ngIf="authService.getAuthenticationModel()">
           <nz-avatar *ngIf="avatarUrl == null" nzIcon="user" class="me-2"></nz-avatar>
           <nz-avatar *ngIf="avatarUrl" [nzSrc]="avatarUrl" nzIcon="user" class="me-2"></nz-avatar>
           <div>
-            <span class="d-none d-md-block">{{authService.getAuthenticationModel() ? fullName : 'Đăng nhập'}}</span>
+            <span class="d-none d-sm-block">{{authService.getAuthenticationModel() ? fullName : 'Đăng nhập'}}</span>
           </div>
-          <nz-dropdown-menu #menu="nzDropdownMenu">
+          <!-- <nz-dropdown-menu #menu="nzDropdownMenu">
+            //line 187 [nzDropdownMenu]="menu"
             <ul nz-menu *ngIf="authService.getAuthenticationModel()">
               <li nz-menu-item (click)="goToProfile()">Tài khoản của tôi</li>
               <li nz-menu-item (click)="goToChangePass()">Đổi mật khẩu</li>
               <li nz-menu-item (click)="logout()">Đăng xuất</li>
             </ul>
-          </nz-dropdown-menu>
+          </nz-dropdown-menu> -->
         </div>
-        <div class="btn-signin">
-          <button nz-button nzType="primary" class="border-r" (click)="signup()">Đăng ký</button>
+        <div class="logout" *ngIf="authService.getAuthenticationModel()">
+          <i class="fa-solid fa-right-from-bracket fz-20 pointer" style="color: #3173c9" (click)="logout()"></i>
+        </div>
+        <div class="btn-signin d-none d-sm-block" *ngIf="!authService.getAuthenticationModel()" >
+          <button nz-button nzType="default" class="border-r20" (click)="login()">Đăng nhập</button>
+        </div>
+        <div class="btn-signin d-block d-sm-none text-center" *ngIf="!authService.getAuthenticationModel()" >
+          <i class="fa-solid fa-right-to-bracket fz-20 pointer" style="color: #3173c9" (click)="login()"></i>
         </div>
       </div>
-      <div class="d-block d-sm-none col-2 text-center" (click)="open()">
+      <!-- <div class="d-block d-sm-none col-2 text-center" (click)="open()">
         <i class="fa-solid fa-bars fz-22"></i>
-      </div>
+      </div> -->
     </div>
   </div>
   <div class="">

@@ -64,6 +64,13 @@
 
 //custom radio
 :host::ng-deep {
+  .ant-radio-group{
+    label{
+      @media (max-width: 991px) {
+        width: 10.5rem;
+      }
+    }
+  }
   .ant-radio {
     top: 0;
   }

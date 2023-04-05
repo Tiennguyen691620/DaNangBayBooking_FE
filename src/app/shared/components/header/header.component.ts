@@ -12,6 +12,7 @@ import { auto } from '@popperjs/core';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import Utils from '../../helpers/utils.helper';
 import { NzDrawerPlacement } from 'ng-zorro-antd/drawer';
+import { NzButtonSize } from 'ng-zorro-antd/button';
 
 @Component({
   selector: 'app-header',
@@ -25,7 +26,7 @@ export class HeaderComponent implements OnInit {
   fullName: string;
   isShow = false;
   visible = false;
-  placement: NzDrawerPlacement = 'left';
+  placement: NzDrawerPlacement = 'bottom';
 
   constructor(
     private modalService: NzModalService,
